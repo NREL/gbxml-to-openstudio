@@ -1,0 +1,299 @@
+Shadowing Combinations
+..Solar Distribution=FullExterior
+..In the following, only the first 10 reference surfaces will be shown.
+..But all surfaces are used in the calculations.
+==================================
+Surface=AIM1209 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=Mir-AIM1209 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=10
+..Surface=Mir-AIM1299
+..Surface=Mir-AIM1307
+..Surface=AIM0890
+..Surface=AIM0982
+..Surface=AIM1005
+..Surface=AIM1028
+..Surface=AIM1073
+..Surface=AIM0730
+..Surface=AIM0776
+..Surface=AIM0799
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM1217 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=Mir-AIM1217 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=10
+..Surface=Mir-AIM1299
+..Surface=Mir-AIM1307
+..Surface=AIM0890
+..Surface=AIM0507
+..Surface=AIM0530
+..Surface=AIM0553
+..Surface=AIM0598
+..Surface=AIM0730
+..Surface=AIM0776
+..Surface=AIM0799
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM1299 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=Mir-AIM1299 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=10
+..Surface=Mir-AIM1209
+..Surface=Mir-AIM1217
+..Surface=AIM0181
+..Surface=AIM0227
+..Surface=AIM0250
+..Surface=AIM0357
+..Surface=AIM0507
+..Surface=AIM0530
+..Surface=AIM0553
+..Surface=AIM0598
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM1307 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=Mir-AIM1307 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=10
+..Surface=Mir-AIM1209
+..Surface=Mir-AIM1217
+..Surface=AIM0181
+..Surface=AIM0227
+..Surface=AIM0250
+..Surface=AIM0982
+..Surface=AIM1005
+..Surface=AIM1028
+..Surface=AIM1073
+..Surface=AIM0357
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0181 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1299
+..Surface=Mir-AIM1307
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0204 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1299
+..Surface=Mir-AIM1307
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0227 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1299
+..Surface=Mir-AIM1307
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0250 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1299
+..Surface=Mir-AIM1307
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0273 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1299
+..Surface=Mir-AIM1307
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0890 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1209
+..Surface=Mir-AIM1217
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0982 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1209
+..Surface=Mir-AIM1307
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM1005 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1209
+..Surface=Mir-AIM1307
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM1028 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1209
+..Surface=Mir-AIM1307
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM1051 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1209
+..Surface=Mir-AIM1307
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM1073 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1209
+..Surface=Mir-AIM1307
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM1095 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1209
+..Surface=Mir-AIM1307
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM1419 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM1163 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM1253 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM1343 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0357 is used as Receiving Surface in calculations and is non-convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1299
+..Surface=Mir-AIM1307
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0384 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1299
+..Surface=Mir-AIM1307
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0507 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1217
+..Surface=Mir-AIM1299
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0530 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1217
+..Surface=Mir-AIM1299
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0553 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1217
+..Surface=Mir-AIM1299
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0576 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1217
+..Surface=Mir-AIM1299
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0598 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1217
+..Surface=Mir-AIM1299
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0620 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1217
+..Surface=Mir-AIM1299
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0730 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1209
+..Surface=Mir-AIM1217
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0753 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1209
+..Surface=Mir-AIM1217
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0776 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1209
+..Surface=Mir-AIM1217
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0799 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1209
+..Surface=Mir-AIM1217
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM0822 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=2
+..Surface=Mir-AIM1209
+..Surface=Mir-AIM1217
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM1419 REVERSED is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM1200 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM1290 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=AIM1380 is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0

@@ -1,0 +1,1258 @@
+
+Version,
+  8.9;                                    !- Version Identifier
+
+Timestep,
+  6;                                      !- Number of Timesteps per Hour
+
+LifeCycleCost:Parameters,
+  Life Cycle Cost Parameters,             !- Name
+  EndOfYear,                              !- Discounting Convention
+  ConstantDollar,                         !- Inflation Approach
+  0.03,                                   !- Real Discount Rate
+  ,                                       !- Nominal Discount Rate
+  ,                                       !- Inflation
+  ,                                       !- Base Date Month
+  2011,                                   !- Base Date Year
+  ,                                       !- Service Date Month
+  2011,                                   !- Service Date Year
+  25,                                     !- Length of Study Period in Years
+  ,                                       !- Tax rate
+  None;                                   !- Depreciation Method
+
+LifeCycleCost:UsePriceEscalation,
+  U.S. Avg  Commercial-Electricity,       !- LCC Price Escalation Name
+  Electricity,                            !- Resource
+  2011,                                   !- Escalation Start Year
+  January,                                !- Escalation Start Month
+  0.9838,                                 !- Year Escalation 1
+  0.9730,                                 !- Year Escalation 2
+  0.9632,                                 !- Year Escalation 3
+  0.9611,                                 !- Year Escalation 4
+  0.9571,                                 !- Year Escalation 5
+  0.9553,                                 !- Year Escalation 6
+  0.9539,                                 !- Year Escalation 7
+  0.9521,                                 !- Year Escalation 8
+  0.9546,                                 !- Year Escalation 9
+  0.9550,                                 !- Year Escalation 10
+  0.9553,                                 !- Year Escalation 11
+  0.9564,                                 !- Year Escalation 12
+  0.9575,                                 !- Year Escalation 13
+  0.9596,                                 !- Year Escalation 14
+  0.9618,                                 !- Year Escalation 15
+  0.9614,                                 !- Year Escalation 16
+  0.9618,                                 !- Year Escalation 17
+  0.9618,                                 !- Year Escalation 18
+  0.9593,                                 !- Year Escalation 19
+  0.9589,                                 !- Year Escalation 20
+  0.9607,                                 !- Year Escalation 21
+  0.9625,                                 !- Year Escalation 22
+  0.9650,                                 !- Year Escalation 23
+  0.9708,                                 !- Year Escalation 24
+  0.9751,                                 !- Year Escalation 25
+  0.9762,                                 !- Year Escalation 26
+  0.9766,                                 !- Year Escalation 27
+  0.9766,                                 !- Year Escalation 28
+  0.9769,                                 !- Year Escalation 29
+  0.9773;                                 !- Year Escalation 30
+
+LifeCycleCost:UsePriceEscalation,
+  U.S. Avg  Commercial-Distillate Oil,    !- LCC Price Escalation Name
+  FuelOil#1,                              !- Resource
+  2011,                                   !- Escalation Start Year
+  January,                                !- Escalation Start Month
+  0.9714,                                 !- Year Escalation 1
+  0.9730,                                 !- Year Escalation 2
+  0.9942,                                 !- Year Escalation 3
+  1.0164,                                 !- Year Escalation 4
+  1.0541,                                 !- Year Escalation 5
+  1.0928,                                 !- Year Escalation 6
+  1.1267,                                 !- Year Escalation 7
+  1.1580,                                 !- Year Escalation 8
+  1.1792,                                 !- Year Escalation 9
+  1.1967,                                 !- Year Escalation 10
+  1.2200,                                 !- Year Escalation 11
+  1.2333,                                 !- Year Escalation 12
+  1.2566,                                 !- Year Escalation 13
+  1.2709,                                 !- Year Escalation 14
+  1.2826,                                 !- Year Escalation 15
+  1.2985,                                 !- Year Escalation 16
+  1.3102,                                 !- Year Escalation 17
+  1.3250,                                 !- Year Escalation 18
+  1.3261,                                 !- Year Escalation 19
+  1.3282,                                 !- Year Escalation 20
+  1.3324,                                 !- Year Escalation 21
+  1.3356,                                 !- Year Escalation 22
+  1.3431,                                 !- Year Escalation 23
+  1.3510,                                 !- Year Escalation 24
+  1.3568,                                 !- Year Escalation 25
+  1.3606,                                 !- Year Escalation 26
+  1.3637,                                 !- Year Escalation 27
+  1.3674,                                 !- Year Escalation 28
+  1.3706,                                 !- Year Escalation 29
+  1.3743;                                 !- Year Escalation 30
+
+LifeCycleCost:UsePriceEscalation,
+  U.S. Avg  Commercial-Residual Oil,      !- LCC Price Escalation Name
+  FuelOil#2,                              !- Resource
+  2011,                                   !- Escalation Start Year
+  January,                                !- Escalation Start Month
+  0.8469,                                 !- Year Escalation 1
+  0.8257,                                 !- Year Escalation 2
+  0.8681,                                 !- Year Escalation 3
+  0.8988,                                 !- Year Escalation 4
+  0.9289,                                 !- Year Escalation 5
+  0.9604,                                 !- Year Escalation 6
+  0.9897,                                 !- Year Escalation 7
+  1.0075,                                 !- Year Escalation 8
+  1.0314,                                 !- Year Escalation 9
+  1.0554,                                 !- Year Escalation 10
+  1.0861,                                 !- Year Escalation 11
+  1.1278,                                 !- Year Escalation 12
+  1.1497,                                 !- Year Escalation 13
+  1.1620,                                 !- Year Escalation 14
+  1.1743,                                 !- Year Escalation 15
+  1.1852,                                 !- Year Escalation 16
+  1.1948,                                 !- Year Escalation 17
+  1.2037,                                 !- Year Escalation 18
+  1.2071,                                 !- Year Escalation 19
+  1.2119,                                 !- Year Escalation 20
+  1.2139,                                 !- Year Escalation 21
+  1.2194,                                 !- Year Escalation 22
+  1.2276,                                 !- Year Escalation 23
+  1.2365,                                 !- Year Escalation 24
+  1.2420,                                 !- Year Escalation 25
+  1.2461,                                 !- Year Escalation 26
+  1.2509,                                 !- Year Escalation 27
+  1.2550,                                 !- Year Escalation 28
+  1.2591,                                 !- Year Escalation 29
+  1.2638;                                 !- Year Escalation 30
+
+LifeCycleCost:UsePriceEscalation,
+  U.S. Avg  Commercial-Natural gas,       !- LCC Price Escalation Name
+  NaturalGas,                             !- Resource
+  2011,                                   !- Escalation Start Year
+  January,                                !- Escalation Start Month
+  0.9823,                                 !- Year Escalation 1
+  0.9557,                                 !- Year Escalation 2
+  0.9279,                                 !- Year Escalation 3
+  0.9257,                                 !- Year Escalation 4
+  0.9346,                                 !- Year Escalation 5
+  0.9412,                                 !- Year Escalation 6
+  0.9512,                                 !- Year Escalation 7
+  0.9645,                                 !- Year Escalation 8
+  0.9856,                                 !- Year Escalation 9
+  1.0067,                                 !- Year Escalation 10
+  1.0222,                                 !- Year Escalation 11
+  1.0410,                                 !- Year Escalation 12
+  1.0610,                                 !- Year Escalation 13
+  1.0787,                                 !- Year Escalation 14
+  1.0942,                                 !- Year Escalation 15
+  1.1098,                                 !- Year Escalation 16
+  1.1220,                                 !- Year Escalation 17
+  1.1308,                                 !- Year Escalation 18
+  1.1386,                                 !- Year Escalation 19
+  1.1486,                                 !- Year Escalation 20
+  1.1619,                                 !- Year Escalation 21
+  1.1763,                                 !- Year Escalation 22
+  1.1918,                                 !- Year Escalation 23
+  1.2118,                                 !- Year Escalation 24
+  1.2284,                                 !- Year Escalation 25
+  1.2439,                                 !- Year Escalation 26
+  1.2605,                                 !- Year Escalation 27
+  1.2772,                                 !- Year Escalation 28
+  1.2938,                                 !- Year Escalation 29
+  1.3115;                                 !- Year Escalation 30
+
+LifeCycleCost:UsePriceEscalation,
+  U.S. Avg  Commercial-Coal,              !- LCC Price Escalation Name
+  Coal,                                   !- Resource
+  2011,                                   !- Escalation Start Year
+  January,                                !- Escalation Start Month
+  0.9970,                                 !- Year Escalation 1
+  1.0089,                                 !- Year Escalation 2
+  1.0089,                                 !- Year Escalation 3
+  0.9941,                                 !- Year Escalation 4
+  0.9941,                                 !- Year Escalation 5
+  1.0000,                                 !- Year Escalation 6
+  1.0030,                                 !- Year Escalation 7
+  1.0059,                                 !- Year Escalation 8
+  1.0089,                                 !- Year Escalation 9
+  1.0119,                                 !- Year Escalation 10
+  1.0148,                                 !- Year Escalation 11
+  1.0178,                                 !- Year Escalation 12
+  1.0208,                                 !- Year Escalation 13
+  1.0267,                                 !- Year Escalation 14
+  1.0297,                                 !- Year Escalation 15
+  1.0356,                                 !- Year Escalation 16
+  1.0415,                                 !- Year Escalation 17
+  1.0534,                                 !- Year Escalation 18
+  1.0564,                                 !- Year Escalation 19
+  1.0593,                                 !- Year Escalation 20
+  1.0653,                                 !- Year Escalation 21
+  1.0712,                                 !- Year Escalation 22
+  1.0742,                                 !- Year Escalation 23
+  1.0801,                                 !- Year Escalation 24
+  1.0831,                                 !- Year Escalation 25
+  1.0831,                                 !- Year Escalation 26
+  1.0861,                                 !- Year Escalation 27
+  1.0890,                                 !- Year Escalation 28
+  1.0920,                                 !- Year Escalation 29
+  1.0950;                                 !- Year Escalation 30
+
+Building,
+  Project Name,                           !- Name
+  ,                                       !- North Axis {deg}
+  ,                                       !- Terrain
+  ,                                       !- Loads Convergence Tolerance Value
+  ,                                       !- Temperature Convergence Tolerance Value {deltaC}
+  ,                                       !- Solar Distribution
+  ,                                       !- Maximum Number of Warmup Days
+  ;                                       !- Minimum Number of Warmup Days
+
+Shading:Building:Detailed,
+  aim1209,                                !- Name
+  ,                                       !- Transmittance Schedule Name
+  ,                                       !- Number of Vertices
+  6.563358984, 3.6576, 4.895752464,       !- X,Y,Z Vertex 1 {m}
+  6.858, 3.6576, 4.895752464,             !- X,Y,Z Vertex 2 {m}
+  6.858, 6.858, 3.048,                    !- X,Y,Z Vertex 3 {m}
+  6.563358984, 6.858, 3.048;              !- X,Y,Z Vertex 4 {m}
+
+Shading:Building:Detailed,
+  aim1217,                                !- Name
+  ,                                       !- Transmittance Schedule Name
+  ,                                       !- Number of Vertices
+  -1.9812, 3.6576, 4.895752464,           !- X,Y,Z Vertex 1 {m}
+  -1.3919201016, 3.6576, 4.895752464,     !- X,Y,Z Vertex 2 {m}
+  -1.3919201016, 6.858, 3.048,            !- X,Y,Z Vertex 3 {m}
+  -1.9812, 6.858, 3.048;                  !- X,Y,Z Vertex 4 {m}
+
+Shading:Building:Detailed,
+  aim1299,                                !- Name
+  ,                                       !- Transmittance Schedule Name
+  ,                                       !- Number of Vertices
+  -1.9812, 0.4572, 3.048,                 !- X,Y,Z Vertex 1 {m}
+  -1.3919201016, 0.4572, 3.048,           !- X,Y,Z Vertex 2 {m}
+  -1.3919201016, 3.6576, 4.895752464,     !- X,Y,Z Vertex 3 {m}
+  -1.9812, 3.6576, 4.895752464;           !- X,Y,Z Vertex 4 {m}
+
+Shading:Building:Detailed,
+  aim1307,                                !- Name
+  ,                                       !- Transmittance Schedule Name
+  ,                                       !- Number of Vertices
+  6.563358984, 0.4572, 3.048,             !- X,Y,Z Vertex 1 {m}
+  6.858, 0.4572, 3.048,                   !- X,Y,Z Vertex 2 {m}
+  6.858, 3.6576, 4.895752464,             !- X,Y,Z Vertex 3 {m}
+  6.563358984, 3.6576, 4.895752464;       !- X,Y,Z Vertex 4 {m}
+
+Zone,
+  VAV-1,                                  !- Name
+  ,                                       !- Direction of Relative North {deg}
+  ,                                       !- X Origin {m}
+  ,                                       !- Y Origin {m}
+  ,                                       !- Z Origin {m}
+  ,                                       !- Type
+  ,                                       !- Multiplier
+  ,                                       !- Ceiling Height {m}
+  ,                                       !- Volume {m3}
+  ,                                       !- Floor Area {m2}
+  ,                                       !- Zone Inside Convection Algorithm
+  ;                                       !- Zone Outside Convection Algorithm
+
+BuildingSurface:Detailed,
+  aim0181,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-1,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  5.1816, 1.2192, 0.9144,                 !- X,Y,Z Vertex 1 {m}
+  6.096, 1.2192, 0,                       !- X,Y,Z Vertex 2 {m}
+  6.096, 1.2192, 3.487942224,             !- X,Y,Z Vertex 3 {m}
+  5.1816, 1.2192, 2.1336;                 !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim0204,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-1,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  2.4384, 1.2192, 0,                      !- X,Y,Z Vertex 1 {m}
+  6.096, 1.2192, 0,                       !- X,Y,Z Vertex 2 {m}
+  5.1816, 1.2192, 0.9144,                 !- X,Y,Z Vertex 3 {m}
+  4.2672, 1.2192, 0.9144;                 !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim0227,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-1,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  2.4384, 1.2192, 3.487942224,            !- X,Y,Z Vertex 1 {m}
+  4.2672, 1.2192, 2.1336,                 !- X,Y,Z Vertex 2 {m}
+  5.1816, 1.2192, 2.1336,                 !- X,Y,Z Vertex 3 {m}
+  6.096, 1.2192, 3.487942224;             !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim0250,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-1,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  2.4384, 1.2192, 0,                      !- X,Y,Z Vertex 1 {m}
+  4.2672, 1.2192, 0.9144,                 !- X,Y,Z Vertex 2 {m}
+  4.2672, 1.2192, 2.1336,                 !- X,Y,Z Vertex 3 {m}
+  2.4384, 1.2192, 3.487942224;            !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim0273,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-1,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  4.2672, 1.2192, 0.9144,                 !- X,Y,Z Vertex 1 {m}
+  5.1816, 1.2192, 0.9144,                 !- X,Y,Z Vertex 2 {m}
+  5.1816, 1.2192, 2.1336,                 !- X,Y,Z Vertex 3 {m}
+  4.2672, 1.2192, 2.1336;                 !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim0890,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-1,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  2.4384, 6.096, 0,                       !- X,Y,Z Vertex 1 {m}
+  2.4384, 6.096, 3.487942224,             !- X,Y,Z Vertex 2 {m}
+  6.096, 6.096, 3.487942224,              !- X,Y,Z Vertex 3 {m}
+  6.096, 6.096, 0;                        !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim0982,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-1,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  6.096, 3.048, 0.9144,                   !- X,Y,Z Vertex 1 {m}
+  6.096, 6.096, 0,                        !- X,Y,Z Vertex 2 {m}
+  6.096, 6.096, 3.487942224,              !- X,Y,Z Vertex 3 {m}
+  6.096, 3.048, 2.1336;                   !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim1005,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-1,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  6.096, 1.2192, 3.487942224,             !- X,Y,Z Vertex 1 {m}
+  6.096, 3.048, 2.1336,                   !- X,Y,Z Vertex 2 {m}
+  6.096, 6.096, 3.487942224,              !- X,Y,Z Vertex 3 {m}
+  6.096, 3.6576, 4.895752464;             !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim1028,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-1,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  6.096, 1.2192, 0,                       !- X,Y,Z Vertex 1 {m}
+  6.096, 2.1336, 0.9144,                  !- X,Y,Z Vertex 2 {m}
+  6.096, 2.1336, 2.1336,                  !- X,Y,Z Vertex 3 {m}
+  6.096, 1.2192, 3.487942224;             !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim1051,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-1,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  6.096, 1.2192, 0,                       !- X,Y,Z Vertex 1 {m}
+  6.096, 6.096, 0,                        !- X,Y,Z Vertex 2 {m}
+  6.096, 3.048, 0.9144,                   !- X,Y,Z Vertex 3 {m}
+  6.096, 2.1336, 0.9144;                  !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim1073,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-1,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  6.096, 1.2192, 3.487942224,             !- X,Y,Z Vertex 1 {m}
+  6.096, 2.1336, 2.1336,                  !- X,Y,Z Vertex 2 {m}
+  6.096, 3.048, 2.1336;                   !- X,Y,Z Vertex 3 {m}
+
+BuildingSurface:Detailed,
+  aim1095,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-1,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  6.096, 2.1336, 0.9144,                  !- X,Y,Z Vertex 1 {m}
+  6.096, 3.048, 0.9144,                   !- X,Y,Z Vertex 2 {m}
+  6.096, 3.048, 2.1336,                   !- X,Y,Z Vertex 3 {m}
+  6.096, 2.1336, 2.1336;                  !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim1163,                                !- Name
+  Floor,                                  !- Surface Type
+  Un-insulated solid,                     !- Construction Name
+  VAV-1,                                  !- Zone Name
+  Ground,                                 !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  NoSun,                                  !- Sun Exposure
+  NoWind,                                 !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  2.4384, 1.2192, 0,                      !- X,Y,Z Vertex 1 {m}
+  2.4384, 6.096, 0,                       !- X,Y,Z Vertex 2 {m}
+  6.096, 6.096, 0,                        !- X,Y,Z Vertex 3 {m}
+  6.096, 1.2192, 0;                       !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim1253,                                !- Name
+  Roof,                                   !- Surface Type
+  4 in lightweight concrete,              !- Construction Name
+  VAV-1,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  2.4384, 3.6576, 4.895752464,            !- X,Y,Z Vertex 1 {m}
+  6.096, 3.6576, 4.895752464,             !- X,Y,Z Vertex 2 {m}
+  6.096, 6.096, 3.487942224,              !- X,Y,Z Vertex 3 {m}
+  2.4384, 6.096, 3.487942224;             !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim1343,                                !- Name
+  Roof,                                   !- Surface Type
+  4 in lightweight concrete,              !- Construction Name
+  VAV-1,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  2.4384, 1.2192, 3.487942224,            !- X,Y,Z Vertex 1 {m}
+  6.096, 1.2192, 3.487942224,             !- X,Y,Z Vertex 2 {m}
+  6.096, 3.6576, 4.895752464,             !- X,Y,Z Vertex 3 {m}
+  2.4384, 3.6576, 4.895752464;            !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim1419,                                !- Name
+  Wall,                                   !- Surface Type
+  Frame partition with 3/4 in gypsum board, !- Construction Name
+  VAV-1,                                  !- Zone Name
+  Surface,                                !- Outside Boundary Condition
+  aim1419 Reversed,                       !- Outside Boundary Condition Object
+  NoSun,                                  !- Sun Exposure
+  NoWind,                                 !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  2.4384, 1.2192, 0,                      !- X,Y,Z Vertex 1 {m}
+  2.4384, 1.2192, 3.487942224,            !- X,Y,Z Vertex 2 {m}
+  2.4384, 3.6576, 4.895752464,            !- X,Y,Z Vertex 3 {m}
+  2.4384, 6.096, 3.487942224,             !- X,Y,Z Vertex 4 {m}
+  2.4384, 6.096, 0;                       !- X,Y,Z Vertex 5 {m}
+
+Zone,
+  VAV-2,                                  !- Name
+  ,                                       !- Direction of Relative North {deg}
+  ,                                       !- X Origin {m}
+  ,                                       !- Y Origin {m}
+  ,                                       !- Z Origin {m}
+  ,                                       !- Type
+  ,                                       !- Multiplier
+  ,                                       !- Ceiling Height {m}
+  ,                                       !- Volume {m3}
+  ,                                       !- Floor Area {m2}
+  ,                                       !- Zone Inside Convection Algorithm
+  ;                                       !- Zone Outside Convection Algorithm
+
+BuildingSurface:Detailed,
+  aim0357,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-2,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  -1.2192, 1.2192, 0,                     !- X,Y,Z Vertex 1 {m}
+  0.1524, 1.2192, 0,                      !- X,Y,Z Vertex 2 {m}
+  0.1524, 1.2192, 2.1336,                 !- X,Y,Z Vertex 3 {m}
+  1.0668, 1.2192, 2.1336,                 !- X,Y,Z Vertex 4 {m}
+  1.0668, 1.2192, 0,                      !- X,Y,Z Vertex 5 {m}
+  2.4384, 1.2192, 0,                      !- X,Y,Z Vertex 6 {m}
+  2.4384, 1.2192, 3.487942224,            !- X,Y,Z Vertex 7 {m}
+  -1.2192, 1.2192, 3.487942224;           !- X,Y,Z Vertex 8 {m}
+
+BuildingSurface:Detailed,
+  aim0384,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-2,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  0.1524, 1.2192, 0,                      !- X,Y,Z Vertex 1 {m}
+  1.0668, 1.2192, 0,                      !- X,Y,Z Vertex 2 {m}
+  1.0668, 1.2192, 2.1336,                 !- X,Y,Z Vertex 3 {m}
+  0.1524, 1.2192, 2.1336;                 !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim0507,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-2,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  -1.2192, 1.2192, 0,                     !- X,Y,Z Vertex 1 {m}
+  -1.2192, 1.2192, 3.487942224,           !- X,Y,Z Vertex 2 {m}
+  -1.2192, 4.4196, 2.1336,                !- X,Y,Z Vertex 3 {m}
+  -1.2192, 4.4196, 0.9144;                !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim0530,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-2,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  -1.2192, 1.2192, 3.487942224,           !- X,Y,Z Vertex 1 {m}
+  -1.2192, 3.6576, 4.895752464,           !- X,Y,Z Vertex 2 {m}
+  -1.2192, 6.096, 3.487942224,            !- X,Y,Z Vertex 3 {m}
+  -1.2192, 4.4196, 2.1336;                !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim0553,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-2,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  -1.2192, 5.334, 0.9144,                 !- X,Y,Z Vertex 1 {m}
+  -1.2192, 5.334, 2.1336,                 !- X,Y,Z Vertex 2 {m}
+  -1.2192, 6.096, 3.487942224,            !- X,Y,Z Vertex 3 {m}
+  -1.2192, 6.096, 0;                      !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim0576,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-2,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  -1.2192, 1.2192, 0,                     !- X,Y,Z Vertex 1 {m}
+  -1.2192, 4.4196, 0.9144,                !- X,Y,Z Vertex 2 {m}
+  -1.2192, 5.334, 0.9144,                 !- X,Y,Z Vertex 3 {m}
+  -1.2192, 6.096, 0;                      !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim0598,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-2,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  -1.2192, 4.4196, 2.1336,                !- X,Y,Z Vertex 1 {m}
+  -1.2192, 6.096, 3.487942224,            !- X,Y,Z Vertex 2 {m}
+  -1.2192, 5.334, 2.1336;                 !- X,Y,Z Vertex 3 {m}
+
+BuildingSurface:Detailed,
+  aim0620,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-2,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  -1.2192, 4.4196, 0.9144,                !- X,Y,Z Vertex 1 {m}
+  -1.2192, 4.4196, 2.1336,                !- X,Y,Z Vertex 2 {m}
+  -1.2192, 5.334, 2.1336,                 !- X,Y,Z Vertex 3 {m}
+  -1.2192, 5.334, 0.9144;                 !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim0730,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-2,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  -1.0668, 6.096, 0,                      !- X,Y,Z Vertex 1 {m}
+  -1.0668, 6.096, 3.487942224,            !- X,Y,Z Vertex 2 {m}
+  -0.4572, 6.096, 2.1336,                 !- X,Y,Z Vertex 3 {m}
+  -0.4572, 6.096, 0.9144;                 !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim0753,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-2,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  -1.0668, 6.096, 0,                      !- X,Y,Z Vertex 1 {m}
+  -0.4572, 6.096, 0.9144,                 !- X,Y,Z Vertex 2 {m}
+  0.4572, 6.096, 0.9144,                  !- X,Y,Z Vertex 3 {m}
+  2.4384, 6.096, 0;                       !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim0776,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-2,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  -1.0668, 6.096, 3.487942224,            !- X,Y,Z Vertex 1 {m}
+  2.4384, 6.096, 3.487942224,             !- X,Y,Z Vertex 2 {m}
+  0.4572, 6.096, 2.1336,                  !- X,Y,Z Vertex 3 {m}
+  -0.4572, 6.096, 2.1336;                 !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim0799,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-2,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  0.4572, 6.096, 0.9144,                  !- X,Y,Z Vertex 1 {m}
+  0.4572, 6.096, 2.1336,                  !- X,Y,Z Vertex 2 {m}
+  2.4384, 6.096, 3.487942224,             !- X,Y,Z Vertex 3 {m}
+  2.4384, 6.096, 0;                       !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim0822,                                !- Name
+  Wall,                                   !- Surface Type
+  8 in lightweight concrete block,        !- Construction Name
+  VAV-2,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  -0.4572, 6.096, 0.9144,                 !- X,Y,Z Vertex 1 {m}
+  -0.4572, 6.096, 2.1336,                 !- X,Y,Z Vertex 2 {m}
+  0.4572, 6.096, 2.1336,                  !- X,Y,Z Vertex 3 {m}
+  0.4572, 6.096, 0.9144;                  !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim1200,                                !- Name
+  Floor,                                  !- Surface Type
+  Un-insulated solid,                     !- Construction Name
+  VAV-2,                                  !- Zone Name
+  Ground,                                 !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  NoSun,                                  !- Sun Exposure
+  NoWind,                                 !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  -1.2192, 1.2192, 0,                     !- X,Y,Z Vertex 1 {m}
+  -1.2192, 6.096, 0,                      !- X,Y,Z Vertex 2 {m}
+  2.4384, 6.096, 0,                       !- X,Y,Z Vertex 3 {m}
+  2.4384, 1.2192, 0;                      !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim1290,                                !- Name
+  Roof,                                   !- Surface Type
+  4 in lightweight concrete,              !- Construction Name
+  VAV-2,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  -1.2192, 3.6576, 4.895752464,           !- X,Y,Z Vertex 1 {m}
+  2.4384, 3.6576, 4.895752464,            !- X,Y,Z Vertex 2 {m}
+  2.4384, 6.096, 3.487942224,             !- X,Y,Z Vertex 3 {m}
+  -1.2192, 6.096, 3.487942224;            !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim1380,                                !- Name
+  Roof,                                   !- Surface Type
+  4 in lightweight concrete,              !- Construction Name
+  VAV-2,                                  !- Zone Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  -1.2192, 1.2192, 3.487942224,           !- X,Y,Z Vertex 1 {m}
+  2.4384, 1.2192, 3.487942224,            !- X,Y,Z Vertex 2 {m}
+  2.4384, 3.6576, 4.895752464,            !- X,Y,Z Vertex 3 {m}
+  -1.2192, 3.6576, 4.895752464;           !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  aim1419 Reversed,                       !- Name
+  Wall,                                   !- Surface Type
+  Frame partition with 3/4 in gypsum board Reversed, !- Construction Name
+  VAV-2,                                  !- Zone Name
+  Surface,                                !- Outside Boundary Condition
+  aim1419,                                !- Outside Boundary Condition Object
+  NoSun,                                  !- Sun Exposure
+  NoWind,                                 !- Wind Exposure
+  ,                                       !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  2.4384, 6.096, 0,                       !- X,Y,Z Vertex 1 {m}
+  2.4384, 6.096, 3.487942224,             !- X,Y,Z Vertex 2 {m}
+  2.4384, 3.6576, 4.895752464,            !- X,Y,Z Vertex 3 {m}
+  2.4384, 1.2192, 3.487942224,            !- X,Y,Z Vertex 4 {m}
+  2.4384, 1.2192, 0;                      !- X,Y,Z Vertex 5 {m}
+
+SimulationControl,
+  Yes,                                    !- Do Zone Sizing Calculation
+  No,                                     !- Do System Sizing Calculation
+  No,                                     !- Do Plant Sizing Calculation
+  Yes,                                    !- Run Simulation for Sizing Periods
+  Yes;                                    !- Run Simulation for Weather File Run Periods
+
+Sizing:Parameters,
+  1.25,                                   !- Heating Sizing Factor
+  1.15;                                   !- Cooling Sizing Factor
+
+RunPeriod,
+  Run Period 1,                           !- Name
+  1,                                      !- Begin Month
+  1,                                      !- Begin Day of Month
+  12,                                     !- End Month
+  31,                                     !- End Day of Month
+  Monday,                                 !- Day of Week for Start Day
+  No,                                     !- Use Weather File Holidays and Special Days
+  No,                                     !- Use Weather File Daylight Saving Period
+  No,                                     !- Apply Weekend Holiday Rule
+  Yes,                                    !- Use Weather File Rain Indicators
+  Yes,                                    !- Use Weather File Snow Indicators
+  1;                                      !- Number of Times Runperiod to be Repeated
+
+GlobalGeometryRules,
+  UpperLeftCorner,                        !- Starting Vertex Position
+  Counterclockwise,                       !- Vertex Entry Direction
+  Relative,                               !- Coordinate System
+  Relative,                               !- Daylighting Reference Point Coordinate System
+  Relative;                               !- Rectangular Surface Coordinate System
+
+Material,
+  1 1/2 in wood,                          !- Name
+  MediumRough,                            !- Roughness
+  0.0376,                                 !- Thickness {m}
+  0.15,                                   !- Conductivity {W/m-K}
+  608,                                    !- Density {kg/m3}
+  1630,                                   !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material,
+  4 in lightweight concrete block,        !- Name
+  MediumRough,                            !- Roughness
+  0.1016,                                 !- Thickness {m}
+  0.89,                                   !- Conductivity {W/m-K}
+  1920,                                   !- Density {kg/m3}
+  790,                                    !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material,
+  5/8 in gyp board,                       !- Name
+  MediumRough,                            !- Roughness
+  0.0159,                                 !- Thickness {m}
+  0.16,                                   !- Conductivity {W/m-K}
+  800,                                    !- Density {kg/m3}
+  1090,                                   !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material,
+  8 in lightweight concrete,              !- Name
+  MediumRough,                            !- Roughness
+  0.2032,                                 !- Thickness {m}
+  0.53,                                   !- Conductivity {W/m-K}
+  1280,                                   !- Density {kg/m3}
+  840,                                    !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material,
+  Carpet,                                 !- Name
+  MediumRough,                            !- Roughness
+  0.0127,                                 !- Thickness {m}
+  0.06,                                   !- Conductivity {W/m-K}
+  288,                                    !- Density {kg/m3}
+  1380,                                   !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material,
+  Concrete cast dense reinforced,         !- Name
+  MediumRough,                            !- Roughness
+  0.2,                                    !- Thickness {m}
+  1.9,                                    !- Conductivity {W/m-K}
+  2300,                                   !- Density {kg/m3}
+  840,                                    !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material,
+  Metal surface,                          !- Name
+  MediumRough,                            !- Roughness
+  0.0008,                                 !- Thickness {m}
+  45.28,                                  !- Conductivity {W/m-K}
+  7824,                                   !- Density {kg/m3}
+  500,                                    !- Specific Heat {J/kg-K}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+Material:NoMass,
+  Minwool batt R11 w/ 2x4 frame,          !- Name
+  Smooth,                                 !- Roughness
+  1.46524,                                !- Thermal Resistance {m2-K/W}
+  0.9,                                    !- Thermal Absorptance
+  0.7,                                    !- Solar Absorptance
+  0.7;                                    !- Visible Absorptance
+
+WindowMaterial:SimpleGlazingSystem,
+  {1fbfa797-2dac-4ad5-ae16-53e786d5d6aa}, !- Name
+  2.9214,                                 !- U-Factor {W/m2-K}
+  0.13,                                   !- Solar Heat Gain Coefficient
+  0.07;                                   !- Visible Transmittance
+
+Construction,
+  4 in lightweight concrete,              !- Name
+  4 in lightweight concrete block;        !- Layer 1
+
+Construction,
+  8 in lightweight concrete block,        !- Name
+  8 in lightweight concrete,              !- Layer 1
+  8 in lightweight concrete;              !- Layer 2
+
+Construction,
+  Frame partition with 3/4 in gypsum board, !- Name
+  Minwool batt R11 w/ 2x4 frame,          !- Layer 1
+  5/8 in gyp board;                       !- Layer 2
+
+Construction,
+  Frame partition with 3/4 in gypsum board Reversed, !- Name
+  5/8 in gyp board,                       !- Layer 1
+  Minwool batt R11 w/ 2x4 frame;          !- Layer 2
+
+Construction,
+  Large double-glazed windows (reflective coating) - industry, !- Name
+  {1fbfa797-2dac-4ad5-ae16-53e786d5d6aa}; !- Layer 1
+
+Construction,
+  Metal,                                  !- Name
+  Metal surface,                          !- Layer 1
+  1 1/2 in wood,                          !- Layer 2
+  Metal surface;                          !- Layer 3
+
+Construction,
+  Un-insulated solid,                     !- Name
+  Carpet,                                 !- Layer 1
+  Concrete cast dense reinforced;         !- Layer 2
+
+ScheduleTypeLimits,
+  Fraction,                               !- Name
+  ,                                       !- Lower Limit Value {BasedOnField A3}
+  ,                                       !- Upper Limit Value {BasedOnField A3}
+  ,                                       !- Numeric Type
+  dimensionless;                          !- Unit Type
+
+Schedule:Day:Interval,
+  Common Office Occupancy - 8 AM to 5 PM, !- Name
+  Fraction,                               !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  01:00,                                  !- Time 1 {hh:mm}
+  0,                                      !- Value Until Time 1
+  02:00,                                  !- Time 2 {hh:mm}
+  0,                                      !- Value Until Time 2
+  03:00,                                  !- Time 3 {hh:mm}
+  0,                                      !- Value Until Time 3
+  04:00,                                  !- Time 4 {hh:mm}
+  0,                                      !- Value Until Time 4
+  05:00,                                  !- Time 5 {hh:mm}
+  0,                                      !- Value Until Time 5
+  06:00,                                  !- Time 6 {hh:mm}
+  0,                                      !- Value Until Time 6
+  07:00,                                  !- Time 7 {hh:mm}
+  0,                                      !- Value Until Time 7
+  08:00,                                  !- Time 8 {hh:mm}
+  0.1,                                    !- Value Until Time 8
+  09:00,                                  !- Time 9 {hh:mm}
+  0.2,                                    !- Value Until Time 9
+  10:00,                                  !- Time 10 {hh:mm}
+  0.95,                                   !- Value Until Time 10
+  11:00,                                  !- Time 11 {hh:mm}
+  0.95,                                   !- Value Until Time 11
+  12:00,                                  !- Time 12 {hh:mm}
+  0.45,                                   !- Value Until Time 12
+  13:00,                                  !- Time 13 {hh:mm}
+  0.45,                                   !- Value Until Time 13
+  14:00,                                  !- Time 14 {hh:mm}
+  0.95,                                   !- Value Until Time 14
+  15:00,                                  !- Time 15 {hh:mm}
+  0.95,                                   !- Value Until Time 15
+  16:00,                                  !- Time 16 {hh:mm}
+  0.95,                                   !- Value Until Time 16
+  17:00,                                  !- Time 17 {hh:mm}
+  0.95,                                   !- Value Until Time 17
+  18:00,                                  !- Time 18 {hh:mm}
+  0.95,                                   !- Value Until Time 18
+  19:00,                                  !- Time 19 {hh:mm}
+  0.3,                                    !- Value Until Time 19
+  20:00,                                  !- Time 20 {hh:mm}
+  0.1,                                    !- Value Until Time 20
+  21:00,                                  !- Time 21 {hh:mm}
+  0.1,                                    !- Value Until Time 21
+  22:00,                                  !- Time 22 {hh:mm}
+  0.1,                                    !- Value Until Time 22
+  23:00,                                  !- Time 23 {hh:mm}
+  0,                                      !- Value Until Time 23
+  24:00,                                  !- Time 24 {hh:mm}
+  0;                                      !- Value Until Time 24
+
+Schedule:Day:Interval,
+  Office Lighting - 6 AM to 11 PM,        !- Name
+  Fraction,                               !- Schedule Type Limits Name
+  No,                                     !- Interpolate to Timestep
+  01:00,                                  !- Time 1 {hh:mm}
+  0,                                      !- Value Until Time 1
+  02:00,                                  !- Time 2 {hh:mm}
+  0,                                      !- Value Until Time 2
+  03:00,                                  !- Time 3 {hh:mm}
+  0,                                      !- Value Until Time 3
+  04:00,                                  !- Time 4 {hh:mm}
+  0,                                      !- Value Until Time 4
+  05:00,                                  !- Time 5 {hh:mm}
+  0,                                      !- Value Until Time 5
+  06:00,                                  !- Time 6 {hh:mm}
+  0,                                      !- Value Until Time 6
+  07:00,                                  !- Time 7 {hh:mm}
+  0.1,                                    !- Value Until Time 7
+  08:00,                                  !- Time 8 {hh:mm}
+  0.3,                                    !- Value Until Time 8
+  09:00,                                  !- Time 9 {hh:mm}
+  0.9,                                    !- Value Until Time 9
+  10:00,                                  !- Time 10 {hh:mm}
+  0.9,                                    !- Value Until Time 10
+  11:00,                                  !- Time 11 {hh:mm}
+  0.9,                                    !- Value Until Time 11
+  12:00,                                  !- Time 12 {hh:mm}
+  0.9,                                    !- Value Until Time 12
+  13:00,                                  !- Time 13 {hh:mm}
+  0.8,                                    !- Value Until Time 13
+  14:00,                                  !- Time 14 {hh:mm}
+  0.9,                                    !- Value Until Time 14
+  15:00,                                  !- Time 15 {hh:mm}
+  0.9,                                    !- Value Until Time 15
+  16:00,                                  !- Time 16 {hh:mm}
+  0.9,                                    !- Value Until Time 16
+  17:00,                                  !- Time 17 {hh:mm}
+  0.9,                                    !- Value Until Time 17
+  18:00,                                  !- Time 18 {hh:mm}
+  0.5,                                    !- Value Until Time 18
+  19:00,                                  !- Time 19 {hh:mm}
+  0.3,                                    !- Value Until Time 19
+  20:00,                                  !- Time 20 {hh:mm}
+  0.3,                                    !- Value Until Time 20
+  21:00,                                  !- Time 21 {hh:mm}
+  0.2,                                    !- Value Until Time 21
+  22:00,                                  !- Time 22 {hh:mm}
+  0.2,                                    !- Value Until Time 22
+  23:00,                                  !- Time 23 {hh:mm}
+  0,                                      !- Value Until Time 23
+  24:00,                                  !- Time 24 {hh:mm}
+  0;                                      !- Value Until Time 24
+
+Schedule:Week:Daily,
+  Common Office Occupancy - 8 AM to 5 PM, !- Name
+  Common Office Occupancy - 8 AM to 5 PM, !- Sunday Schedule:Day Name
+  Common Office Occupancy - 8 AM to 5 PM, !- Monday Schedule:Day Name
+  Common Office Occupancy - 8 AM to 5 PM, !- Tuesday Schedule:Day Name
+  Common Office Occupancy - 8 AM to 5 PM, !- Wednesday Schedule:Day Name
+  Common Office Occupancy - 8 AM to 5 PM, !- Thursday Schedule:Day Name
+  Common Office Occupancy - 8 AM to 5 PM, !- Friday Schedule:Day Name
+  Common Office Occupancy - 8 AM to 5 PM, !- Saturday Schedule:Day Name
+  Common Office Occupancy - 8 AM to 5 PM, !- Holiday Schedule:Day Name
+  Common Office Occupancy - 8 AM to 5 PM, !- SummerDesignDay Schedule:Day Name
+  Common Office Occupancy - 8 AM to 5 PM, !- WinterDesignDay Schedule:Day Name
+  Common Office Occupancy - 8 AM to 5 PM, !- CustomDay1 Schedule:Day Name
+  Common Office Occupancy - 8 AM to 5 PM; !- CustomDay2 Schedule:Day Name
+
+Schedule:Week:Daily,
+  Office Lighting - 6 AM to 11 PM,        !- Name
+  Office Lighting - 6 AM to 11 PM,        !- Sunday Schedule:Day Name
+  Office Lighting - 6 AM to 11 PM,        !- Monday Schedule:Day Name
+  Office Lighting - 6 AM to 11 PM,        !- Tuesday Schedule:Day Name
+  Office Lighting - 6 AM to 11 PM,        !- Wednesday Schedule:Day Name
+  Office Lighting - 6 AM to 11 PM,        !- Thursday Schedule:Day Name
+  Office Lighting - 6 AM to 11 PM,        !- Friday Schedule:Day Name
+  Office Lighting - 6 AM to 11 PM,        !- Saturday Schedule:Day Name
+  Office Lighting - 6 AM to 11 PM,        !- Holiday Schedule:Day Name
+  Office Lighting - 6 AM to 11 PM,        !- SummerDesignDay Schedule:Day Name
+  Office Lighting - 6 AM to 11 PM,        !- WinterDesignDay Schedule:Day Name
+  Office Lighting - 6 AM to 11 PM,        !- CustomDay1 Schedule:Day Name
+  Office Lighting - 6 AM to 11 PM;        !- CustomDay2 Schedule:Day Name
+
+Schedule:Year,
+  Common Office Occupancy - 8 AM to 5 PM, !- Name
+  Fraction,                               !- Schedule Type Limits Name
+  Common Office Occupancy - 8 AM to 5 PM, !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Year,
+  Office Lighting - 6 AM to 11 PM,        !- Name
+  Fraction,                               !- Schedule Type Limits Name
+  Office Lighting - 6 AM to 11 PM,        !- Schedule:Week Name 1
+  1,                                      !- Start Month 1
+  1,                                      !- Start Day 1
+  12,                                     !- End Month 1
+  31;                                     !- End Day 1
+
+Schedule:Constant,
+  Always On Discrete,                     !- Name
+  ,                                       !- Schedule Type Limits Name
+  1;                                      !- Hourly Value
+
+Schedule:Constant,
+  Always Off Discrete,                    !- Name
+  ,                                       !- Schedule Type Limits Name
+  0;                                      !- Hourly Value
+
+Schedule:Constant,
+  Always On Continuous,                   !- Name
+  ,                                       !- Schedule Type Limits Name
+  1;                                      !- Hourly Value
+
+OutdoorAir:Node,
+  Model Outdoor Air Node;                 !- Name
+
+Site:Location,
+  Denver Intl Ap_CO_USA,                  !- Name
+  39.83,                                  !- Latitude {deg}
+  -104.65,                                !- Longitude {deg}
+  -7,                                     !- Time Zone {hr}
+  1650;                                   !- Elevation {m}
+
+Site:WaterMainsTemperature,
+  Correlation,                            !- Calculation Method
+  ,                                       !- Temperature Schedule Name
+  10.8,                                   !- Annual Average Outdoor Air Temperature {C}
+  23.2;                                   !- Maximum Difference In Monthly Average Outdoor Air Temperatures {deltaC}
+
+SizingPeriod:DesignDay,
+  Denver Intl Ap Ann Clg .4% Condns DB=>MWB, !- Name
+  7,                                      !- Month
+  21,                                     !- Day of Month
+  SummerDesignDay,                        !- Day Type
+  34.6,                                   !- Maximum Dry-Bulb Temperature {C}
+  15.2,                                   !- Daily Dry-Bulb Temperature Range {deltaC}
+  DefaultMultipliers,                     !- Dry-Bulb Temperature Range Modifier Type
+  ,                                       !- Dry-Bulb Temperature Range Modifier Day Schedule Name
+  Wetbulb,                                !- Humidity Condition Type
+  15.7,                                   !- Wetbulb or DewPoint at Maximum Dry-Bulb {C}
+  ,                                       !- Humidity Condition Day Schedule Name
+  ,                                       !- Humidity Ratio at Maximum Dry-Bulb {kgWater/kgDryAir}
+  ,                                       !- Enthalpy at Maximum Dry-Bulb {J/kg}
+  ,                                       !- Daily Wet-Bulb Temperature Range {deltaC}
+  83011,                                  !- Barometric Pressure {Pa}
+  4.2,                                    !- Wind Speed {m/s}
+  80,                                     !- Wind Direction {deg}
+  No,                                     !- Rain Indicator
+  No,                                     !- Snow Indicator
+  No,                                     !- Daylight Saving Time Indicator
+  ASHRAETau,                              !- Solar Model Indicator
+  ,                                       !- Beam Solar Day Schedule Name
+  ,                                       !- Diffuse Solar Day Schedule Name
+  0.424,                                  !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
+  2.012;                                  !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
+
+SizingPeriod:DesignDay,
+  Denver Intl Ap Ann Clg .4% Condns WB=>MDB, !- Name
+  7,                                      !- Month
+  21,                                     !- Day of Month
+  SummerDesignDay,                        !- Day Type
+  27.3,                                   !- Maximum Dry-Bulb Temperature {C}
+  15.2,                                   !- Daily Dry-Bulb Temperature Range {deltaC}
+  DefaultMultipliers,                     !- Dry-Bulb Temperature Range Modifier Type
+  ,                                       !- Dry-Bulb Temperature Range Modifier Day Schedule Name
+  Wetbulb,                                !- Humidity Condition Type
+  18.3,                                   !- Wetbulb or DewPoint at Maximum Dry-Bulb {C}
+  ,                                       !- Humidity Condition Day Schedule Name
+  ,                                       !- Humidity Ratio at Maximum Dry-Bulb {kgWater/kgDryAir}
+  ,                                       !- Enthalpy at Maximum Dry-Bulb {J/kg}
+  ,                                       !- Daily Wet-Bulb Temperature Range {deltaC}
+  83011,                                  !- Barometric Pressure {Pa}
+  4.2,                                    !- Wind Speed {m/s}
+  80,                                     !- Wind Direction {deg}
+  No,                                     !- Rain Indicator
+  No,                                     !- Snow Indicator
+  No,                                     !- Daylight Saving Time Indicator
+  ASHRAETau,                              !- Solar Model Indicator
+  ,                                       !- Beam Solar Day Schedule Name
+  ,                                       !- Diffuse Solar Day Schedule Name
+  0.424,                                  !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
+  2.012;                                  !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
+
+SizingPeriod:DesignDay,
+  Denver Intl Ap Ann Htg 99.6% Condns DB, !- Name
+  12,                                     !- Month
+  21,                                     !- Day of Month
+  WinterDesignDay,                        !- Day Type
+  -17.4,                                  !- Maximum Dry-Bulb Temperature {C}
+  0,                                      !- Daily Dry-Bulb Temperature Range {deltaC}
+  DefaultMultipliers,                     !- Dry-Bulb Temperature Range Modifier Type
+  ,                                       !- Dry-Bulb Temperature Range Modifier Day Schedule Name
+  Wetbulb,                                !- Humidity Condition Type
+  -17.4,                                  !- Wetbulb or DewPoint at Maximum Dry-Bulb {C}
+  ,                                       !- Humidity Condition Day Schedule Name
+  ,                                       !- Humidity Ratio at Maximum Dry-Bulb {kgWater/kgDryAir}
+  ,                                       !- Enthalpy at Maximum Dry-Bulb {J/kg}
+  ,                                       !- Daily Wet-Bulb Temperature Range {deltaC}
+  83011,                                  !- Barometric Pressure {Pa}
+  3.3,                                    !- Wind Speed {m/s}
+  160,                                    !- Wind Direction {deg}
+  No,                                     !- Rain Indicator
+  No,                                     !- Snow Indicator
+  No,                                     !- Daylight Saving Time Indicator
+  ASHRAEClearSky,                         !- Solar Model Indicator
+  ,                                       !- Beam Solar Day Schedule Name
+  ,                                       !- Diffuse Solar Day Schedule Name
+  ,                                       !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
+  ,                                       !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
+  0;                                      !- Sky Clearness
+
+OutputControl:Table:Style,
+  HTML;                                   !- Column Separator
+
+Output:Table:SummaryReports,
+  AllSummary;                             !- Report Name 1
+
+Output:VariableDictionary,
+  IDF,                                    !- Key Field
+  Unsorted;                               !- Sort Option
+
+Output:SQLite,
+  SimpleAndTabular;                       !- Option Type
+
+LifeCycleCost:NonrecurringCost,
+  Default Cost,                           !- Name
+  Construction,                           !- Category
+  0,                                      !- Cost
+  ServicePeriod;                          !- Start of Costs
+

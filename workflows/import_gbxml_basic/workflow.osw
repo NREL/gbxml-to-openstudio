@@ -1,0 +1,34 @@
+{
+   "seed_file" : "denver_seed_empty.osm",
+   "weather_file": "USA_CO_Denver.Intl.AP.725650_TMY3.epw",
+   "measure_paths": [
+    "../../measures/"
+   ],
+   "file_paths": [
+     "../../weather",
+     "../../seeds",
+     "../../gbxmls"
+   ],
+   "run_directory": "./run",
+   "steps" : [
+      {
+         "measure_dir_name" : "import_gbxml",
+         "name" : "ImportGbxml",
+         "arguments" : {
+            "gbxml_file_name" : "Test Villa Scenario 2_alt_b.xml"
+         }
+      },
+      {
+         "measure_dir_name" : "ChangeBuildingLocation",
+         "name" : "Change Building Location",
+         "arguments" : {
+            "weather_file_name" : "USA_CO_Denver.Intl.AP.725650_TMY3.epw"
+         }
+      },
+      {
+         "measure_dir_name" : "openstudio_results",
+         "name" : "OpenStudio Results",
+         "arguments" : {}
+      }
+   ]
+}
