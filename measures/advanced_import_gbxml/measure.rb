@@ -66,15 +66,75 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     # report initial condition of model
     runner.registerInitialCondition("The building started with #{model.objects.size} model objects.")
 
-    # read in xml file
+    # read in and parse xml using using rexml
     xml_string = File.read(path.to_s)
-
-    # parse xml using using rexml
     gbxml_doc = REXML::Document.new(xml_string)
 
     # test looking for building area
     gbxml_area = gbxml_doc.elements["/gbXML/Campus/Building/Area"]
     runner.registerInfo("the gbXML has an area of #{gbxml_area.text.to_f}.")
+
+=begin
+    puts "**Looping through surfaces"
+    gbxml_doc.elements.each('gbXML/Campus/Surface') do |element|
+      name = element.elements['Name']
+      if ! name.nil?
+        puts name.text
+      else
+        puts "Surface #{element.attributes['id']} does not have a name"
+      end
+    end
+=end
+
+    puts "**Looping through zones"
+    gbxml_doc.elements.each('gbXML/Zone') do |element|
+      name = element.elements['Name']
+      if ! name.nil?
+        puts name.text
+      else
+        puts "Zone #{element.attributes['id']} does not have a name"
+      end
+    end
+
+    puts "**Looping through spaces"
+    gbxml_doc.elements.each('gbXML/Campus/Building/Space') do |element|
+      name = element.elements['Name']
+      if ! name.nil?
+        puts name.text
+      else
+        puts "Space #{element.attributes['id']} does not have a name"
+      end
+    end
+
+    puts "**Looping through ZoneHVACEquipment"
+    gbxml_doc.elements.each('gbXML/ZoneHVACEquipment') do |element|
+      name = element.elements['Name']
+      if ! name.nil?
+        puts name.text
+      else
+        puts "ZoneHVACEquipment #{element.attributes['id']} does not have a name"
+      end
+    end
+
+    puts "**Looping through AirSystem"
+    gbxml_doc.elements.each('gbXML/AirSystem') do |element|
+      name = element.elements['Name']
+      if ! name.nil?
+        puts name.text
+      else
+        puts "ZoneHVACEquipment #{element.attributes['id']} does not have a name"
+      end
+    end
+
+    puts "**Looping through HydronicLoop"
+    gbxml_doc.elements.each('gbXML/HydronicLoop') do |element|
+      name = element.elements['Name']
+      if ! name.nil?
+        puts name.text
+      else
+        puts "ZoneHVACEquipment #{element.attributes['id']} does not have a name"
+      end
+    end
 
     # report final condition of model
     runner.registerFinalCondition("The building finished with #{model.objects.size} model objectxs.")
