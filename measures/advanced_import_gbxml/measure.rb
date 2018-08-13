@@ -3,6 +3,9 @@
 # see the URL below for information on how to write OpenStudio measures
 # http://nrel.github.io/OpenStudio-user-documentation/reference/measure_writing_guide/
 
+require 'rexml/document'
+require 'rexml/xpath'
+
 # start the measure
 class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
   # human readable name
@@ -63,9 +66,15 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     # report initial condition of model
     runner.registerInitialCondition("The building started with #{model.objects.size} model objects.")
 
-    # parse json file
+    # read in xml file
     xml_string = File.read(path.to_s)
-    puts xml_string
+
+    # parse xml using using rexml
+    gbxml_doc = REXML::Document.new(xml_string)
+
+    # test looking for building area
+    gbxml_area = gbxml_doc.elements["/gbXML/Campus/Building/Area"]
+    runner.registerInfo("the gbXML has an area of #{gbxml_area.text.to_f}.")
 
     # report final condition of model
     runner.registerFinalCondition("The building finished with #{model.objects.size} model objectxs.")
