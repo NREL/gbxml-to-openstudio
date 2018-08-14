@@ -86,16 +86,19 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     end
 =end
 
-    puts "**Looping through zones"
-    gbxml_doc.elements.each('gbXML/Zone') do |element|
-      name = element.elements['Name']
-      if ! name.nil?
-        puts name.text
-      else
-        puts "Zone #{element.attributes['id']} does not have a name"
-      end
-    end
-
+    # todo - create hash used for importing
+    advanced_inputs = {}
+    advanced_inputs[:spaces] = {}
+    advanced_inputs[:schedule_sets] = {} # key is "light|equip|people|"
+    advanced_inputs[:schedules] = {}
+    advanced_inputs[:people_num] = {} # osm gen code should use default if this isn't found
+    advanced_inputs[:people_def] = {}
+    advanced_inputs[:people_inst] = {}
+    advanced_inputs[:light_def] = {}
+    advanced_inputs[:light_inst] = {}
+    advanced_inputs[:equip_def] = {}
+    advanced_inputs[:equip_inst] = {}
+    
     puts "**Looping through spaces"
     gbxml_doc.elements.each('gbXML/Campus/Building/Space') do |element|
       name = element.elements['Name']
@@ -103,6 +106,69 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         puts name.text
       else
         puts "Space #{element.attributes['id']} does not have a name"
+      end
+
+      # find or create schedule_set key in hash
+      target_sch_set_key = "#{element.attributes['lightScheduleIdRef']}|#{element.attributes['equipmentScheduleIdRef']}|#{element.attributes['peopleScheduleIdRef']}"
+      if ! advanced_inputs[:schedule_sets].has_key?(target_sch_set_key)
+        if not target_sch_set_key == "||"
+          light_sch = element.attributes['lightScheduleIdRef']
+          elec_sch = element.attributes['equipmentScheduleIdRef']
+          occ_sch = element.attributes['peopleScheduleIdRef']
+          advanced_inputs[:schedule_sets][target_sch_set_key] = {}
+          advanced_inputs[:schedule_sets][target_sch_set_key][:light_schedule_id_ref] = light_sch
+          advanced_inputs[:schedule_sets][target_sch_set_key][:equipment_schedule_id_ref] = elec_sch
+          advanced_inputs[:schedule_sets][target_sch_set_key][:people_schedule_id_ref] = occ_sch
+
+          [light_sch,elec_sch,occ_sch].each do |sch_id|
+            next if sch_id.nil?
+            if ! advanced_inputs[:schedules].has_key?(sch_id)
+              advanced_inputs[:schedules][sch_id] = {} # todo - populate hash
+            end
+          end
+        end
+      end
+
+      # create has entry for space with attributes
+      advanced_inputs[:spaces][element.attributes['id']] = {}
+      if not target_sch_set_key == "||"
+        advanced_inputs[:spaces][element.attributes['id']][:sch_set] = target_sch_set_key
+      end
+      if ! element.attributes['zoneIdRef'].nil?
+        advanced_inputs[:spaces][element.attributes['id']][:zone_id_ref] = element.attributes['zoneIdRef']
+      end
+      if ! element.attributes['conditionType'].nil?
+        advanced_inputs[:spaces][element.attributes['id']][:condition_type] = element.attributes['conditionType']
+      end
+
+      # todo - create schedule set for space, don't duplicate schedules if they have already been generated for another space
+
+
+      # todo - create space load instances for people, lights and electric equipment. Don't duplicate load definitions if an equivelant one has already been made.
+
+    end
+
+    # todo - after space hash is populated, call methods in resource file to generate new OpenStudio objects
+
+    puts "**Looping through schedules"
+    # todo - import schedules that were not associated with space loads?
+    # note, schedules and schedule sets will be generated as used when looping through spaces
+    gbxml_doc.elements.each('gbXML/Schedule') do |element|
+      name = element.elements['Name']
+      if ! name.nil?
+        puts name.text
+      else
+        puts "Schedule #{element.attributes['id']} does not have a name"
+      end
+    end
+
+    puts "**Looping through zones"
+    gbxml_doc.elements.each('gbXML/Zone') do |element|
+      name = element.elements['Name']
+      if ! name.nil?
+        puts name.text
+      else
+        puts "Zone #{element.attributes['id']} does not have a name"
       end
     end
 
@@ -135,6 +201,14 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         puts "ZoneHVACEquipment #{element.attributes['id']} does not have a name"
       end
     end
+
+    # todo - remove temp code to inspect hash
+    puts "** inspecting space hash"
+    puts advanced_inputs[:spaces]
+    puts "** inspecting schedule set hash"
+    puts advanced_inputs[:schedule_sets]
+    puts "** inspecting schedule hash"
+    puts advanced_inputs[:schedules]
 
     # report final condition of model
     runner.registerFinalCondition("The building finished with #{model.objects.size} model objectxs.")
