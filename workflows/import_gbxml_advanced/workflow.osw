@@ -15,14 +15,14 @@
          "measure_dir_name" : "import_gbxml",
          "name" : "ImportGbxml",
          "arguments" : {
-            "gbxml_file_name" : "Test Villa Scenario 2_alt_b.xml"
+            "gbxml_file_name" : "Test Villa Scenario 2_alt_a.xml"
          }
       },
       {
          "measure_dir_name" : "advanced_import_gbxml",
          "name" : "Advanced Import Gbxml",
          "arguments" : {
-            "gbxml_file_name" : "Test Villa Scenario 2_alt_b.xml"
+            "gbxml_file_name" : "Test Villa Scenario 2_alt_a.xml"
          }
       },
       {

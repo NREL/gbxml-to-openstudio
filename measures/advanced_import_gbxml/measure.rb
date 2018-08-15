@@ -220,6 +220,9 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     # create model objects from hash
     OsLib_AdvImport.add_objects_from_adv_import_hash(runner,model,advanced_inputs)
 
+    # cleanup fenestration that may be too large (need to confirm how doors and glass doors are addressed)
+    OsLib_AdvImport.assure_fenestration_inset(runner,model)
+
     # report final condition of model
     runner.registerFinalCondition("The building finished with #{model.objects.size} model objects.")
 

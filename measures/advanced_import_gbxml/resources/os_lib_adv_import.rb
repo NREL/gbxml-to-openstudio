@@ -79,8 +79,6 @@ module OsLib_AdvImport
 
       # assign schedule_sets
       if space_data.has_key?(:sch_set)
-        puts "hello"
-        puts space_data
         sch_set = schedule_sets[space_data[:sch_set]]
         space.setDefaultScheduleSet(sch_set)
         modified = true
@@ -92,7 +90,7 @@ module OsLib_AdvImport
 
       # todo - create people load instances
 
-      # if allered add to new spaces
+      # if modified add to modified_spaces hash
       if modified
         modified_spaces[id] = space
       end
@@ -102,8 +100,6 @@ module OsLib_AdvImport
 
     return modified_spaces
   end
-
-  # todo - run wwr fix where greater than 99%
 
   # create ruleset schedule from inputs
   def self.import_schs(runner,model,schedules)
@@ -149,5 +145,34 @@ module OsLib_AdvImport
     return new_schedule_sets
   end
 
+  # todo - run wwr fix where greater than 99%
+  def self.assure_fenestration_inset(runner,model)
+
+    # loop through surfaces
+    modified_surfaces = []
+    model.getSurfaces.each do |surface|
+      wwr = surface.windowToWallRatio
+      if wwr > 0.99
+        sub_surface = surface.subSurfaces[0] # todo - assumes only one which may not be correct
+        centroid = OpenStudio::getCentroid(sub_surface.vertices).get
+        new_vertices = OpenStudio::moveVerticesTowardsPoint(sub_surface.vertices, centroid, 0.01)
+        sub_surface.setVertices(new_vertices)
+        runner.registerInfo("WWR changed from #{wwr} to #{surface.windowToWallRatio}.")
+        modified_surfaces << surface
+      end
+    end
+
+    # additional logic to get various door types
+    model.getSubSurfaces.each do |sub_surface|
+      if ["GlassDoor","Door","OverheadDoor"].include?(sub_surface.subSurfaceType)
+        centroid = OpenStudio::getCentroid(sub_surface.vertices).get
+        new_vertices = OpenStudio::moveVerticesTowardsPoint(sub_surface.vertices, centroid, 0.01)
+        sub_surface.setVertices(new_vertices)
+        modified_surfaces << sub_surface.surface.get # todo - have not checked if it is orphan
+      end
+    end
+
+    return modified_surfaces
+  end
 
 end

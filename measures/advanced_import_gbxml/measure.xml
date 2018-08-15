@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>advanced_import_gbxml</name>
   <uid>f82940f7-8046-4fd1-9dbb-df6411e86de2</uid>
-  <version_id>9ffb3135-ae78-433c-9e3f-5d3651d36744</version_id>
-  <version_modified>20180815T194103Z</version_modified>
+  <version_id>56f02f7b-1ac6-4628-8ea5-7b5c10d1bbac</version_id>
+  <version_modified>20180815T203254Z</version_modified>
   <xml_checksum>D8922A73</xml_checksum>
   <class_name>AdvancedImportGbxml</class_name>
   <display_name>Advanced Import Gbxml</display_name>
@@ -72,17 +72,6 @@
       <checksum>60A34A33</checksum>
     </file>
     <file>
-      <version>
-        <software_program>OpenStudio</software_program>
-        <identifier>2.6.0</identifier>
-        <min_compatible>2.6.0</min_compatible>
-      </version>
-      <filename>measure.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>script</usage_type>
-      <checksum>C3AE13CE</checksum>
-    </file>
-    <file>
       <filename>advanced_import_gbxml_test.rb</filename>
       <filetype>rb</filetype>
       <usage_type>test</usage_type>
@@ -95,12 +84,6 @@
       <checksum>CE91D4F3</checksum>
     </file>
     <file>
-      <filename>os_lib_adv_import.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>0F8ABC59</checksum>
-    </file>
-    <file>
       <filename>os_lib_lighting_and_equipment.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
@@ -111,6 +94,29 @@
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
       <checksum>5F1CEF3A</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>2.6.0</identifier>
+        <min_compatible>2.6.0</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>2C3EC8B6</checksum>
+    </file>
+    <file>
+      <filename>os_lib_adv_import.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>71DDA887</checksum>
+    </file>
+    <file>
+      <filename>.gitkeep</filename>
+      <filetype>gitkeep</filetype>
+      <usage_type>doc</usage_type>
+      <checksum>00000000</checksum>
     </file>
   </files>
 </measure>
