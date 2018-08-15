@@ -6,6 +6,15 @@
 require 'rexml/document'
 require 'rexml/xpath'
 
+# require all .rb files in resources folder
+Dir[File.dirname(__FILE__) + '/resources/*.rb'].each { |file| require file }
+
+# todo - if i explicitly call module I should not need these. Remove after testing
+# resource file modules
+#include OsLib_Schedules
+#include OsLib_LightingAndEquipment
+#include OsLib_AdvImport
+
 # start the measure
 class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
   # human readable name
@@ -86,7 +95,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     end
 =end
 
-    # todo - create hash used for importing
+    # create hash used for importing
     advanced_inputs = {}
     advanced_inputs[:spaces] = {}
     advanced_inputs[:schedule_sets] = {} # key is "light|equip|people|"
@@ -129,7 +138,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         end
       end
 
-      # create has entry for space with attributes
+      # create hash entry for space with attributes
       advanced_inputs[:spaces][element.attributes['id']] = {}
       if not target_sch_set_key == "||"
         advanced_inputs[:spaces][element.attributes['id']][:sch_set] = target_sch_set_key
@@ -140,15 +149,13 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       if ! element.attributes['conditionType'].nil?
         advanced_inputs[:spaces][element.attributes['id']][:condition_type] = element.attributes['conditionType']
       end
+      if ! element.elements['Name'].nil?
+        advanced_inputs[:spaces][element.attributes['id']][:name] = element.elements['Name'].text
+      end
 
-      # todo - create schedule set for space, don't duplicate schedules if they have already been generated for another space
-
-
-      # todo - create space load instances for people, lights and electric equipment. Don't duplicate load definitions if an equivelant one has already been made.
+      # todo - populate hash for space load instances for people, lights and electric equipment. Don't duplicate load definitions if an equivalent one has already been made.
 
     end
-
-    # todo - after space hash is populated, call methods in resource file to generate new OpenStudio objects
 
     puts "**Looping through schedules"
     # todo - import schedules that were not associated with space loads?
@@ -210,8 +217,11 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     puts "** inspecting schedule hash"
     puts advanced_inputs[:schedules]
 
+    # create model objects from hash
+    OsLib_AdvImport.add_objects_from_adv_import_hash(runner,model,advanced_inputs)
+
     # report final condition of model
-    runner.registerFinalCondition("The building finished with #{model.objects.size} model objectxs.")
+    runner.registerFinalCondition("The building finished with #{model.objects.size} model objects.")
 
     return true
   end

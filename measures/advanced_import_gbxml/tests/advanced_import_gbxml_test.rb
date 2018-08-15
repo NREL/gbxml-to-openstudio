@@ -9,8 +9,6 @@ require 'fileutils'
 class AdvancedImportGbxml_Test < Minitest::Test
 
   def test_generic_gbxml
-    # create a test model
-    model = OpenStudio::Model::Model.new
 
     # create an instance of the measure
     measure = AdvancedImportGbxml.new
@@ -22,6 +20,10 @@ class AdvancedImportGbxml_Test < Minitest::Test
     # locate the gbxml
     path = OpenStudio::Path.new(File.dirname(__FILE__) + "/gbXMLStandard Test Model 2016.xml")
 
+    # use model from gbXML instead of empty model
+    translator = OpenStudio::GbXML::GbXMLReverseTranslator.new
+    model = translator.loadModel(path).get
+
     # get arguments
     arguments = measure.arguments(model)
     argument_map = OpenStudio::Measure.convertOSArgumentVectorToMap(arguments)
@@ -53,13 +55,11 @@ class AdvancedImportGbxml_Test < Minitest::Test
     assert(result.warnings.size == 0)
 
     # save the model to test output directory
-    output_file_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/output/test_output.osm")
+    output_file_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/output/generic_test_output.osm")
     model.save(output_file_path,true)
   end
 
   def test_custom_gbxml_01
-    # create a test model
-    model = OpenStudio::Model::Model.new
 
     # create an instance of the measure
     measure = AdvancedImportGbxml.new
@@ -71,6 +71,10 @@ class AdvancedImportGbxml_Test < Minitest::Test
     # locate the gbxml
     path = OpenStudio::Path.new(File.dirname(__FILE__) + "/Analytical Systems 01.xml")
 
+    # use model from gbXML instead of empty model
+    translator = OpenStudio::GbXML::GbXMLReverseTranslator.new
+    model = translator.loadModel(path).get
+
     # get arguments
     arguments = measure.arguments(model)
     argument_map = OpenStudio::Measure.convertOSArgumentVectorToMap(arguments)
@@ -102,7 +106,7 @@ class AdvancedImportGbxml_Test < Minitest::Test
     assert(result.warnings.size == 0)
 
     # save the model to test output directory
-    output_file_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/output/test_output.osm")
+    output_file_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/output/analytical_test_output.osm")
     model.save(output_file_path,true)
   end
 
