@@ -145,7 +145,7 @@ module OsLib_AdvImport
     return new_schedule_sets
   end
 
-  # todo - run wwr fix where greater than 99%
+  # run wwr fix where greater than 99%
   def self.assure_fenestration_inset(runner,model)
 
     # loop through surfaces
@@ -157,7 +157,7 @@ module OsLib_AdvImport
         centroid = OpenStudio::getCentroid(sub_surface.vertices).get
         new_vertices = OpenStudio::moveVerticesTowardsPoint(sub_surface.vertices, centroid, 0.01)
         sub_surface.setVertices(new_vertices)
-        runner.registerInfo("WWR changed from #{wwr} to #{surface.windowToWallRatio}.")
+        #runner.registerInfo("WWR changed from #{wwr} to #{surface.windowToWallRatio}.")
         modified_surfaces << surface
       end
     end
