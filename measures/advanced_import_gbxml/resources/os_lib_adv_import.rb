@@ -46,19 +46,23 @@ module OsLib_AdvImport
     # make schedules sets
     schedule_sets = import_sch_set(runner,model,advanced_inputs[:schedule_sets],schedules)
 
-    # todo - make load defs
+    # make load defs
+    lights = import_lights(runner,model,advanced_inputs[:light_defs])
+    elec_equipment = import_elec_equipment(runner,model,advanced_inputs[:equip_defs])
+    people = import_people(runner,model,advanced_inputs[:people_defs])
+    # todo - need to pull in heat_gain_values to create activity schedule either as space schedule set or directly
 
     # todo - make space load instances and assign schedule sets to spaces
-    schedule_sets = assign_space_attributes(runner,model,advanced_inputs[:spaces],schedule_sets)
+    modified_spaces = assign_space_attributes(runner,model,advanced_inputs[:spaces],schedule_sets,lights,elec_equipment,people)
 
     # QAQC checks and fixes
-    # todo - if a space has a schedule for number of people make add default people instance and acitivity schedule if it doesn't already have one
+    # todo - if a space has a schedule for number of people add default people load def and instance and activity schedule if it doesn't already have one
 
     return true
   end
 
   # assign newly made space objects to existing spaces
-  def self.assign_space_attributes(runner,model,spaces,schedule_sets)
+  def self.assign_space_attributes(runner,model,spaces,schedule_sets,lights,elec_equipment,people)
 
     # loop through spaces and assign attributes
     # note that spaces in model may use name element if it exist instead of id attribute
@@ -84,12 +88,33 @@ module OsLib_AdvImport
         modified = true
       end
 
-      # todo - create lighting load instances
+      # create lighting load instances
+      if space_data.has_key?(:light_defs)
+        load_def = lights[space_data[:light_defs]]
+        load_inst = OpenStudio::Model::Lights.new(load_def)
+        load_inst.setName("#{space.name.to_s}_lights")
+        load_inst.setSpace(space)
+        modified = true
+      end
 
-      # todo - create electric equipment load instances
-
-      # todo - create people load instances
-
+      # create electric equipment load instances
+      if space_data.has_key?(:equip_defs)
+        load_def = elec_equipment[space_data[:equip_defs]]
+        load_inst = OpenStudio::Model::ElectricEquipment.new(load_def)
+        load_inst.setName("#{space.name.to_s}_elec_equip")
+        load_inst.setSpace(space)
+        modified = true
+      end
+      
+      # create people load instances
+      if space_data.has_key?(:people_defs)
+        load_def = people[space_data[:people_defs]]
+        load_inst = OpenStudio::Model::People.new(load_def)
+        load_inst.setName("#{space.name.to_s}_people")
+        load_inst.setSpace(space)
+        modified = true
+      end
+      
       # if modified add to modified_spaces hash
       if modified
         modified_spaces[id] = space
@@ -107,10 +132,13 @@ module OsLib_AdvImport
     # loop through and add schedules
     new_schedules = {}
     schedules.each do |id,schedule_data|
-      sch_ruleset = OpenStudio::Model::ScheduleRuleset.new(model)
-      sch_ruleset.setName(id)
+      # todo - populate schedule using schedule_data to update default proifle and add rules to complex schedule
+      options = {
+          'name' => id,
+          'default_day' => ['always_on', [24.0, 1.0]]
+      }
+      sch_ruleset = OsLib_Schedules.createComplexSchedule(model,options)
       new_schedules[id] = sch_ruleset
-      # todo - populate schedule using schedule_data
     end
     runner.registerInfo("Created #{new_schedules.size} new Schedule Ruleset objets.")
 
@@ -143,6 +171,47 @@ module OsLib_AdvImport
     runner.registerInfo("Created #{new_schedule_sets.size} new Default Schedule Set objets.")
 
     return new_schedule_sets
+  end
+
+  # create lights from inputs
+  def self.import_lights(runner,model,load_data)
+    new_defs = {}
+    load_data.each do |data,id|
+      new_def = OpenStudio::Model::LightsDefinition.new(model)
+      new_def.setName(id)
+      value_w_ft2 = OpenStudio.convert(data, 'ft^2', 'm^2').get
+      new_def.setWattsperSpaceFloorArea(value_w_ft2)
+      new_defs[data] = new_def
+    end
+    runner.registerInfo("Created #{new_defs.size} new LightsDefinition objects.")
+    return new_defs
+  end
+
+  # create electric equipment from inputs
+  def self.import_elec_equipment(runner,model,load_data)
+    new_defs = {}
+    load_data.each do |data,id|
+      new_def = OpenStudio::Model::ElectricEquipmentDefinition.new(model)
+      new_def.setName(id)
+      value_w_ft2 = OpenStudio.convert(data, 'ft^2', 'm^2').get
+      new_def.setWattsperSpaceFloorArea(value_w_ft2)
+      new_defs[data] = new_def
+    end
+    runner.registerInfo("Created #{new_defs.size} new ElectricEquipmentDefinition objects.")
+    return new_defs
+  end
+
+  # create people from inputs
+  def self.import_people(runner,model,load_data)
+    new_defs = {}
+    load_data.each do |data,id|
+      new_def = OpenStudio::Model::PeopleDefinition.new(model)
+      new_def.setName(id)
+      new_def.setNumberofPeople(data[:people_number])
+      new_defs[data] = new_def
+    end
+    runner.registerInfo("Created #{new_defs.size} new LightsDefinition objects.")
+    return new_defs
   end
 
   # run wwr fix where greater than 99%

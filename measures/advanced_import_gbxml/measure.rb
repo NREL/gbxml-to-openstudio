@@ -9,12 +9,6 @@ require 'rexml/xpath'
 # require all .rb files in resources folder
 Dir[File.dirname(__FILE__) + '/resources/*.rb'].each { |file| require file }
 
-# todo - if i explicitly call module I should not need these. Remove after testing
-# resource file modules
-#include OsLib_Schedules
-#include OsLib_LightingAndEquipment
-#include OsLib_AdvImport
-
 # start the measure
 class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
   # human readable name
@@ -101,9 +95,9 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     advanced_inputs[:schedule_sets] = {} # key is "light|equip|people|"
     advanced_inputs[:schedules] = {}
     advanced_inputs[:people_num] = {} # osm gen code should use default if this isn't found
-    advanced_inputs[:people_def] = {}
-    advanced_inputs[:light_def] = {}
-    advanced_inputs[:equip_def] = {}
+    advanced_inputs[:people_defs] = {}
+    advanced_inputs[:light_defs] = {}
+    advanced_inputs[:equip_defs] = {}
 
     puts "**Looping through spaces"
     gbxml_doc.elements.each('gbXML/Campus/Building/Space') do |element|
@@ -155,19 +149,19 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       if ! element.elements['LightPowerPerArea'].nil?
         # todo - add code for different unit types, for now assuming value is w/ft^2
         light_power_per_area = element.elements['LightPowerPerArea'].text.to_f
-        if ! advanced_inputs[:light_def].has_key?(light_power_per_area)
-          advanced_inputs[:light_def][light_power_per_area] = "adv_import_light_#{advanced_inputs[:light_def].size}"
+        if ! advanced_inputs[:light_defs].has_key?(light_power_per_area)
+          advanced_inputs[:light_defs][light_power_per_area] = "adv_import_light_#{advanced_inputs[:light_defs].size}"
         end
-        advanced_inputs[:spaces][element.attributes['id']][:light_def] = light_power_per_area
+        advanced_inputs[:spaces][element.attributes['id']][:light_defs] = light_power_per_area
       end
       # gather electric equipment
       if ! element.elements['EquipPowerPerArea'].nil?
         # todo - add code for different unit types, for now assuming value is w/ft^2
         light_power_per_area = element.elements['EquipPowerPerArea'].text.to_f
-        if ! advanced_inputs[:equip_def].has_key?(light_power_per_area)
-          advanced_inputs[:equip_def][light_power_per_area] = "adv_import_elec_equip_#{advanced_inputs[:equip_def].size}"
+        if ! advanced_inputs[:equip_defs].has_key?(light_power_per_area)
+          advanced_inputs[:equip_defs][light_power_per_area] = "adv_import_elec_equip_#{advanced_inputs[:equip_defs].size}"
         end
-        advanced_inputs[:spaces][element.attributes['id']][:equip_def] = light_power_per_area
+        advanced_inputs[:spaces][element.attributes['id']][:equip_defs] = light_power_per_area
       end
       # gather people
       # unlike lights and equipment, there are multiple people objects in the space to inspect
@@ -176,16 +170,16 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         # todo - add code for different unit types, for now assuming value is w/ft^2
         #unit = people_heat_gain.attributes['unit']
         heat_gain_type = people_heat_gain.attributes['heatGainType']
-        space_people_attributes[heat_gain_type] = people_heat_gain.text.to_f
+        space_people_attributes["people_heat_gain_#{heat_gain_type.downcase}"] = people_heat_gain.text.to_f
       end
       if ! element.elements['PeopleNumber'].nil?
         space_people_attributes[:people_number] = element.elements['PeopleNumber'].text.to_f
       end
-      if ! advanced_inputs[:people_def].has_key?(space_people_attributes) && space_people_attributes.size > 0
-        advanced_inputs[:people_def][space_people_attributes] = "adv_import_people_#{advanced_inputs[:people_def].size}"
+      if ! advanced_inputs[:people_defs].has_key?(space_people_attributes) && space_people_attributes.size > 0
+        advanced_inputs[:people_defs][space_people_attributes] = "adv_import_people_#{advanced_inputs[:people_defs].size}"
       end
       if space_people_attributes.size > 0
-        advanced_inputs[:spaces][element.attributes['id']][:people_def] = space_people_attributes
+        advanced_inputs[:spaces][element.attributes['id']][:people_defs] = space_people_attributes
       end
 
     end
@@ -250,11 +244,11 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     puts "** inspecting schedule hash"
     puts advanced_inputs[:schedules]
     puts "** inspecting lights"
-    puts advanced_inputs[:light_def]
+    puts advanced_inputs[:light_defs]
     puts "** inspecting elec equip"
-    puts advanced_inputs[:equip_def]
+    puts advanced_inputs[:equip_defs]
     puts "** inspecting people"
-    puts advanced_inputs[:people_def]
+    puts advanced_inputs[:people_defs]
 
     # create model objects from hash
     OsLib_AdvImport.add_objects_from_adv_import_hash(runner,model,advanced_inputs)

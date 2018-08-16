@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>advanced_import_gbxml</name>
   <uid>f82940f7-8046-4fd1-9dbb-df6411e86de2</uid>
-  <version_id>56f02f7b-1ac6-4628-8ea5-7b5c10d1bbac</version_id>
-  <version_modified>20180815T203254Z</version_modified>
+  <version_id>b788fd3e-ebb5-4c13-928d-0d447fbf103a</version_id>
+  <version_modified>20180816T065411Z</version_modified>
   <xml_checksum>D8922A73</xml_checksum>
   <class_name>AdvancedImportGbxml</class_name>
   <display_name>Advanced Import Gbxml</display_name>
@@ -104,19 +104,13 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>2C3EC8B6</checksum>
+      <checksum>9F7573ED</checksum>
     </file>
     <file>
       <filename>os_lib_adv_import.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>71DDA887</checksum>
-    </file>
-    <file>
-      <filename>.gitkeep</filename>
-      <filetype>gitkeep</filetype>
-      <usage_type>doc</usage_type>
-      <checksum>00000000</checksum>
+      <checksum>740FC289</checksum>
     </file>
   </files>
 </measure>
