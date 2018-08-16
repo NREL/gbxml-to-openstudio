@@ -50,13 +50,9 @@ module OsLib_AdvImport
     lights = import_lights(runner,model,advanced_inputs[:light_defs])
     elec_equipment = import_elec_equipment(runner,model,advanced_inputs[:equip_defs])
     people = import_people(runner,model,advanced_inputs[:people_defs])
-    # todo - need to pull in heat_gain_values to create activity schedule either as space schedule set or directly
 
-    # todo - make space load instances and assign schedule sets to spaces
+    # make space load instances and assign schedule sets to spaces
     modified_spaces = assign_space_attributes(runner,model,advanced_inputs[:spaces],schedule_sets,lights,elec_equipment,people)
-
-    # QAQC checks and fixes
-    # todo - if a space has a schedule for number of people add default people load def and instance and activity schedule if it doesn't already have one
 
     return true
   end
@@ -113,6 +109,29 @@ module OsLib_AdvImport
         load_inst.setName("#{space.name.to_s}_people")
         load_inst.setSpace(space)
         modified = true
+
+        # create activity schedule if not already made and assign
+        # todo - this would be better setup as part of schedule set
+        # todo - inputs of Btu/h in sample of 40 seems 10x lower than expected to be 120W
+        # todo - take latent and sensible ratio to update peopleDefinition object
+        if space_data[:people_defs].has_key?('people_heat_gain_total')
+          activity_btu_h = space_data[:people_defs]['people_heat_gain_total']
+          activity_w = OpenStudio.convert(activity_btu_h, 'Btu/h', 'W').get
+          # assign or create schedule
+          if model.getScheduleRulesetByName("activity_#{activity_w}").is_initialized
+            sch_ruleset = model.getScheduleRulesetByName("activity_#{activity_w}").get
+          else
+            options = {'name' => "activity_#{activity_w}", 'default_day' => ["activity_#{activity_w}_default", [24.0, activity_w]]}
+            sch_ruleset = OsLib_Schedules.createComplexSchedule(model,options)
+          end
+        else
+          # create default activity level if one doesn't exist
+          default_activity = 120.0
+          options = {'name' => "activity_#{activity_w}", 'default_day' => ["activity_#{activity_w}_default", [24.0, default_activity]]}
+          sch_ruleset = OsLib_Schedules.createComplexSchedule(model,options)
+          runner.registerWarning("Did not find data for acitivty schedule, adding default of #{default_activity} W.")
+        end
+        load_inst.setActivityLevelSchedule(sch_ruleset)
       end
       
       # if modified add to modified_spaces hash
@@ -132,11 +151,8 @@ module OsLib_AdvImport
     # loop through and add schedules
     new_schedules = {}
     schedules.each do |id,schedule_data|
-      # todo - populate schedule using schedule_data to update default proifle and add rules to complex schedule
-      options = {
-          'name' => id,
-          'default_day' => ['always_on', [24.0, 1.0]]
-      }
+      # todo - populate schedule using schedule_data to update default profile and add rules to complex schedule
+      options = {'name' => id, 'default_day' => ['always_on', [24.0, 0.3]]}
       sch_ruleset = OsLib_Schedules.createComplexSchedule(model,options)
       new_schedules[id] = sch_ruleset
     end
@@ -179,7 +195,7 @@ module OsLib_AdvImport
     load_data.each do |data,id|
       new_def = OpenStudio::Model::LightsDefinition.new(model)
       new_def.setName(id)
-      value_w_ft2 = OpenStudio.convert(data, 'ft^2', 'm^2').get
+      value_w_ft2 = OpenStudio.convert(data, 'W/ft^2', 'W/m^2').get
       new_def.setWattsperSpaceFloorArea(value_w_ft2)
       new_defs[data] = new_def
     end
@@ -193,7 +209,7 @@ module OsLib_AdvImport
     load_data.each do |data,id|
       new_def = OpenStudio::Model::ElectricEquipmentDefinition.new(model)
       new_def.setName(id)
-      value_w_ft2 = OpenStudio.convert(data, 'ft^2', 'm^2').get
+      value_w_ft2 = OpenStudio.convert(data, 'W/ft^2', 'W/m^2').get
       new_def.setWattsperSpaceFloorArea(value_w_ft2)
       new_defs[data] = new_def
     end
@@ -207,10 +223,18 @@ module OsLib_AdvImport
     load_data.each do |data,id|
       new_def = OpenStudio::Model::PeopleDefinition.new(model)
       new_def.setName(id)
-      new_def.setNumberofPeople(data[:people_number])
+      if data.has_key?(:people_number)
+        new_def.setNumberofPeople(data[:people_number])
+      else
+        # if number of people doesn't exist, but schedules hash data exists for people, create default value
+        default_ft2_per_person = 200.0
+        default_m2_per_person = OpenStudio.convert(default_ft2_per_person,'ft^2','m^2').get
+        new_def.setSpaceFloorAreaperPerson(default_m2_per_person)
+        runner.registerWarning("Found heat gain for people but not number of people, adding default value of #{default_ft2_per_person} ft^2 per person.")
+      end
       new_defs[data] = new_def
     end
-    runner.registerInfo("Created #{new_defs.size} new LightsDefinition objects.")
+    runner.registerInfo("Created #{new_defs.size} new PeopleDefinition objects.")
     return new_defs
   end
 
@@ -222,7 +246,7 @@ module OsLib_AdvImport
     model.getSurfaces.each do |surface|
       wwr = surface.windowToWallRatio
       if wwr > 0.99
-        sub_surface = surface.subSurfaces[0] # todo - assumes only one which may not be correct
+        sub_surface = surface.subSurfaces[0] # todo - assumes only one which may not be correct in all cases
         centroid = OpenStudio::getCentroid(sub_surface.vertices).get
         new_vertices = OpenStudio::moveVerticesTowardsPoint(sub_surface.vertices, centroid, 0.01)
         sub_surface.setVertices(new_vertices)
