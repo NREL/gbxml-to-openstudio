@@ -35,42 +35,44 @@
 
 # while methods initially setup for import from gbXML it can be used with import from any file such as csv, json, idf, etc
 # regardless of import format data is passed into these methods as hashes.
+require 'bigdecimal/newton'
+
 module OsLib_AdvImport
 
   # primary method that calls other methods to add objects
-  def self.add_objects_from_adv_import_hash(runner,model,advanced_inputs)
+  def self.add_objects_from_adv_import_hash(runner, model, advanced_inputs)
 
     # make schedules
-    schedules = import_schs(runner,model,advanced_inputs[:schedules])
+    schedules = import_schs(runner, model, advanced_inputs[:schedules])
 
     # make schedules sets
-    schedule_sets = import_sch_set(runner,model,advanced_inputs[:schedule_sets],schedules)
+    schedule_sets = import_sch_set(runner, model, advanced_inputs[:schedule_sets], schedules)
 
     # make load defs
-    lights = import_lights(runner,model,advanced_inputs[:light_defs])
-    elec_equipment = import_elec_equipment(runner,model,advanced_inputs[:equip_defs])
-    people = import_people(runner,model,advanced_inputs[:people_defs])
+    lights = import_lights(runner, model, advanced_inputs[:light_defs])
+    elec_equipment = import_elec_equipment(runner, model, advanced_inputs[:equip_defs])
+    people = import_people(runner, model, advanced_inputs[:people_defs])
 
     # make space load instances and assign schedule sets to spaces
-    modified_spaces = assign_space_attributes(runner,model,advanced_inputs[:spaces],schedule_sets,lights,elec_equipment,people)
+    modified_spaces = assign_space_attributes(runner, model, advanced_inputs[:spaces], schedule_sets, lights, elec_equipment, people)
 
     return true
   end
 
   # assign newly made space objects to existing spaces
-  def self.assign_space_attributes(runner,model,spaces,schedule_sets,lights,elec_equipment,people)
+  def self.assign_space_attributes(runner, model, spaces, schedule_sets, lights, elec_equipment, people)
 
     # loop through spaces and assign attributes
     # note that spaces in model may use name element if it exist instead of id attribute
     modified_spaces = {}
-    spaces.each do |id,space_data|
+    spaces.each do |id, space_data|
 
       modified = false
 
       # find model space
-      if space_data.has_key?(:name) &&  model.getSpaceByName(space_data[:name]).is_initialized
+      if space_data.has_key?(:name) && model.getSpaceByName(space_data[:name]).is_initialized
         space = model.getSpaceByName(space_data[:name]).get
-      elsif  model.getSpaceByName(id).is_initialized
+      elsif model.getSpaceByName(id).is_initialized
         space = model.getSpaceByName(id).get
       else
         runner.registerWarning("Did not find space in model assciated with #{id}. Not connecting objects realted to this space.")
@@ -101,7 +103,7 @@ module OsLib_AdvImport
         load_inst.setSpace(space)
         modified = true
       end
-      
+
       # create people load instances
       if space_data.has_key?(:people_defs)
         load_def = people[space_data[:people_defs]]
@@ -122,18 +124,18 @@ module OsLib_AdvImport
             sch_ruleset = model.getScheduleRulesetByName("activity_#{activity_w}").get
           else
             options = {'name' => "activity_#{activity_w}", 'default_day' => ["activity_#{activity_w}_default", [24.0, activity_w]]}
-            sch_ruleset = OsLib_Schedules.createComplexSchedule(model,options)
+            sch_ruleset = OsLib_Schedules.createComplexSchedule(model, options)
           end
         else
           # create default activity level if one doesn't exist
           default_activity = 120.0
           options = {'name' => "activity_#{activity_w}", 'default_day' => ["activity_#{activity_w}_default", [24.0, default_activity]]}
-          sch_ruleset = OsLib_Schedules.createComplexSchedule(model,options)
+          sch_ruleset = OsLib_Schedules.createComplexSchedule(model, options)
           runner.registerWarning("Did not find data for acitivty schedule, adding default of #{default_activity} W.")
         end
         load_inst.setActivityLevelSchedule(sch_ruleset)
       end
-      
+
       # if modified add to modified_spaces hash
       if modified
         modified_spaces[id] = space
@@ -146,14 +148,14 @@ module OsLib_AdvImport
   end
 
   # create ruleset schedule from inputs
-  def self.import_schs(runner,model,schedules)
+  def self.import_schs(runner, model, schedules)
 
     # loop through and add schedules
     new_schedules = {}
-    schedules.each do |id,schedule_data|
+    schedules.each do |id, schedule_data|
       # todo - populate schedule using schedule_data to update default profile and add rules to complex schedule
       options = {'name' => id, 'default_day' => ['always_on', [24.0, 0.3]]}
-      sch_ruleset = OsLib_Schedules.createComplexSchedule(model,options)
+      sch_ruleset = OsLib_Schedules.createComplexSchedule(model, options)
       new_schedules[id] = sch_ruleset
     end
     runner.registerInfo("Created #{new_schedules.size} new Schedule Ruleset objets.")
@@ -162,11 +164,11 @@ module OsLib_AdvImport
   end
 
   # create schedule set from inputs
-  def self.import_sch_set(runner,model,schedule_sets,schedules)
+  def self.import_sch_set(runner, model, schedule_sets, schedules)
 
     # loop through and add schedule sets
     new_schedule_sets = {}
-    schedule_sets.each do |id,schedule_set_data|
+    schedule_sets.each do |id, schedule_set_data|
       default_sch_set = OpenStudio::Model::DefaultScheduleSet.new(model)
       default_sch_set.setName(id)
       new_schedule_sets[id] = default_sch_set
@@ -190,9 +192,9 @@ module OsLib_AdvImport
   end
 
   # create lights from inputs
-  def self.import_lights(runner,model,load_data)
+  def self.import_lights(runner, model, load_data)
     new_defs = {}
-    load_data.each do |data,id|
+    load_data.each do |data, id|
       new_def = OpenStudio::Model::LightsDefinition.new(model)
       new_def.setName(id)
       value_w_ft2 = OpenStudio.convert(data, 'W/ft^2', 'W/m^2').get
@@ -204,9 +206,9 @@ module OsLib_AdvImport
   end
 
   # create electric equipment from inputs
-  def self.import_elec_equipment(runner,model,load_data)
+  def self.import_elec_equipment(runner, model, load_data)
     new_defs = {}
-    load_data.each do |data,id|
+    load_data.each do |data, id|
       new_def = OpenStudio::Model::ElectricEquipmentDefinition.new(model)
       new_def.setName(id)
       value_w_ft2 = OpenStudio.convert(data, 'W/ft^2', 'W/m^2').get
@@ -218,9 +220,9 @@ module OsLib_AdvImport
   end
 
   # create people from inputs
-  def self.import_people(runner,model,load_data)
+  def self.import_people(runner, model, load_data)
     new_defs = {}
-    load_data.each do |data,id|
+    load_data.each do |data, id|
       new_def = OpenStudio::Model::PeopleDefinition.new(model)
       new_def.setName(id)
       if data.has_key?(:people_number)
@@ -228,7 +230,7 @@ module OsLib_AdvImport
       else
         # if number of people doesn't exist, but schedules hash data exists for people, create default value
         default_ft2_per_person = 200.0
-        default_m2_per_person = OpenStudio.convert(default_ft2_per_person,'ft^2','m^2').get
+        default_m2_per_person = OpenStudio.convert(default_ft2_per_person, 'ft^2', 'm^2').get
         new_def.setSpaceFloorAreaperPerson(default_m2_per_person)
         runner.registerWarning("Found heat gain for people but not number of people, adding default value of #{default_ft2_per_person} ft^2 per person.")
       end
@@ -239,33 +241,126 @@ module OsLib_AdvImport
   end
 
   # run wwr fix where greater than 99%
-  def self.assure_fenestration_inset(runner,model)
+  def self.assure_fenestration_inset(runner, model)
 
-    # loop through surfaces
-    modified_surfaces = []
+    # Reduce all subsurfaces for
     model.getSurfaces.each do |surface|
-      wwr = surface.windowToWallRatio
-      if wwr > 0.99
-        sub_surface = surface.subSurfaces[0] # todo - assumes only one which may not be correct in all cases
-        centroid = OpenStudio::getCentroid(sub_surface.vertices).get
-        new_vertices = OpenStudio::moveVerticesTowardsPoint(sub_surface.vertices, centroid, 0.01)
+      surface.subSurfaces.each do |sub_surface|
+        new_area = sub_surface.grossArea * 0.98
+        new_vertices = adjust_vertices_to_area(sub_surface.vertices, new_area, 0.00000001)
         sub_surface.setVertices(new_vertices)
-        #runner.registerInfo("WWR changed from #{wwr} to #{surface.windowToWallRatio}.")
-        modified_surfaces << surface
+      end
+
+      if surface.windowToWallRatio > 0.99
+        surface.subSurfaces.each do |sub_surface|
+          sub_surface.remove
+        end
       end
     end
-
-    # additional logic to get various door types
-    model.getSubSurfaces.each do |sub_surface|
-      if ["GlassDoor","Door","OverheadDoor"].include?(sub_surface.subSurfaceType)
-        centroid = OpenStudio::getCentroid(sub_surface.vertices).get
-        new_vertices = OpenStudio::moveVerticesTowardsPoint(sub_surface.vertices, centroid, 0.01)
-        sub_surface.setVertices(new_vertices)
-        modified_surfaces << sub_surface.surface.get # todo - have not checked if it is orphan
-      end
-    end
-
-    return modified_surfaces
   end
 
+  def self.adjust_vertices_to_area(vertices, desired_area, eps = 0.1)
+    ar = AreaReducer.new(vertices, desired_area, eps)
+
+    n = Newton::nlsolve(ar, [0])
+    puts n
+    return ar.new_vertices
+  end
 end
+
+module Newton
+  def self.jacobian(f, fx, x)
+    Jacobian.jacobian(f, fx, x)
+  end
+
+  def self.ludecomp(a, n, zero = 0, one = 1)
+    LUSolve.ludecomp(a, n, zero, one)
+  end
+
+  def self.lusolve(a, b, ps, zero = 0.0)
+    LUSolve.lusolve(a, b, ps, zero)
+  end
+end
+# class that does the iteration
+class AreaReducer
+  attr_reader :zero, :one, :two, :ten, :eps
+
+  def initialize(vertices, desired_area, eps = 0.1)
+    @vertices = vertices
+    @centroid = OpenStudio::getCentroid(vertices)
+    fail "Cannot compute centroid for '#{vertices}'" if @centroid.empty?
+    @centroid = @centroid.get
+    @desired_area = desired_area
+    @new_vertices = vertices
+
+    @zero = BigDecimal::new("0.0")
+    @one = BigDecimal::new("1.0")
+    @two = BigDecimal::new("2.0")
+    @ten = BigDecimal::new("10.0")
+    @eps = eps #BigDecimal::new(eps)
+  end
+
+  def fancy_new_method(perimeter_depth)
+    result = []
+
+    t_inv = OpenStudio::Transformation.alignFace(@vertices)
+    t = t_inv.inverse
+
+    vertices = t * @vertices
+    new_vertices = OpenStudio::Point3dVector.new
+    n = vertices.size
+    (0...n).each do |i|
+      vertex_1 = nil
+      vertex_2 = nil
+      vertex_3 = nil
+      if (i == 0)
+        vertex_1 = vertices[n - 1]
+        vertex_2 = vertices[i]
+        vertex_3 = vertices[i + 1]
+      elsif (i == (n - 1))
+        vertex_1 = vertices[i - 1]
+        vertex_2 = vertices[i]
+        vertex_3 = vertices[0]
+      else
+        vertex_1 = vertices[i - 1]
+        vertex_2 = vertices[i]
+        vertex_3 = vertices[i + 1]
+      end
+
+      vector_1 = (vertex_2 - vertex_1)
+      vector_2 = (vertex_3 - vertex_2)
+
+      angle_1 = Math.atan2(vector_1.y, vector_1.x) + Math::PI / 2.0
+      angle_2 = Math.atan2(vector_2.y, vector_2.x) + Math::PI / 2.0
+
+      vector = OpenStudio::Vector3d.new(Math.cos(angle_1) + Math.cos(angle_2), Math.sin(angle_1) + Math.sin(angle_2), 0)
+      vector.setLength(perimeter_depth)
+
+      new_point = vertices[i] + vector
+      new_vertices << new_point
+    end
+
+    return t_inv * new_vertices
+  end
+
+
+  # compute value
+  def values(x)
+
+    #@new_vertices = OpenStudio::moveVerticesTowardsPoint(@vertices, @centroid, x[0].to_f)
+    @new_vertices = fancy_new_method(x[0].to_f)
+
+    new_area = OpenStudio::getArea(@new_vertices)
+    fail "Cannot compute area for '#{@new_vertices}'" if new_area.empty?
+    new_area = new_area.get
+
+    # puts "x = #{x[0].to_f}, new_area = #{new_area}"
+
+    return [new_area - @desired_area]
+  end
+
+  def new_vertices
+    @new_vertices
+  end
+end
+

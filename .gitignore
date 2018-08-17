@@ -1,4 +1,4 @@
-
+*.DS_Store
 .idea
 workflows/*/out.osw
 workflows/*/reports
