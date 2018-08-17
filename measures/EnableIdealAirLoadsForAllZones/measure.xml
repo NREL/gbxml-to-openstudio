@@ -1,0 +1,55 @@
+<measure>
+  <schema_version>3.0</schema_version>
+  <name>enable_ideal_air_loads_for_all_zones</name>
+  <uid>f70d4a3d-8b93-4fef-b679-858fe1e05acc</uid>
+  <version_id>2fb9b6cb-62de-4240-9b32-8cad605b7056</version_id>
+  <version_modified>20180123T174151Z</version_modified>
+  <xml_checksum>4435983D</xml_checksum>
+  <class_name>EnableIdealAirLoadsForAllZones</class_name>
+  <display_name>EnableIdealAirLoadsForAllZones</display_name>
+  <description>This will enable Ideal Air Loads for all thermal zones in the model. This will result in disconnecting any pre-existing HVAC systems from the zones.</description>
+  <modeler_description>This doesn't clean up any air or plant loops that are left. It was developed to use on models without HVAC. If you use it in another way you may have to clean up remaining objects prior to running a simulation.</modeler_description>
+  <arguments/>
+  <outputs/>
+  <provenances/>
+  <tags>
+    <tag>HVAC.Whole System</tag>
+  </tags>
+  <attributes>
+    <attribute>
+      <name>Measure Type</name>
+      <value>ModelMeasure</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Uses SketchUp API</name>
+      <value>false</value>
+      <datatype>boolean</datatype>
+    </attribute>
+  </attributes>
+  <files>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>1.3.1</identifier>
+        <min_compatible>1.8.0</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>3839F01F</checksum>
+    </file>
+    <file>
+      <filename>EnableIdealAirLoadsForAllZones_Test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>7E97737D</checksum>
+    </file>
+    <file>
+      <filename>IdealAir_TestModel.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>CF7E3DB7</checksum>
+    </file>
+  </files>
+</measure>
