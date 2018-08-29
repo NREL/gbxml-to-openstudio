@@ -2,14 +2,12 @@ GEM
   remote: https://rubygems.org/
   specs:
     openstudio-api-stubs (0.1.0)
-    openstudio-standards (0.2.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   openstudio-api-stubs
-  openstudio-standards
 
 BUNDLED WITH
    1.16.0

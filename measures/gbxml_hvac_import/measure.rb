@@ -5,13 +5,14 @@
 
 require 'rexml/document'
 require 'rexml/xpath'
-require 'openstudio-standards'
 
 # require all .rb files in resources folder
 Dir[File.dirname(__FILE__) + '/resources/*/*.rb'].each { |file| require file }
 
 # start the measure
 class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
+  require 'openstudio-standards'
+
   # human readable name
   def name
     # Measure name should be the title case of the class name.
@@ -105,6 +106,8 @@ class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
     gbxml_doc.elements.each("gbXML/Zone") do |element|
       Zone.map_to_zone_hvac_equipment(model, element)
     end
+
+    Helpers.clean_up_model(model)
 
     return true
   end

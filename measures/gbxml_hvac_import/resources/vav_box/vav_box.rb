@@ -8,9 +8,9 @@ class VAVBox
     unless xml.attributes['heatingCoilType'].nil? or xml.attributes['heatingCoilType'] == "None"
       heating_coil_type = xml.attributes['heatingCoilType']
       if heating_coil_type == "ElectricResistance"
-        heating_coil = std.create_coil_heating_electric(model)
+        heating_coil = AirSystem.create_coil_heating_electric(model)
       elsif heating_coil_type == "Furnace"
-        heating_coil = std.create_coil_heating_gas(model)
+        heating_coil = AirSystem.create_coil_heating_gas(model)
       elsif heating_coil_type == "HotWater"
         hydronic_loop_id = xml.elements['HydronicLoopId[@hydronicLoopType="HotWater"]']
         unless hydronic_loop_id.nil?
@@ -18,7 +18,7 @@ class VAVBox
           unless hydronic_loop_id_ref.nil?
             hw_loop = Helpers.get_plant_loop_by_id(model, hydronic_loop_id_ref)
             if hw_loop
-              heating_coil = std.create_coil_heating_water(model, hw_loop)
+              heating_coil = AirSystem.create_coil_heating_water(model, hw_loop)
             end
           end
         end

@@ -15,21 +15,21 @@
       "measure_dir_name": "import_gbxml",
       "name": "ImportGbxml",
       "arguments": {
-        "gbxml_file_name": "Test Villa Scenario 2.xml"
+        "gbxml_file_name": "RheaExportAnalyticalSystems/RheaExportVariableAirVolumeBox.xml"
       }
     },
     {
       "measure_dir_name": "advanced_import_gbxml",
       "name": "Advanced Import Gbxml",
       "arguments": {
-        "gbxml_file_name": "Test Villa Scenario 2.xml"
+        "gbxml_file_name": "RheaExportAnalyticalSystems/RheaExportVariableAirVolumeBox.xml"
       }
     },
     {
       "measure_dir_name": "gbxml_hvac_import",
       "name": "GBXML HVAC Import",
       "arguments": {
-        "gbxml_file_name": "Test Villa Scenario 2.xml"
+        "gbxml_file_name": "RheaExportAnalyticalSystems/RheaExportVariableAirVolumeBox.xml"
       }
     },
     {
@@ -55,11 +55,6 @@
       "measure_dir_name": "SetThermostatSchedules",
       "modeler_description": "Sets zone thermostat schedules to schedules in the same file. If a zone does not have a thermostat this measure will add one.",
       "name": "Set Thermostat Schedules"
-    },
-    {
-      "measure_dir_name": "openstudio_results",
-      "name": "OpenStudio Results",
-      "arguments": {}
     }
   ]
 }
