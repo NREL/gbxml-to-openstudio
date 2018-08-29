@@ -26,6 +26,13 @@
       }
     },
     {
+      "measure_dir_name": "gbxml_hvac_import",
+      "name": "GBXML HVAC Import",
+      "arguments": {
+        "gbxml_file_name": "Test Villa Scenario 2.xml"
+      }
+    },
+    {
       "measure_dir_name": "ChangeBuildingLocation",
       "name": "Change Building Location",
       "arguments": {
@@ -48,13 +55,6 @@
       "measure_dir_name": "SetThermostatSchedules",
       "modeler_description": "Sets zone thermostat schedules to schedules in the same file. If a zone does not have a thermostat this measure will add one.",
       "name": "Set Thermostat Schedules"
-    },
-    {
-      "arguments": {},
-      "description": "This will enable Ideal Air Loads for all thermal zones in the model. This will result in disconnecting any pre-existing HVAC systems from the zones.",
-      "measure_dir_name": "EnableIdealAirLoadsForAllZones",
-      "modeler_description": "This doesn't clean up any air or plant loops that are left. It was developed to use on models without HVAC. If you use it in another way you may have to clean up remaining objects prior to running a simulation.",
-      "name": "EnableIdealAirLoadsForAllZones"
     },
     {
       "measure_dir_name": "openstudio_results",
