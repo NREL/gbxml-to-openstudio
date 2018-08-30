@@ -15,22 +15,43 @@
       "measure_dir_name": "import_gbxml",
       "name": "ImportGbxml",
       "arguments": {
-        "gbxml_file_name": "RheaExportAnalyticalSystems/RheaExportVariableAirVolumeBox.xml"
+        "gbxml_file_name": "analysisBad.xml"
       }
     },
     {
       "measure_dir_name": "advanced_import_gbxml",
       "name": "Advanced Import Gbxml",
       "arguments": {
-        "gbxml_file_name": "RheaExportAnalyticalSystems/RheaExportVariableAirVolumeBox.xml"
+        "gbxml_file_name": "analysisBad.xml"
       }
     },
     {
       "measure_dir_name": "gbxml_hvac_import",
       "name": "GBXML HVAC Import",
       "arguments": {
-        "gbxml_file_name": "RheaExportAnalyticalSystems/RheaExportVariableAirVolumeBox.xml"
+        "gbxml_file_name": "analysisBad.xml"
       }
+    },
+    {
+      "arguments": {
+        "do_plant_sizing": true,
+        "do_system_sizing": true,
+        "do_zone_sizing": true,
+        "end_date": "01/07",
+        "loads_convergence_tolerance": 0.040000000000000001,
+        "max_warmup_days": 25,
+        "min_warmup_days": 6,
+        "sim_for_run_period": false,
+        "sim_for_sizing": true,
+        "solar_distribution": "FullExterior",
+        "start_date": "01/01",
+        "temp_convergence_tolerance": 0.40000000000000002,
+        "timesteps_per_hour": 2
+      },
+      "description": "The measures sets simulation control, timestep and convergence parameters.",
+      "measure_dir_name": "set_simulation_control",
+      "modeler_description": "",
+      "name": "Set Simulation Control"
     },
     {
       "measure_dir_name": "ChangeBuildingLocation",

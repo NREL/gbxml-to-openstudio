@@ -1,12 +1,14 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    minitest (5.11.3)
     openstudio-api-stubs (0.1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  minitest
   openstudio-api-stubs
 
 BUNDLED WITH
