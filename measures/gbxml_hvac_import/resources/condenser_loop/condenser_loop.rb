@@ -7,7 +7,7 @@ class CondenserLoop
     cw_loop = std.model_add_cw_loop(model,
                                     'Open Cooling Tower',
                                     'Propeller or Axial',
-                                    'VariableSpeedFan',
+                                    'Variable Speed Fan',
                                     1,
                                     1,
                                     nil)
