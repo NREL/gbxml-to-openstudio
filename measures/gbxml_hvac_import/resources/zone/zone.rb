@@ -1,8 +1,46 @@
-require 'openstudio'
-require_relative '../model/helpers'
+require_relative '../hvac_object/hvac_object'
 
-class Zone
-  def self.map_to_zone_hvac_equipment(model, xml)
+class Zone < HVACObject
+  attr_accessor :thermal_zone, :zone_hvac_equipment_refs
+
+  def initialize
+    self.name = "Thermal Zone"
+    self.zone_hvac_equipment_refs = []
+  end
+
+  def build(model_manager)
+    self.model_manager = model_manager
+    self.model = model_manager.model
+    self.thermal_zone = self.model.getThermalZoneByName(self.name).get
+
+    zone_hvac_equipment_refs.each do |zone_hvac_equipment_ref|
+      equipment = model_manager.zone_hvac_equipments[zone_hvac_equipment_ref].air_terminal
+      outlet_node = equipment.outletModelObject.get.to_Node.get
+      self.thermal_zone.addToNode(outlet_node)
+    end
+
+    self.thermal_zone.additionalProperties.setFeature('id', self.id) unless self.id.nil?
+    self.thermal_zone.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
+
+    self.thermal_zone
+  end
+
+  def self.create_from_xml(xml)
+    zone = new
+
+    name = xml.elements['Name']
+    zone.set_name(name.text) unless name.nil?
+    zone.set_id(xml.attributes['id']) unless xml.attributes['id'].nil?
+    zone.set_cad_object_id(xml.elements['CADObjectId'].text) unless xml.elements['CADObjectId'].nil?
+    # puts xml.elements['ZoneHVACEquipmentId']
+    xml.get_elements('ZoneHVACEquipmentId').each do |zone_hvac_equipment_id|
+      zone.zone_hvac_equipment_refs << zone_hvac_equipment_id.attributes['zoneHVACEquipmentIdRef']
+    end
+
+    zone
+  end
+
+  def self.map_to_zone_hvac_equipment(xml)
     name = xml.elements['Name']
     zone_hvac_equipment_id = xml.elements['ZoneHVACEquipmentId']
 

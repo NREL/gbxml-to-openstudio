@@ -1,23 +1,23 @@
 require_relative '../hvac_object/hvac_object'
 
-class VAVBox < HVACObject
+class CAVBox < HVACObject
   attr_accessor :air_terminal, :air_terminal_type, :heating_coil, :heating_coil_type, :heating_loop_ref, :air_loop, :air_loop_ref
 
   def initialize
-    self.name = "VAV Box"
+    self.name = "CAV Box"
   end
 
   def add_air_terminal
     if self.air_terminal_type == 'Reheat'
-      vav_box = OpenStudio::Model::AirTerminalSingleDuctVAVReheat.new(self.model, self.model.alwaysOnDiscreteSchedule, self.heating_coil)
+      cav_box = OpenStudio::Model::AirTerminalSingleDuctConstantVolumeReheat.new(self.model, self.model.alwaysOnDiscreteSchedule, self.heating_coil)
     else
-      vav_box = OpenStudio::Model::AirTerminalSingleDuctVAVNoReheat.new(self.model, self.model.alwaysOnDiscreteSchedule)
+      cav_box = OpenStudio::Model::AirTerminalSingleDuctUncontrolled.new(self.model, self.model.alwaysOnDiscreteSchedule)
     end
 
-    vav_box.setName(self.name) unless self.name.nil?
-    vav_box.additionalProperties.setFeature('id', self.id) unless self.id.nil?
-    vav_box.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
-    vav_box
+    cav_box.setName(self.name) unless self.name.nil?
+    cav_box.additionalProperties.setFeature('id', self.id) unless self.id.nil?
+    cav_box.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
+    cav_box
   end
 
   def add_heating_coil
@@ -59,38 +59,38 @@ class VAVBox < HVACObject
   end
 
   def self.create_from_xml(xml)
-    vav_box = new
+    cav_box = new
 
     name = xml.elements['Name']
-    vav_box.set_name(xml.elements['Name'].text) unless name.nil?
-    vav_box.set_id(xml.attributes['id']) unless xml.attributes['id'].nil?
-    vav_box.set_cad_object_id(xml.elements['CADObjectId'].text) unless xml.elements['CADObjectId'].nil?
+    cav_box.set_name(xml.elements['Name'].text) unless name.nil?
+    cav_box.set_id(xml.attributes['id']) unless xml.attributes['id'].nil?
+    cav_box.set_cad_object_id(xml.elements['CADObjectId'].text) unless xml.elements['CADObjectId'].nil?
 
     air_loop_ref = xml.elements['AirSystemId']
     unless air_loop_ref.nil?
-      vav_box.air_loop_ref = xml.elements['AirSystemId'].attributes['airSystemIdRef']
+      cav_box.air_loop_ref = xml.elements['AirSystemId'].attributes['airSystemIdRef']
     end
 
     unless xml.attributes['heatingCoilType'].nil? or xml.attributes['heatingCoilType'] == "None"
-      vav_box.heating_coil_type = xml.attributes['heatingCoilType']
+      cav_box.heating_coil_type = xml.attributes['heatingCoilType']
 
-      if vav_box.heating_coil_type == 'HotWater'
+      if cav_box.heating_coil_type == 'HotWater'
         hydronic_loop_id = xml.elements['HydronicLoopId']
         unless hydronic_loop_id.nil?
           hydronic_loop_id_ref = hydronic_loop_id.attributes['hydronicLoopIdRef']
           unless hydronic_loop_id_ref.nil?
-            vav_box.heating_loop_ref = hydronic_loop_id_ref
+            cav_box.heating_loop_ref = hydronic_loop_id_ref
           end
         end
       end
 
-      if ['HotWater', 'Furnace', 'ElectricResistance'].include? vav_box.heating_coil_type
-        vav_box.air_terminal_type = 'Reheat'
+      if ['HotWater', 'Furnace', 'ElectricResistance'].include? cav_box.heating_coil_type
+        cav_box.air_terminal_type = 'Reheat'
       else
-        vav_box.air_terminal_type = 'NoReheat'
+        cav_box.air_terminal_type = 'NoReheat'
       end
     end
 
-    vav_box
+    cav_box
   end
 end

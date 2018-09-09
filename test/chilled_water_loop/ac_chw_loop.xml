@@ -1,0 +1,6 @@
+<gbXML>
+  <HydronicLoop loopType="PrimaryChilledWater" fluidType="Water" id="aim72792">
+    <Name>CHW-01</Name>
+    <CADObjectId>364632</CADObjectId>
+  </HydronicLoop>
+</gbXML>

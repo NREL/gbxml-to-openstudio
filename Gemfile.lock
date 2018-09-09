@@ -1,13 +1,26 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    ansi (1.5.0)
+    builder (3.2.3)
+    minitest (5.11.3)
+    minitest-reporters (1.3.0)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
     openstudio-api-stubs (0.1.0)
+    rake (12.3.0)
+    ruby-progressbar (1.9.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  minitest
+  minitest-reporters
   openstudio-api-stubs
+  rake
 
 BUNDLED WITH
    1.16.0

@@ -5,3 +5,4 @@ workflows/*/reports
 workflows/*/run
 measures/*/tests/output
 measures/*/output_models/
+test/*/*.osm

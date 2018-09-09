@@ -1,55 +1,111 @@
-# require 'openstudio'
-# require 'openstudio-standards'
-# require 'rexml/document'
-# require_relative '../condenser_loop/condenser_loop'
+require_relative '../hvac_object/hvac_object'
 
-require_relative '../model/helpers'
-class ChilledWaterLoop
-  def self.create_chw_loop_from_xml(model, std, xml)
+class ChilledWaterLoop < HVACObject
+  attr_accessor :plant_loop, :chiller, :pump, :spm, :condenser_loop_ref
 
-    # Should this logic assume air cooled if the condenser loop can't be found
-    # or should it create a new condenser loop if it cant be found?
-    if xml.elements['HydronicLoopId[@hydronicLoopType="CondenserWater"]'].nil?
-      chw_loop = std.model_add_chw_loop(model,
-                                        'const_pri',
-                                        chiller_cooling_type = nil,
-                                        chiller_condenser_type = nil,
-                                        chiller_compressor_type = nil,
-                                        'Electricity',
-                                        condenser_water_loop = nil,
-                                        building_type = nil)
-      name = xml.elements['Name']
-      unless name.nil?
-        chw_loop.setName(xml.elements['Name'].text)
-      end
-    else
-      cw_loop_id = xml.elements['HydronicLoopId'].attributes['hydronicLoopIdRef']
-      cw_loop = Helpers.get_plant_loop_by_id(model, cw_loop_id)
-      if cw_loop
-        chw_loop = std.model_add_chw_loop(model,
-                                          'const_pri_var_sec',
-                                          'WaterCooled',
-                                          chiller_condenser_type = nil,
-                                          'Rotary Screw',
-                                          cool_fueling = nil,
-                                          cw_loop,
-                                          building_type = nil)
-      end
-      name = xml.elements['Name']
-      unless name.nil?
-        chw_loop.setName(xml.elements['Name'].text)
-      end
+  def initialize
+    self.name = "Chilled Water Loop"
+  end
+
+  def add_plant_loop
+    plant_loop = OpenStudio::Model::PlantLoop.new(self.model)
+    plant_loop.setName(self.name) unless self.name.nil?
+    plant_loop.additionalProperties.setFeature('id', self.id) unless self.id.nil?
+    plant_loop.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
+
+    sizing_plant = plant_loop.sizingPlant
+    sizing_plant.setLoopType('Cooling')
+    sizing_plant.setDesignLoopExitTemperature(6.6666667)
+    sizing_plant.setLoopDesignTemperatureDifference(6.666667)
+
+    plant_loop
+  end
+
+  def add_chiller
+    chiller = OpenStudio::Model::ChillerElectricEIR.new(self.model)
+    chiller.setName("#{self.name} Chiller")
+    chiller.setReferenceLeavingChilledWaterTemperature(6.6666667)
+    chiller.setReferenceEnteringCondenserFluidTemperature(35)
+    chiller.setMinimumPartLoadRatio(0.15)
+    chiller.setMaximumPartLoadRatio(1.0)
+    chiller.setOptimumPartLoadRatio(1.0)
+    chiller.setMinimumUnloadingRatio(0.25)
+    chiller.setLeavingChilledWaterLowerTemperatureLimit(2)
+    chiller.setChillerFlowMode('ConstantFlow')
+
+    chiller
+  end
+
+  def add_pump
+    pump = OpenStudio::Model::PumpVariableSpeed.new(self.model)
+    pump.setName("#{self.name} Pump")
+    pump.setRatedPumpHead(179344.014)
+    pump.setMotorEfficiency(0.9)
+    pump.setFractionofMotorInefficienciestoFluidStream(0)
+    pump.setCoefficient1ofthePartLoadPerformanceCurve(0)
+    pump.setCoefficient2ofthePartLoadPerformanceCurve(0)
+    pump.setCoefficient3ofthePartLoadPerformanceCurve(1)
+    pump.setCoefficient4ofthePartLoadPerformanceCurve(0)
+    pump.setPumpControlType('Intermittent')
+
+    pump
+  end
+
+  def add_spm
+    temp_sch = OpenStudio::Model::ScheduleRuleset.new(self.model)
+    temp_sch.setName("#{self.name} Temp Schedule")
+    temp_sch.defaultDaySchedule.setName("#{self.name} Schedule Default")
+    temp_sch.defaultDaySchedule.addValue(OpenStudio::Time.new(0, 24, 0, 0), 6.6666667)
+    temp_sch.setName("#{self.name} Temp Schedule")
+    spm = OpenStudio::Model::SetpointManagerScheduled.new(self.model, temp_sch)
+    spm.setName("#{self.name} Setpoint Manager")
+    spm
+  end
+
+  def resolve_dependencies
+    if self.condenser_loop_ref
+      condenser_loop = self.model_manager.cw_loops[self.condenser_loop_ref]
+      condenser_loop.plant_loop.addDemandBranchForComponent(self.chiller)
+      self.chiller.setCondenserType('WaterCooled')
+      # get object from ModelManager and build that object
+    end
+  end
+
+  def build(model_manager)
+    # Object dependency resolution needs to happen before the object is built
+    self.model_manager = model_manager
+    self.model = model_manager.model
+    self.plant_loop = add_plant_loop
+    self.chiller = add_chiller
+    self.pump = add_pump
+    self.spm = add_spm
+
+    self.pump.addToNode(self.plant_loop.supplyInletNode)
+    self.plant_loop.addSupplyBranchForComponent(self.chiller)
+    self.spm.addToNode(self.plant_loop.supplyOutletNode)
+    resolve_dependencies
+
+    self.plant_loop.additionalProperties.setFeature('id', self.id) unless self.id.nil?
+    self.plant_loop.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
+
+    self.built = true
+    self.plant_loop
+  end
+
+  def self.create_from_xml(xml)
+    plant_loop = new
+
+    name = xml.elements['Name']
+    plant_loop.set_name(xml.elements['Name'].text) unless name.nil?
+    plant_loop.set_id(xml.attributes['id']) unless xml.attributes['id'].nil?
+    plant_loop.set_cad_object_id(xml.elements['CADObjectId'].text) unless xml.elements['CADObjectId'].nil?
+
+    cw_loop_ref = xml.elements['HydronicLoopId[@hydronicLoopType="CondenserWater"]']
+    unless cw_loop_ref.nil?
+      plant_loop.condenser_loop_ref = xml.elements['HydronicLoopId'].attributes['hydronicLoopIdRef']
     end
 
-    unless xml.attributes['id'].nil?
-      chw_loop.additionalProperties.setFeature('id', xml.attributes['id'])
-    end
-
-    unless xml.elements['CADObjectId'].nil?
-      chw_loop.additionalProperties.setFeature('CADObjectId', xml.elements['CADObjectId'].text)
-    end
-
-    chw_loop
+    plant_loop
   end
 
 end
