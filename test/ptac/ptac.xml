@@ -1,0 +1,21 @@
+<gbXML>
+  <ZoneHVACEquipment zoneHVACEquipmentType="PackagedTerminalAirConditioner" heatingCoilType="HotWater" id="aim19166">
+    <Name>ZE2</Name>
+    <CADObjectId>355592-24</CADObjectId>
+    <HydronicLoopId hydronicLoopIdRef="aim19095" hydronicLoopType="HotWater" coilType="None" />
+  </ZoneHVACEquipment>
+  <ZoneHVACEquipment zoneHVACEquipmentType="PackagedTerminalAirConditioner" heatingCoilType="HotWater" id="aim19168">
+    <Name>ZE2</Name>
+    <CADObjectId>355592-25</CADObjectId>
+    <HydronicLoopId hydronicLoopIdRef="aim19095" hydronicLoopType="HotWater" coilType="None" />
+  </ZoneHVACEquipment>
+  <ZoneHVACEquipment zoneHVACEquipmentType="PackagedTerminalAirConditioner" heatingCoilType="HotWater" id="aim19170">
+    <Name>ZE2</Name>
+    <CADObjectId>355592-26</CADObjectId>
+    <HydronicLoopId hydronicLoopIdRef="aim19095" hydronicLoopType="HotWater" coilType="None" />
+  </ZoneHVACEquipment>
+  <HydronicLoop loopType="HotWater" fluidType="Water" id="aim19095">
+    <Name>HW1</Name>
+    <CADObjectId>355587</CADObjectId>
+  </HydronicLoop>
+</gbXML>
