@@ -2,6 +2,7 @@ require_relative '../vav_box/vav_box'
 require_relative '../cav_box/cav_box'
 require_relative '../ptac/ptac'
 require_relative '../pthp/pthp'
+require_relative '../unit_heater/unit_heater'
 
 class ZoneHVACEquipment
   # This can be a factory based on the zoneHVACEquipmentType
@@ -17,6 +18,8 @@ class ZoneHVACEquipment
         PTAC.create_from_xml(xml)
       when 'PackagedTerminalHeatPump'
         PTHP.create_from_xml(xml)
+      when 'UnitHeater'
+        UnitHeater.create_from_xml(xml)
       end
     end
   end
