@@ -12,7 +12,6 @@ class PTAC < HVACObject
   end
 
   def add_ptac
-    puts self.supply_fan
     ptac = OpenStudio::Model::ZoneHVACPackagedTerminalAirConditioner.new(self.model, self.model.alwaysOnDiscreteSchedule, self.supply_fan, self.heating_coil, self.cooling_coil)
     ptac.setName(self.name) unless self.name.nil?
     ptac.additionalProperties.setFeature('id', self.id) unless self.id.nil?
@@ -25,7 +24,8 @@ class PTAC < HVACObject
   end
 
   def add_heating_coil
-    heating_coil = nil
+    # temporary hold while the gbXML file is missing the heating coil info
+    heating_coil = OpenStudio::Model::CoilHeatingGas.new(self.model)
 
     if self.heating_coil_type == "ElectricResistance"
       heating_coil = OpenStudio::Model::CoilHeatingElectric.new(self.model)
@@ -71,19 +71,20 @@ class PTAC < HVACObject
     equipment.set_id(xml.attributes['id']) unless xml.attributes['id'].nil?
     equipment.set_cad_object_id(xml.elements['CADObjectId'].text) unless xml.elements['CADObjectId'].nil?
 
-    unless xml.attributes['heatingCoilType'].nil? or xml.attributes['heatingCoilType'] == "None"
-      equipment.heating_coil_type = xml.attributes['heatingCoilType']
-
-      if equipment.heating_coil_type == 'HotWater'
+    # unless xml.attributes['heatingCoilType'].nil? or xml.attributes['heatingCoilType'] == "None"
+    #   equipment.heating_coil_type = xml.attributes['heatingCoilType']
+    #
+    #   if equipment.heating_coil_type == 'HotWater'
         hydronic_loop_id = xml.elements['HydronicLoopId']
         unless hydronic_loop_id.nil?
           hydronic_loop_id_ref = hydronic_loop_id.attributes['hydronicLoopIdRef']
           unless hydronic_loop_id_ref.nil?
+            equipment.heating_coil_type = 'HotWater'
             equipment.heating_loop_ref = hydronic_loop_id_ref
           end
         end
-      end
-    end
+    #   end
+    # end
 
     equipment
   end
