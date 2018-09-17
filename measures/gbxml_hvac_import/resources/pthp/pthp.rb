@@ -7,6 +7,10 @@ class PTHP < HVACObject
     self.name = "PTHP"
   end
 
+  def connect_thermal_zone(thermal_zone)
+    self.pthp.addToThermalZone(thermal_zone)
+  end
+
   def add_pthp
     pthp = OpenStudio::Model::ZoneHVACPackagedTerminalHeatPump.new(self.model, self.model.alwaysOnDiscreteSchedule, self.supply_fan, self.heating_coil, self.cooling_coil, self.supplemental_heating_coil)
     pthp.setName(self.name) unless self.name.nil?

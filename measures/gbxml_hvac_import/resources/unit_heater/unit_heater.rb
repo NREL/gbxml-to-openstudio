@@ -7,6 +7,10 @@ class UnitHeater < HVACObject
     self.name = "Unit Heater"
   end
 
+  def connect_thermal_zone(thermal_zone)
+    self.unit_heater.addToThermalZone(thermal_zone)
+  end
+
   def add_unit_heater
     unit_heater = OpenStudio::Model::ZoneHVACUnitHeater.new(self.model, self.model.alwaysOnDiscreteSchedule, self.supply_fan, self.heating_coil)
     unit_heater.setName(self.name) unless self.name.nil?

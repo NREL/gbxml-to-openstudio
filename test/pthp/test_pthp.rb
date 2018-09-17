@@ -1,32 +1,52 @@
-require 'minitest/autorun'
-require 'openstudio'
-require_relative '../../measures/gbxml_hvac_import/resources/pthp/pthp'
-require_relative '../../measures/gbxml_hvac_import/resources/gbxml_parser/gbxml_parser'
-require_relative '../../measures/gbxml_hvac_import/resources/model_manager/model_manager'
+require_relative '../minitest_helper'
 
 class TestPTHP < MiniTest::Test
-  def test_xml_creation
-    gbxml_path = File.expand_path(File.join(File.dirname(__FILE__), '/pthp.xml'))
-    gbxml_parser = GBXMLParser.new(gbxml_path)
-    equipment_xml = gbxml_parser.zone_hvac_equipments[0]
-    equipment = PTHP.create_from_xml(equipment_xml)
+  attr_accessor :model, :model_manager, :gbxml_path
 
-    assert(equipment.name == 'ZE2')
-    assert(equipment.cad_object_id == '355592-24')
-    assert(equipment.id = 'aim19166')
+  def before_setup
+    self.gbxml_path = TestConfig::GBXML_FILES + '/PTHPAllVariations.xml'
+    translator = OpenStudio::GbXML::GbXMLReverseTranslator.new
+    self.model = translator.loadModel(self.gbxml_path).get
+    self.model_manager = ModelManager.new(self.model, self.gbxml_path)
+    self.model_manager.load_gbxml
+  end
+
+  def test_xml_creation
+    equipment = self.model_manager.zone_hvac_equipments.values[0]
+    xml_element = self.model_manager.gbxml_parser.zone_hvac_equipments[0]
+    name = xml_element.elements['Name'].text
+    id = xml_element.attributes['id']
+    cad_object_id = xml_element.elements['CADObjectId'].text
+
+    assert(equipment.name == name)
+    assert(equipment.cad_object_id == cad_object_id)
+    assert(equipment.id == id)
   end
 
   def test_build
-    gbxml_path = File.expand_path(File.join(File.dirname(__FILE__), '/pthp.xml'))
-    model = OpenStudio::Model::Model.new
-    model_manager = ModelManager.new(model, gbxml_path)
+    self.model_manager.build
+    equipment = self.model_manager.zone_hvac_equipments.values[0].pthp
 
-    equipment = model_manager.zone_hvac_equipments.values[0].pthp
-    assert(equipment.name.get == 'ZE2')
-    assert(equipment.additionalProperties.getFeatureAsString('id').get == 'aim19166')
-    assert(equipment.additionalProperties.getFeatureAsString('CADObjectId').get == '355592-24')
+    assert(equipment.coolingCoil.to_CoilCoolingDXSingleSpeed.is_initialized)
+    assert(equipment.heatingCoil.to_CoilHeatingDXSingleSpeed.is_initialized)
+    assert(equipment.supplyAirFan.to_FanOnOff.is_initialized)
+    assert(equipment.supplementalHeatingCoil.to_CoilHeatingElectric.is_initialized)
+    assert(equipment.is_a?(OpenStudio::Model::ZoneHVACPackagedTerminalHeatPump))
 
-    path = OpenStudio::Path.new(File.expand_path(File.join(File.dirname(__FILE__), '/pthp.osm')))
-    model.save(path, true)
+    assert(equipment.name.get == 'PTHP')
+    assert(equipment.additionalProperties.getFeatureAsString('id').get == 'aim0823')
+    assert(equipment.additionalProperties.getFeatureAsString('CADObjectId').get == '280066-1')
+  end
+
+  def test_simulation
+    # set osw_path to find location of osw to run
+    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/pthp/in.osw'
+    cmd = "\"#{TestConfig::CLI_PATH}\" run -w \"#{osw_in_path}\""
+    system(cmd)
+
+    osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/pthp/out.osw'
+    osw_out = JSON.parse(File.read(osw_out_path))
+
+    assert(osw_out['completed_status'] == 'Success')
   end
 end

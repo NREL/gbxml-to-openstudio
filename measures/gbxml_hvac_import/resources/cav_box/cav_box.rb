@@ -7,6 +7,11 @@ class CAVBox < HVACObject
     self.name = "CAV Box"
   end
 
+  def connect_thermal_zone(thermal_zone)
+    outlet_node = self.air_terminal.outletModelObject.get.to_Node.get
+    thermal_zone.addToNode(outlet_node)
+  end
+
   def add_air_terminal
     if self.air_terminal_type == 'Reheat'
       cav_box = OpenStudio::Model::AirTerminalSingleDuctConstantVolumeReheat.new(self.model, self.model.alwaysOnDiscreteSchedule, self.heating_coil)

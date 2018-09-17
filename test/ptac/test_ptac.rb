@@ -1,32 +1,57 @@
-require 'minitest/autorun'
-require 'openstudio'
-require_relative '../../measures/gbxml_hvac_import/resources/ptac/ptac'
-require_relative '../../measures/gbxml_hvac_import/resources/gbxml_parser/gbxml_parser'
-require_relative '../../measures/gbxml_hvac_import/resources/model_manager/model_manager'
+require_relative '../minitest_helper'
 
 class TestPTAC < MiniTest::Test
-  def test_xml_creation
-    gbxml_path = File.expand_path(File.join(File.dirname(__FILE__), '/ptac.xml'))
-    gbxml_parser = GBXMLParser.new(gbxml_path)
-    equipment_xml = gbxml_parser.zone_hvac_equipments[0]
-    equipment = PTAC.create_from_xml(equipment_xml)
+  attr_accessor :model, :model_manager, :gbxml_path
 
-    assert(equipment.name == 'ZE2')
-    assert(equipment.cad_object_id == '355592-24')
-    assert(equipment.id = 'aim19166')
+  def before_setup
+    self.gbxml_path = TestConfig::GBXML_FILES + '/PTACAllVariations.xml'
+    translator = OpenStudio::GbXML::GbXMLReverseTranslator.new
+    self.model = translator.loadModel(self.gbxml_path).get
+    self.model_manager = ModelManager.new(self.model, self.gbxml_path)
+    self.model_manager.load_gbxml
+  end
+
+  def test_xml_creation
+    equipment = self.model_manager.zone_hvac_equipments.values[0]
+    xml_element = self.model_manager.gbxml_parser.zone_hvac_equipments[0]
+    name = xml_element.elements['Name'].text
+    id = xml_element.attributes['id']
+    cad_object_id = xml_element.elements['CADObjectId'].text
+
+    assert(equipment.name == name)
+    assert(equipment.cad_object_id == cad_object_id)
+    assert(equipment.id == id)
   end
 
   def test_build
-    gbxml_path = File.expand_path(File.join(File.dirname(__FILE__), '/ptac.xml'))
-    model = OpenStudio::Model::Model.new
-    model_manager = ModelManager.new(model, gbxml_path)
+    self.model_manager.build
+    ptac_elec = self.model_manager.zone_hvac_equipments.values[0].ptac
+    ptac_furnace = self.model_manager.zone_hvac_equipments.values[1].ptac
+    ptac_hw = self.model_manager.zone_hvac_equipments.values[2].ptac
 
-    equipment = model_manager.zone_hvac_equipments.values[0].ptac
-    assert(equipment.name.get == 'ZE2')
-    assert(equipment.additionalProperties.getFeatureAsString('id').get == 'aim19166')
-    assert(equipment.additionalProperties.getFeatureAsString('CADObjectId').get == '355592-24')
+    assert(ptac_elec.coolingCoil.to_CoilCoolingDXSingleSpeed.is_initialized)
+    assert(ptac_elec.heatingCoil.to_CoilHeatingElectric.is_initialized)
+    assert(ptac_elec.supplyAirFan.to_FanOnOff.is_initialized)
+    assert(ptac_elec.is_a?(OpenStudio::Model::ZoneHVACPackagedTerminalAirConditioner))
 
-    path = OpenStudio::Path.new(File.expand_path(File.join(File.dirname(__FILE__), '/ptac.osm')))
-    model.save(path, true)
+    assert(ptac_furnace.heatingCoil.to_CoilHeatingGas.is_initialized)
+    assert(ptac_hw.heatingCoil.to_CoilHeatingWater.is_initialized)
+
+    # only need to test one object for this mapping
+    assert(ptac_elec.name.get == 'PTAC')
+    assert(ptac_elec.additionalProperties.getFeatureAsString('id').get == 'aim0823')
+    assert(ptac_elec.additionalProperties.getFeatureAsString('CADObjectId').get == '280066-1')
+  end
+
+  def test_simulation
+    # set osw_path to find location of osw to run
+    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/ptac/in.osw'
+    cmd = "\"#{TestConfig::CLI_PATH}\" run -w \"#{osw_in_path}\""
+    system(cmd)
+
+    osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/ptac/out.osw'
+    osw_out = JSON.parse(File.read(osw_out_path))
+
+    assert(osw_out['completed_status'] == 'Success')
   end
 end

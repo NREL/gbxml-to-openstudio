@@ -7,7 +7,12 @@ class PTAC < HVACObject
     self.name = "PTAC"
   end
 
+  def connect_thermal_zone(thermal_zone)
+    self.ptac.addToThermalZone(thermal_zone)
+  end
+
   def add_ptac
+    puts self.supply_fan
     ptac = OpenStudio::Model::ZoneHVACPackagedTerminalAirConditioner.new(self.model, self.model.alwaysOnDiscreteSchedule, self.supply_fan, self.heating_coil, self.cooling_coil)
     ptac.setName(self.name) unless self.name.nil?
     ptac.additionalProperties.setFeature('id', self.id) unless self.id.nil?

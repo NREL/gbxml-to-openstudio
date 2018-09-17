@@ -6,3 +6,6 @@ workflows/*/run
 measures/*/tests/output
 measures/*/output_models/
 test/*/*.osm
+test/output_models/*/run
+test/output_models/*/reports
+test/output_models/*/out.osw

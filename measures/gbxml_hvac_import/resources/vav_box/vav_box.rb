@@ -7,6 +7,11 @@ class VAVBox < HVACObject
     self.name = "VAV Box"
   end
 
+  def connect_thermal_zone(thermal_zone)
+    outlet_node = self.air_terminal.outletModelObject.get.to_Node.get
+    thermal_zone.addToNode(outlet_node)
+  end
+
   def add_air_terminal
     if self.air_terminal_type == 'Reheat'
       vav_box = OpenStudio::Model::AirTerminalSingleDuctVAVReheat.new(self.model, self.model.alwaysOnDiscreteSchedule, self.heating_coil)
