@@ -13,7 +13,7 @@ class Zone < HVACObject
     self.model = model_manager.model
     self.thermal_zone = self.model.getThermalZoneByName(self.name).get
 
-    zone_hvac_equipment_refs.each do |zone_hvac_equipment_ref|
+    self.zone_hvac_equipment_refs.each do |zone_hvac_equipment_ref|
       equipment = model_manager.zone_hvac_equipments[zone_hvac_equipment_ref]
       equipment.connect_thermal_zone(self.thermal_zone)
       # equipment = model_manager.zone_hvac_equipments[zone_hvac_equipment_ref].ptac

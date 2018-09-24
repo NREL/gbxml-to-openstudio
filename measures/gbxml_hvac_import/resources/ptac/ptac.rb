@@ -25,7 +25,7 @@ class PTAC < HVACObject
 
   def add_heating_coil
     # temporary hold while the gbXML file is missing the heating coil info
-    heating_coil = OpenStudio::Model::CoilHeatingGas.new(self.model)
+    heating_coil = nil
 
     if self.heating_coil_type == "ElectricResistance"
       heating_coil = OpenStudio::Model::CoilHeatingElectric.new(self.model)
@@ -33,6 +33,10 @@ class PTAC < HVACObject
       heating_coil = OpenStudio::Model::CoilHeatingGas.new(self.model)
     elsif self.heating_coil_type == "HotWater"
       heating_coil = OpenStudio::Model::CoilHeatingWater.new(self.model)
+    end
+
+    if heating_coil.nil?
+      heating_coil = OpenStudio::Model::CoilHeatingGas.new(self.model)
     end
 
     heating_coil

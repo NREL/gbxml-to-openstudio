@@ -1,32 +1,58 @@
-require 'minitest/autorun'
-require 'openstudio'
-require_relative '../../measures/gbxml_hvac_import/resources/vav_box/vav_box'
-require_relative '../../measures/gbxml_hvac_import/resources/gbxml_parser/gbxml_parser'
-require_relative '../../measures/gbxml_hvac_import/resources/model_manager/model_manager'
+require_relative '../minitest_helper'
 
 class TestVAVBox < MiniTest::Test
-  def test_xml_creation
-    gbxml_path = File.expand_path(File.join(File.dirname(__FILE__), '/vav_box.xml'))
-    gbxml_parser = GBXMLParser.new(gbxml_path)
-    vav_box_xml = gbxml_parser.zone_hvac_equipments[0]
-    vav_box = VAVBox.create_from_xml(vav_box_xml)
+  attr_accessor :model, :model_manager, :gbxml_path
 
-    assert(vav_box.name == 'ZE1')
-    assert(vav_box.cad_object_id == '355591')
-    assert(vav_box.id = 'aim19105')
+  def before_setup
+    self.gbxml_path = TestConfig::GBXML_FILES + '/VAVBoxAllVariations.xml'
+    translator = OpenStudio::GbXML::GbXMLReverseTranslator.new
+    self.model = translator.loadModel(self.gbxml_path).get
+    self.model_manager = ModelManager.new(self.model, self.gbxml_path)
+    self.model_manager.load_gbxml
+  end
+
+  def test_xml_creation
+    equipment = self.model_manager.zone_hvac_equipments.values[0]
+    xml_element = self.model_manager.gbxml_parser.zone_hvac_equipments[0]
+    name = xml_element.elements['Name'].text
+    id = xml_element.attributes['id']
+    cad_object_id = xml_element.elements['CADObjectId'].text
+
+    assert(equipment.name == name)
+    assert(equipment.cad_object_id == cad_object_id)
+    assert(equipment.id == id)
   end
 
   def test_build
-    gbxml_path = File.expand_path(File.join(File.dirname(__FILE__), '/vav_box.xml'))
-    model = OpenStudio::Model::Model.new
-    model_manager = ModelManager.new(model, gbxml_path)
+    self.model_manager.build
+    vav_box_elec = self.model_manager.zone_hvac_equipments.values[0].air_terminal
+    vav_box_furn = self.model_manager.zone_hvac_equipments.values[1].air_terminal
+    vav_box_hw = self.model_manager.zone_hvac_equipments.values[2].air_terminal
+    vav_box_no_rh = self.model_manager.zone_hvac_equipments.values[3].air_terminal
 
-    vav_box = model_manager.zone_hvac_equipments.values[0].air_terminal
-    assert(vav_box.name.get == 'ZE1')
-    assert(vav_box.additionalProperties.getFeatureAsString('id').get == 'aim19105')
-    assert(vav_box.additionalProperties.getFeatureAsString('CADObjectId').get == '355591')
+    assert(vav_box_elec.reheatCoil.to_CoilHeatingElectric.is_initialized)
+    assert(vav_box_elec.is_a?(OpenStudio::Model::AirTerminalSingleDuctVAVReheat))
 
-    path = OpenStudio::Path.new(File.expand_path(File.join(File.dirname(__FILE__), '/vav_box.osm')))
-    model.save(path, true)
+    assert(vav_box_furn.reheatCoil.to_CoilHeatingGas.is_initialized)
+    assert(vav_box_hw.reheatCoil.to_CoilHeatingWater.is_initialized)
+    assert(vav_box_no_rh.is_a?(OpenStudio::Model::AirTerminalSingleDuctVAVNoReheat))
+
+
+    # only need to test one object for this mapping
+    assert(vav_box_elec.name.get == 'VAV Box Electric')
+    assert(vav_box_elec.additionalProperties.getFeatureAsString('id').get == 'aim0828')
+    assert(vav_box_elec.additionalProperties.getFeatureAsString('CADObjectId').get == '280066-1')
+  end
+
+  def test_simulation
+    # set osw_path to find location of osw to run
+    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/vav_box/in.osw'
+    cmd = "\"#{TestConfig::CLI_PATH}\" run -w \"#{osw_in_path}\""
+    system(cmd)
+
+    osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/vav_box/out.osw'
+    osw_out = JSON.parse(File.read(osw_out_path))
+
+    assert(osw_out['completed_status'] == 'Success')
   end
 end

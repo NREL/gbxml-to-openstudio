@@ -70,7 +70,7 @@ class HotWaterLoop < HVACObject
     self.plant_loop.additionalProperties.setFeature('id', self.id) unless self.id.nil?
     self.plant_loop.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
 
-    # self.built = true
+    self.built = true
     self.plant_loop
   end
 

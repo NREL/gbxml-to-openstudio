@@ -1,54 +1,36 @@
-require 'minitest/autorun'
-require 'openstudio'
-require_relative '../../measures/gbxml_hvac_import/resources/chilled_water_loop/chilled_water_loop'
-require_relative '../../measures/gbxml_hvac_import/resources/gbxml_parser/gbxml_parser'
-require_relative '../../measures/gbxml_hvac_import/resources/model_manager/model_manager'
+require_relative '../minitest_helper'
 
 class TestChilledWaterLoop < MiniTest::Test
-  def test_air_cooled_xml_creation
-    gbxml_path = File.expand_path(File.join(File.dirname(__FILE__), '/ac_chw_loop.xml'))
-    gbxml_parser = GBXMLParser.new(gbxml_path)
-    chw_loop = gbxml_parser.chw_loops[0]
-    chilled_water_loop = ChilledWaterLoop.create_from_xml(chw_loop)
+  attr_accessor :model, :model_manager, :gbxml_path
 
-    assert(chilled_water_loop.name == 'CHW-01')
-    assert(chilled_water_loop.cad_object_id == '364632')
-    assert(chilled_water_loop.id == 'aim72792')
+  def before_setup
+    self.gbxml_path = TestConfig::GBXML_FILES + '/AirSystemAllVariations.xml'
+    translator = OpenStudio::GbXML::GbXMLReverseTranslator.new
+    self.model = translator.loadModel(self.gbxml_path).get
+    self.model_manager = ModelManager.new(self.model, self.gbxml_path)
+    self.model_manager.load_gbxml
   end
 
-  def test_air_cooled_build
-    gbxml_path = File.expand_path(File.join(File.dirname(__FILE__), '/ac_chw_loop.xml'))
-    model = OpenStudio::Model::Model.new
-    model_manager = ModelManager.new(model, gbxml_path)
+  def test_xml_creation
+    equipment = self.model_manager.chw_loops.values[0]
+    xml_element = self.model_manager.gbxml_parser.chw_loops[0]
+    name = xml_element.elements['Name'].text
+    id = xml_element.attributes['id']
+    cad_object_id = xml_element.elements['CADObjectId'].text
 
-    os_loop = model_manager.chw_loops.values[0].plant_loop
-    assert(os_loop.name.get == 'CHW-01')
-    assert(os_loop.additionalProperties.getFeatureAsString('id').get == 'aim72792')
-    assert(os_loop.additionalProperties.getFeatureAsString('CADObjectId').get == '364632')
+    assert(equipment.name == name)
+    assert(equipment.cad_object_id == cad_object_id)
+    assert(equipment.id == id)
   end
 
-  def test_water_cooled_xml_creation
-    gbxml_path = File.expand_path(File.join(File.dirname(__FILE__), '/wc_chw_loop.xml'))
-    gbxml_parser = GBXMLParser.new(gbxml_path)
-    chw_loop = gbxml_parser.chw_loops[0]
-    chilled_water_loop = ChilledWaterLoop.create_from_xml(chw_loop)
+  def test_build
+    self.model_manager.build
+    equipment = self.model_manager.chw_loops.values[0].plant_loop
 
-    assert(chilled_water_loop.name == 'CHW-01')
-    assert(chilled_water_loop.cad_object_id == '364632')
-    assert(chilled_water_loop.id == 'aim72792')
-    assert(chilled_water_loop.condenser_loop_ref == 'aim72793')
-  end
-
-  def test_water_cooled_build
-    gbxml_path = File.expand_path(File.join(File.dirname(__FILE__), '/wc_chw_loop.xml'))
-    model = OpenStudio::Model::Model.new
-    model_manager = ModelManager.new(model, gbxml_path)
-
-    chilled_water_loop = model_manager.chw_loops.values[0]
-    os_chw_loop = chilled_water_loop.plant_loop
-    assert(os_chw_loop.name.get == 'CHW-01')
-    assert(os_chw_loop.additionalProperties.getFeatureAsString('id').get == 'aim72792')
-    assert(os_chw_loop.additionalProperties.getFeatureAsString('CADObjectId').get == '364632')
-    assert( chilled_water_loop.chiller.secondaryPlantLoop.get.name.get == 'CDW-01')
+    assert(equipment.supplySplitter.outletModelObject(0).get.to_Node.get.outletModelObject.get.to_ChillerElectricEIR.is_initialized)
+    assert(equipment.supplyInletNode.outletModelObject.get.to_PumpVariableSpeed.is_initialized)
+    assert(equipment.name.get == 'CHW Loop')
+    assert(equipment.additionalProperties.getFeatureAsString('id').get == 'aim0824')
+    assert(equipment.additionalProperties.getFeatureAsString('CADObjectId').get == '280687')
   end
 end

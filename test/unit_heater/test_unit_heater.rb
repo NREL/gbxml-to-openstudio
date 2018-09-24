@@ -1,4 +1,5 @@
 require_relative '../minitest_helper'
+
 class TestUnitHeater < MiniTest::Test
   attr_accessor :model, :model_manager, :gbxml_path
 

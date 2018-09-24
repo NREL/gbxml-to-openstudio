@@ -1,29 +1,36 @@
-require 'minitest/autorun'
-require 'openstudio'
-require_relative '../../measures/gbxml_hvac_import/resources/hot_water_loop/hot_water_loop'
-require_relative '../../measures/gbxml_hvac_import/resources/gbxml_parser/gbxml_parser'
-require_relative '../../measures/gbxml_hvac_import/resources/model_manager/model_manager'
+require_relative '../minitest_helper'
 
 class TestHotWaterLoop < MiniTest::Test
-  def test_xml_creation
-    gbxml_path = File.expand_path(File.join(File.dirname(__FILE__), '/hot_water_loop.xml'))
-    gbxml_parser = GBXMLParser.new(gbxml_path)
-    hw_loop = gbxml_parser.hw_loops[0]
-    hot_water_loop = HotWaterLoop.create_from_xml(hw_loop)
+  attr_accessor :model, :model_manager, :gbxml_path
 
-    assert(hot_water_loop.name == 'HW-01')
-    assert(hot_water_loop.cad_object_id == '364631')
-    assert(hot_water_loop.id = 'aim72791')
+  def before_setup
+    self.gbxml_path = TestConfig::GBXML_FILES + '/PTACAllVariations.xml'
+    translator = OpenStudio::GbXML::GbXMLReverseTranslator.new
+    self.model = translator.loadModel(self.gbxml_path).get
+    self.model_manager = ModelManager.new(self.model, self.gbxml_path)
+    self.model_manager.load_gbxml
+  end
+
+  def test_xml_creation
+    equipment = self.model_manager.hw_loops.values[0]
+    xml_element = self.model_manager.gbxml_parser.hw_loops[0]
+    name = xml_element.elements['Name'].text
+    id = xml_element.attributes['id']
+    cad_object_id = xml_element.elements['CADObjectId'].text
+
+    assert(equipment.name == name)
+    assert(equipment.cad_object_id == cad_object_id)
+    assert(equipment.id == id)
   end
 
   def test_build
-    gbxml_path = File.expand_path(File.join(File.dirname(__FILE__), '/hot_water_loop.xml'))
-    model = OpenStudio::Model::Model.new
-    model_manager = ModelManager.new(model, gbxml_path)
+    self.model_manager.build
+    equipment = self.model_manager.hw_loops.values[0].plant_loop
 
-    os_loop = model_manager.hw_loops.values[0].plant_loop
-    assert(os_loop.name.get == 'HW-01')
-    assert(os_loop.additionalProperties.getFeatureAsString('id').get == 'aim72791')
-    assert(os_loop.additionalProperties.getFeatureAsString('CADObjectId').get == '364631')
+    assert(equipment.supplySplitter.outletModelObject(0).get.to_Node.get.outletModelObject.get.to_BoilerHotWater.is_initialized)
+    assert(equipment.supplyInletNode.outletModelObject.get.to_PumpVariableSpeed.is_initialized)
+    assert(equipment.name.get == 'HW Loop')
+    assert(equipment.additionalProperties.getFeatureAsString('id').get == 'aim0822')
+    assert(equipment.additionalProperties.getFeatureAsString('CADObjectId').get == '280112')
   end
 end

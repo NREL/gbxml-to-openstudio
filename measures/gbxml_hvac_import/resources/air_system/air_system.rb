@@ -48,7 +48,9 @@ class AirSystem < HVACObject
   def add_cooling_coil
     cooling_coil = nil
 
-    if self.cooling_coil_type == "DX"
+    if self.cooling_coil_type == "DirectExpansionAirCooled"
+      cooling_coil = OpenStudio::Model::CoilCoolingDXSingleSpeed.new(self.model)
+    elsif self.cooling_coil_type == "DirectExpansionWaterCooled"
       cooling_coil = OpenStudio::Model::CoilCoolingDXSingleSpeed.new(self.model)
     elsif self.cooling_coil_type == "ChilledWater"
       cooling_coil = OpenStudio::Model::CoilCoolingWater.new(self.model)
@@ -83,7 +85,7 @@ class AirSystem < HVACObject
     if self.heat_exchanger_type == "Enthalpy"
       heat_exchanger = OpenStudio::Model::HeatExchangerAirToAirSensibleAndLatent.new(self.model)
       heat_exchanger.setSupplyAirOutletTemperatureControl(true)
-    elsif self.heat_exchanger_type = "Rotary"
+    elsif self.heat_exchanger_type == "Sensible"
       heat_exchanger = OpenStudio::Model::HeatExchangerAirToAirSensibleAndLatent.new(self.model)
       heat_exchanger.setSupplyAirOutletTemperatureControl(true)
     end
@@ -124,10 +126,10 @@ class AirSystem < HVACObject
     self.heat_exchanger = add_heat_exchanger
     self.spm = add_spm
 
-    self.supply_fan.addToNode(air_loop_hvac.supplyInletNode) unless supply_fan.nil?
-    self.heating_coil.addToNode(air_loop_hvac.supplyInletNode) unless heating_coil.nil?
-    self.cooling_coil.addToNode(air_loop_hvac.supplyInletNode) unless cooling_coil.nil?
-    self.preheat_coil.addToNode(air_loop_hvac.supplyInletNode) unless preheat_coil.nil?
+    self.supply_fan.addToNode(air_loop_hvac.supplyInletNode) unless self.supply_fan.nil?
+    self.heating_coil.addToNode(air_loop_hvac.supplyInletNode) unless self.heating_coil.nil?
+    self.cooling_coil.addToNode(air_loop_hvac.supplyInletNode) unless self.cooling_coil.nil?
+    self.preheat_coil.addToNode(air_loop_hvac.supplyInletNode) unless self.preheat_coil.nil?
     self.oa_system.addToNode(air_loop_hvac.supplyInletNode)
     self.heat_exchanger.addToNode(self.oa_system.outboardOANode.get) unless self.heat_exchanger.nil?
     self.spm.addToNode(self.air_loop_hvac.supplyOutletNode)
