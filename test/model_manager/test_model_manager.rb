@@ -1,5 +1,6 @@
 require_relative '../minitest_helper'
 
+# TODO: Develop more substantial tests
 class TestModelManager < MiniTest::Test
   def test_model_manager
     gbxml_path = File.expand_path(File.join(File.dirname(__FILE__), '../../gbxmls/Analytical Systems 01.xml'))

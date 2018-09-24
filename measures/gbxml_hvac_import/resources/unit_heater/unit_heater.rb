@@ -20,7 +20,7 @@ class UnitHeater < HVACObject
   end
 
   def add_supply_fan
-    OpenStudio::Model::FanOnOff.new(self.model)
+    OpenStudio::Model::FanConstantVolume.new(self.model)
   end
 
   def add_heating_coil
@@ -51,6 +51,7 @@ class UnitHeater < HVACObject
     self.heating_coil = add_heating_coil
     self.supply_fan = add_supply_fan
     self.unit_heater = add_unit_heater
+    # self.unit_heater.setFanControlType('OnOff')
     resolve_dependencies
 
     self.built = true

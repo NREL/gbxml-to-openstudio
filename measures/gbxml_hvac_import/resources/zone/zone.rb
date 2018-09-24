@@ -15,7 +15,7 @@ class Zone < HVACObject
 
     self.zone_hvac_equipment_refs.each do |zone_hvac_equipment_ref|
       equipment = model_manager.zone_hvac_equipments[zone_hvac_equipment_ref]
-      equipment.connect_thermal_zone(self.thermal_zone)
+      equipment.connect_thermal_zone(self.thermal_zone) unless equipment.nil?
       # equipment = model_manager.zone_hvac_equipments[zone_hvac_equipment_ref].ptac
       # equipment.addToThermalZone(self.thermal_zone)
       # outlet_node = equipment.outletModelObject.get.to_Node.get
