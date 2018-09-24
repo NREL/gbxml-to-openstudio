@@ -1,7 +1,7 @@
 require_relative '../hvac_object/hvac_object'
 
 class PTHP < HVACObject
-  wshpattr_accessor :pthp, :supply_fan, :cooling_coil, :heating_coil, :supplemental_heating_coil
+  attr_accessor :pthp, :supply_fan, :cooling_coil, :heating_coil, :supplemental_heating_coil
 
   def initialize
     self.name = "PTHP"
