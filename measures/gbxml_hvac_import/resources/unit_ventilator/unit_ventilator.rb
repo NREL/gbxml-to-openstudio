@@ -18,7 +18,7 @@ class UnitVentilator < HVACObject
   end
 
   def add_supply_fan
-    OpenStudio::Model::FanOnOff.new(self.model)
+    OpenStudio::Model::FanConstantVolume.new(self.model)
   end
 
   def add_heating_coil
@@ -46,11 +46,13 @@ class UnitVentilator < HVACObject
   def resolve_dependencies
     unless self.heating_loop_ref.nil?
       heating_loop = self.model_manager.hw_loops[self.heating_loop_ref]
+      puts heating_loop
       heating_loop.plant_loop.addDemandBranchForComponent(self.heating_coil)
     end
 
     unless self.cooling_loop_ref.nil?
       cooling_loop = self.model_manager.chw_loops[self.cooling_loop_ref]
+      puts cooling_loop
       cooling_loop.plant_loop.addDemandBranchForComponent(self.cooling_coil)
     end
   end
@@ -63,6 +65,7 @@ class UnitVentilator < HVACObject
     self.supply_fan = add_supply_fan
     self.cooling_coil = add_cooling_coil
     self.unit_ventilator = add_unit_ventilator
+    # self.unit_ventilator.setFanControlType('OnOff')
 
     self.unit_ventilator.setHeatingCoil(self.heating_coil) unless self.heating_coil.nil?
     self.unit_ventilator.setCoolingCoil(self.cooling_coil) unless self.cooling_coil.nil?
@@ -85,7 +88,7 @@ class UnitVentilator < HVACObject
       equipment.heating_coil_type = xml.attributes['heatingCoilType']
 
       if equipment.heating_coil_type == 'HotWater'
-        hydronic_loop_id = xml.elements['HydronicLoopId[@coilType="Heating"]']
+        hydronic_loop_id = xml.elements['HydronicLoopId[@hydronicLoopType="HotWater"]']
         unless hydronic_loop_id.nil?
           hydronic_loop_id_ref = hydronic_loop_id.attributes['hydronicLoopIdRef']
           unless hydronic_loop_id_ref.nil?
@@ -99,7 +102,7 @@ class UnitVentilator < HVACObject
       equipment.cooling_coil_type = xml.attributes['coolingCoilType']
 
       if equipment.cooling_coil_type == 'ChilledWater'
-        hydronic_loop_id = xml.elements['HydronicLoopId[@coilType="Cooling"]']
+        hydronic_loop_id = xml.elements['HydronicLoopId[@hydronicLoopType="PrimaryChilledWater"]']
         unless hydronic_loop_id.nil?
           hydronic_loop_id_ref = hydronic_loop_id.attributes['hydronicLoopIdRef']
           unless hydronic_loop_id_ref.nil?

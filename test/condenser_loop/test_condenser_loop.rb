@@ -4,7 +4,7 @@ class TestCondenserLoop < MiniTest::Test
   attr_accessor :model, :model_manager, :gbxml_path
 
   def before_setup
-    self.gbxml_path = TestConfig::GBXML_FILES + '/AirSystemAllVariations.xml'
+    self.gbxml_path = TestConfig::GBXML_FILES + '/FPFCAllVariations.xml'
     translator = OpenStudio::GbXML::GbXMLReverseTranslator.new
     self.model = translator.loadModel(self.gbxml_path).get
     self.model_manager = ModelManager.new(self.model, self.gbxml_path)
@@ -31,6 +31,6 @@ class TestCondenserLoop < MiniTest::Test
     assert(equipment.supplyInletNode.outletModelObject.get.to_PumpConstantSpeed.is_initialized)
     assert(equipment.name.get == 'CW Loop')
     assert(equipment.additionalProperties.getFeatureAsString('id').get == 'aim0823')
-    assert(equipment.additionalProperties.getFeatureAsString('CADObjectId').get == '280685')
+    assert(equipment.additionalProperties.getFeatureAsString('CADObjectId').get == '280806')
   end
 end

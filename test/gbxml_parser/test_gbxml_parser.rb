@@ -3,6 +3,7 @@ require 'minitest/assertions'
 require 'minitest/reporters'
 require_relative '../../measures/gbxml_hvac_import/resources/gbxml_parser/gbxml_parser'
 
+# TODO: Recreate a better test
 class TestGbxmlParser < MiniTest::Test
   def test_gbxml_parsing
     gbxml_path = File.expand_path(File.join(File.dirname(__FILE__), '../../gbxmls/Analytical Systems 01.xml'))
