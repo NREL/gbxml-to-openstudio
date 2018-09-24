@@ -9,3 +9,6 @@ test/*/*.osm
 test/output_models/*/run
 test/output_models/*/reports
 test/output_models/*/out.osw
+installer_staging
+gbxml-to-openstudio-cache
+gbxml-to-openstudio-SetupFiles
