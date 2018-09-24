@@ -1,0 +1,37 @@
+<gbXML>
+  <AirSystem preheatCoilType="ElectricResistance" heatingCoilType="HotWater" coolingCoilType="ChilledWater" id="aim19100">
+    <Name>AHU1</Name>
+    <CADObjectId>355590</CADObjectId>
+    <HeatExchanger heatExchangerType="Enthalpy" />
+    <Fan FanType="VariableVolume" />
+    <HydronicLoopId hydronicLoopIdRef="aim72792" hydronicLoopType="PrimaryChilledWater" coilType="Cooling" />
+    <HydronicLoopId hydronicLoopIdRef="aim72791" hydronicLoopType="HotWater" coilType="Heating" />
+  </AirSystem>
+  <AirSystem preheatCoilType="Furnace" heatingCoilType="ElectricResistance" coolingCoilType="ChilledWater" id="aim19101">
+    <Name>AHU2</Name>
+    <CADObjectId>355591</CADObjectId>
+    <HeatExchanger heatExchangerType="Enthalpy" />
+    <Fan FanType="VariableVolume" />
+    <HydronicLoopId hydronicLoopIdRef="aim72792" hydronicLoopType="PrimaryChilledWater" coilType="Cooling" />
+  </AirSystem>
+  <AirSystem preheatCoilType="ElectricResistance" heatingCoilType="ElectricResistance" coolingCoilType="ChilledWater" id="aim19102">
+    <Name>AHU3</Name>
+    <CADObjectId>355592</CADObjectId>
+    <HeatExchanger heatExchangerType="Enthalpy" />
+    <Fan FanType="VariableVolume" />
+    <HydronicLoopId hydronicLoopIdRef="aim72792" hydronicLoopType="PrimaryChilledWater" coilType="Cooling" />
+  </AirSystem>
+  <HydronicLoop loopType="PrimaryChilledWater" fluidType="Water" id="aim72792">
+    <Name>CHW-01</Name>
+    <CADObjectId>364632</CADObjectId>
+    <HydronicLoopId hydronicLoopIdRef="aim72793" hydronicLoopType="CondenserWater" coilType="None" />
+  </HydronicLoop>
+  <HydronicLoop loopType="CondenserWater" fluidType="Water" id="aim72793">
+    <Name>CDW-01</Name>
+    <CADObjectId>364633</CADObjectId>
+  </HydronicLoop>
+  <HydronicLoop loopType="HotWater" fluidType="Water" id="aim72791">
+    <Name>HW-01</Name>
+    <CADObjectId>364631</CADObjectId>
+  </HydronicLoop>
+</gbXML>

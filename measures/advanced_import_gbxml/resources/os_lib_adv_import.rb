@@ -263,7 +263,6 @@ module OsLib_AdvImport
     ar = AreaReducer.new(vertices, desired_area, eps)
 
     n = Newton::nlsolve(ar, [0])
-    puts n
     return ar.new_vertices
   end
 end

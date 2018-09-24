@@ -1,117 +1,208 @@
-require 'rexml/document'
-require 'openstudio'
-require_relative '../model/helpers'
+require_relative '../hvac_object/hvac_object'
 
-class AirSystem
+class AirSystem < HVACObject
+  attr_accessor :air_loop_hvac, :supply_fan, :heating_coil, :cooling_coil, :preheat_coil, :oa_system, :heat_exchanger,
+                :spm, :supply_fan_type, :heating_coil_type, :heating_loop_ref, :cooling_coil_type, :cooling_loop_ref,
+                :preheat_coil_type, :preheat_loop_ref, :heat_exchanger_type
 
-  def self.create_air_system_from_xml(model, std, xml)
+  def initialize
+    self.name = "Air System"
+  end
 
-    air_loop_hvac = OpenStudio::Model::AirLoopHVAC.new(model)
+  def add_air_loop_hvac
+    air_loop_hvac = OpenStudio::Model::AirLoopHVAC.new(self.model)
+    air_loop_hvac.setName(self.name) unless self.name.nil?
+    air_loop_hvac.additionalProperties.setFeature('id', self.id) unless self.id.nil?
+    air_loop_hvac.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
+    air_loop_hvac
+  end
 
-    unless xml.elements['Name'].nil?
-      air_loop_hvac.setName(xml.elements['Name'].text)
+  def add_supply_fan
+    fan = nil
+
+    if self.supply_fan_type == "VariableVolume"
+      fan = OpenStudio::Model::FanVariableVolume.new(self.model)
+      fan.setName(self.name) unless self.name.nil?
+    elsif self.supply_fan_type == "ConstantVolume"
+      fan = OpenStudio::Model::FanConstantVolume.new(self.model)
+      fan.setName(self.name) unless self.name.nil?
     end
 
-    # Add the fan
-    unless xml.elements['Fan'].nil?
-      fan_type = xml.elements['Fan'].attributes['FanType']
-      if fan_type == "VariableVolume"
-        fan = OpenStudio::Model::FanVariableVolume.new(model)
-        fan.addToNode(air_loop_hvac.supplyInletNode)
-      elsif fan_type == "ConstantVolume"
-        fan = OpenStudio::Model::FanConstantVolume.new(model)
-        fan.addToNode(air_loop_hvac.supplyInletNode)
-      end
+    fan
+  end
+
+  def add_heating_coil
+    heating_coil = nil
+
+    if self.heating_coil_type == "ElectricResistance"
+      heating_coil = OpenStudio::Model::CoilHeatingElectric.new(self.model)
+    elsif self.heating_coil_type == "Furnace"
+      heating_coil = OpenStudio::Model::CoilHeatingGas.new(self.model)
+    elsif self.heating_coil_type == "HotWater"
+      heating_coil = OpenStudio::Model::CoilHeatingWater.new(self.model)
     end
 
-    # Add the heating coil
+    heating_coil
+  end
+
+  def add_cooling_coil
+    cooling_coil = nil
+
+    if self.cooling_coil_type == "DirectExpansionAirCooled"
+      cooling_coil = OpenStudio::Model::CoilCoolingDXSingleSpeed.new(self.model)
+    elsif self.cooling_coil_type == "DirectExpansionWaterCooled"
+      cooling_coil = OpenStudio::Model::CoilCoolingDXSingleSpeed.new(self.model)
+    elsif self.cooling_coil_type == "ChilledWater"
+      cooling_coil = OpenStudio::Model::CoilCoolingWater.new(self.model)
+    end
+
+    cooling_coil
+  end
+
+  def add_preheat_coil
+    preheat_coil = nil
+
+    if self.preheat_coil_type == "ElectricResistance"
+      preheat_coil = OpenStudio::Model::CoilHeatingElectric.new(self.model)
+    elsif self.preheat_coil_type == "Furnace"
+      preheat_coil = OpenStudio::Model::CoilHeatingGas.new(self.model)
+    elsif self.preheat_coil_type == "HotWater"
+      preheat_coil = OpenStudio::Model::CoilHeatingWater.new(self.model)
+    end
+
+    preheat_coil
+  end
+
+  def add_oa_system
+    oa_controller = OpenStudio::Model::ControllerOutdoorAir.new(self.model)
+    oa_system = OpenStudio::Model::AirLoopHVACOutdoorAirSystem.new(self.model, oa_controller)
+    oa_system
+  end
+
+  def add_heat_exchanger
+    heat_exchanger = nil
+
+    if self.heat_exchanger_type == "Enthalpy"
+      heat_exchanger = OpenStudio::Model::HeatExchangerAirToAirSensibleAndLatent.new(self.model)
+      heat_exchanger.setSupplyAirOutletTemperatureControl(true)
+    elsif self.heat_exchanger_type == "Sensible"
+      heat_exchanger = OpenStudio::Model::HeatExchangerAirToAirSensibleAndLatent.new(self.model)
+      heat_exchanger.setSupplyAirOutletTemperatureControl(true)
+    end
+
+    heat_exchanger
+  end
+
+  def add_spm
+    OpenStudio::Model::SetpointManagerWarmest.new(model)
+  end
+
+  def resolve_dependencies
+    unless self.heating_loop_ref.nil?
+      heating_loop = self.model_manager.hw_loops[self.heating_loop_ref]
+      heating_loop.plant_loop.addDemandBranchForComponent(self.heating_coil)
+    end
+
+    unless self.cooling_loop_ref.nil?
+      cooling_loop = self.model_manager.chw_loops[self.cooling_loop_ref]
+      cooling_loop.plant_loop.addDemandBranchForComponent(self.cooling_coil)
+    end
+
+    unless self.preheat_loop_ref.nil?
+      preheat_loop = self.model_manager.hw_loops[self.preheat_loop_ref]
+      preheat_loop.plant_loop.addDemandBranchForComponent(self.preheat_coil)
+    end
+  end
+
+  def build(model_manager)
+    self.model_manager = model_manager
+    self.model = model_manager.model
+    self.air_loop_hvac = add_air_loop_hvac
+    self.oa_system = add_oa_system
+    self.supply_fan = add_supply_fan
+    self.heating_coil = add_heating_coil
+    self.cooling_coil = add_cooling_coil
+    self.preheat_coil = add_preheat_coil
+    self.heat_exchanger = add_heat_exchanger
+    self.spm = add_spm
+
+    self.supply_fan.addToNode(air_loop_hvac.supplyInletNode) unless self.supply_fan.nil?
+    self.heating_coil.addToNode(air_loop_hvac.supplyInletNode) unless self.heating_coil.nil?
+    self.cooling_coil.addToNode(air_loop_hvac.supplyInletNode) unless self.cooling_coil.nil?
+    self.preheat_coil.addToNode(air_loop_hvac.supplyInletNode) unless self.preheat_coil.nil?
+    self.oa_system.addToNode(air_loop_hvac.supplyInletNode)
+    self.heat_exchanger.addToNode(self.oa_system.outboardOANode.get) unless self.heat_exchanger.nil?
+    self.spm.addToNode(self.air_loop_hvac.supplyOutletNode)
+    resolve_dependencies
+
+    self.air_loop_hvac.additionalProperties.setFeature('id', self.id) unless self.id.nil?
+    self.air_loop_hvac.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
+    self.air_loop_hvac
+  end
+
+  # TODO: Break out into classes for each object to prevent this mess.
+  def self.create_from_xml(xml)
+    air_loop = new
+
+    name = xml.elements['Name']
+    air_loop.set_name(xml.elements['Name'].text) unless name.nil?
+    air_loop.set_id(xml.attributes['id']) unless xml.attributes['id'].nil?
+    air_loop.set_cad_object_id(xml.elements['CADObjectId'].text) unless xml.elements['CADObjectId'].nil?
+
+    supply_fan = xml.elements['Fan']
+    air_loop.supply_fan_type = supply_fan.attributes['FanType'] unless supply_fan.nil?
+
     unless xml.attributes['heatingCoilType'].nil? or xml.attributes['heatingCoilType'] == "None"
-      heating_coil_type = xml.attributes['heatingCoilType']
-      if heating_coil_type == "ElectricResistance"
-        create_coil_heating_electric(model, air_loop:air_loop_hvac)
-      elsif heating_coil_type == "Furnace"
-        create_coil_heating_gas(model, air_loop:air_loop_hvac)
-      elsif heating_coil_type == "HotWater"
+      air_loop.heating_coil_type = xml.attributes['heatingCoilType']
+
+      if air_loop.heating_coil_type == 'HotWater'
         hydronic_loop_id = xml.elements['HydronicLoopId[@coilType="Heating"]']
         unless hydronic_loop_id.nil?
           hydronic_loop_id_ref = hydronic_loop_id.attributes['hydronicLoopIdRef']
           unless hydronic_loop_id_ref.nil?
-            hw_loop = Helpers.get_plant_loop_by_id(model, hydronic_loop_id_ref)
-            if hw_loop
-              create_coil_heating_water(model, hw_loop, air_loop:air_loop_hvac)
-            end
+            air_loop.heating_loop_ref = hydronic_loop_id_ref
           end
         end
       end
     end
 
-    # Add the cooling coil
     unless xml.attributes['coolingCoilType'].nil? or xml.attributes['coolingCoilType'] == "None"
-      cooling_coil_type = xml.attributes['coolingCoilType']
-      if cooling_coil_type == "DX"
-        create_coil_cooling_dx_single_speed(model, air_loop:air_loop_hvac)
-      elsif cooling_coil_type == "ChilledWater"
+      air_loop.cooling_coil_type = xml.attributes['coolingCoilType']
+
+      if air_loop.cooling_coil_type == 'ChilledWater'
         hydronic_loop_id = xml.elements['HydronicLoopId[@coilType="Cooling"]']
         unless hydronic_loop_id.nil?
           hydronic_loop_id_ref = hydronic_loop_id.attributes['hydronicLoopIdRef']
           unless hydronic_loop_id_ref.nil?
-            chw_loop = Helpers.get_plant_loop_by_id(model, hydronic_loop_id_ref)
-            if chw_loop
-              create_coil_cooling_water(model, chw_loop, air_loop:air_loop_hvac)
-            end
+            air_loop.cooling_loop_ref = hydronic_loop_id_ref
           end
         end
       end
     end
 
-    # Add the preheat coil
     unless xml.attributes['preheatCoilType'].nil? or xml.attributes['preheatCoilType'] == "None"
-      preheating_coil_type = xml.attributes['preheatCoilType']
-      if preheating_coil_type == "ElectricResistance"
-        create_coil_heating_electric(model, air_loop:air_loop_hvac)
-      elsif preheating_coil_type == "Furnace"
-        create_coil_heating_gas(model, air_loop:air_loop_hvac)
-      elsif preheating_coil_type == "HotWater"
-        hydronic_loop_id = xml.elements['HydronicLoopId[@coilType="preheat"]']
+      air_loop.preheat_coil_type = xml.attributes['preheatCoilType']
+
+      if air_loop.preheat_coil_type == 'HotWater'
+        hydronic_loop_id = xml.elements['HydronicLoopId[@coilType="Preheat"]']
         unless hydronic_loop_id.nil?
           hydronic_loop_id_ref = hydronic_loop_id.attributes['hydronicLoopIdRef']
           unless hydronic_loop_id_ref.nil?
-            hw_loop = Helpers.get_plant_loop_by_id(model, hydronic_loop_id_ref)
-            if hw_loop
-              create_coil_heating_water(model, hw_loop, air_loop:air_loop_hvac)
-            end
+            air_loop.preheat_loop_ref = hydronic_loop_id_ref
           end
         end
       end
     end
 
-    # Add the OA System
-    oa_controller = OpenStudio::Model::ControllerOutdoorAir.new(model)
-    oa_system = OpenStudio::Model::AirLoopHVACOutdoorAirSystem.new(model, oa_controller)
-    oa_system.addToNode(air_loop_hvac.supplyInletNode)
-
     # Add the Heat Exchanger
-    heat_exchanger_element = xml.elements['HeatExchanger']
-    unless heat_exchanger_element.nil?
-      hx_type = heat_exchanger_element.attributes['heatExchangerType']
-      unless hx_type.nil? or hx_type == 'None'
-        std.air_loop_hvac_apply_energy_recovery_ventilator(air_loop_hvac)
-      end
+    heat_exchanger = xml.elements['HeatExchanger']
+    unless heat_exchanger.nil?
+      air_loop.heat_exchanger_type = heat_exchanger.attributes['heatExchangerType']
     end
 
-    # Add an SPM
-    spm = OpenStudio::Model::SetpointManagerWarmest.new(model)
-    spm.addToNode(air_loop_hvac.supplyOutletNode)
-
-    unless xml.attributes['id'].nil?
-      air_loop_hvac.additionalProperties.setFeature('id', xml.attributes['id'])
-    end
-
-    unless xml.elements['CADObjectId'].nil?
-      air_loop_hvac.additionalProperties.setFeature('CADObjectId', xml.elements['CADObjectId'].text)
-    end
-
+    air_loop
   end
+
 
   def self.create_coil_cooling_dx_single_speed(model,
                                           air_loop: nil,
