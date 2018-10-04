@@ -10,8 +10,8 @@
     <ROW Property="Manufacturer" Value="NREL"/>
     <ROW Property="ProductCode" Value="1033:{6DB147B8-C47A-4255-8A56-B426B756B093} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
-    <ROW Property="ProductName" Value="GbXML To OpenStudio"/>
-    <ROW Property="ProductVersion" Value="0.0.0" Type="32"/>
+    <ROW Property="ProductName" Value="OpenStudio CLI For Revit"/>
+    <ROW Property="ProductVersion" Value="0.0.1" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{8151B9D3-9C8B-408A-8BDB-231665C21C13}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -87,7 +87,7 @@
     <ROW Component="LICENSE.md_3" ComponentId="{DC2D34A6-D887-4C0E-B464-80A56E8E235A}" Directory_="openstudio_results_Dir" Attributes="0" KeyPath="LICENSE.md_3" Type="0"/>
     <ROW Component="LICENSE.md_4" ComponentId="{7FC622DB-B143-42F2-95D9-5341A9F0B5F8}" Directory_="set_simulation_control_Dir" Attributes="0" KeyPath="LICENSE.md_4" Type="0"/>
     <ROW Component="LICENSE.md_5" ComponentId="{27DB2D50-A890-483E-B3AD-8722586D8EBA}" Directory_="SpaceTypeAndConstructionSetWiza_Dir" Attributes="0" KeyPath="LICENSE.md_5" Type="0"/>
-    <ROW Component="ProductInformation" ComponentId="{8845EE96-7C3F-4EA1-BAB7-B156FF6BC18E}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
+    <ROW Component="ProductInformation" ComponentId="{8845EE96-7C3F-4EA1-BAB7-B156FF6BC18E}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
     <ROW Component="SetThermostatSchedules_Test.rb" ComponentId="{8031A1E7-B5F3-4290-A1BB-C75812AD55BE}" Directory_="tests_5_Dir" Attributes="0" KeyPath="SetThermostatSchedules_Test.rb" Type="0"/>
     <ROW Component="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" ComponentId="{C79C1A6F-CBC5-4F83-91FC-0922DC95EF18}" Directory_="weather_Dir" Attributes="0" KeyPath="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" Type="0"/>
     <ROW Component="_SmallHotel_a.osm" ComponentId="{54E72BBA-E133-4E47-AFF2-C93E1CE21043}" Directory_="tests_4_Dir" Attributes="0" KeyPath="_SmallHotel_a.osm" Type="0"/>
@@ -471,7 +471,7 @@
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" Languages="en" InstallationType="4" UseLargeSchema="true"/>
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" Languages="en" InstallationType="4" UseLargeSchema="true" MsiPackageType="x64"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
     <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
@@ -528,7 +528,7 @@
     <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
     <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
     <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
-    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="DefaultBuild:[ProgramFiles64Folder][Manufacturer]\[ProductName]"/>
     <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
     <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
   </COMPONENT>

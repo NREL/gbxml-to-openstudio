@@ -1,32 +1,30 @@
-require 'minitest/autorun'
-require 'openstudio'
-require_relative '../../measures/gbxml_hvac_import/resources/zone/zone'
-require_relative '../../measures/gbxml_hvac_import/resources/gbxml_parser/gbxml_parser'
-require_relative '../../measures/gbxml_hvac_import/resources/model_manager/model_manager'
+require_relative '../minitest_helper'
 
 class TestZone < MiniTest::Test
-  def test_xml_creation
-    gbxml_path = File.expand_path(File.join(File.dirname(__FILE__), '/zone.xml'))
-    gbxml_parser = GBXMLParser.new(gbxml_path)
-    zone_xml = gbxml_parser.zones[0]
-    zone = Zone.create_from_xml(zone_xml)
+  attr_accessor :model, :model_manager, :gbxml_path
 
-    assert(zone.name == 'ZE2-25')
-    assert(zone.id == 'aim19287')
+  def before_setup
+    self.gbxml_path = TestConfig::GBXML_FILES + '/zone.xml'
+    translator = OpenStudio::GbXML::GbXMLReverseTranslator.new
+    self.model = translator.loadModel(self.gbxml_path).get
+    self.model_manager = ModelManager.new(self.model, self.gbxml_path)
+    self.model_manager.load_gbxml
+  end
+
+  def test_xml_creation
+    equipment = self.model_manager.zones.values[0]
+    xml_element = self.model_manager.gbxml_parser.zones[0]
+    name = xml_element.elements['Name'].text
+    id = xml_element.attributes['id']
+
+    assert(equipment.name == name)
+    assert(equipment.id == id)
   end
 
   def test_build
-    gbxml_path = File.expand_path(File.join(File.dirname(__FILE__), '/zone.xml'))
-    translator = OpenStudio::GbXML::GbXMLReverseTranslator.new
-    model = translator.loadModel(gbxml_path)
-    if model.empty?
-      runner.registerError("Could not translate gbXML filename '#{gbxml_path}' to OSM.")
-      return false
-    end
-    model = model.get
-    model_manager = ModelManager.new(model, gbxml_path)
-
+    self.model_manager.build
     zone = model_manager.zones.values[0].thermal_zone
+
     assert(zone.name.get == 'ZE2-25')
     assert(zone.additionalProperties.getFeatureAsString('id').get == 'aim19287')
 

@@ -1,0 +1,48 @@
+<gbXML>
+  <Zone id="aim19287">
+    <ZoneHVACEquipmentId zoneHVACEquipmentIdRef="aim19105" />
+    <Name>ZE2-25</Name>
+  </Zone>
+  <Zone id="aim19289">
+    <ZoneHVACEquipmentId zoneHVACEquipmentIdRef="aim19108" />
+    <Name>ZE2-26</Name>
+  </Zone>
+  <ZoneHVACEquipment zoneHVACEquipmentType="VAVBox" heatingCoilType="HotWater" id="aim19105">
+    <Name>ZE1</Name>
+    <CADObjectId>355591</CADObjectId>
+    <AirSystemId airSystemIdRef="aim19097" />
+    <HydronicLoopId hydronicLoopIdRef="aim19095" hydronicLoopType="HotWater" coilType="None" />
+  </ZoneHVACEquipment>
+  <ZoneHVACEquipment zoneHVACEquipmentType="VAVBox" heatingCoilType="Furnace" id="aim19108">
+    <Name>ZE1</Name>
+    <CADObjectId>355591-1</CADObjectId>
+    <AirSystemId airSystemIdRef="aim19097" />
+  </ZoneHVACEquipment>
+  <ZoneHVACEquipment zoneHVACEquipmentType="VAVBox" heatingCoilType="ElectricResistance" id="aim19111">
+    <Name>ZE1</Name>
+    <CADObjectId>355591-2</CADObjectId>
+    <AirSystemId airSystemIdRef="aim19097" />
+  </ZoneHVACEquipment>
+  <AirSystem preheatCoilType="ElectricResistance" heatingCoilType="ElectricResistance" coolingCoilType="ChilledWater" id="aim19097">
+    <Name>AHU1</Name>
+    <CADObjectId>355589</CADObjectId>
+    <HeatExchanger heatExchangerType="Enthalpy" />
+    <Fan FanType="VariableVolume" />
+    <HydronicLoopId hydronicLoopIdRef="aim19096" hydronicLoopType="PrimaryChilledWater" coilType="Cooling" />
+  </AirSystem>
+  <AirSystem preheatCoilType="ElectricResistance" heatingCoilType="ElectricResistance" coolingCoilType="ChilledWater" id="aim19101">
+    <Name>AHU2</Name>
+    <CADObjectId>355590</CADObjectId>
+    <HeatExchanger heatExchangerType="Enthalpy" />
+    <Fan FanType="VariableVolume" />
+    <HydronicLoopId hydronicLoopIdRef="aim19096" hydronicLoopType="PrimaryChilledWater" coilType="Cooling" />
+  </AirSystem>
+  <HydronicLoop loopType="HotWater" fluidType="Water" id="aim19095">
+    <Name>HW1</Name>
+    <CADObjectId>355587</CADObjectId>
+  </HydronicLoop>
+  <HydronicLoop loopType="PrimaryChilledWater" fluidType="Water" id="aim19096">
+    <Name>CW1</Name>
+    <CADObjectId>355588</CADObjectId>
+  </HydronicLoop>
+</gbXML>
