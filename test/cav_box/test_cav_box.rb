@@ -45,11 +45,11 @@ class TestCAVBox < MiniTest::Test
 
   def test_simulation
     # set osw_path to find location of osw to run
-    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/vav_box/in.osw'
+    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/cav_box/in.osw'
     cmd = "\"#{TestConfig::CLI_PATH}\" run -w \"#{osw_in_path}\""
     system(cmd)
 
-    osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/vav_box/out.osw'
+    osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/cav_box/out.osw'
     osw_out = JSON.parse(File.read(osw_out_path))
 
     assert(osw_out['completed_status'] == 'Success')

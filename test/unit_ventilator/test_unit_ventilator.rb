@@ -29,11 +29,10 @@ class TestUnitVentilator < MiniTest::Test
     uv_furn_none = self.model_manager.zone_hvac_equipments.values[1].unit_ventilator
     uv_hw_none = self.model_manager.zone_hvac_equipments.values[2].unit_ventilator
     uv_all_none = self.model_manager.zone_hvac_equipments.values[3].unit_ventilator
-    puts uv_elec_chw
 
     assert(uv_elec_chw.coolingCoil.get.to_CoilCoolingWater.is_initialized)
     assert(uv_elec_chw.heatingCoil.get.to_CoilHeatingElectric.is_initialized)
-    assert(uv_elec_chw.supplyAirFan.to_FanOnOff.is_initialized)
+    assert(uv_elec_chw.supplyAirFan.to_FanConstantVolume.is_initialized)
     assert(uv_elec_chw.is_a?(OpenStudio::Model::ZoneHVACUnitVentilator))
 
     assert(uv_furn_none.heatingCoil.get.to_CoilHeatingGas.is_initialized)

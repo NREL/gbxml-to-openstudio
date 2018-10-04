@@ -51,9 +51,8 @@ class CAVBox < HVACObject
     end
   end
 
-  def build(model_manager)
+  def build
     # Object dependency resolution needs to happen before the object is built
-    self.model_manager = model_manager
     self.model = model_manager.model
     self.heating_coil = add_heating_coil
     self.air_terminal = add_air_terminal

@@ -30,7 +30,7 @@ class TestUnitHeater < MiniTest::Test
     uh_hw = self.model_manager.zone_hvac_equipments.values[2].unit_heater
 
     assert(uh_elec.heatingCoil.to_CoilHeatingElectric.is_initialized)
-    assert(uh_elec.supplyAirFan.to_FanOnOff.is_initialized)
+    assert(uh_elec.supplyAirFan.to_FanConstantVolume.is_initialized)
     assert(uh_elec.is_a?(OpenStudio::Model::ZoneHVACUnitHeater))
 
     assert(uh_furnace.heatingCoil.to_CoilHeatingGas.is_initialized)
