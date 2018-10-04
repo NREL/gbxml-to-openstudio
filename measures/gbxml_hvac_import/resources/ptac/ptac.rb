@@ -53,10 +53,9 @@ class PTAC < HVACObject
     end
   end
 
-  def build(model_manager)
+  def build
     # Object dependency resolution needs to happen before the object is built
-    self.model_manager = model_manager
-    self.model = model_manager.model
+    self.model = self.model_manager.model
     self.heating_coil = add_heating_coil
     self.supply_fan = add_supply_fan
     self.cooling_coil = add_cooling_coil
@@ -67,8 +66,9 @@ class PTAC < HVACObject
     self.ptac
   end
 
-  def self.create_from_xml(xml)
+  def self.create_from_xml(model_manager, xml)
     equipment = new
+    equipment.model_manager = model_manager
 
     name = xml.elements['Name']
     equipment.set_name(xml.elements['Name'].text) unless name.nil?

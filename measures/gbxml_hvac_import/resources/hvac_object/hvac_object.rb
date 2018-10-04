@@ -27,7 +27,11 @@ class HVACObject
     self.dependencies.push(dependency)
   end
 
-  def build(model_manager)
+  def resolve_read_relationships
+
+  end
+
+  def build
     # resolve dependencies
     raise "Subclass must overwrite build"
   end

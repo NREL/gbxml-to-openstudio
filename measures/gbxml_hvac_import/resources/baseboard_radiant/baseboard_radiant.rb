@@ -57,8 +57,9 @@ class BaseboardRadiant < HVACObject
     self.baseboard
   end
 
-  def self.create_from_xml(xml)
+  def self.create_from_xml(model_manager, xml)
     equipment = new
+    equipment.model_manager = model_manager
 
     name = xml.elements['Name']
     equipment.set_name(xml.elements['Name'].text) unless name.nil?

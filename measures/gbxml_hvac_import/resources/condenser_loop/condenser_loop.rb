@@ -1,7 +1,7 @@
 require_relative '../hvac_object/hvac_object'
 
 class CondenserLoop < HVACObject
-  attr_accessor :plant_loop, :cooling_tower, :pump, :spm, :has_heating
+  attr_accessor :plant_loop, :cooling_tower, :pump, :outlet_spm, :ct_spm, :boiler_spm, :boiler,  :has_heating
 
   def initialize
     self.name = "Condenser Water Loop"
@@ -43,19 +43,35 @@ class CondenserLoop < HVACObject
     pump
   end
 
-  def add_spm
-    if self.has_heating
+  def add_outlet_spm
+    temp_sch = OpenStudio::Model::ScheduleRuleset.new(self.model)
+    temp_sch.setName("#{self.name} Temp Schedule")
+    temp_sch.defaultDaySchedule.setName("#{self.name} Schedule Default")
+    temp_sch.defaultDaySchedule.addValue(OpenStudio::Time.new(0, 24, 0, 0), 21.1111111)
+    temp_sch.setName("#{self.name} Temp Schedule")
+    spm = OpenStudio::Model::SetpointManagerScheduled.new(self.model, temp_sch)
+    spm.setName("#{self.name} Outlet Setpoint Manager")
+    spm
+  end
 
-    else
-      temp_sch = OpenStudio::Model::ScheduleRuleset.new(self.model)
-      temp_sch.setName("#{self.name} Temp Schedule")
-      temp_sch.defaultDaySchedule.setName("#{self.name} Schedule Default")
-      temp_sch.defaultDaySchedule.addValue(OpenStudio::Time.new(0, 24, 0, 0), 21.1111111)
-      temp_sch.setName("#{self.name} Temp Schedule")
-      spm = OpenStudio::Model::SetpointManagerScheduled.new(self.model, temp_sch)
-      spm.setName("#{self.name} Setpoint Manager")
-      spm
-    end
+  def add_ct_spm
+    spm = OpenStudio::Model::SetpointManagerFollowOutdoorAirTemperature.new(self.model)
+    spm.setControlVariable("Temperature")
+    spm.setReferenceTemperatureType("OutdoorAirWetBulb")
+    spm.setOffsetTemperatureDifference(3.888888889)
+    spm.setName("#{self.name} Cooling Tower Setpoint Manager")
+    spm
+  end
+
+  def add_boiler_spm
+    temp_sch = OpenStudio::Model::ScheduleRuleset.new(self.model)
+    temp_sch.setName("#{self.name} Temp Schedule")
+    temp_sch.defaultDaySchedule.setName("#{self.name} Schedule Default")
+    temp_sch.defaultDaySchedule.addValue(OpenStudio::Time.new(0, 24, 0, 0), 10)
+    temp_sch.setName("#{self.name} Temp Schedule")
+    spm = OpenStudio::Model::SetpointManagerScheduled.new(self.model, temp_sch)
+    spm.setName("#{self.name} Boiler Setpoint Manager")
+    spm
   end
 
   def add_boiler
@@ -71,27 +87,37 @@ class CondenserLoop < HVACObject
     boiler
   end
 
-  def build(model_manager)
+  def build
     self.model_manager = model_manager
     self.model = model_manager.model
     self.plant_loop = add_plant_loop
     self.cooling_tower = add_cooling_tower
     self.pump = add_pump
-    self.spm = add_spm
+    self.outlet_spm = add_outlet_spm
+    self.ct_spm = add_ct_spm
 
     self.pump.addToNode(self.plant_loop.supplyInletNode)
     self.plant_loop.addSupplyBranchForComponent(self.cooling_tower)
-    self.spm.addToNode(self.plant_loop.supplyOutletNode)
+    self.outlet_spm.addToNode(self.plant_loop.supplyOutletNode)
+    self.ct_spm.addToNode(self.cooling_tower.outletModelObject.get.to_Node.get)
+
+    if self.has_heating
+      self.boiler = add_boiler
+      self.boiler_spm = add_boiler_spm
+      self.plant_loop.addSupplyBranchForComponent(self.boiler)
+      self.boiler_spm.addToNode(self.boiler.outletModelObject.get.to_Node.get)
+    end
 
     self.plant_loop.additionalProperties.setFeature('id', self.id) unless self.id.nil?
     self.plant_loop.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
 
-    # self.built = true
+    self.built = true
     self.plant_loop
   end
 
-  def self.create_from_xml(xml)
+  def self.create_from_xml(model_manager, xml)
     plant_loop = new
+    plant_loop.model_manager = model_manager
 
     name = xml.elements['Name']
     plant_loop.set_name(xml.elements['Name'].text) unless name.nil?

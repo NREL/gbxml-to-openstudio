@@ -55,7 +55,7 @@ class HotWaterLoop < HVACObject
     spm
   end
 
-  def build(model_manager)
+  def build
     self.model_manager = model_manager
     self.model = model_manager.model
     self.plant_loop = add_plant_loop
@@ -74,8 +74,9 @@ class HotWaterLoop < HVACObject
     self.plant_loop
   end
 
-  def self.create_from_xml(xml)
+  def self.create_from_xml(model_manager, xml)
     plant_loop = new
+    plant_loop.model_manager = model_manager
 
     name = xml.elements['Name']
     plant_loop.set_name(xml.elements['Name'].text) unless name.nil?

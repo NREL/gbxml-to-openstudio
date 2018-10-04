@@ -63,8 +63,9 @@ class CAVBox < HVACObject
     self.air_terminal
   end
 
-  def self.create_from_xml(xml)
+  def self.create_from_xml(model_manager, xml)
     cav_box = new
+    cav_box.model_manager = model_manager
 
     name = xml.elements['Name']
     cav_box.set_name(xml.elements['Name'].text) unless name.nil?

@@ -2,7 +2,7 @@
 
 ###### (Automatically generated documentation)
 
-# Advanced Import Gbxml
+# GBXML HVAC Import
 
 ## Description
 This measure will bring in additional gbXML data beyond what comes in with the basic OpenStudio gbXML import.

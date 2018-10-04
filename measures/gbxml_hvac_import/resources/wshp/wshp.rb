@@ -37,15 +37,23 @@ class WSHP < HVACObject
 
   def resolve_dependencies
     unless self.condenser_loop_ref.nil?
-      condenser_loop = self.model_manager.cw_loops[self.heating_loop_ref]
+      condenser_loop = self.model_manager.cw_loops[self.condenser_loop_ref]
       condenser_loop.plant_loop.addDemandBranchForComponent(self.heating_coil)
       condenser_loop.plant_loop.addDemandBranchForComponent(self.cooling_coil)
     end
   end
 
-  def build(model_manager)
+  def resolve_read_relationships
+    cw_loop = model_manager.cw_loops[self.condenser_loop_ref]
+
+    if cw_loop
+      cw_loop.set_has_heating(true)
+    end
+
+  end
+
+  def build
     # Object dependency resolution needs to happen before the object is built
-    self.model_manager = model_manager
     self.model = model_manager.model
     self.heating_coil = add_heating_coil
     self.supply_fan = add_supply_fan
@@ -55,11 +63,12 @@ class WSHP < HVACObject
     resolve_dependencies
 
     self.built = true
-    self.pthp
+    self.wshp
   end
 
-  def self.create_from_xml(xml)
+  def self.create_from_xml(model_manager, xml)
     equipment = new
+    equipment.model_manager = model_manager
 
     name = xml.elements['Name']
     equipment.set_name(xml.elements['Name'].text) unless name.nil?

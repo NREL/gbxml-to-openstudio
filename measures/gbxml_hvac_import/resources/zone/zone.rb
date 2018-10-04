@@ -8,7 +8,7 @@ class Zone < HVACObject
     self.zone_hvac_equipment_refs = []
   end
 
-  def build(model_manager)
+  def build
     self.model_manager = model_manager
     self.model = model_manager.model
     self.thermal_zone = self.model.getThermalZoneByName(self.name).get
@@ -28,8 +28,9 @@ class Zone < HVACObject
     self.thermal_zone
   end
 
-  def self.create_from_xml(xml)
+  def self.create_from_xml(model_manager, xml)
     zone = new
+    zone.model_manager = model_manager
 
     name = xml.elements['Name']
     zone.set_name(name.text) unless name.nil?

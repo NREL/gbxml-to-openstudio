@@ -29,6 +29,7 @@ class TestPTAC < MiniTest::Test
     ptac_furnace = self.model_manager.zone_hvac_equipments.values[1].ptac
     ptac_hw = self.model_manager.zone_hvac_equipments.values[2].ptac
 
+    puts ptac_elec.heatingCoil
     assert(ptac_elec.coolingCoil.to_CoilCoolingDXSingleSpeed.is_initialized)
     assert(ptac_elec.heatingCoil.to_CoilHeatingElectric.is_initialized)
     assert(ptac_elec.supplyAirFan.to_FanOnOff.is_initialized)
