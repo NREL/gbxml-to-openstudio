@@ -79,6 +79,7 @@ class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
     # gbxml_doc = REXML::Document.new(xml_string)
     model_manager = ModelManager.new(model, path)
     model_manager.load_gbxml
+    model_manager.resolve_read_relationships
     model_manager.build
 
     # test looking for building area

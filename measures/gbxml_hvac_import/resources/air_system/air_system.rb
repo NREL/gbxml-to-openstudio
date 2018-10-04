@@ -114,7 +114,7 @@ class AirSystem < HVACObject
     end
   end
 
-  def build(model_manager)
+  def build
     self.model_manager = model_manager
     self.model = model_manager.model
     self.air_loop_hvac = add_air_loop_hvac
@@ -141,8 +141,9 @@ class AirSystem < HVACObject
   end
 
   # TODO: Break out into classes for each object to prevent this mess.
-  def self.create_from_xml(xml)
+  def self.create_from_xml(model_manager, xml)
     air_loop = new
+    air_loop.model_manager = model_manager
 
     name = xml.elements['Name']
     air_loop.set_name(xml.elements['Name'].text) unless name.nil?

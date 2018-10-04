@@ -59,7 +59,7 @@ class PFPB < HVACObject
     end
   end
 
-  def build(model_manager)
+  def build
     # Object dependency resolution needs to happen before the object is built
     self.model_manager = model_manager
     self.model = model_manager.model
@@ -72,8 +72,9 @@ class PFPB < HVACObject
     self.air_terminal
   end
 
-  def self.create_from_xml(xml)
+  def self.create_from_xml(model_manager, xml)
     equipment = new
+    equipment.model_manager = model_manager
 
     name = xml.elements['Name']
     equipment.set_name(xml.elements['Name'].text) unless name.nil?

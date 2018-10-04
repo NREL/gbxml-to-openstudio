@@ -1,33 +1,39 @@
 class ZoneHVACEquipment
   # This can be a factory based on the zoneHVACEquipmentType
-  def self.equipment_type_mapping(xml)
+  def self.equipment_type_mapping(model_manager, xml)
     equipment_type = xml.attributes['zoneHVACEquipmentType']
     unless equipment_type.nil?
       case equipment_type
       when 'VAVBox'
-        VAVBox.create_from_xml(xml)
+        VAVBox.create_from_xml(model_manager, xml)
       when 'CAVBox'
-        CAVBox.create_from_xml(xml)
+        CAVBox.create_from_xml(model_manager, xml)
       when 'PackagedTerminalAirConditioner'
-        PTAC.create_from_xml(xml)
+        PTAC.create_from_xml(model_manager, xml)
       when 'PackagedTerminalHeatPump'
-        PTHP.create_from_xml(xml)
+        PTHP.create_from_xml(model_manager, xml)
       when 'UnitHeater'
-        UnitHeater.create_from_xml(xml)
+        UnitHeater.create_from_xml(model_manager, xml)
       when 'UnitVentilator'
-        UnitVentilator.create_from_xml(xml)
+        UnitVentilator.create_from_xml(model_manager, xml)
       when 'BaseBoardConvective'
-        BaseboardConvective.create_from_xml(xml)
+        BaseboardConvective.create_from_xml(model_manager, xml)
       when 'BaseBoardRadiant'
-        BaseboardRadiant.create_from_xml(xml)
+        BaseboardRadiant.create_from_xml(model_manager, xml)
       when 'FourPipeFanCoil'
-        FPFC.create_from_xml(xml)
+        FPFC.create_from_xml(model_manager, xml)
       when 'ParallelFanPoweredBox'
-        PFPB.create_from_xml(xml)
+        PFPB.create_from_xml(model_manager, xml)
       when 'SeriesFanPoweredBox'
-        SFPB.create_from_xml(xml)
+        SFPB.create_from_xml(model_manager, xml)
       when 'WaterSourceHeatPump'
-        WSHP.create_from_xml(xml)
+        WSHP.create_from_xml(model_manager, xml)
+      when 'ChilledBeamPassive'
+        PCB.create_from_xml(model_manager, xml)
+      when 'ChilledBeamActive'
+        ACB.create_from_xml(model_manager, xml)
+      when 'RadiantPanel'
+        RadiantPanel.create_from_xml(model_manager, xml)
       end
     end
   end
