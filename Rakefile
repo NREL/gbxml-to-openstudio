@@ -147,7 +147,7 @@ def get_file(f, staging_dir, dir_id_map, file_id_map)
 
   relative = Pathname.new(f).relative_path_from(Pathname.new(staging_dir))
   
-  return {:File => file_id, :Component_ => file_id, :FileName => get_msiname(basename), :Attributes => attributes, :SourcePath => relative, :SelfReg => 'false', :NextFile =>nil}
+  return {:File => file_id, :Component_ => file_id, :FileName => get_msiname(basename), :Attributes => attributes, :SourcePath => File.join('installer_staging', relative.to_s), :SelfReg => 'false', :NextFile =>nil}
 end
 
 desc 'Build Installer'
