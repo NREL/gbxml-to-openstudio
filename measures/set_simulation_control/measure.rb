@@ -95,6 +95,10 @@ class SetSimulationControl < OpenStudio::Measure::ModelMeasure
     solar_distribution.setDisplayName("Solar Distribution")
     args << solar_distribution
 
+    max_hvac_iterations = OpenStudio::Measure::OSArgument.makeIntegerArgument("max_hvac_iterations", false)
+    max_hvac_iterations.setDisplayName("Maximum HVAC Iterations")
+    args << max_hvac_iterations
+
     return args
   end
 
@@ -148,6 +152,9 @@ class SetSimulationControl < OpenStudio::Measure::ModelMeasure
     solar_distribution = runner.getOptionalStringArgumentValue("solar_distribution", user_arguments)
     simulation_control.setSolarDistribution(solar_distribution.get) unless solar_distribution.empty?
 
+    convergence_limits = model.getConvergenceLimits
+    max_hvac_iterations = runner.getOptionalIntegerArgumentValue("max_warmup_days", user_arguments)
+    convergence_limits.setMaximumHVACIterations(max_hvac_iterations.get) unless max_hvac_iterations.empty?
     return true
   end
 

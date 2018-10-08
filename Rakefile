@@ -1,5 +1,5 @@
 require 'bundler'
-require 'rake/testtask'
+# require 'rake/testtask'
 Bundler.setup
 
 require 'rake'
@@ -11,9 +11,9 @@ desc 'Run the tests'
 task :test do
 end
 
-Rake::TestTask.new do |t|
-  t.pattern = "test/*/test*.rb"
-end
+# Rake::TestTask.new do |t|
+#   t.pattern = "test/*/test*.rb"
+# end
 
 desc 'Build Installer'
 task :build_installer do
@@ -34,7 +34,7 @@ task :build_installer do
   
   # TODO: run update measure task, see openstudio-measures repo for example
 
-  FileUtils.rm_rf if File.exists?(staging_dir)
+  FileUtils.rm_rf(staging_dir) if File.exists?(staging_dir)
   FileUtils.mkdir_p(staging_dir)
   FileUtils.mkdir_p(File.join(staging_dir, 'bin'))
   FileUtils.cp(openstudio_cli, File.join(staging_dir, 'bin', 'openstudio.exe'))
