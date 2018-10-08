@@ -240,6 +240,10 @@ class SpaceTypeAndConstructionSetWizard < OpenStudio::Measure::ModelMeasure
         sub_surface_constructions = bldg_def_const_set.defaultExteriorSubSurfaceConstructions.get
         window = sub_surface_constructions.fixedWindowConstruction.get
         sub_surface_constructions.setGlassDoorConstruction(window)
+        interior_sub_surface_constructions = bldg_def_const_set.defaultInteriorSubSurfaceConstructions.get
+        interior_sub_surface_constructions.setGlassDoorConstruction(window)
+        interior_sub_surface_constructions.setSkylightConstruction(window)
+
         runner.registerInfo("Added default construction set named #{bldg_def_const_set.name}")
       else
         runner.registerError('Could not create default construction set for the building.')
