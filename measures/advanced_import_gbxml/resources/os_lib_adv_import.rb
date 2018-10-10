@@ -43,7 +43,7 @@ module OsLib_AdvImport
   def self.add_objects_from_adv_import_hash(runner, model, advanced_inputs)
 
     # make schedules
-    schedules = import_schs(runner, model, advanced_inputs[:schedules])
+    schedules = import_schs(runner, model, advanced_inputs[:schedules],advanced_inputs[:week_schedules],advanced_inputs[:day_schedules])
 
     # make schedules sets
     schedule_sets = import_sch_set(runner, model, advanced_inputs[:schedule_sets], schedules)
@@ -148,17 +148,88 @@ module OsLib_AdvImport
   end
 
   # create ruleset schedule from inputs
-  def self.import_schs(runner, model, schedules)
+  def self.import_schs(runner, model, schedules, week_schedules, day_schedules)
 
     # loop through and add schedules
     new_schedules = {}
+
+    # process schedule data
     schedules.each do |id, schedule_data|
-      # todo - populate schedule using schedule_data to update default profile and add rules to complex schedule
-      options = {'name' => id, 'default_day' => ['always_on', [24.0, 0.3]]}
+
+      # get schedule name
+      if !schedule_data['name'].nil?
+        ruleset_name = schedule_data['name']
+      else
+        ruleset_name = id
+      end
+      date_range = '1/1-12/31' # todo - in future pull form gbxml
+      winter_design_day = nil
+      summer_design_day = nil
+      default_day = nil
+      rules = []
+
+      # get WeekSchedule
+      week_schs = week_schedules[schedule_data['sch_week']]
+
+      # loop through dayTypes
+      week_schs.each do |day_type,day_obj|
+
+        # get associated dayType items
+        time_value_array = []
+        day_schedules[day_obj].each_with_index do  |i,value|
+          time_value_array << [i+1,value]
+        end
+
+        # create default profile, rule, or design day #
+        if day_type == "HeatingDesignDay"
+          winter_design_day = time_value_array
+        elsif day_type == "CoolingDesignDay"
+          summer_design_day = time_value_array
+        elsif day_type == "Holiday"
+          # do nothing, not currently supporting holidays
+        elsif default_day.nil?
+          default_day = time_value_array.insert(0,day_type) #day_type is name of default day profile object
+        elsif day_type == "All"
+          prefix_array = [day_type,date_range,'Mon/Tue/Wed/Thu/Fri/Sat/Sun']
+          rules << prefix_array + time_value_array
+        elsif day_type == "Weekday"
+          prefix_array = [day_type,date_range,'Mon/Tue/Wed/Thu/Fri']
+          rules << prefix_array + time_value_array
+        elsif day_type == "Sat"
+          prefix_array = [day_type,date_range,'Sat']
+          rules << prefix_array + time_value_array
+        elsif day_type == "Sun"
+          prefix_array = [day_type,date_range,'Sun']
+          rules << prefix_array + time_value_array
+        elsif day_type == "Mon"
+          prefix_array = [day_type,date_range,'Mon']
+          rules << prefix_array + time_value_array
+        elsif day_type == "Tue"
+          prefix_array = [day_type,date_range,'Tue']
+          rules << prefix_array + time_value_array
+        elsif day_type == "Wed"
+          prefix_array = [day_type,date_range,'Wed']
+          rules << prefix_array + time_value_array
+        elsif day_type == "Thu" #todo - confirm weekday abbreviations
+          prefix_array = [day_type,date_range,'Thu']
+          rules << prefix_array + time_value_array
+        elsif day_type == "Fri"
+          prefix_array = [day_type,date_range,'Fri']
+          rules << prefix_array + time_value_array
+        end
+      end
+
+      # populate schedule using schedule_data to update default profile and add rules to complex schedule
+      options = { 'name' => ruleset_name,
+                  'winter_design_day' => winter_design_day,
+                  'summer_design_day' => summer_design_day,
+                  'default_day' => default_day,
+                  'rules' => rules }
+
       sch_ruleset = OsLib_Schedules.createComplexSchedule(model, options)
       new_schedules[id] = sch_ruleset
     end
-    runner.registerInfo("Created #{new_schedules.size} new Schedule Ruleset objets.")
+    runner.registerInfo("Created #{new_schedules.size} new ScheduleRuleset objects (not including activity schedules).")
 
     return new_schedules
   end
@@ -186,7 +257,7 @@ module OsLib_AdvImport
         default_sch_set.setNumberofPeopleSchedule(target_sch)
       end
     end
-    runner.registerInfo("Created #{new_schedule_sets.size} new Default Schedule Set objets.")
+    runner.registerInfo("Created #{new_schedule_sets.size} new DefaultScheduleSet objects.")
 
     return new_schedule_sets
   end
