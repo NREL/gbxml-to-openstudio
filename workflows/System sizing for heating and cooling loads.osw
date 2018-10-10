@@ -79,6 +79,10 @@
       "name": "Set Thermostat Schedules"
     },
     {
+      "measure_dir_name": "gbxml_to_openstudio_cleanup",
+      "name": "gbxml_to_openstudio_cleanup"
+    },
+    {
       "measure_dir_name": "add_xml_output_control_style",
       "name": "Add XML Output Control Style"
     }
