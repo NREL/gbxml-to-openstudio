@@ -14,3 +14,4 @@ gbxml-to-openstudio-cache
 gbxml-to-openstudio-SetupFiles
 test/resources/revit_test_models/*.0*.rvt
 test/output_models/manual/
+gbxmls/Cases/

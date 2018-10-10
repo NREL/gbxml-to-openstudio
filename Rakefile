@@ -1,5 +1,5 @@
 require 'bundler'
-# require 'rake/testtask'
+require 'rake/testtask'
 Bundler.setup
 
 require 'rake'
