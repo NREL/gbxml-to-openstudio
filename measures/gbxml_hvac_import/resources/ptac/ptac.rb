@@ -24,6 +24,7 @@ class PTAC < HVACObject
   end
 
   def add_heating_coil
+    # Todo: remove this hold
     # temporary hold while the gbXML file is missing the heating coil info
     heating_coil = nil
 

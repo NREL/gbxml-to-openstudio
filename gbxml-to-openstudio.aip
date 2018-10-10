@@ -8,7 +8,7 @@
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="Manufacturer" Value="NREL"/>
-    <ROW Property="ProductCode" Value="1033:{6BA5F407-4AE0-4BF7-AD2C-37FCB88C55FE} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{DDD301D7-3FB4-422D-96CB-ECF5A6AC2A7E} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="OpenStudio CLI For Revit"/>
     <ROW Property="ProductVersion" Value="0.0.2" Type="32"/>
