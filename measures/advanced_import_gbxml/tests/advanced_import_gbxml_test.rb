@@ -59,7 +59,7 @@ class AdvancedImportGbxml_Test < Minitest::Test
     model.save(output_file_path,true)
   end
 
-  def no_test_custom_gbxml_01
+  def test_custom_gbxml_01
 
     # create an instance of the measure
     measure = AdvancedImportGbxml.new
@@ -110,7 +110,7 @@ class AdvancedImportGbxml_Test < Minitest::Test
     model.save(output_file_path,true)
   end
 
-  def no_test_people_number
+  def test_people_number
 
     # create an instance of the measure
     measure = AdvancedImportGbxml.new

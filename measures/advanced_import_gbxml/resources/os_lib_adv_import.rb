@@ -175,10 +175,23 @@ module OsLib_AdvImport
       week_schs.each do |day_type,day_obj|
 
         # get associated dayType items
-        time_value_array = []
-        day_schedules[day_obj].each_with_index do  |i,value|
-          time_value_array << [i+1,value]
+        time_value_array_raw = []
+        day_schedules[day_obj].each_with_index do  |value,i|
+          time_value_array_raw << [i+1,value]
         end
+
+        # clean up excess values
+        time_value_array = []
+        last_val = nil
+        time_value_array_raw.reverse.each do |time_val|
+          if last_val.nil?
+            time_value_array << time_val
+          elsif last_val != time_val[1]
+            time_value_array << time_val
+          end
+          last_val = time_val[1]
+        end
+        time_value_array = time_value_array.reverse
 
         # create default profile, rule, or design day #
         if day_type == "HeatingDesignDay"

@@ -195,6 +195,11 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       advanced_inputs[:schedules][element.attributes['id']] = {'name' => name.text, 'sch_week' => sch_week}
     end
 
+    runner.registerInfo("removing ScheduleYear, ScheduleWeek, and ScheduleDay, objects. That data will be re-imported as ScheduleRuleset")
+    model.getScheduleYears.each { |year| year.remove }
+    model.getScheduleWeeks.each { |week| week.remove }
+    model.getScheduleDays.each { |day| day.remove }
+
     puts "**Looping through week schedules"
     # note, schedules and schedule sets will be generated as used when looping through spaces
     gbxml_doc.elements.each('gbXML/WeekSchedule') do |element|
@@ -224,7 +229,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       end
       # add schedules to hash with array of week schedules
       hourly_values = []
-      element.elements.each do |hour|
+      element.elements.each('ScheduleValue') do |hour|
         hourly_values << hour.text.to_f
       end
       advanced_inputs[:day_schedules][element.attributes['id']] = hourly_values
@@ -270,6 +275,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       end
     end
 
+=begin
     # todo - remove temp code to inspect hash
     puts "** inspecting space hash"
     puts advanced_inputs[:spaces]
@@ -287,6 +293,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     puts advanced_inputs[:equip_defs]
     puts "** inspecting people"
     puts advanced_inputs[:people_defs]
+=end
 
     # create model objects from hash
     OsLib_AdvImport.add_objects_from_adv_import_hash(runner,model,advanced_inputs)
