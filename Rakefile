@@ -21,7 +21,7 @@ task :build_installer do
 
   root_dir = File.join(File.dirname(__FILE__))
   staging_dir = File.join(root_dir, 'installer_staging')
-  os_install_dir = 'C:\openstudio-2.6.0'
+  os_install_dir = 'C:\openstudio-2.6.0-gbxml'
   openstudio_cli = File.join(os_install_dir, 'bin', 'openstudio.exe')
   energyplus_dir = File.join(os_install_dir, 'EnergyPlus')
   
@@ -38,7 +38,13 @@ task :build_installer do
   FileUtils.mkdir_p(staging_dir)
   FileUtils.mkdir_p(File.join(staging_dir, 'bin'))
   FileUtils.cp(openstudio_cli, File.join(staging_dir, 'bin', 'openstudio.exe'))
+  FileUtils.cp(File.join(os_install_dir, 'bin', 'libeay32.dll'), File.join(staging_dir, 'bin', 'libeay32.dll'))
+  FileUtils.cp(File.join(os_install_dir, 'bin', 'msvcp120.dll'), File.join(staging_dir, 'bin', 'msvcp120.dll'))
+  FileUtils.cp(File.join(os_install_dir, 'bin', 'msvcr120.dll'), File.join(staging_dir, 'bin', 'msvcr120.dll'))
+  FileUtils.cp(File.join(os_install_dir, 'bin', 'ssleay32.dll'), File.join(staging_dir, 'bin', 'ssleay32.dll'))
+
   FileUtils.cp_r(energyplus_dir, File.join(staging_dir, 'EnergyPlus'))
+  FileUtils.rm(File.join(staging_dir, 'EnergyPlus', 'energyplusapi.lib'))
   FileUtils.cp_r(File.join(root_dir, 'measures'), File.join(staging_dir, 'measures'))
   FileUtils.cp_r(File.join(root_dir, 'seeds'), File.join(staging_dir, 'seeds'))
   FileUtils.cp_r(File.join(root_dir, 'weather'), File.join(staging_dir, 'weather'))
