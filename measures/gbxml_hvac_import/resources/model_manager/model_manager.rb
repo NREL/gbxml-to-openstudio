@@ -47,7 +47,9 @@ class ModelManager
 
     self.gbxml_parser.zone_hvac_equipments.each do |zone_hvac_equipment|
       equipment = ZoneHVACEquipment.equipment_type_mapping(self, zone_hvac_equipment)
-      self.zone_hvac_equipments[equipment.id] = equipment
+      if equipment
+        self.zone_hvac_equipments[equipment.id] = equipment
+      end
     end
 
     self.gbxml_parser.zones.each do |zone|
