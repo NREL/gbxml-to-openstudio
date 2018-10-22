@@ -12,5 +12,7 @@ gem 'rake'
 gem 'builder'
 
 # DLM: currently rely on embedded gem versions for these
-#gem 'openstudio-standards'
+gem 'openstudio-standards'
+
 #gem 'openstudio-workflow'
+gem 'openstudio-workflow', :path => "D:/openstudio-workflow-gem"

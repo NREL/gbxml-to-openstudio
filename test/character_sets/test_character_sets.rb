@@ -4,6 +4,7 @@ require_relative '../minitest_helper'
 # Şỏოĕ şẩოрŀę ΆŠČİĬ-ťėхţ 㚻㟲䒔 乀乁 ԟԱԲ 듥듦
 
 class TestCharacterSets < MiniTest::Test
+
   def test_in_measure_arg
     # Import gbXML measure has gbXML path arg with UTF-8 chars
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/measure_arg.osw'

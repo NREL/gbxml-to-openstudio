@@ -50,16 +50,19 @@ def get_run_env()
   #new_env["GEM_PATH"] = nil
   #new_env["GEM_HOME"] = nil
   
-  # DLM: for now, ignore current bundle in case it has binary dependencies in it
-  #bundle_gemfile = ENV['BUNDLE_GEMFILE']
-  #bundle_path = ENV['BUNDLE_PATH']    
-  #if bundle_gemfile.nil? || bundle_path.nil?
+  # DLM: do we want to use the standards and workflow gems from the gemfile or use embedded gems?
+  use_gemfile = true
+  if use_gemfile
+    new_env['BUNDLE_GEMFILE'] = ENV['BUNDLE_GEMFILE']
+    if ENV['BUNDLE_PATH'].nil?
+      new_env['BUNDLE_PATH'] = ENV['GEM_HOME']
+    else
+      new_env['BUNDLE_PATH'] = ENV['BUNDLE_PATH']
+    end
+  else
     new_env['BUNDLE_GEMFILE'] = nil
-    new_env['BUNDLE_PATH'] = nil
-  #else
-  #  new_env['BUNDLE_GEMFILE'] = bundle_gemfile
-  #  new_env['BUNDLE_PATH'] = bundle_path    
-  #end  
+    new_env['BUNDLE_PATH'] = nil  
+  end
   
   return new_env
 end

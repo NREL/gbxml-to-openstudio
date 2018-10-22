@@ -4,7 +4,7 @@ class GBXMLParser
   attr_accessor :gbxml, :hw_loops, :chw_loops, :cw_loops, :air_systems, :zone_hvac_equipments, :zones
 
   def initialize(path)
-    xml_file = File.read(path.to_s)
+    xml_file = File.read(path.to_s.force_encoding("utf-8"))
     self.gbxml = REXML::Document.new(xml_file)
     self.hw_loops = self.gbxml.get_elements("gbXML/HydronicLoop[@loopType='HotWater']")
     self.chw_loops = self.gbxml.get_elements("gbXML/HydronicLoop[@loopType='PrimaryChilledWater']")
