@@ -8,7 +8,7 @@ class TestCharacterSets < MiniTest::Test
     # Import gbXML measure has gbXML path arg with UTF-8 chars
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/measure_arg.osw'
     cmd = "\"#{TestConfig::CLI_PATH}\" run -w \"#{osw_in_path}\""
-    system(cmd)
+    assert(run_command(cmd))
 
     osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/out.osw'
     osw_out = JSON.parse(File.read(osw_out_path))
@@ -39,7 +39,7 @@ class TestCharacterSets < MiniTest::Test
     # set osw_path to find location of osw to run
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/듥듦/in.osw'
     cmd = "\"#{TestConfig::CLI_PATH}\" run -w \"#{osw_in_path}\""
-    system(cmd)
+    assert(run_command(cmd))
 
     osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/듥듦/out.osw'
     osw_out = JSON.parse(File.read(osw_out_path))
@@ -51,7 +51,7 @@ class TestCharacterSets < MiniTest::Test
   # set osw_path to find location of osw to run
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/模型.osw'
     cmd = "\"#{TestConfig::CLI_PATH}\" run -w \"#{osw_in_path}\""
-    system(cmd)
+    assert(run_command(cmd))
 
     osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/out.osw'
     osw_out = JSON.parse(File.read(osw_out_path))
@@ -65,7 +65,7 @@ class TestCharacterSets < MiniTest::Test
     # Can this be tested independently of that without using E+ directly?
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/weather.osw'
     cmd = "\"#{TestConfig::CLI_PATH}\" run -w \"#{osw_in_path}\""
-    system(cmd)
+    assert(run_command(cmd))
 
     osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/out.osw'
     osw_out = JSON.parse(File.read(osw_out_path))
@@ -76,7 +76,7 @@ class TestCharacterSets < MiniTest::Test
   def test_sql_file
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/in_gbxml.osw'
     cmd = "\"#{TestConfig::CLI_PATH}\" run -w \"#{osw_in_path}\""
-    system(cmd)
+    assert(run_command(cmd))
 
     osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/out.osw'
     osw_out = JSON.parse(File.read(osw_out_path))

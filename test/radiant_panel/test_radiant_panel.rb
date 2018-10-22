@@ -44,7 +44,7 @@ class TestRadiantPanel < MiniTest::Test
     # set osw_path to find location of osw to run
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/radiant_panel/in.osw'
     cmd = "\"#{TestConfig::CLI_PATH}\" run -w \"#{osw_in_path}\""
-    system(cmd)
+    assert(run_command(cmd))
 
     osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/radiant_panel/out.osw'
     osw_out = JSON.parse(File.read(osw_out_path))

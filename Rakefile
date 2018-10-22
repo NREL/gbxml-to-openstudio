@@ -2,18 +2,22 @@ require 'bundler'
 require 'rake/testtask'
 Bundler.setup
 
+# DLM: this is needed if we want to use standards and workflow gem from bundle Gemfile rather than embedded
+# we can remove these variables before calling the CLI in minitest_helper.rb to use the embedded CLI
+if ENV['BUNDLE_GEMFILE']
+  if ENV['BUNDLE_PATH'].nil?
+    ENV['BUNDLE_PATH'] = ENV['GEM_HOME']
+  end
+end
+
 require 'rake'
 require 'fileutils'
 
 task default: 'test'
 
-desc 'Run the tests'
-task :test do
+Rake::TestTask.new do |t|
+  t.pattern = "test/*/test*.rb"
 end
-
-# Rake::TestTask.new do |t|
-#   t.pattern = "test/*/test*.rb"
-# end
 
 desc 'Build Installer'
 task :build_installer do
