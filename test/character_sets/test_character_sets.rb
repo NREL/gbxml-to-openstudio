@@ -16,6 +16,8 @@ class TestCharacterSets < MiniTest::Test
     assert(osw_out['completed_status'] == 'Success')
   end
 
+  # DLM: is this test required? When is lookup by name done in the workflow? Can we look up by CADObjectId=142351 instead?  
+  # Maybe we should run a measure that renames all objects by CADObjectId?
   def test_in_gbxml
     gbxml_path = TestConfig::GBXML_FILES + '/chinese_gbxml.xml'
     translator = OpenStudio::GbXML::GbXMLReverseTranslator.new
@@ -73,6 +75,7 @@ class TestCharacterSets < MiniTest::Test
     assert(osw_out['completed_status'] == 'Success')
   end
 
+  # DLM: is this different than test_in_gbxml?  Are you going to try making SQL Queries?
   def test_sql_file
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/in_gbxml.osw'
     cmd = "\"#{TestConfig::CLI_PATH}\" run -w \"#{osw_in_path}\""
