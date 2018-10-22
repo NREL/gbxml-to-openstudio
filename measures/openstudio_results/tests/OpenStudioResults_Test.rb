@@ -770,7 +770,7 @@ class OpenStudioResults_Test < Minitest::Test
       # create osw that calls tariff measure. That measure needs to sit adjacent ot this one
       cli_path = OpenStudio.getOpenStudioCLI
       cmd = "\"#{cli_path}\" run -w \"in.osw\""
-      system(cmd)
+      assert(run_command(cmd))
     ensure
       Dir.chdir(start_dir)
     end

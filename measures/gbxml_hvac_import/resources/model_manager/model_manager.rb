@@ -4,7 +4,10 @@ puts File.expand_path(File.join(__dir__, '../**/*.rb'))
 require_path = File.expand_path(File.join(__dir__, '../**/*.rb'))
 
 # Dir["../**/*.rb"]
-Dir[require_path].each { |file| require file }
+Dir[require_path].each do |file|
+  next if file == __FILE__ # don't reload this file
+  require file 
+end
 
 class ModelManager
   attr_accessor :gbxml_parser, :model, :cw_loops, :hw_loops, :chw_loops, :air_systems, :zone_hvac_equipments, :zones,
@@ -47,7 +50,9 @@ class ModelManager
 
     self.gbxml_parser.zone_hvac_equipments.each do |zone_hvac_equipment|
       equipment = ZoneHVACEquipment.equipment_type_mapping(self, zone_hvac_equipment)
-      self.zone_hvac_equipments[equipment.id] = equipment
+      if equipment
+        self.zone_hvac_equipments[equipment.id] = equipment
+      end
     end
 
     self.gbxml_parser.zones.each do |zone|
