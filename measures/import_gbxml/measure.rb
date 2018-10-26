@@ -50,6 +50,8 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
       return false
     end
     
+    gbxml_file_name = gbxml_file_name.force_encoding(Encoding::UTF_8)
+    
     # find the gbXML file
     path = runner.workflow.findFile(gbxml_file_name)
     if path.empty?

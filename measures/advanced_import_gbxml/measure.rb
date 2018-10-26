@@ -70,7 +70,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     runner.registerInitialCondition("The building started with #{model.objects.size} model objects.")
 
     # read in and parse xml using using rexml
-    xml_string = File.read(path.to_s.force_encoding("utf-8"))
+    xml_string = File.read(path.to_s.force_encoding(Encoding::UTF_8))
     gbxml_doc = REXML::Document.new(xml_string)
 
     # test looking for building area

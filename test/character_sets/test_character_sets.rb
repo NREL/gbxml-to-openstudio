@@ -5,6 +5,8 @@ require_relative '../minitest_helper'
 
 class TestCharacterSets < MiniTest::Test
 
+  # DLM: is this test required?  Will we have to deal with user editable gbXML file names?
+  # this isn't a general test of measure arguments taking UTF-8, it is a bit stricter because these are file names
   def test_in_measure_arg
     # Import gbXML measure has gbXML path arg with UTF-8 chars
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/measure_arg.osw'
@@ -17,8 +19,6 @@ class TestCharacterSets < MiniTest::Test
     assert(osw_out['completed_status'] == 'Success')
   end
 
-  # DLM: is this test required? When is lookup by name done in the workflow? Can we look up by CADObjectId=142351 instead?  
-  # Maybe we should run a measure that renames all objects by CADObjectId?
   def test_in_gbxml
     gbxml_path = TestConfig::GBXML_FILES + '/chinese_gbxml.xml'
     translator = OpenStudio::GbXML::GbXMLReverseTranslator.new
@@ -29,13 +29,7 @@ class TestCharacterSets < MiniTest::Test
     space = model.getSpaceByName('模型')
     assert(space.is_initialized)
     # puts space.get.name.get.encoding
-    assert(space.get.name.get == '模型')
-
-    # OSM seems to store as ASCII-8Bit rather than UTF-8.
-    # Part of our workflow relies on the C++ translator and then later grabbing those elements by name in measures
-    # Not the most stable solution but it's temporary until we get Revit IDs into OSM additionalProperties
-    # Moreover, users can adjust the measures themselves and I imagine they'll grab objects by name often
-    # This works -> assert(space.get.name.get.force_encoding('UTF-8') == '模型')
+    assert(space.get.name.get.force_encoding("utf-8") == '模型')
   end
 
   def test_in_osw_path
