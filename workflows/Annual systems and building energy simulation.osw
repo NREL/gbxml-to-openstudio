@@ -83,6 +83,10 @@
       "name": "gbxml_to_openstudio_cleanup"
     },
     {
+      "measure_dir_name": "clean_names",
+      "name": "clean_names"
+    },
+    {
       "measure_dir_name": "add_xml_output_control_style",
       "name": "Add XML Output Control Style"
     }
