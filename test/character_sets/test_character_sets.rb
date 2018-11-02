@@ -34,11 +34,11 @@ class TestCharacterSets < MiniTest::Test
 
   def test_in_osw_path
     # set osw_path to find location of osw to run
-    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/듥듦/in.osw'
+    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/模型/in.osw'
     cmd = "\"#{TestConfig::CLI_PATH}\" #{TestConfig::VERBOSITY} run -w \"#{osw_in_path}\""
     assert(run_command(cmd))
 
-    osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/듥듦/out.osw'
+    osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/模型/out.osw'
     osw_out = JSON.parse(File.read(osw_out_path))
 
     assert(osw_out['completed_status'] == 'Success')

@@ -48,6 +48,10 @@
          "measure_dir_name" : "SetThermostatSchedules",
          "modeler_description" : "Sets zone thermostat schedules to schedules in the same file. If a zone does not have a thermostat this measure will add one.",
          "name" : "Set Thermostat Schedules"
+      },
+      {
+        "measure_dir_name": "clean_names",
+        "name": "clean_names"
       }
    ],
    "updated_at" : "20180914T144735Z"
