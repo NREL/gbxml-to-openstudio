@@ -10,4 +10,7 @@ gem 'minitest'
 gem 'minitest-reporters'
 gem 'rake'
 gem 'builder'
-# gem 'openstudio-standards'
+
+# DLM: currently rely on embedded gem versions for these
+#gem 'openstudio-standards'
+#gem 'openstudio-workflow'

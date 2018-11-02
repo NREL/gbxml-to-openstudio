@@ -4,7 +4,10 @@ puts File.expand_path(File.join(__dir__, '../**/*.rb'))
 require_path = File.expand_path(File.join(__dir__, '../**/*.rb'))
 
 # Dir["../**/*.rb"]
-Dir[require_path].each { |file| require file }
+Dir[require_path].each do |file|
+  next if file == __FILE__ # don't reload this file
+  require file 
+end
 
 class ModelManager
   attr_accessor :gbxml_parser, :model, :cw_loops, :hw_loops, :chw_loops, :air_systems, :zone_hvac_equipments, :zones,
