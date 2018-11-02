@@ -39,6 +39,7 @@ class AddXMLOutputControlStyle < OpenStudio::Measure::EnergyPlusMeasure
     end
 
     workspace.getObjectsByType('OutputControl:Table:Style'.to_IddObjectType)[0].setString(0, 'All')
+    workspace.getObjectsByType('Output:Table:SummaryReports'.to_IddObjectType)[0].setString(0, 'AllSummaryAndSizingPeriod')
 
     return true
   end

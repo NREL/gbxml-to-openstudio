@@ -43,6 +43,13 @@ class FPFC < HVACObject
     end
   end
 
+  def resolve_read_relationships
+    unless self.cooling_loop_ref.nil?
+      cooling_loop = self.model_manager.chw_loops[self.cooling_loop_ref]
+      cooling_loop.is_low_temperature = true
+    end
+  end
+
   def build
     # Object dependency resolution needs to happen before the object is built
     self.model = model_manager.model
