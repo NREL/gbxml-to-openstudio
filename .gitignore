@@ -1,8 +1,8 @@
 *.DS_Store
 .idea
-workflows/*/out.osw
-workflows/*/reports
-workflows/*/run
+workflows/out.osw
+workflows/reports
+workflows/run
 measures/*/tests/output
 measures/*/output_models/
 test/*/*.osm
