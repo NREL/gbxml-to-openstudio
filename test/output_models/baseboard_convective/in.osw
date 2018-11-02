@@ -48,6 +48,14 @@
          "measure_dir_name" : "SetThermostatSchedules",
          "modeler_description" : "Sets zone thermostat schedules to schedules in the same file. If a zone does not have a thermostat this measure will add one.",
          "name" : "Set Thermostat Schedules"
+      },
+      {
+         "measure_dir_name": "gbxml_to_openstudio_cleanup",
+         "name": "gbxml_to_openstudio_cleanup"
+      },
+      {
+         "measure_dir_name": "add_xml_output_control_style",
+         "name": "Add XML Output Control Style"
       }
    ],
    "updated_at" : "20180914T144735Z"

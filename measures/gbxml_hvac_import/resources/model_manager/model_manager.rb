@@ -20,7 +20,6 @@ class ModelManager
     self.air_systems = {}
     self.zone_hvac_equipments = {}
     self.zones = {}
-
   end
 
   def load_gbxml

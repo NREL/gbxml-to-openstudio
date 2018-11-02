@@ -97,6 +97,13 @@ class AirSystem < HVACObject
     OpenStudio::Model::SetpointManagerWarmest.new(model)
   end
 
+  def resolve_read_relationships
+    unless self.cooling_loop_ref.nil?
+      cooling_loop = self.model_manager.chw_loops[self.cooling_loop_ref]
+      cooling_loop.is_low_temperature = true
+    end
+  end
+
   def resolve_dependencies
     unless self.heating_loop_ref.nil?
       heating_loop = self.model_manager.hw_loops[self.heating_loop_ref]
@@ -106,6 +113,7 @@ class AirSystem < HVACObject
     unless self.cooling_loop_ref.nil?
       cooling_loop = self.model_manager.chw_loops[self.cooling_loop_ref]
       cooling_loop.plant_loop.addDemandBranchForComponent(self.cooling_coil)
+      cooling_loop.is_low_temperature = true
     end
 
     unless self.preheat_loop_ref.nil?
@@ -115,7 +123,6 @@ class AirSystem < HVACObject
   end
 
   def build
-    self.model_manager = model_manager
     self.model = model_manager.model
     self.air_loop_hvac = add_air_loop_hvac
     self.oa_system = add_oa_system

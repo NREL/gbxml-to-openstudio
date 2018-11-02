@@ -11,9 +11,9 @@ desc 'Run the tests'
 task :test do
 end
 
-# Rake::TestTask.new do |t|
-#   t.pattern = "test/*/test*.rb"
-# end
+Rake::TestTask.new do |t|
+  t.pattern = "test/*/test*.rb"
+end
 
 desc 'Build Installer'
 task :build_installer do
