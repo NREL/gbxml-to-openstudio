@@ -7,6 +7,9 @@ require 'fileutils'
 
 task default: 'test'
 
+# bundle exec rake test"
+# bundle exec rake test TEST=./test/character_sets/test_character_sets.rb"
+# bundle exec rake test TEST=./test/character_sets/test_character_sets.rb TESTOPTS="-n /test_in_cli_path/"
 Rake::TestTask.new do |t|
   t.pattern = "test/*/test*.rb"
 end

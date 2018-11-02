@@ -44,7 +44,7 @@ class TestUnitHeater < MiniTest::Test
   def test_simulation
     # set osw_path to find location of osw to run
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/unit_heater/in.osw'
-    cmd = "\"#{TestConfig::CLI_PATH}\" run -w \"#{osw_in_path}\""
+    cmd = "\"#{TestConfig::CLI_PATH}\" #{TestConfig::VERBOSITY} run -w \"#{osw_in_path}\""
     assert(run_command(cmd))
 
     osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/unit_heater/out.osw'

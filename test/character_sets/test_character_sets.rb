@@ -10,7 +10,7 @@ class TestCharacterSets < MiniTest::Test
   def test_in_measure_arg
     # Import gbXML measure has gbXML path arg with UTF-8 chars
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/measure_arg.osw'
-    cmd = "\"#{TestConfig::CLI_PATH}\" run -w \"#{osw_in_path}\""
+    cmd = "\"#{TestConfig::CLI_PATH}\" #{TestConfig::VERBOSITY} run -w \"#{osw_in_path}\""
     assert(run_command(cmd))
 
     osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/out.osw'
@@ -35,7 +35,7 @@ class TestCharacterSets < MiniTest::Test
   def test_in_osw_path
     # set osw_path to find location of osw to run
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/듥듦/in.osw'
-    cmd = "\"#{TestConfig::CLI_PATH}\" run -w \"#{osw_in_path}\""
+    cmd = "\"#{TestConfig::CLI_PATH}\" #{TestConfig::VERBOSITY} run -w \"#{osw_in_path}\""
     assert(run_command(cmd))
 
     osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/듥듦/out.osw'
@@ -47,7 +47,7 @@ class TestCharacterSets < MiniTest::Test
   def test_in_cli_path
   # set osw_path to find location of osw to run
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/模型.osw'
-    cmd = "\"#{TestConfig::CLI_PATH}\" run -w \"#{osw_in_path}\""
+    cmd = "\"#{TestConfig::CLI_PATH}\" #{TestConfig::VERBOSITY} run -w \"#{osw_in_path}\""
     assert(run_command(cmd))
 
     osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/out.osw'
@@ -61,7 +61,7 @@ class TestCharacterSets < MiniTest::Test
     # This probably won't run unless measure arg test passes
     # Can this be tested independently of that without using E+ directly?
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/weather.osw'
-    cmd = "\"#{TestConfig::CLI_PATH}\" run -w \"#{osw_in_path}\""
+    cmd = "\"#{TestConfig::CLI_PATH}\" #{TestConfig::VERBOSITY} run -w \"#{osw_in_path}\""
     assert(run_command(cmd))
 
     osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/out.osw'
@@ -73,7 +73,7 @@ class TestCharacterSets < MiniTest::Test
   # DLM: is this different than test_in_gbxml?  Are you going to try making SQL Queries?
   def test_sql_file
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/in_gbxml.osw'
-    cmd = "\"#{TestConfig::CLI_PATH}\" run -w \"#{osw_in_path}\""
+    cmd = "\"#{TestConfig::CLI_PATH}\" #{TestConfig::VERBOSITY} run -w \"#{osw_in_path}\""
     assert(run_command(cmd))
 
     osw_out_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/out.osw'
