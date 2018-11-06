@@ -1,17 +1,17 @@
 *.DS_Store
 .idea
+gbxmls/Cases/
+/installer_staging/
+measures/*/output_models/
+measures/*/tests/output
+/OpenStudio CLI For Revit 2020-cache/
+/OpenStudio CLI For Revit 2020-SetupFiles/
+test/*/*.osm
+test/output_models/*/out.osw
+test/output_models/*/reports
+test/output_models/*/run
+test/output_models/manual/
+test/resources/revit_test_models/*.0*.rvt
 workflows/out.osw
 workflows/reports
 workflows/run
-measures/*/tests/output
-measures/*/output_models/
-test/*/*.osm
-test/output_models/*/run
-test/output_models/*/reports
-test/output_models/*/out.osw
-installer_staging
-gbxml-to-openstudio-cache
-gbxml-to-openstudio-SetupFiles
-test/resources/revit_test_models/*.0*.rvt
-test/output_models/manual/
-gbxmls/Cases/
