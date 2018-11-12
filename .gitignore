@@ -8,12 +8,6 @@ test_fails.txt
 /OpenStudio CLI For Revit 2020-cache/
 /OpenStudio CLI For Revit 2020-SetupFiles/
 installer_staging
-gbxml-to-openstudio.aip
-gbxml-to-openstudio-cache
-gbxml-to-openstudio-SetupFiles
-gbxml-to-openstudio.out.aip
-gbxml-to-openstudio.out-cache
-gbxml-to-openstudio.out-SetupFiles
 measures/*/output_models/
 measures/*/tests/output
 test/*/*.osm
