@@ -43,6 +43,13 @@ class UnitVentilator < HVACObject
     cooling_coil
   end
 
+  def resolve_read_relationships
+    unless self.cooling_loop_ref.nil?
+      cooling_loop = self.model_manager.chw_loops[self.cooling_loop_ref]
+      cooling_loop.is_low_temperature = true
+    end
+  end
+
   def resolve_dependencies
     unless self.heating_loop_ref.nil?
       heating_loop = self.model_manager.hw_loops[self.heating_loop_ref]

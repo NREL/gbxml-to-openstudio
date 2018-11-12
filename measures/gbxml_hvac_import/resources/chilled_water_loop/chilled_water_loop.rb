@@ -1,10 +1,11 @@
 require_relative '../hvac_object/hvac_object'
 
 class ChilledWaterLoop < HVACObject
-  attr_accessor :plant_loop, :chiller, :pump, :spm, :condenser_loop_ref
+  attr_accessor :plant_loop, :chiller, :pump, :spm, :condenser_loop_ref, :is_low_temperature
 
   def initialize
     self.name = "Chilled Water Loop"
+    self.is_low_temperature = false
   end
 
   def add_plant_loop
@@ -55,7 +56,11 @@ class ChilledWaterLoop < HVACObject
     temp_sch = OpenStudio::Model::ScheduleRuleset.new(self.model)
     temp_sch.setName("#{self.name} Temp Schedule")
     temp_sch.defaultDaySchedule.setName("#{self.name} Schedule Default")
-    temp_sch.defaultDaySchedule.addValue(OpenStudio::Time.new(0, 24, 0, 0), 6.6666667)
+    if self.is_low_temperature
+      temp_sch.defaultDaySchedule.addValue(OpenStudio::Time.new(0, 24, 0, 0), 6.6666667)
+    else
+      temp_sch.defaultDaySchedule.addValue(OpenStudio::Time.new(0, 24, 0, 0), 13.888889)
+    end
     temp_sch.setName("#{self.name} Temp Schedule")
     spm = OpenStudio::Model::SetpointManagerScheduled.new(self.model, temp_sch)
     spm.setName("#{self.name} Setpoint Manager")

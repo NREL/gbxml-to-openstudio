@@ -4,15 +4,9 @@
 my_bundle
 out.txt
 test_fails.txt
-workflows/*/out.osw
-workflows/*/reports
-workflows/*/run
-measures/*/tests/output
-measures/*/output_models/
-test/*/*.osm
-test/output_models/**/run
-test/output_models/**/reports
-test/output_models/**/out.osw
+
+/OpenStudio CLI For Revit 2020-cache/
+/OpenStudio CLI For Revit 2020-SetupFiles/
 installer_staging
 gbxml-to-openstudio.aip
 gbxml-to-openstudio-cache
@@ -20,6 +14,17 @@ gbxml-to-openstudio-SetupFiles
 gbxml-to-openstudio.out.aip
 gbxml-to-openstudio.out-cache
 gbxml-to-openstudio.out-SetupFiles
-test/resources/revit_test_models/*.0*.rvt
+measures/*/output_models/
+measures/*/tests/output
+test/*/*.osm
+test/output_models/**/run
+test/output_models/**/reports
+test/output_models/**/out.osw
 test/output_models/manual/
-gbxmls/Cases/
+test/resources/revit_test_models/*.0*.rvt
+workflows/out.osw
+workflows/reports
+workflows/run
+workflows/**/out.osw
+workflows/**/reports
+workflows/**/run
