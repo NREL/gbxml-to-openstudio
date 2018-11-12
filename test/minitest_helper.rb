@@ -59,7 +59,11 @@ def get_run_env()
     else
       new_env['BUNDLE_PATH'] = ENV['BUNDLE_PATH']
     end
+    puts "using gemfile"
+    puts "new_env['BUNDLE_GEMFILE'] = #{new_env['BUNDLE_GEMFILE']}"
+    puts "new_env['BUNDLE_PATH'] = #{new_env['BUNDLE_PATH']}"
   else
+    puts "ignoring gemfile"
     new_env['BUNDLE_GEMFILE'] = nil
     new_env['BUNDLE_PATH'] = nil  
   end
@@ -70,7 +74,7 @@ end
 def run_command(command)
   stdout_str, stderr_str, status = Open3.capture3(get_run_env(), command)
   if status.success?
-    puts "Command completed successfully"
+    puts "Command completed successfully: '#{command}'"
     #puts "stdout: #{stdout_str}"
     #puts "stderr: #{stderr_str}"
     return true
