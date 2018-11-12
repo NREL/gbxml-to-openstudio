@@ -125,7 +125,14 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
     model.removeObjects(handles)
     # add new file to empty model
     model.addObjects( new_model.toIdfFile.objects )
-
+    
+    # check to make sure geometry is valid
+    model.getSpaces.each do |space|
+      if space.floorArea.zero?
+        runner.registerWarning("Space #{space.name} has zero floor area. Possible invalid geometry translation.")
+      end
+    end
+    
     return true
 
   end
