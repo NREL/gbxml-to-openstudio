@@ -198,7 +198,12 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
 
             # see if volume elements exists
             unless volume.nil?
-              volume = OpenStudio.convert(volume.text.to_f, "ft^3", "m^3")
+              volume = volume.text.to_f
+
+              # check units and adjust if needed
+              volume_unit = gbxml_doc.elements['gbXML'].attributes['volumeUnit']
+              volume = OpenStudio.convert(volume, "ft^3", "m^3") if volume_unit == "CubicFeet"
+
               thermal_zone = space.thermalZone.get
               original_volume = thermal_zone.volume
 
