@@ -178,6 +178,42 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         advanced_inputs[:spaces][element.attributes['id']][:people_defs] = space_people_attributes
       end
 
+      # Noah: Adding hard coding of volume to spaces
+      # Todo: check units of the gbXML file
+      id_element = element.elements['CADObjectId']
+      id = id_element ? id_element.text : false
+
+      model.getSpaces().each do |space|
+
+        # puts space.additionalProperties
+        optional_id = space.additionalProperties.getFeatureAsString('CADObjectId')
+
+        if optional_id.is_initialized && id
+
+          # check if OS space ID equals gbXML space ID
+          if id == optional_id.get
+
+            # get space volume from gbXML
+            volume = element.elements['Volume']
+
+            # see if volume elements exists
+            unless volume.nil?
+              volume = OpenStudio.convert(volume.text.to_f, "ft^3", "m^3")
+              thermal_zone = space.thermalZone.get
+              original_volume = thermal_zone.volume
+
+              # Add volume to existing or set for the first time
+              if original_volume.is_initialized
+                original_volume = original_volume.get
+                thermal_zone.setVolume(original_volume + volume)
+              else
+                thermal_zone.setVolume(volume)
+              end
+
+            end
+          end
+        end
+      end
     end
 
     puts "**Looping through schedules"
@@ -294,6 +330,8 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     puts "** inspecting people"
     puts advanced_inputs[:people_defs]
 =end
+
+
 
     # create model objects from hash
     OsLib_AdvImport.add_objects_from_adv_import_hash(runner,model,advanced_inputs)
