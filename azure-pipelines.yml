@@ -1,0 +1,68 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+
+jobs:
+#- job: Linux
+#  pool:
+#    vmImage: 'ubuntu-16.04'
+#  steps:
+##    Ruby < 2.3.7 not available via this tool task and 2.2.4 required by openstudio (at least, require 'openstudio' from 2.3.7 gives "symbol lookup error: /usr/local/openstudio-2.7.0/Ruby/openstudio.so: undefined symbol: rb_data_object_alloc") .
+## so have to manually install 2.2.4
+##  - task: UseRubyVersion@0
+##    inputs:
+##      versionSpec: '= 2.3.7'
+##      addToPath: true
+#
+##  - task: Bash@3
+##    inputs:
+##      targetType: 'filePath'
+##      filePath: 'ci/linux/install_ruby.sh'
+##      arguments: '2.2.4'
+#  - task: Bash@3
+#    inputs:
+#      targetType: 'filePath'
+#      filePath: 'ci/linux/setup.sh'
+#      arguments: '2.7.0 544f363db5' #openstudio version and sha
+#  - task: Bash@3
+#    inputs:
+#      targetType: 'filePath'
+#      filePath: 'ci/linux/install_ruby.sh'
+#  - script: sudo bundle install
+#  - script: echo $PATH
+#  - script: echo $RUBYLIB
+#  - script: rake test
+#    env: {RUBYLIB: "/usr/local/openstudio-2.7.0/Ruby:/usr/Ruby"}
+#    displayName: 'run tests'
+- job: Windows
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - script: curl -SLO https://dl.bintray.com/oneclick/rubyinstaller/ruby-2.2.4-x64-mingw32.7z
+    displayName: 'Download Ruby'
+  - task: ExtractFiles@1
+    displayName: 'Extract Ruby'
+    inputs:
+      archiveFilePatterns: '$(Build.SourcesDirectory)/ruby-2.2.4-x64-mingw32.7z'
+      destinationFolder: 'c:\Ruby224-x64'
+      cleanDestinationFolder: true
+  - task: Bash@3
+    displayName: 'Download and install OpenStudio'
+    inputs:
+      targetType: 'filePath'
+      filepath: 'ci/windows/install-openstudio.sh'
+      arguments: $(Build.SourcesDirectory) #note this is coming through to bash as 'D:a1s' and note currently used
+
+  - task: Bash@3
+    displayName: 'install Ruby'
+    inputs:
+      targetType: 'filePath'
+      filepath: 'ci/windows/install-ruby.sh'
+
+  - task: Bash@3
+    displayName: 'Run unit tests (`rake test`)'
+    inputs:
+      targetType: 'filePath'
+      filepath: 'ci/windows/unit-test.sh'
