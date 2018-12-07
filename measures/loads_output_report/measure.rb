@@ -5,6 +5,8 @@
 
 require 'openstudio'
 
+model = OpenStudio::Model::Model.new()
+
 # start the measure
 class LoadsOutputReport < OpenStudio::Measure::ReportingMeasure
   # human readable name
@@ -86,11 +88,16 @@ class LoadsOutputReport < OpenStudio::Measure::ReportingMeasure
 
     ## Get cooling peak load components for each space
     base_query = "SELECT Value FROM TabularDataWithStrings"
-    row_names = ['People', 'Lights', 'Equipment', 'Refrigeration', 'Water Use Equipment', 'HVAC Equipment Losses', 'Power Generation Equipment',
+    load_row_names = ['People', 'Lights', 'Equipment', 'Refrigeration', 'Water Use Equipment', 'HVAC Equipment Losses', 'Power Generation Equipment',
                  'DOAS Direct to Zone', 'Infiltration', 'Zone Ventilation', 'Interzone Mixing', 'Roof', 'Interzone Ceiling', 'Other Roof', 'Exterior Wall',
                  'Interzone Wall', 'Ground Contact Wall', 'Other Wall', 'Exterior Floor', 'Interzone Floor', 'Ground Contact Floor', 'Other Floor',
                  'Fenestration Conduction', 'Fenestration Solar', 'Opaque Door', 'Grand Total']
-    column_names = ['Sensible - Instant', 'Sensible - Delayed', 'Sensible - Return Air', 'Latent', 'Total']
+    load_column_names = ['Sensible - Instant', 'Sensible - Delayed', 'Sensible - Return Air', 'Latent', 'Total']
+    peak_row_names =     ["Time of Peak Load", "Outside  Dry Bulb Temperature", "Outside  Wet Bulb Temperature", "Outside Humidity Ratio at Peak",
+                          "Zone Dry Bulb Temperature", "Zone Relative Humidity", "Zone Humidity Ratio at Peak", "Supply Air Temperature", "Mixed Air Temperature",
+                          "Main Fan Air Flow", "Outside Air Flow", "Peak Sensible Load with Sizing Factor", "Difference Due to Sizing Factor", "Peak Sensible Load",
+                          "Estimated Instant + Delayed Sensible Load", "Difference Between Peak and Estimated Sensible Load"]
+    peak_column_name = ['Value']
 
     component_loads = {}
 
@@ -99,44 +106,68 @@ class LoadsOutputReport < OpenStudio::Measure::ReportingMeasure
       cooling_zone_query = base_query + " WHERE ReportForString == '#{zone_name.upcase}' AND TableName == 'Estimated Cooling Peak Load Components'"
       heating_zone_query = base_query + " WHERE ReportForString == '#{zone_name.upcase}' AND TableName == 'Estimated Cooling Peak Load Components'"
 
-      space_loads = {"cooling_loads": {}, "heating_loads": {}}
+      space_loads = {"cooling": {"loads": {}, "peak_conditions": {}}, "heating": {"loads": {}, "peak_conditions": {}}}
 
-      row_names.each do |row_name|
+      ## Get cooling loads
+      load_row_names.each do |row_name|
         row_loads = {}
 
-        column_names.each do |column_name|
+        load_column_names.each do |column_name|
           load_query = cooling_zone_query + " AND RowName == '#{row_name}' AND ColumnName == '#{column_name}'"
-          runner.registerInfo(load_query)
 
           load_result = sql_file.execAndReturnFirstDouble(load_query)
-          # runner.registerInfo(load_result)
 
           if load_result.is_initialized
             row_loads[column_name] = load_result.get
           end
         end
-        runner.registerInfo(space_loads.to_s)
-        runner.registerInfo(space_loads[:cooling_loads].to_s)
 
-        space_loads[:cooling_loads][row_name] = row_loads
+        space_loads[:cooling][:loads][row_name] = row_loads
       end
 
-      row_names.each do |row_name|
+      # Get heating loads
+      load_row_names.each do |row_name|
         row_loads = {}
 
-        column_names.each do |column_name|
+        load_column_names.each do |column_name|
           load_query = heating_zone_query + " AND RowName == '#{row_name}' AND ColumnName == '#{column_name}'"
-          runner.registerInfo(load_query)
 
           load_result = sql_file.execAndReturnFirstDouble(load_query)
-          # runner.registerInfo(load_result)
 
           if load_result.is_initialized
             row_loads[column_name] = load_result.get
           end
         end
 
-        space_loads[:heating_loads][row_name] = row_loads
+        space_loads[:heating][:loads][row_name] = row_loads
+      end
+
+      ## Get peak load components
+      cooling_peak_conditions_query = base_query + " WHERE ReportForString == '#{zone_name.upcase}' AND TableName == 'Cooling Peak Conditions'"
+      heating_peak_conditions_query = base_query + " WHERE ReportForString == '#{zone_name.upcase}' AND TableName == 'Heating Peak Conditions'"
+
+      ## Get cooling peak conditions
+      peak_row_names.each do |row_name|
+
+        load_query = cooling_peak_conditions_query + " AND RowName == '#{row_name}' AND ColumnName == 'Value'"
+        runner.registerInfo(load_query)
+        load_result = sql_file.execAndReturnFirstDouble(load_query)
+
+        if load_result.is_initialized
+          space_loads[:cooling][:peak_conditions][row_name] = load_result.get
+        end
+      end
+
+      ## Get heating peak conditions
+      peak_row_names.each do |row_name|
+
+        load_query = heating_peak_conditions_query + " AND RowName == '#{row_name}' AND ColumnName == 'Value'"
+        runner.registerInfo(load_query)
+        load_result = sql_file.execAndReturnFirstDouble(load_query)
+
+        if load_result.is_initialized
+          space_loads[:heating][:peak_conditions][row_name] = load_result.get
+        end
       end
 
       zone.spaces.each do |space|
@@ -148,6 +179,10 @@ class LoadsOutputReport < OpenStudio::Measure::ReportingMeasure
       end
 
     end
+
+    ## Add Engineering Checks
+    #
+    ## Add Conditions at time of peak
 
     json_out = File.open("../loads_out.json", "w")
     json_out.write(component_loads.to_json)
