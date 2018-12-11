@@ -154,11 +154,11 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       # gather electric equipment
       unless element.elements['EquipPowerPerArea'].nil?
         # todo - add code for different unit types, for now assuming value is W/ft^2
-        light_power_per_area = element.elements['EquipPowerPerArea'].text.to_f
-        unless advanced_inputs[:equip_defs].has_key?(light_power_per_area)
-          advanced_inputs[:equip_defs][light_power_per_area] = "adv_import_elec_equip_#{advanced_inputs[:equip_defs].size}"
+        equip_power_per_area = element.elements['EquipPowerPerArea'].text.to_f
+        unless advanced_inputs[:equip_defs].has_key?(equip_power_per_area)
+          advanced_inputs[:equip_defs][equip_power_per_area] = "adv_import_elec_equip_#{advanced_inputs[:equip_defs].size}"
         end
-        advanced_inputs[:spaces][element.attributes['id']][:equip_defs] = light_power_per_area
+        advanced_inputs[:spaces][element.attributes['id']][:equip_defs] = equip_power_per_area
       end
       # gather people
       # unlike lights and equipment, there are multiple people objects in the space to inspect
