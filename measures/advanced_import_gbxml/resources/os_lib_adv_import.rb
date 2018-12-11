@@ -43,7 +43,7 @@ module OsLib_AdvImport
   def self.add_objects_from_adv_import_hash(runner, model, advanced_inputs)
 
     # make schedules
-    schedules = import_schs(runner, model, advanced_inputs[:schedules],advanced_inputs[:week_schedules],advanced_inputs[:day_schedules])
+    schedules = import_schs(runner, model, advanced_inputs[:schedules], advanced_inputs[:week_schedules], advanced_inputs[:day_schedules])
 
     # make schedules sets
     schedule_sets = import_sch_set(runner, model, advanced_inputs[:schedule_sets], schedules)
@@ -157,10 +157,10 @@ module OsLib_AdvImport
     schedules.each do |id, schedule_data|
 
       # get schedule name
-      if !schedule_data['name'].nil?
-        ruleset_name = schedule_data['name']
-      else
+      if schedule_data['name'].nil?
         ruleset_name = id
+      else
+        ruleset_name = schedule_data['name']
       end
       date_range = '1/1-12/31' # todo - in future pull form gbxml
       winter_design_day = nil
@@ -396,11 +396,11 @@ class AreaReducer
       vertex_1 = nil
       vertex_2 = nil
       vertex_3 = nil
-      if (i == 0)
+      if i == 0
         vertex_1 = vertices[n - 1]
         vertex_2 = vertices[i]
         vertex_3 = vertices[i + 1]
-      elsif (i == (n - 1))
+      elsif i == (n - 1)
         vertex_1 = vertices[i - 1]
         vertex_2 = vertices[i]
         vertex_3 = vertices[0]

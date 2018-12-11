@@ -45,7 +45,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     super(model, runner, user_arguments)
 
     # use the built-in error checking
-    if !runner.validateUserArguments(arguments(model), user_arguments)
+    unless runner.validateUserArguments(arguments(model), user_arguments)
       return false
     end
 
@@ -57,7 +57,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       runner.registerError("Empty gbXML filename was entered.")
       return false
     end
-    
+
     # find the gbXML file
     path = runner.workflow.findFile(gbxml_file_name)
     if path.empty?
@@ -81,10 +81,10 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     puts "**Looping through surfaces"
     gbxml_doc.elements.each('gbXML/Campus/Surface') do |element|
       name = element.elements['Name']
-      if ! name.nil?
-        puts name.text
-      else
+      if name.nil?
         puts "Surface #{element.attributes['id']} does not have a name"
+      else
+        puts name.text
       end
     end
 =end
@@ -104,7 +104,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     puts "**Looping through spaces"
     gbxml_doc.elements.each('gbXML/Campus/Building/Space') do |element|
       name = element.elements['Name']
-      if ! name.nil?
+      unless name.nil?
         puts name.text
       else
         puts "Space #{element.attributes['id']} does not have a name"
@@ -112,7 +112,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
 
       # find or create schedule_set key in hash
       target_sch_set_key = "#{element.attributes['lightScheduleIdRef']}|#{element.attributes['equipmentScheduleIdRef']}|#{element.attributes['peopleScheduleIdRef']}"
-      if ! advanced_inputs[:schedule_sets].has_key?(target_sch_set_key)
+      unless advanced_inputs[:schedule_sets].has_key?(target_sch_set_key)
         if not target_sch_set_key == "||"
           light_sch = element.attributes['lightScheduleIdRef']
           elec_sch = element.attributes['equipmentScheduleIdRef']
@@ -127,34 +127,35 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
 
       # create hash entry for space with attributes
       advanced_inputs[:spaces][element.attributes['id']] = {}
-      if not target_sch_set_key == "||"
+      unless target_sch_set_key == "||"
         advanced_inputs[:spaces][element.attributes['id']][:sch_set] = target_sch_set_key
       end
-      if ! element.attributes['zoneIdRef'].nil?
+      unless element.attributes['zoneIdRef'].nil?
         advanced_inputs[:spaces][element.attributes['id']][:zone_id_ref] = element.attributes['zoneIdRef']
       end
-      if ! element.attributes['conditionType'].nil?
+      unless element.attributes['conditionType'].nil?
         advanced_inputs[:spaces][element.attributes['id']][:condition_type] = element.attributes['conditionType']
       end
-      if ! element.elements['Name'].nil?
+      unless element.elements['Name'].nil?
         advanced_inputs[:spaces][element.attributes['id']][:name] = element.elements['Name'].text
       end
 
-      # populate hash for space load instances for people, lights and electric equipment. Don't duplicate load definitions if an equivalent one has already been made.
+      # Populate hash for space load instances for people, lights, and electric equipment.
+      # Don't duplicate load definitions if an equivalent one has already been made.
       # gather lights
-      if ! element.elements['LightPowerPerArea'].nil?
-        # todo - add code for different unit types, for now assuming value is w/ft^2
+      unless element.elements['LightPowerPerArea'].nil?
+        # todo - add code for different unit types, for now assuming value is W/ft^2
         light_power_per_area = element.elements['LightPowerPerArea'].text.to_f
-        if ! advanced_inputs[:light_defs].has_key?(light_power_per_area)
+        unless advanced_inputs[:light_defs].has_key?(light_power_per_area)
           advanced_inputs[:light_defs][light_power_per_area] = "adv_import_light_#{advanced_inputs[:light_defs].size}"
         end
         advanced_inputs[:spaces][element.attributes['id']][:light_defs] = light_power_per_area
       end
       # gather electric equipment
-      if ! element.elements['EquipPowerPerArea'].nil?
-        # todo - add code for different unit types, for now assuming value is w/ft^2
+      unless element.elements['EquipPowerPerArea'].nil?
+        # todo - add code for different unit types, for now assuming value is W/ft^2
         light_power_per_area = element.elements['EquipPowerPerArea'].text.to_f
-        if ! advanced_inputs[:equip_defs].has_key?(light_power_per_area)
+        unless advanced_inputs[:equip_defs].has_key?(light_power_per_area)
           advanced_inputs[:equip_defs][light_power_per_area] = "adv_import_elec_equip_#{advanced_inputs[:equip_defs].size}"
         end
         advanced_inputs[:spaces][element.attributes['id']][:equip_defs] = light_power_per_area
@@ -163,15 +164,15 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       # unlike lights and equipment, there are multiple people objects in the space to inspect
       space_people_attributes = {}
       element.elements.each('PeopleHeatGain') do |people_heat_gain|
-        # todo - add code for different unit types, for now assuming value is w/ft^2
+        # todo - add code for different unit types, for now assuming value is W/ft^2
         #unit = people_heat_gain.attributes['unit']
         heat_gain_type = people_heat_gain.attributes['heatGainType']
         space_people_attributes["people_heat_gain_#{heat_gain_type.downcase}"] = people_heat_gain.text.to_f
       end
-      if ! element.elements['PeopleNumber'].nil?
+      unless element.elements['PeopleNumber'].nil?
         space_people_attributes[:people_number] = element.elements['PeopleNumber'].text.to_f
       end
-      if ! advanced_inputs[:people_defs].has_key?(space_people_attributes) && space_people_attributes.size > 0
+      unless advanced_inputs[:people_defs].has_key?(space_people_attributes) && space_people_attributes.size > 0
         advanced_inputs[:people_defs][space_people_attributes] = "adv_import_people_#{advanced_inputs[:people_defs].size}"
       end
       if space_people_attributes.size > 0
@@ -225,7 +226,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     # note, schedules and schedule sets will be generated as used when looping through spaces
     gbxml_doc.elements.each('gbXML/Schedule') do |element|
       name = element.elements['Name']
-      if ! name.nil?
+      unless name.nil?
         puts name.text
       else
         puts "Schedule #{element.attributes['id']} does not have a name"
@@ -245,15 +246,15 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     # note, schedules and schedule sets will be generated as used when looping through spaces
     gbxml_doc.elements.each('gbXML/WeekSchedule') do |element|
       name = element.elements['Name']
-      if ! name.nil?
-        puts name.text
-      else
+      if name.nil?
         puts "WeekSchedule #{element.attributes['id']} does not have a name"
+      else
+        puts name.text
       end
       # add schedules to hash with array of week schedules
       day_types = {}
       element.elements.each do |day_type|
-        next if !day_type.attributes.has_key?('dayType')
+        next unless day_type.attributes.has_key?('dayType')
         day_types[day_type.attributes['dayType']] = day_type.attributes['dayScheduleIdRef']
       end
       advanced_inputs[:week_schedules][element.attributes['id']] = day_types
@@ -263,10 +264,10 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     # note, schedules and schedule sets will be generated as used when looping through spaces
     gbxml_doc.elements.each('gbXML/DaySchedule') do |element|
       name = element.elements['Name']
-      if ! name.nil?
-        puts name.text
-      else
+      if name.nil?
         puts "DaySchedule #{element.attributes['id']} does not have a name"
+      else
+        puts name.text
       end
       # add schedules to hash with array of week schedules
       hourly_values = []
@@ -279,40 +280,40 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     puts "**Looping through zones"
     gbxml_doc.elements.each('gbXML/Zone') do |element|
       name = element.elements['Name']
-      if ! name.nil?
-        puts name.text
-      else
+      if name.nil?
         puts "Zone #{element.attributes['id']} does not have a name"
+      else
+        puts name.text
       end
     end
 
     puts "**Looping through ZoneHVACEquipment"
     gbxml_doc.elements.each('gbXML/ZoneHVACEquipment') do |element|
       name = element.elements['Name']
-      if ! name.nil?
-        puts name.text
-      else
+      if name.nil?
         puts "ZoneHVACEquipment #{element.attributes['id']} does not have a name"
+      else
+        puts name.text
       end
     end
 
     puts "**Looping through AirSystem"
     gbxml_doc.elements.each('gbXML/AirSystem') do |element|
       name = element.elements['Name']
-      if ! name.nil?
-        puts name.text
-      else
+      if name.nil?
         puts "ZoneHVACEquipment #{element.attributes['id']} does not have a name"
+      else
+        puts name.text
       end
     end
 
     puts "**Looping through HydronicLoop"
     gbxml_doc.elements.each('gbXML/HydronicLoop') do |element|
       name = element.elements['Name']
-      if ! name.nil?
-        puts name.text
-      else
+      if name.nil?
         puts "ZoneHVACEquipment #{element.attributes['id']} does not have a name"
+      else
+        puts name.text
       end
     end
 
@@ -339,10 +340,10 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
 
 
     # create model objects from hash
-    OsLib_AdvImport.add_objects_from_adv_import_hash(runner,model,advanced_inputs)
+    OsLib_AdvImport.add_objects_from_adv_import_hash(runner, model, advanced_inputs)
 
     # cleanup fenestration that may be too large (need to confirm how doors and glass doors are addressed)
-    OsLib_AdvImport.assure_fenestration_inset(runner,model)
+    OsLib_AdvImport.assure_fenestration_inset(runner, model)
 
     # report final condition of model
     runner.registerFinalCondition("The building finished with #{model.objects.size} model objects.")
