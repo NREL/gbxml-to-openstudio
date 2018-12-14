@@ -63,6 +63,7 @@ module OsLib_AdvImport
   def self.assign_space_attributes(runner, model, spaces, schedule_sets, lights, elec_equipment, people)
 
     # loop through spaces and assign attributes
+    # ventilation and infiltration do not have separate load definitions, and are assigned directly to the space
     # note that spaces in model may use name element if it exist instead of id attribute
     modified_spaces = {}
     spaces.each do |id, space_data|
@@ -134,6 +135,40 @@ module OsLib_AdvImport
           runner.registerWarning("Did not find data for acitivty schedule, adding default of #{default_activity} W.")
         end
         load_inst.setActivityLevelSchedule(sch_ruleset)
+      end
+
+      # create infiltration load instances
+      if space_data.has_key?(:infiltration_def)
+        load_inst = OpenStudio::Model::SpaceInfiltrationDesignFlowRate.new(model)
+        # include guard clause for valid infiltration input
+        value_m3_s = OpenStudio.convert(space_data[:infiltration_def][:infiltration_flow_per_space], 'cfm', 'm^3/s').get
+        load_inst.setDesignFlowRate(value_m3_s)
+        value_m_s = OpenStudio.convert(space_data[:infiltration_def][:infiltration_flow_per_space_area], 'cfm/ft^2', 'm/s').get
+        load_inst.setFlowperSpaceFloorArea(value_m_s)
+        value_m_s = OpenStudio.convert(space_data[:infiltration_def][:infiltration_flow_per_exterior_surface_area], 'cfm/ft^2', 'm/s').get
+        load_inst.setFlowperExteriorSurfaceArea(value_m_s)
+        value_m_s = OpenStudio.convert(space_data[:infiltration_def][:infiltration_flow_per_exterior_wall_area], 'cfm/ft^2', 'm/s').get
+        load_inst.setFlowperExteriorWallArea(value_m_s)
+        load_inst.setAirChangesperHour(space_data[:infiltration_def][:infiltration_flow_air_changes_per_hour])
+        load_inst.setName("#{space.name.to_s}_infiltration")
+        load_inst.setSpace(space)
+        modified = true
+      end
+
+      # create ventilation instances
+      if space_data.has_key?(:ventilation_def)
+        vent_inst = OpenStudio::Model::DesignSpecificationOutdoorAir.new(model)
+        # include guard clause for valid ventilation input
+        value_m3_s = OpenStudio.convert(space_data[:ventilation_def][:ventilation_flow_per_person], 'cfm', 'm^3/s').get
+        vent_inst.setOutdoorAirFlowperPerson(value_m3_s)
+        value_m_s = OpenStudio.convert(space_data[:ventilation_def][:ventilation_flow_per_area], 'cfm/ft^2', 'm/s').get
+        vent_inst.setOutdoorAirFlowperFloorArea(value_m_s)
+        value_m3_s = OpenStudio.convert(space_data[:ventilation_def][:ventilation_flow_per_space], 'cfm', 'm^3/s').get
+        vent_inst.setOutdoorAirFlowRate(value_m3_s)
+        vent_inst.setOutdoorAirFlowAirChangesperHour(space_data[:ventilation_def][:ventilation_flow_air_changes_per_hour])
+        vent_inst.setName("#{space.name.to_s}_ventilation")
+        vent_inst.setSpace(space)
+        modified = true
       end
 
       # if modified add to modified_spaces hash

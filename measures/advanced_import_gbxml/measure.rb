@@ -142,6 +142,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
 
       # Populate hash for space load instances for people, lights, and electric equipment.
       # Don't duplicate load definitions if an equivalent one has already been made.
+
       # gather lights
       unless element.elements['LightPowerPerArea'].nil?
         # todo - add code for different unit types, for now assuming value is W/ft^2
@@ -151,6 +152,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         end
         advanced_inputs[:spaces][element.attributes['id']][:light_defs] = light_power_per_area
       end
+
       # gather electric equipment
       unless element.elements['EquipPowerPerArea'].nil?
         # todo - add code for different unit types, for now assuming value is W/ft^2
@@ -160,6 +162,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         end
         advanced_inputs[:spaces][element.attributes['id']][:equip_defs] = equip_power_per_area
       end
+
       # gather people
       # unlike lights and equipment, there are multiple people objects in the space to inspect
       space_people_attributes = {}
@@ -178,6 +181,51 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       if space_people_attributes.size > 0
         advanced_inputs[:spaces][element.attributes['id']][:people_defs] = space_people_attributes
       end
+
+      # gather infiltration
+      # todo - add code for different unit types
+      infiltration_def = { infiltration_flow_per_space: 0.0,                 # cfm
+                           infiltration_flow_per_space_area: 0.0,            # cfm/ft2
+                           infiltration_flow_per_exterior_surface_area: 0.0, # cfm/ft2
+                           infiltration_flow_per_exterior_wall_area: 0.0,    # cfm/ft2
+                           infiltration_flow_air_changes_per_hour: 0.0 }     # 1/h
+      # todo - add support for infiltration coefficients
+      if !element.elements['InfiltrationFlowPerSpace'].nil?
+        infiltration_def[:infiltration_flow_per_space] = element.elements['InfiltrationFlowPerSpace'].text.to_f
+      end
+      if !element.elements['InfiltrationFlowPerSpaceArea'].nil?
+        infiltration_def[:infiltration_flow_per_space_area] = element.elements['InfiltrationFlowPerSpaceArea'].text.to_f
+      end
+      if !element.elements['InfiltrationFlowPerExteriorSurfaceArea'].nil?
+        infiltration_def[:infiltration_flow_per_exterior_surface_area] = element.elements['InfiltrationFlowPerExteriorSurfaceArea'].text.to_f
+      end
+      if !element.elements['InfiltrationFlowPerExteriorWallArea'].nil?
+        infiltration_def[:infiltration_flow_per_exterior_wall_area] = element.elements['InfiltrationFlowPerExteriorWallArea'].text.to_f
+      end
+      if !element.elements['InfiltrationFlowAirChangesPerHour'].nil?
+        infiltration_def[:infiltration_flow_air_changes_per_hour] = element.elements['InfiltrationFlowAirChangesPerHour'].text.to_f
+      end
+      advanced_inputs[:spaces][element.attributes['id']][:infiltration_def] = infiltration_def
+
+      # gather ventilation
+      # todo - add code for different unit types
+      ventilation_def = { ventilation_flow_per_person: 0.0,            # cfm
+                          ventilation_flow_per_area: 0.0,              # cfm/ft2
+                          ventilation_flow_per_space: 0.0,             # cfm
+                          ventilation_flow_air_changes_per_hour: 0.0 } # 1/h
+      if !element.elements['OAFlowPerPerson'].nil?
+        ventilation_def[:ventilation_flow_per_person] = element.elements['OAFlowPerPerson'].text.to_f
+      end
+      if !element.elements['OAFlowPerArea'].nil?
+        ventilation_def[:ventilation_flow_per_area] = element.elements['OAFlowPerArea'].text.to_f
+      end
+      if !element.elements['OAFlowPerSpace'].nil?
+        ventilation_def[:ventilation_flow_per_space] = element.elements['OAFlowPerSpace'].text.to_f
+      end
+      if !element.elements['OAFlowAirChangesPerHour'].nil?
+        ventilation_def[:ventilation_flow_air_changes_per_hour] = element.elements['OAFlowAirChangesPerHour'].text.to_f
+      end
+      advanced_inputs[:spaces][element.attributes['id']][:ventilation_def] = ventilation_def
 
       # Noah: Adding hard coding of volume to spaces
       # Todo: check units of the gbXML file
