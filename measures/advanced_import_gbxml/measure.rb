@@ -184,11 +184,11 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
 
       # gather infiltration
       # todo - add code for different unit types
-      infiltration_def = { infiltration_flow_per_space: 0.0,                 # cfm
-                           infiltration_flow_per_space_area: 0.0,            # cfm/ft2
-                           infiltration_flow_per_exterior_surface_area: 0.0, # cfm/ft2
-                           infiltration_flow_per_exterior_wall_area: 0.0,    # cfm/ft2
-                           infiltration_flow_air_changes_per_hour: 0.0 }     # 1/h
+      infiltration_def = { infiltration_flow_per_space: nil,                 # cfm
+                           infiltration_flow_per_space_area: nil,            # cfm/ft2
+                           infiltration_flow_per_exterior_surface_area: nil, # cfm/ft2
+                           infiltration_flow_per_exterior_wall_area: nil,    # cfm/ft2
+                           infiltration_flow_air_changes_per_hour: nil }     # 1/h
       # todo - add support for infiltration coefficients
       if !element.elements['InfiltrationFlowPerSpace'].nil?
         infiltration_def[:infiltration_flow_per_space] = element.elements['InfiltrationFlowPerSpace'].text.to_f

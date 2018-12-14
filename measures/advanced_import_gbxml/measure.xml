@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>advanced_import_gbxml</name>
   <uid>f82940f7-8046-4fd1-9dbb-df6411e86de2</uid>
-  <version_id>085bb2f6-7320-4a39-9ae1-63283ed068f4</version_id>
-  <version_modified>20181011T202835Z</version_modified>
+  <version_id>fea6d28b-e772-4e67-ba7c-c7f45a3291da</version_id>
+  <version_modified>20181214T205714Z</version_modified>
   <xml_checksum>D8922A73</xml_checksum>
   <class_name>AdvancedImportGbxml</class_name>
   <display_name>Advanced Import Gbxml</display_name>
@@ -90,12 +90,6 @@
       <checksum>5F1CEF3A</checksum>
     </file>
     <file>
-      <filename>advanced_import_gbxml_test.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>test</usage_type>
-      <checksum>9144BE24</checksum>
-    </file>
-    <file>
       <filename>Test Villa Scenario 2_alt_a.xml</filename>
       <filetype>xml</filetype>
       <usage_type>test</usage_type>
@@ -108,6 +102,12 @@
       <checksum>00000000</checksum>
     </file>
     <file>
+      <filename>advanced_import_gbxml_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>F7077867</checksum>
+    </file>
+    <file>
       <version>
         <software_program>OpenStudio</software_program>
         <identifier>2.6.0</identifier>
@@ -116,13 +116,19 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>E3A8A0A5</checksum>
+      <checksum>32EC1A2A</checksum>
     </file>
     <file>
       <filename>os_lib_adv_import.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>1FEE8F25</checksum>
+      <checksum>4178BC48</checksum>
+    </file>
+    <file>
+      <filename>VentilationAndInfiltration.xml</filename>
+      <filetype>xml</filetype>
+      <usage_type>test</usage_type>
+      <checksum>A8185257</checksum>
     </file>
   </files>
 </measure>

@@ -141,15 +141,25 @@ module OsLib_AdvImport
       if space_data.has_key?(:infiltration_def)
         load_inst = OpenStudio::Model::SpaceInfiltrationDesignFlowRate.new(model)
         # include guard clause for valid infiltration input
-        value_m3_s = OpenStudio.convert(space_data[:infiltration_def][:infiltration_flow_per_space], 'cfm', 'm^3/s').get
-        load_inst.setDesignFlowRate(value_m3_s)
-        value_m_s = OpenStudio.convert(space_data[:infiltration_def][:infiltration_flow_per_space_area], 'cfm/ft^2', 'm/s').get
-        load_inst.setFlowperSpaceFloorArea(value_m_s)
-        value_m_s = OpenStudio.convert(space_data[:infiltration_def][:infiltration_flow_per_exterior_surface_area], 'cfm/ft^2', 'm/s').get
-        load_inst.setFlowperExteriorSurfaceArea(value_m_s)
-        value_m_s = OpenStudio.convert(space_data[:infiltration_def][:infiltration_flow_per_exterior_wall_area], 'cfm/ft^2', 'm/s').get
-        load_inst.setFlowperExteriorWallArea(value_m_s)
-        load_inst.setAirChangesperHour(space_data[:infiltration_def][:infiltration_flow_air_changes_per_hour])
+        unless space_data[:infiltration_def][:infiltration_flow_per_space].nil?
+          value_m3_s = OpenStudio.convert(space_data[:infiltration_def][:infiltration_flow_per_space], 'cfm', 'm^3/s').get
+          load_inst.setDesignFlowRate(value_m3_s)
+        end
+        unless space_data[:infiltration_def][:infiltration_flow_per_space_area].nil?
+          value_m_s = OpenStudio.convert(space_data[:infiltration_def][:infiltration_flow_per_space_area], 'cfm/ft^2', 'm/s').get
+          load_inst.setFlowperSpaceFloorArea(value_m_s)
+        end
+        unless space_data[:infiltration_def][:infiltration_flow_per_exterior_surface_area].nil?
+          value_m_s = OpenStudio.convert(space_data[:infiltration_def][:infiltration_flow_per_exterior_surface_area], 'cfm/ft^2', 'm/s').get
+          load_inst.setFlowperExteriorSurfaceArea(value_m_s)
+        end
+        unless space_data[:infiltration_def][:infiltration_flow_per_exterior_wall_area].nil?
+          value_m_s = OpenStudio.convert(space_data[:infiltration_def][:infiltration_flow_per_exterior_wall_area], 'cfm/ft^2', 'm/s').get
+          load_inst.setFlowperExteriorWallArea(value_m_s)
+        end
+        unless space_data[:infiltration_def][:infiltration_flow_air_changes_per_hour].nil?
+          load_inst.setAirChangesperHour(space_data[:infiltration_def][:infiltration_flow_air_changes_per_hour])
+        end
         load_inst.setName("#{space.name.to_s}_infiltration")
         load_inst.setSpace(space)
         modified = true
@@ -167,7 +177,7 @@ module OsLib_AdvImport
         vent_inst.setOutdoorAirFlowRate(value_m3_s)
         vent_inst.setOutdoorAirFlowAirChangesperHour(space_data[:ventilation_def][:ventilation_flow_air_changes_per_hour])
         vent_inst.setName("#{space.name.to_s}_ventilation")
-        vent_inst.setSpace(space)
+        space.setDesignSpecificationOutdoorAir(vent_inst)
         modified = true
       end
 
@@ -229,40 +239,40 @@ module OsLib_AdvImport
         time_value_array = time_value_array.reverse
 
         # create default profile, rule, or design day #
-        if day_type == "HeatingDesignDay"
+        if day_type == 'HeatingDesignDay'
           winter_design_day = time_value_array
-        elsif day_type == "CoolingDesignDay"
+        elsif day_type == 'CoolingDesignDay'
           summer_design_day = time_value_array
-        elsif day_type == "Holiday"
+        elsif day_type == 'Holiday'
           # do nothing, not currently supporting holidays
         elsif default_day.nil?
           default_day = time_value_array.insert(0,day_type) #day_type is name of default day profile object
-        elsif day_type == "All"
-          prefix_array = [day_type,date_range,'Mon/Tue/Wed/Thu/Fri/Sat/Sun']
+        elsif day_type == 'All'
+          prefix_array = [day_type,date_range, 'Mon/Tue/Wed/Thu/Fri/Sat/Sun']
           rules << prefix_array + time_value_array
-        elsif day_type == "Weekday"
-          prefix_array = [day_type,date_range,'Mon/Tue/Wed/Thu/Fri']
+        elsif day_type == 'Weekday'
+          prefix_array = [day_type,date_range, 'Mon/Tue/Wed/Thu/Fri']
           rules << prefix_array + time_value_array
-        elsif day_type == "Sat"
-          prefix_array = [day_type,date_range,'Sat']
+        elsif day_type == 'Sat'
+          prefix_array = [day_type,date_range, 'Sat']
           rules << prefix_array + time_value_array
-        elsif day_type == "Sun"
-          prefix_array = [day_type,date_range,'Sun']
+        elsif day_type == 'Sun'
+          prefix_array = [day_type,date_range, 'Sun']
           rules << prefix_array + time_value_array
-        elsif day_type == "Mon"
-          prefix_array = [day_type,date_range,'Mon']
+        elsif day_type == 'Mon'
+          prefix_array = [day_type,date_range, 'Mon']
           rules << prefix_array + time_value_array
-        elsif day_type == "Tue"
-          prefix_array = [day_type,date_range,'Tue']
+        elsif day_type == 'Tue'
+          prefix_array = [day_type,date_range, 'Tue']
           rules << prefix_array + time_value_array
-        elsif day_type == "Wed"
-          prefix_array = [day_type,date_range,'Wed']
+        elsif day_type == 'Wed'
+          prefix_array = [day_type,date_range, 'Wed']
           rules << prefix_array + time_value_array
-        elsif day_type == "Thu" #todo - confirm weekday abbreviations
-          prefix_array = [day_type,date_range,'Thu']
+        elsif day_type == 'Thu' #todo - confirm weekday abbreviations
+          prefix_array = [day_type,date_range, 'Thu']
           rules << prefix_array + time_value_array
-        elsif day_type == "Fri"
-          prefix_array = [day_type,date_range,'Fri']
+        elsif day_type == 'Fri'
+          prefix_array = [day_type,date_range, 'Fri']
           rules << prefix_array + time_value_array
         end
       end
@@ -411,10 +421,10 @@ class AreaReducer
     @desired_area = desired_area
     @new_vertices = vertices
 
-    @zero = BigDecimal::new("0.0")
-    @one = BigDecimal::new("1.0")
-    @two = BigDecimal::new("2.0")
-    @ten = BigDecimal::new("10.0")
+    @zero = BigDecimal::new('0.0')
+    @one = BigDecimal::new('1.0')
+    @two = BigDecimal::new('2.0')
+    @ten = BigDecimal::new('10.0')
     @eps = eps #BigDecimal::new(eps)
   end
 
@@ -481,4 +491,3 @@ class AreaReducer
     @new_vertices
   end
 end
-
