@@ -180,6 +180,48 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
 
     end
 
+    # Hard code space volumes as geometry may not be clean enough to compute all the time.
+    id_element = element.elements['CADObjectId']
+    id = id_element ? id_element.text : false
+
+    model.getSpaces().each do |space|
+
+      # puts space.additionalProperties
+      optional_id = space.additionalProperties.getFeatureAsString('CADObjectId')
+
+      if optional_id.is_initialized && id
+
+        # check if OS space ID equals gbXML space ID
+        if id == optional_id.get
+
+          # get space volume from gbXML
+          volume = element.elements['Volume']
+
+          # see if volume elements exists
+          unless volume.nil?
+            volume = volume.text.to_f
+
+            # check units and adjust if needed
+            volume_unit = gbxml_doc.elements['gbXML'].attributes['volumeUnit']
+            volume = OpenStudio.convert(volume, "ft^3", "m^3").get if volume_unit == "CubicFeet"
+
+            thermal_zone = space.thermalZone.get
+            original_volume = thermal_zone.volume
+
+            # Add volume to existing or set for the first time
+            if original_volume.is_initialized
+              original_volume = original_volume.get
+              thermal_zone.setVolume(original_volume + volume)
+            else
+              thermal_zone.setVolume(volume)
+            end
+
+          end
+        end
+      end
+    end
+  end
+
     puts "**Looping through schedules"
     # note, schedules and schedule sets will be generated as used when looping through spaces
     gbxml_doc.elements.each('gbXML/Schedule') do |element|
