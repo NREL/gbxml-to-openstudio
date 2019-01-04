@@ -39,8 +39,8 @@ class TestBaseboardRadiant < MiniTest::Test
   end
 
   def test_create_osw
-    osw = TestConfig.create_gbxml_test_osw
-    osw = TestConfig.add_gbxml_test_measure_steps(osw, 'BaseboardRadiantConvectiveAllVariations.xml')
+    osw = create_gbxml_test_osw
+    osw = add_gbxml_test_measure_steps(osw, 'BaseboardRadiantConvectiveAllVariations.xml')
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/baseboard_radiant/in.osw'
     osw.saveAs(osw_in_path)
   end

@@ -45,8 +45,8 @@ class TestVAVBox < MiniTest::Test
   end
 
   def test_create_osw
-    osw = TestConfig.create_gbxml_test_osw
-    osw = TestConfig.add_gbxml_test_measure_steps(osw, 'VAVBoxAllVariations.xml')
+    osw = create_gbxml_test_osw
+    osw = add_gbxml_test_measure_steps(osw, 'VAVBoxAllVariations.xml')
 
     old_model_measure_steps = osw.getMeasureSteps(OpenStudio::MeasureType.new("ModelMeasure"))
     osw.resetWorkflowSteps
@@ -61,7 +61,7 @@ class TestVAVBox < MiniTest::Test
     m = OpenStudio::MeasureStep.new("add_xml_output_control_style")
     m.setName('Add XML Output Control Style')
     eplus_measures << m
-    osw = TestConfig.add_osw_measure_steps(osw, model_measure_steps: new_model_measure_steps, energyplus_measure_steps: eplus_measures)
+    osw = add_osw_measure_steps(osw, model_measure_steps: new_model_measure_steps, energyplus_measure_steps: eplus_measures)
 
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/vav_box/in.osw'
     osw.saveAs(osw_in_path)
