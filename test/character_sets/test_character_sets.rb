@@ -9,7 +9,8 @@ class TestCharacterSets < MiniTest::Test
     osw = add_gbxml_test_measure_steps(osw, 'CAVBoxAllVariations.xml')
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/in.osw'
     osw.saveAs(osw_in_path)
-    # rename the .osw once written, as the .saveAs method can't handle chinese characters
+    # add .force_encoding('UTF-8') to osw_in_path
+    # rename the .osw once written for now; update once tests are guaranteed to use >= OS v2.7.1
     osw_rename_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/模型/in.osw'
     File.rename(osw_in_path, osw_rename_path)
 
@@ -32,7 +33,8 @@ class TestCharacterSets < MiniTest::Test
     osw = add_gbxml_test_measure_steps(osw, 'CAVBoxAllVariations.xml')
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/chinese_characters.osw'
     osw.saveAs(osw_in_path)
-    # rename the .osw once written, as the .saveAs method can't handle chinese characters
+    # add .force_encoding('UTF-8') to osw_in_path
+    # rename the .osw once written for now; update once tests are guaranteed to use >= OS v2.7.1
     osw_rename_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/模型.osw'
     File.rename(osw_in_path, osw_rename_path)
   end
