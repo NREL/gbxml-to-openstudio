@@ -4,6 +4,28 @@ require_relative '../minitest_helper'
 # Şỏოĕ şẩოрŀę ΆŠČİĬ-ťėхţ 㚻㟲䒔 乀乁 ԟԱԲ 듥듦
 
 class TestCharacterSets < MiniTest::Test
+  def test_create_osws
+    osw = TestConfig.create_gbxml_test_osw
+    osw = TestConfig.add_gbxml_test_measure_steps(osw, 'chinese_gbxml.xml')
+    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/in_gbxml.osw'
+    osw.saveAs(osw_in_path)
+
+    osw = TestConfig.create_gbxml_test_osw
+    osw = TestConfig.add_gbxml_test_measure_steps(osw, '模型.xml')
+    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/measure_arg.osw'
+    osw.saveAs(osw_in_path)
+
+    osw = TestConfig.create_gbxml_test_osw
+    osw = TestConfig.add_gbxml_test_measure_steps(osw, 'CAVBoxAllVariations.xml', weather_file_name: '듥듦.epw')
+    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/weather.osw'
+    osw.saveAs(osw_in_path)
+
+    osw = TestConfig.create_gbxml_test_osw
+    osw = TestConfig.add_gbxml_test_measure_steps(osw, 'CAVBoxAllVariations.xml')
+    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/模型.osw'
+    #osw.saveAs(osw_in_path)
+  end
+
   def test_in_measure_arg
     # Import gbXML measure has gbXML path arg with UTF-8 chars
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/measure_arg.osw'

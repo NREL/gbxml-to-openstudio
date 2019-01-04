@@ -87,8 +87,9 @@ module TestConfig
   #
   # @param osw [OpenStudio::WorkflowJSON] osw file without measure steps
   # @param gbxml_file_name [String] filename of gbxml file
+  # @param weather_file_name [String] filename of weather file for 'Change Building Location' measure
   # @return [OpenStudio::WorkflowJSON] osw file with measure steps
-  def self.add_gbxml_test_measure_steps(osw, gbxml_file_name)
+  def self.add_gbxml_test_measure_steps(osw, gbxml_file_name, weather_file_name: 'USA_CO_Denver.Intl.AP.725650_TMY3.epw')
     if gbxml_file_name.nil? || gbxml_file_name == ''
       puts 'add_gbxml_test_measure_steps gbxml_file_name argument is empty'
       return false
@@ -115,7 +116,7 @@ module TestConfig
 
     m = OpenStudio::MeasureStep.new("ChangeBuildingLocation")
     m.setName('Change Building Location')
-    m.setArgument('weather_file_name', 'USA_CO_Denver.Intl.AP.725650_TMY3.epw')
+    m.setArgument('weather_file_name', weather_file_name)
     gbxml_measure_steps << m
 
     m = OpenStudio::MeasureStep.new("SpaceTypeAndConstructionSetWizard")
