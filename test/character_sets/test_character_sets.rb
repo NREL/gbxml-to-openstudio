@@ -22,8 +22,11 @@ class TestCharacterSets < MiniTest::Test
 
     osw = TestConfig.create_gbxml_test_osw
     osw = TestConfig.add_gbxml_test_measure_steps(osw, 'CAVBoxAllVariations.xml')
-    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/模型.osw'
-    #osw.saveAs(osw_in_path)
+    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/chinese_characters.osw'
+    osw.saveAs(osw_in_path)
+    # rename the .osw once written, as the .saveAs method can't handle chinese characters
+    osw_rename_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/模型.osw'
+    File.rename(osw_in_path, osw_rename_path)
   end
 
   def test_in_measure_arg
