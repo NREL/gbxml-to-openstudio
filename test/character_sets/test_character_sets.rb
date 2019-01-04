@@ -7,7 +7,7 @@ class TestCharacterSets < MiniTest::Test
   def test_create_osws
     osw = create_gbxml_test_osw
     osw = add_gbxml_test_measure_steps(osw, 'CAVBoxAllVariations.xml')
-    osw_in_path = TestConfig::TEST_OUTPUT_PATH + 'character_sets/in.osw'
+    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/in.osw'
     osw.saveAs(osw_in_path)
     # rename the .osw once written, as the .saveAs method can't handle chinese characters
     osw_rename_path = TestConfig::TEST_OUTPUT_PATH + '/character_sets/模型/in.osw'
