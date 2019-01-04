@@ -93,6 +93,13 @@ class TestAirSystem < Minitest::Test
     assert(fan.is_initialized)
   end
 
+  def test_create_osw
+    osw = TestConfig.create_gbxml_test_osw
+    osw = TestConfig.add_gbxml_test_measure_steps(osw, 'AirSystemAllVariations.xml')
+    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/air_system/in.osw'
+    osw.saveAs(osw_in_path)
+  end
+
   def test_simulation
     # set osw_path to find location of osw to run
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/air_system/in.osw'

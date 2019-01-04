@@ -48,6 +48,13 @@ class TestUnitVentilator < MiniTest::Test
     assert(uv_elec_chw.additionalProperties.getFeatureAsString('CADObjectId').get == '280066-1')
   end
 
+  def test_create_osw
+    osw = TestConfig.create_gbxml_test_osw
+    osw = TestConfig.add_gbxml_test_measure_steps(osw, 'UnitVentilatorAllVariations.xml')
+    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/unit_ventilator/in.osw'
+    osw.saveAs(osw_in_path)
+  end
+
   def test_simulation
     # set osw_path to find location of osw to run
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/unit_ventilator/in.osw'

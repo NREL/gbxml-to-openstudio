@@ -1,7 +1,7 @@
 {
-   "created_at" : "20180914T144735Z",
+   "created_at" : "20190104T001034Z",
    "file_paths" : [ "../../../weather", "../../../seeds", "../../resources/test_gbxmls" ],
-   "hash" : "A1D19E72",
+   "hash" : "6E16577E",
    "measure_paths" : [ "../../../measures" ],
    "steps" : [
       {
@@ -44,11 +44,11 @@
             "cooling_sch" : "OfficeSmall CLGSETP_SCH_NO_OPTIMUM",
             "heating_sch" : "OfficeSmall HTGSETP_SCH_NO_OPTIMUM"
          },
-         "description" : "Sets zone thermostat schedules to schedules in the same file. If a zone does not have a thermostat this measure will add one",
+         "description" : "Sets zone thermostat schedules to schedules in the same file. If a zone does not have a thermostat this measure will add one.",
          "measure_dir_name" : "SetThermostatSchedules",
          "modeler_description" : "Sets zone thermostat schedules to schedules in the same file. If a zone does not have a thermostat this measure will add one.",
          "name" : "Set Thermostat Schedules"
       }
    ],
-   "updated_at" : "20180914T144735Z"
+   "updated_at" : "20190104T001034Z"
 }

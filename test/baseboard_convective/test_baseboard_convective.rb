@@ -38,6 +38,29 @@ class TestBaseboardConvective < MiniTest::Test
     assert(baseboard_elec.additionalProperties.getFeatureAsString('CADObjectId').get == '280066-1')
   end
 
+  def test_create_osw
+    osw = TestConfig.create_gbxml_test_osw
+    osw = TestConfig.add_gbxml_test_measure_steps(osw, 'BaseboardConvectiveAllVariations.xml')
+
+    # initial_measure_steps = osw.getMeasureSteps(OpenStudio::MeasureType.new("ModelMeasure"))
+    # osw.resetWorkflowSteps
+    # additional_measures = []
+    # initial_measure_steps.each { |step| additional_measures << step}
+    #
+    # m = OpenStudio::MeasureStep.new("gbxml_to_openstudio_cleanup")
+    # m.setName('gbxml_to_openstudio_cleanup')
+    # additional_measures << m
+    #
+    # m = OpenStudio::MeasureStep.new("add_xml_output_control_style")
+    # m.setName('Add XML Output Control Style')
+    # additional_measures << m
+    #
+    # osw = TestConfig.add_osw_measure_steps(osw, model_measure_steps: additional_measures)
+
+    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/baseboard_convective/in.osw'
+    osw.saveAs(osw_in_path)
+  end
+
   def test_simulation
     # set osw_path to find location of osw to run
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/baseboard_convective/in.osw'
