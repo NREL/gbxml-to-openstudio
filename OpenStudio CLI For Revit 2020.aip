@@ -9,10 +9,10 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPPRODUCTICON" Value="os.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="NREL"/>
-    <ROW Property="ProductCode" Value="1033:{96A9CCA9-7367-413E-A6D1-0910E48A02F3} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{8FF0D1F7-F689-4F11-953C-C69A9026CC63} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="OpenStudio CLI For Revit 2020"/>
-    <ROW Property="ProductVersion" Value="0.0.7" Type="32"/>
+    <ROW Property="ProductVersion" Value="0.0.8" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{8151B9D3-9C8B-408A-8BDB-231665C21C13}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -389,6 +389,7 @@
     <ROW File="USA_WA_Renton.Muni.AP.727934_TMY3.ddy" Component_="another_weather_file.ddy" FileName="USA_WA~1.DDY|USA_WA_Renton.Muni.AP.727934_TMY3.ddy" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\USA_WA_Renton.Muni.AP.727934_TMY3.ddy" SelfReg="false" NextFile="USA_WA_Renton.Muni.AP.727934_TMY3.epw"/>
     <ROW File="USA_WA_Renton.Muni.AP.727934_TMY3.epw" Component_="another_weather_file.ddy" FileName="USA_WA~1.EPW|USA_WA_Renton.Muni.AP.727934_TMY3.epw" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\USA_WA_Renton.Muni.AP.727934_TMY3.epw" SelfReg="false" NextFile="USA_WA_Renton.Muni.AP.727934_TMY3.stat"/>
     <ROW File="USA_WA_Renton.Muni.AP.727934_TMY3.stat" Component_="another_weather_file.ddy" FileName="USA_WA~1.STA|USA_WA_Renton.Muni.AP.727934_TMY3.stat" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\USA_WA_Renton.Muni.AP.727934_TMY3.stat" SelfReg="false" NextFile="measure.rb_9"/>
+    <ROW File="VentilationAndInfiltration.xml" Component_="advanced_import_gbxml_test.rb" FileName="VENTIL~1.XML|VentilationAndInfiltration.xml" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\tests\VentilationAndInfiltration.xml" SelfReg="false"/>
     <ROW File="_SmallHotel_a.osm" Component_="_SmallHotel_a.osm" FileName="1004_S~1.OSM|1004_SmallHotel_a.osm" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\tests\1004_SmallHotel_a.osm" SelfReg="false" NextFile="add_tariff.osw"/>
     <ROW File="acb.rb" Component_="acb.rb" FileName="acb.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\acb\acb.rb" SelfReg="false" NextFile="air_system.rb"/>
     <ROW File="add_tariff.osw" Component_="_SmallHotel_a.osm" FileName="ADD_TA~1.OSW|add_tariff.osw" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\tests\add_tariff.osw" SelfReg="false" NextFile="EdgeCaseModel.osm"/>
@@ -514,7 +515,7 @@
     <ROW File="seed_empty.osm" Component_="denver_seed_empty.osm" FileName="SEED_E~1.OSM|seed_empty.osm" Attributes="0" SourcePath="installer_staging\seeds\seed_empty.osm" SelfReg="false" NextFile="USA_CO_Denver.Intl.AP.725650_TMY3.ddy"/>
     <ROW File="sfpb.rb" Component_="sfpb.rb" FileName="sfpb.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\sfpb\sfpb.rb" SelfReg="false" NextFile="unit_heater.rb"/>
     <ROW File="ssleay32.dll" Component_="ssleay32.dll" FileName="ssleay32.dll" Attributes="0" SourcePath="installer_staging\bin\ssleay32.dll" SelfReg="false" NextFile="gitkeep"/>
-    <ROW File="stat" Component_="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" FileName="듥듦~1.STA|듥듦.stat" Attributes="0" SourcePath="installer_staging\weather\듥듦.stat" SelfReg="false"/>
+    <ROW File="stat" Component_="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" FileName="듥듦~1.STA|듥듦.stat" Attributes="0" SourcePath="installer_staging\weather\듥듦.stat" SelfReg="false" NextFile="VentilationAndInfiltration.xml"/>
     <ROW File="stat_file.rb" Component_="epw.rb" FileName="STAT_F~1.RB|stat_file.rb" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\resources\stat_file.rb" SelfReg="false" NextFile="another_weather_file.ddy"/>
     <ROW File="test.osm" Component_="another_weather_file.ddy" FileName="test.osm" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\test.osm" SelfReg="false" NextFile="test.osw"/>
     <ROW File="test.osw" Component_="another_weather_file.ddy" FileName="test.osw" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\test.osw" SelfReg="false" NextFile="USA_MA_BostonLogan.Intl.AP.725090_TMY3.ddy"/>
