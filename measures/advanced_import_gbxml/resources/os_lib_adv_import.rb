@@ -43,7 +43,7 @@ module OsLib_AdvImport
   def self.add_objects_from_adv_import_hash(runner, model, advanced_inputs)
 
     # make schedules
-    schedules = import_schs(runner, model, advanced_inputs[:schedules],advanced_inputs[:week_schedules],advanced_inputs[:day_schedules])
+    schedules = import_schs(runner, model, advanced_inputs[:schedules], advanced_inputs[:week_schedules], advanced_inputs[:day_schedules])
 
     # make schedules sets
     schedule_sets = import_sch_set(runner, model, advanced_inputs[:schedule_sets], schedules)
@@ -63,6 +63,7 @@ module OsLib_AdvImport
   def self.assign_space_attributes(runner, model, spaces, schedule_sets, lights, elec_equipment, people)
 
     # loop through spaces and assign attributes
+    # ventilation and infiltration do not have separate load definitions, and are assigned directly to the space
     # note that spaces in model may use name element if it exist instead of id attribute
     modified_spaces = {}
     spaces.each do |id, space_data|
@@ -136,6 +137,50 @@ module OsLib_AdvImport
         load_inst.setActivityLevelSchedule(sch_ruleset)
       end
 
+      # create infiltration load instances
+      if space_data.has_key?(:infiltration_def)
+        load_inst = OpenStudio::Model::SpaceInfiltrationDesignFlowRate.new(model)
+        # include guard clause for valid infiltration input
+        unless space_data[:infiltration_def][:infiltration_flow_per_space].nil?
+          value_m3_s = OpenStudio.convert(space_data[:infiltration_def][:infiltration_flow_per_space], 'cfm', 'm^3/s').get
+          load_inst.setDesignFlowRate(value_m3_s)
+        end
+        unless space_data[:infiltration_def][:infiltration_flow_per_space_area].nil?
+          value_m_s = OpenStudio.convert(space_data[:infiltration_def][:infiltration_flow_per_space_area], 'cfm/ft^2', 'm/s').get
+          load_inst.setFlowperSpaceFloorArea(value_m_s)
+        end
+        unless space_data[:infiltration_def][:infiltration_flow_per_exterior_surface_area].nil?
+          value_m_s = OpenStudio.convert(space_data[:infiltration_def][:infiltration_flow_per_exterior_surface_area], 'cfm/ft^2', 'm/s').get
+          load_inst.setFlowperExteriorSurfaceArea(value_m_s)
+        end
+        unless space_data[:infiltration_def][:infiltration_flow_per_exterior_wall_area].nil?
+          value_m_s = OpenStudio.convert(space_data[:infiltration_def][:infiltration_flow_per_exterior_wall_area], 'cfm/ft^2', 'm/s').get
+          load_inst.setFlowperExteriorWallArea(value_m_s)
+        end
+        unless space_data[:infiltration_def][:infiltration_flow_air_changes_per_hour].nil?
+          load_inst.setAirChangesperHour(space_data[:infiltration_def][:infiltration_flow_air_changes_per_hour])
+        end
+        load_inst.setName("#{space.name.to_s}_infiltration")
+        load_inst.setSpace(space)
+        modified = true
+      end
+
+      # create ventilation instances
+      if space_data.has_key?(:ventilation_def)
+        vent_inst = OpenStudio::Model::DesignSpecificationOutdoorAir.new(model)
+        # include guard clause for valid ventilation input
+        value_m3_s = OpenStudio.convert(space_data[:ventilation_def][:ventilation_flow_per_person], 'cfm', 'm^3/s').get
+        vent_inst.setOutdoorAirFlowperPerson(value_m3_s)
+        value_m_s = OpenStudio.convert(space_data[:ventilation_def][:ventilation_flow_per_area], 'cfm/ft^2', 'm/s').get
+        vent_inst.setOutdoorAirFlowperFloorArea(value_m_s)
+        value_m3_s = OpenStudio.convert(space_data[:ventilation_def][:ventilation_flow_per_space], 'cfm', 'm^3/s').get
+        vent_inst.setOutdoorAirFlowRate(value_m3_s)
+        vent_inst.setOutdoorAirFlowAirChangesperHour(space_data[:ventilation_def][:ventilation_flow_air_changes_per_hour])
+        vent_inst.setName("#{space.name.to_s}_ventilation")
+        space.setDesignSpecificationOutdoorAir(vent_inst)
+        modified = true
+      end
+
       # if modified add to modified_spaces hash
       if modified
         modified_spaces[id] = space
@@ -157,10 +202,10 @@ module OsLib_AdvImport
     schedules.each do |id, schedule_data|
 
       # get schedule name
-      if !schedule_data['name'].nil?
-        ruleset_name = schedule_data['name']
-      else
+      if schedule_data['name'].nil?
         ruleset_name = id
+      else
+        ruleset_name = schedule_data['name']
       end
       date_range = '1/1-12/31' # todo - in future pull form gbxml
       winter_design_day = nil
@@ -194,40 +239,40 @@ module OsLib_AdvImport
         time_value_array = time_value_array.reverse
 
         # create default profile, rule, or design day #
-        if day_type == "HeatingDesignDay"
+        if day_type == 'HeatingDesignDay'
           winter_design_day = time_value_array
-        elsif day_type == "CoolingDesignDay"
+        elsif day_type == 'CoolingDesignDay'
           summer_design_day = time_value_array
-        elsif day_type == "Holiday"
+        elsif day_type == 'Holiday'
           # do nothing, not currently supporting holidays
         elsif default_day.nil?
           default_day = time_value_array.insert(0,day_type) #day_type is name of default day profile object
-        elsif day_type == "All"
-          prefix_array = [day_type,date_range,'Mon/Tue/Wed/Thu/Fri/Sat/Sun']
+        elsif day_type == 'All'
+          prefix_array = [day_type,date_range, 'Mon/Tue/Wed/Thu/Fri/Sat/Sun']
           rules << prefix_array + time_value_array
-        elsif day_type == "Weekday"
-          prefix_array = [day_type,date_range,'Mon/Tue/Wed/Thu/Fri']
+        elsif day_type == 'Weekday'
+          prefix_array = [day_type,date_range, 'Mon/Tue/Wed/Thu/Fri']
           rules << prefix_array + time_value_array
-        elsif day_type == "Sat"
-          prefix_array = [day_type,date_range,'Sat']
+        elsif day_type == 'Sat'
+          prefix_array = [day_type,date_range, 'Sat']
           rules << prefix_array + time_value_array
-        elsif day_type == "Sun"
-          prefix_array = [day_type,date_range,'Sun']
+        elsif day_type == 'Sun'
+          prefix_array = [day_type,date_range, 'Sun']
           rules << prefix_array + time_value_array
-        elsif day_type == "Mon"
-          prefix_array = [day_type,date_range,'Mon']
+        elsif day_type == 'Mon'
+          prefix_array = [day_type,date_range, 'Mon']
           rules << prefix_array + time_value_array
-        elsif day_type == "Tue"
-          prefix_array = [day_type,date_range,'Tue']
+        elsif day_type == 'Tue'
+          prefix_array = [day_type,date_range, 'Tue']
           rules << prefix_array + time_value_array
-        elsif day_type == "Wed"
-          prefix_array = [day_type,date_range,'Wed']
+        elsif day_type == 'Wed'
+          prefix_array = [day_type,date_range, 'Wed']
           rules << prefix_array + time_value_array
-        elsif day_type == "Thu" #todo - confirm weekday abbreviations
-          prefix_array = [day_type,date_range,'Thu']
+        elsif day_type == 'Thu' #todo - confirm weekday abbreviations
+          prefix_array = [day_type,date_range, 'Thu']
           rules << prefix_array + time_value_array
-        elsif day_type == "Fri"
-          prefix_array = [day_type,date_range,'Fri']
+        elsif day_type == 'Fri'
+          prefix_array = [day_type,date_range, 'Fri']
           rules << prefix_array + time_value_array
         end
       end
@@ -376,10 +421,10 @@ class AreaReducer
     @desired_area = desired_area
     @new_vertices = vertices
 
-    @zero = BigDecimal::new("0.0")
-    @one = BigDecimal::new("1.0")
-    @two = BigDecimal::new("2.0")
-    @ten = BigDecimal::new("10.0")
+    @zero = BigDecimal::new('0.0')
+    @one = BigDecimal::new('1.0')
+    @two = BigDecimal::new('2.0')
+    @ten = BigDecimal::new('10.0')
     @eps = eps #BigDecimal::new(eps)
   end
 
@@ -396,11 +441,11 @@ class AreaReducer
       vertex_1 = nil
       vertex_2 = nil
       vertex_3 = nil
-      if (i == 0)
+      if i == 0
         vertex_1 = vertices[n - 1]
         vertex_2 = vertices[i]
         vertex_3 = vertices[i + 1]
-      elsif (i == (n - 1))
+      elsif i == (n - 1)
         vertex_1 = vertices[i - 1]
         vertex_2 = vertices[i]
         vertex_3 = vertices[0]
@@ -446,4 +491,3 @@ class AreaReducer
     @new_vertices
   end
 end
-
