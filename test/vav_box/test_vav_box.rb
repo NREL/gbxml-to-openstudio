@@ -44,6 +44,29 @@ class TestVAVBox < MiniTest::Test
     assert(vav_box_elec.additionalProperties.getFeatureAsString('CADObjectId').get == '280066-1')
   end
 
+  def test_create_osw
+    osw = create_gbxml_test_osw
+    osw = add_gbxml_test_measure_steps(osw, 'VAVBoxAllVariations.xml')
+
+    old_model_measure_steps = osw.getMeasureSteps(OpenStudio::MeasureType.new("ModelMeasure"))
+    osw.resetWorkflowSteps
+    new_model_measure_steps = []
+    old_model_measure_steps.each { |step| new_model_measure_steps << step }
+
+    m = OpenStudio::MeasureStep.new("gbxml_to_openstudio_cleanup")
+    m.setName('gbxml_to_openstudio_cleanup')
+    new_model_measure_steps << m
+
+    eplus_measures = []
+    m = OpenStudio::MeasureStep.new("add_xml_output_control_style")
+    m.setName('Add XML Output Control Style')
+    eplus_measures << m
+    osw = add_osw_measure_steps(osw, model_measure_steps: new_model_measure_steps, energyplus_measure_steps: eplus_measures)
+
+    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/vav_box/in.osw'
+    osw.saveAs(osw_in_path)
+  end
+
   def test_simulation
     # set osw_path to find location of osw to run
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/vav_box/in.osw'

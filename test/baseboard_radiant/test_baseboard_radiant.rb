@@ -38,6 +38,13 @@ class TestBaseboardRadiant < MiniTest::Test
     assert(baseboard_elec.additionalProperties.getFeatureAsString('CADObjectId').get == '280066-1')
   end
 
+  def test_create_osw
+    osw = create_gbxml_test_osw
+    osw = add_gbxml_test_measure_steps(osw, 'BaseboardRadiantConvectiveAllVariations.xml')
+    osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/baseboard_radiant/in.osw'
+    osw.saveAs(osw_in_path)
+  end
+
   def test_simulation
     # set osw_path to find location of osw to run
     osw_in_path = TestConfig::TEST_OUTPUT_PATH + '/baseboard_radiant/in.osw'
