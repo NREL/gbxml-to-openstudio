@@ -227,8 +227,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       end
       advanced_inputs[:spaces][element.attributes['id']][:ventilation_def] = ventilation_def
 
-      # Noah: Adding hard coding of volume to spaces
-      # Todo: check units of the gbXML file
+    # Hard code space volumes as geometry may not be clean enough to compute all the time.
       id_element = element.elements['CADObjectId']
       id = id_element ? id_element.text : false
 
@@ -251,7 +250,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
 
               # check units and adjust if needed
               volume_unit = gbxml_doc.elements['gbXML'].attributes['volumeUnit']
-              volume = OpenStudio.convert(volume, "ft^3", "m^3") if volume_unit == "CubicFeet"
+              volume = OpenStudio.convert(volume, "ft^3", "m^3").get if volume_unit == "CubicFeet"
 
               thermal_zone = space.thermalZone.get
               original_volume = thermal_zone.volume
