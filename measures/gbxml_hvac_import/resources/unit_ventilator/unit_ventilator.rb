@@ -18,7 +18,9 @@ class UnitVentilator < HVACObject
   end
 
   def add_supply_fan
-    OpenStudio::Model::FanConstantVolume.new(self.model)
+    fan = OpenStudio::Model::FanConstantVolume.new(self.model)
+    fan.setName("#{self.name} Fan")
+    fan
   end
 
   def add_heating_coil
@@ -30,6 +32,10 @@ class UnitVentilator < HVACObject
       heating_coil = OpenStudio::Model::CoilHeatingWater.new(self.model)
     end
 
+    if heating_coil
+      heating_coil.setName(self.name + " Heating Coil") unless self.name.nil?
+    end
+
     heating_coil
   end
 
@@ -38,6 +44,7 @@ class UnitVentilator < HVACObject
 
     if self.cooling_coil_type == "ChilledWater"
       cooling_coil = OpenStudio::Model::CoilCoolingWater.new(self.model)
+      cooling_coil.setName("#{self.name} Cooling Coil")
     end
 
     cooling_coil

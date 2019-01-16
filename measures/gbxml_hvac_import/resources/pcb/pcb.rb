@@ -19,16 +19,20 @@ class PCB < HVACObject
 
   def add_supply_fan
     fan = OpenStudio::Model::FanOnOff.new(self.model)
-    fan.setPressureRise(0.1)
+    fan.setName("#{self.name} Fan")
     fan
   end
 
   def add_heating_coil
-    OpenStudio::Model::CoilHeatingWater.new(self.model)
+    heating_coil = OpenStudio::Model::CoilHeatingWater.new(self.model)
+    heating_coil.setName("#{self.name} Heating Coil")
+    heating_coil
   end
 
   def add_cooling_coil
-    OpenStudio::Model::CoilCoolingWater.new(self.model)
+    cooling_coil = OpenStudio::Model::CoilCoolingWater.new(self.model)
+    cooling_coil.setName("#{self.name} Cooling Coil")
+    cooling_coil
   end
 
   def resolve_dependencies

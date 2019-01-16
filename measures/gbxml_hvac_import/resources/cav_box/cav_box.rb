@@ -36,6 +36,10 @@ class CAVBox < HVACObject
       heating_coil = OpenStudio::Model::CoilHeatingWater.new(self.model)
     end
 
+    if heating_coil
+      heating_coil.setName(self.name + " Heating Coil") unless self.name.nil?
+    end
+
     heating_coil
   end
 

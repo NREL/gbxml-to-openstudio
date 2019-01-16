@@ -31,6 +31,7 @@ class BaseboardRadiant < HVACObject
 
     if self.heating_coil_type == "HotWater"
       heating_coil = OpenStudio::Model::CoilHeatingWaterBaseboardRadiant.new(self.model)
+      heating_coil.setName(self.name + " Heating Coil") unless self.name.nil?
     end
 
     heating_coil
