@@ -28,7 +28,7 @@ class AirSystem < HVACObject
 
     if fan
       fan.setName(self.name + " Supply Fan") unless self.name.nil?
-      fan.additionalProperties.setFeature('system_name', self.name) unless self.name.nil?
+      fan.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.name.nil?
     end
 
     fan
@@ -47,7 +47,7 @@ class AirSystem < HVACObject
 
     if heating_coil
       heating_coil.setName(self.name + " Heating Coil") unless self.name.nil?
-      heating_coil.additionalProperties.setFeature('system_name', self.name) unless self.name.nil?
+      heating_coil.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.name.nil?
       heating_coil.additionalProperties.setFeature('coil_type', 'primary_heating')
     end
 
@@ -67,7 +67,7 @@ class AirSystem < HVACObject
 
     if cooling_coil
       cooling_coil.setName(self.name + " Cooling Coil") unless self.name.nil?
-      cooling_coil.additionalProperties.setFeature('system_name', self.name) unless self.name.nil?
+      cooling_coil.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.name.nil?
       cooling_coil.additionalProperties.setFeature('coil_type', 'primary_cooling')
     end
 
@@ -87,7 +87,7 @@ class AirSystem < HVACObject
 
     if preheat_coil
       preheat_coil.setName(self.name + " Preheat Coil") unless self.name.nil?
-      preheat_coil.additionalProperties.setFeature('system_name', self.name) unless self.name.nil?
+      preheat_coil.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.name.nil?
       preheat_coil.additionalProperties.setFeature('coil_type', 'preheat')
     end
 
