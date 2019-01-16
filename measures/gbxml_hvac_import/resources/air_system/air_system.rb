@@ -22,10 +22,13 @@ class AirSystem < HVACObject
 
     if self.supply_fan_type == "VariableVolume"
       fan = OpenStudio::Model::FanVariableVolume.new(self.model)
-      fan.setName(self.name) unless self.name.nil?
     elsif self.supply_fan_type == "ConstantVolume"
       fan = OpenStudio::Model::FanConstantVolume.new(self.model)
-      fan.setName(self.name) unless self.name.nil?
+    end
+
+    if fan
+      fan.setName(self.name + " Supply Fan") unless self.name.nil?
+      fan.additionalProperties.setFeature('system_name', self.name) unless self.name.nil?
     end
 
     fan
@@ -42,6 +45,12 @@ class AirSystem < HVACObject
       heating_coil = OpenStudio::Model::CoilHeatingWater.new(self.model)
     end
 
+    if heating_coil
+      heating_coil.setName(self.name + " Heating Coil") unless self.name.nil?
+      heating_coil.additionalProperties.setFeature('system_name', self.name) unless self.name.nil?
+      heating_coil.additionalProperties.setFeature('coil_type', 'primary_heating')
+    end
+
     heating_coil
   end
 
@@ -56,6 +65,12 @@ class AirSystem < HVACObject
       cooling_coil = OpenStudio::Model::CoilCoolingWater.new(self.model)
     end
 
+    if cooling_coil
+      cooling_coil.setName(self.name + " Cooling Coil") unless self.name.nil?
+      cooling_coil.additionalProperties.setFeature('system_name', self.name) unless self.name.nil?
+      cooling_coil.additionalProperties.setFeature('coil_type', 'primary_cooling')
+    end
+
     cooling_coil
   end
 
@@ -68,6 +83,12 @@ class AirSystem < HVACObject
       preheat_coil = OpenStudio::Model::CoilHeatingGas.new(self.model)
     elsif self.preheat_coil_type == "HotWater"
       preheat_coil = OpenStudio::Model::CoilHeatingWater.new(self.model)
+    end
+
+    if preheat_coil
+      preheat_coil.setName(self.name + " Preheat Coil") unless self.name.nil?
+      preheat_coil.additionalProperties.setFeature('system_name', self.name) unless self.name.nil?
+      preheat_coil.additionalProperties.setFeature('coil_type', 'preheat')
     end
 
     preheat_coil
