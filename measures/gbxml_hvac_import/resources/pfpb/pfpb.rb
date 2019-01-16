@@ -44,6 +44,10 @@ class PFPB < HVACObject
       heating_coil.setRatedCapacity(0) if self.air_terminal_type == 'NoReheat'
     end
 
+    if heating_coil
+      heating_coil.setName(self.name + " Heating Coil") unless self.name.nil?
+    end
+
     heating_coil
   end
 

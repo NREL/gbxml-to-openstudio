@@ -20,19 +20,27 @@ class WSHP < HVACObject
   end
 
   def add_supply_fan
-    OpenStudio::Model::FanOnOff.new(self.model)
+    fan = OpenStudio::Model::FanOnOff.new(self.model)
+    fan.setName("#{self.name} Fan")
+    fan
   end
 
   def add_heating_coil
-    OpenStudio::Model::CoilHeatingWaterToAirHeatPumpEquationFit.new(self.model)
+    heating_coil = OpenStudio::Model::CoilHeatingWaterToAirHeatPumpEquationFit.new(self.model)
+    heating_coil.setName("#{self.name} Heating Coil")
+    heating_coil
   end
 
   def add_cooling_coil
-    OpenStudio::Model::CoilCoolingWaterToAirHeatPumpEquationFit.new(self.model)
+    cooling_coil = OpenStudio::Model::CoilCoolingWaterToAirHeatPumpEquationFit.new(self.model)
+    cooling_coil.setName("#{self.name} Cooling Coil")
+    cooling_coil
   end
 
   def add_supplemental_heating_coil
-    OpenStudio::Model::CoilHeatingElectric.new(self.model)
+    heating_coil = OpenStudio::Model::CoilHeatingElectric.new(self.model)
+    heating_coil.setName("#{self.name} Supplemental Heating Coil")
+    heating_coil
   end
 
   def resolve_dependencies

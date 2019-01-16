@@ -31,11 +31,15 @@ class ACB < HVACObject
   end
 
   def add_heating_coil
-    OpenStudio::Model::CoilHeatingWater.new(self.model)
+    heating_coil = OpenStudio::Model::CoilHeatingWater.new(self.model)
+    heating_coil.setName(self.name + " Heating Coil") unless self.name.nil?
+    heating_coil
   end
 
   def add_cooling_coil
-    OpenStudio::Model::CoilCoolingWater.new(self.model)
+    cooling_coil = OpenStudio::Model::CoilCoolingWater.new(self.model)
+    cooling_coil.setName(self.name + " Cooling Coil") unless self.name.nil?
+    cooling_coil
   end
 
   def resolve_dependencies

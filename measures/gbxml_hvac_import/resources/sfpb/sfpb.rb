@@ -26,7 +26,9 @@ class SFPB < HVACObject
   end
 
   def add_supply_fan
-    OpenStudio::Model::FanConstantVolume.new(self.model)
+    fan = OpenStudio::Model::FanConstantVolume.new(self.model)
+    fan.setName("#{self.name} Fan")
+    fan
   end
 
   def add_heating_coil
@@ -42,6 +44,10 @@ class SFPB < HVACObject
     elsif self.heating_coil_type == "HotWater"
       heating_coil = OpenStudio::Model::CoilHeatingWater.new(self.model)
       heating_coil.setRatedCapacity(0) if self.air_terminal_type == 'NoReheat'
+    end
+
+    if heating_coil
+      heating_coil.setName(self.name + " Heating Coil") unless self.name.nil?
     end
 
     heating_coil
