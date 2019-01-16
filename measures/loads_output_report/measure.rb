@@ -88,7 +88,7 @@ class LoadsOutputReport < OpenStudio::Measure::ReportingMeasure
     model.setSqlFile(sql_file)
 
     component_loads = {}
-    component_load_summary = ComponentLoadSummary.new(sql_file)
+    component_load_summary = ComponentLoadSummaryOld.new(sql_file)
 
     ## Get Space and Zone Component Load Summary Data
     model.getThermalZones.each do |zone|
