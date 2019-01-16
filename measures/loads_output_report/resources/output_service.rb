@@ -30,18 +30,20 @@ class OutputService
     zone_loads_by_component
   end
 
-  def get_system_checksum(system_name, coil_name)
+  def get_system_checksum(system_name, cooling_coil_name, heating_coil_name)
     system_checksum = SystemChecksum.new
-    extended_cooling_peak_load_component_table = SystemChecksumPeakLoadComponentTable.new(self.peak_load_component_table_repository.get('AirLoop', name, 'Cooling'))
-    extended_heating_peak_load_component_table = SystemChecksumPeakLoadComponentTable.new(self.peak_load_component_table_repository.get('AirLoop', name, 'Heating'))
+    extended_cooling_peak_load_component_table = SystemChecksumPeakLoadComponentTable.new(self.peak_load_component_table_repository.get('AirLoop', system_name, 'Cooling'))
+    extended_heating_peak_load_component_table = SystemChecksumPeakLoadComponentTable.new(self.peak_load_component_table_repository.get('AirLoop', system_name, 'Heating'))
     system_checksum.cooling_peak_load_component_table = extended_cooling_peak_load_component_table
     system_checksum.heating_peak_load_component_table = extended_heating_peak_load_component_table
-    system_checksum.cooling_peak_condition_table_repository = self.peak_condition_table_repository.get('AirLoop', name, 'Cooling')
-    system_checksum.heating_peak_condition_table_repository = self.peak_condition_table_repository.get('AirLoop', name, 'Heating')
-    system_checksum.cooling_engineering_check_table = self.engineering_check_table_repository.get('AirLoop', name, 'Cooling')
-    system_checksum.heating_engineering_check_table = self.engineering_check_table_repository.get('AirLoop', name, 'Heating')
+    system_checksum.cooling_peak_condition_table_repository = self.peak_condition_table_repository.get('AirLoop', system_name, 'Cooling')
+    system_checksum.heating_peak_condition_table_repository = self.peak_condition_table_repository.get('AirLoop', system_name, 'Heating')
+    system_checksum.cooling_engineering_check_table = self.engineering_check_table_repository.get('AirLoop', system_name, 'Cooling')
+    system_checksum.heating_engineering_check_table = self.engineering_check_table_repository.get('AirLoop', system_name, 'Heating')
 
     # Todo: Set coil sizing details for coils
+    system_checksum.cooling_coil_sizing_detail = @coil_sizing_detail_repository.get(coil_name)
+    system_checksum.heating_coil_sizing_detail = @coil_sizing_detail_repository.get(coil_name)
 
     system_checksum.calculate_additional_results
     system_checksum
