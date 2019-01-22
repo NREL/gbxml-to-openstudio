@@ -49,38 +49,39 @@ class PeakLoadComponentTableRepository
     self.sql_file = sql_file
   end
 
-  # @param type [String] whether it's a "Zone", "Airloop" or "Facility"
   # @param name [String] the name of the object
-  # @param conditioning_type [String] "heating" or "cooling"
-  def get(type, name, conditioning_type)
-    # params = {:name => name}
-    params = {}
+  # @param type [String] whether it's a "Zone", "Airloop" or "Facility"
+  # @param conditioning [String] "heating" or "cooling"
+  def find_by_name_type_and_conditioning(name, type, conditioning)
+    names_query = "SELECT DISTINCT UPPER(ReportForString) From TabularDataWithStrings WHERE ReportName == '#{type} Component Load Summary'
+                        AND TableName == 'Estimated #{conditioning} Peak Load Components'"
+    names = @sql_file.execAndReturnVectorOfString(names_query).get
 
-    ROW_PARAM_MAP.each do |param|
-      params[param[:param_name].to_sym] = get_peak_load_component(type, name, conditioning_type, param[:component])
+    if names.include? name.upcase
+      params = {}
+
+      ROW_PARAM_MAP.each do |param|
+        params[param[:param_name].to_sym] = find_peak_load_component_by_name_type_and_conditioning(name, type, conditioning, param[:component])
+      end
+
+      PeakLoadComponentTable.new(params)
     end
-
-    PeakLoadComponentTable.new(params)
   end
 
   private # Does this need to be private?
-  # @param type [String] whether it's a "zone", "airloop" or "facility"
   # @param name [String] the name of the object
-  # @param conditioning_type [String] "heating" or "cooling"
+  # @param type [String] either "Zone", "AirLoop" or "Facility"
+  # @param conditioning [String] either "Cooling" or "Heating"
   # @param component [String] of the type of load (i.e. "People", "Lights", "Equipment")
-  def get_peak_load_component(type, name, conditioning_type, component)
+  def find_peak_load_component_by_name_type_and_conditioning(name, type, conditioning, component)
     component_query = BASE_QUERY + " WHERE ReportName = '#{type} Component Load Summary' AND TableName =
-          'Estimated #{conditioning_type} Peak Load Components' AND UPPER(ReportForString) = '#{name.upcase}' AND RowName = '#{component}'"
+        'Estimated #{conditioning} Peak Load Components' AND UPPER(ReportForString) = '#{name.upcase}' AND RowName = '#{component}'"
     params = {}
 
     COLUMN_PARAM_MAP.each do |param|
       query = component_query + " AND ColumnName == '#{param[:db_name]}'"
-      # puts query
-      result = self.sql_file.execAndReturnFirstDouble(query)
-      puts result
-      if result.is_initialized
-        params[param[:param_name]] = result.get
-      end
+      result = @sql_file.execAndReturnFirstDouble(query)
+      params[param[:param_name].to_sym] = result.get if result.is_initialized
     end
 
     PeakLoadComponent.new(params)

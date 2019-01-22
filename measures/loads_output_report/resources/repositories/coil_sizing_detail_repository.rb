@@ -95,24 +95,29 @@ class CoilSizingDetailRepository
     self.sql_file = sql_file
   end
 
-  def get(coil_name)
-    coil_query = BASE_QUERY + " AND RowName == '#{coil_name}'"
-    params = {}
+  def find_by_name(name)
+    coil_names_query = "SELECT DISTINCT UPPER(RowName) From TabularDataWithStrings WHERE ReportName == 'CoilSizingDetails'"
+    coil_names = @sql_file.execAndReturnVectorOfString(coil_names_query).get
 
-    PARAM_MAP.each do |param|
-      query = coil_query + " AND ColumnName == '#{param[:db_name]}'"
-      params[param[:param_name].to_sym] = get_optional_value(param[:param_type], query)
+    if coil_names.include? name.upcase
+      coil_query = BASE_QUERY + " AND UPPER(RowName) == '#{name.upcase}'"
+      params = {}
+
+      PARAM_MAP.each do |param|
+        query = coil_query + " AND ColumnName == '#{param[:db_name]}'"
+        params[param[:param_name].to_sym] = get_optional_value(param[:param_type], query)
+      end
+
+      CoilSizingDetail.new(params)
     end
-
-    CoilSizingDetail.new(params)
   end
 
   def get_all
     coil_names_query = "SELECT DISTINCT RowName From TabularDataWithStrings WHERE ReportName == 'CoilSizingDetails'"
     coil_sizing_details = []
 
-    @sql_file.execAndReturnVectorOfString(coil_names_query).get.each do |coil_name|
-      coil_sizing_details << get(coil_name)
+    @sql_file.execAndReturnVectorOfString(coil_names_query).find_by_name.each do |coil_name|
+      coil_sizing_details << find_by_name(coil_name)
     end
 
     return coil_sizing_details

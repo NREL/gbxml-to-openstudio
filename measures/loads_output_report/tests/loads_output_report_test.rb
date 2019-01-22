@@ -77,7 +77,7 @@ class LoadsOutputReportTest < Minitest::Test
     translator = OpenStudio::OSVersion::VersionTranslator.new
     model = translator.loadModel(model_in_path)
     assert(!model.empty?)
-    model = model.get
+    model = model.find_by_name
     model.addObjects(request_model.objects)
     model.save(model_out_path(test_name), true)
     

@@ -20,14 +20,14 @@ class OutputGenerator
     component_load_summary = ComponentLoadSummaryOld.new(self.sql_file)
 
     self.model.getThermalZones.each do |zone|
-      zone_name = zone.name.get
+      zone_name = zone.name.find_by_name
       loads_and_peaks = component_load_summary.get_loads_and_peak_conditions(zone_name.upcase)
 
       zone.spaces.each do |space|
         id = space.additionalProperties.getFeatureAsString('CADObjectId')
 
         if id.is_initialized
-          component_loads[id.get] = loads_and_peaks
+          component_loads[id.find_by_name] = loads_and_peaks
         end
       end
 
@@ -41,12 +41,12 @@ class OutputGenerator
     air_system_checksum = AirSystemChecksum.new(self.sql_file)
 
     self.model.getAirLoopHVACs.each do |airloop|
-      airloop_name = airloop.name.get
+      airloop_name = airloop.name.find_by_name
       id = airloop.additionalProperties.getFeatureAsString('CADObjectId')
 
       if id.is_initialized
         loads_and_peaks = air_system_checksum.get_loads_and_peak_conditions(airloop_name.upcase)
-        checksum[id.get] = loads_and_peaks
+        checksum[id.find_by_name] = loads_and_peaks
       end
     end
 
@@ -62,11 +62,11 @@ class OutputGenerator
 
   def get_design_psychrometrics
     psychrometrics = {}
-    design_psychrometrics = DesignPsychrometrics(self.sql_file)
+    design_psychrometrics = DesignPsychrometric(self.sql_file)
 
     ## Todo: Update this to use CADObjectID from parents system
     self.get_cooling_coils.each do |cooling_coil|
-      name = cooling_coil.name.get
+      name = cooling_coil.name.find_by_name
       psychrometrics[name] = design_psychrometrics.get_design_psychrometrics(name)
     end
 
@@ -104,5 +104,6 @@ coil2 = OpenStudio::Model::CoilCoolingDXTwoSpeed.new(model)
 
 generator = OutputGenerator.new(model, nil)
 generator.get_cooling_coils.each do |coil|
-  puts coil.name.get
+  puts coil.name.find_by_name
 end
+

@@ -29,7 +29,7 @@ class ComponentLoadSummaryOld
         load_result = self.sql_file.execAndReturnFirstDouble(load_query)
 
         if load_result.is_initialized
-          row_loads[column_name] = load_result.get
+          row_loads[column_name] = load_result.find_by_name
         end
       end
 
@@ -52,7 +52,7 @@ class ComponentLoadSummaryOld
         load_result = self.sql_file.execAndReturnFirstDouble(load_query)
 
         if load_result.is_initialized
-          row_loads[column_name] = load_result.get
+          row_loads[column_name] = load_result.find_by_name
         end
       end
 
@@ -78,7 +78,7 @@ class ComponentLoadSummaryOld
       end
 
       if load_result.is_initialized
-        peak_conditions[row_name] = load_result.get
+        peak_conditions[row_name] = load_result.find_by_name
       end
     end
   end
@@ -98,7 +98,7 @@ class ComponentLoadSummaryOld
       end
 
       if load_result.is_initialized
-        peak_conditions[row_name] = load_result.get
+        peak_conditions[row_name] = load_result.find_by_name
       end
     end
   end

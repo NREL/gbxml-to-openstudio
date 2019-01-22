@@ -1,4 +1,6 @@
-class CoilSizingDetail
+require_relative 'jsonable'
+
+class CoilSizingDetail < JSONable
   attr_accessor :coil_type, :coil_location, :hvac_type, :hvac_name, :zone_names, :sizing_method_concurrence,
                 :sizing_method_capacity, :sizing_method_airflow, :autosized_capacity, :autosized_airflow, :autosized_waterflow,
                 :oa_pretreated, :final_gross_total_capacity, :final_gross_sensible_capacity, :final_reference_airflow,
@@ -116,21 +118,21 @@ class CoilSizingDetail
     return equal
   end
 
-  def create_ventilation_peak_load_component(coil_sizing_detail)
+  def create_ventilation_peak_load_component
     rho = self.standard_air_density
     cfm_oa = self.oa_airflow_peak
+    t_oa = self.oa_drybulb_peak
+    t_zone = self.zone_drybulb_peak
 
-    if self.oa_drybulb_peak and self.oa_hr_peak
-      h_oa = calculate_enthalpy(self.oa_drybulb_peak, self.oa_hr_peak)
+    if t_oa and self.oa_hr_peak
+      h_oa = calculate_enthalpy(t_oa, self.oa_hr_peak)
     end
 
-    if self.zone_drybulb_peak and self.zone_hr_peak
-      h_zone = calculate_enthalpy(self.zone_drybulb_peak, self.zone_hr_peak)
+    if t_zone and self.zone_hr_peak
+      h_zone = calculate_enthalpy(t_zone, self.zone_hr_peak)
     end
 
     cp = self.moist_air_heat_capacity
-    t_oa = self.oa_drybulb_peak
-    t_zone = self.zone_drybulb_peak
 
     if cp and rho and cfm_oa and t_oa and t_zone and h_oa and h_zone
       sensible_load = cp * rho * cfm_oa * (t_oa - t_zone)
@@ -150,12 +152,16 @@ class CoilSizingDetail
 
   def create_fan_peak_load_component
     if @fan_heat_gain_peak
-      return PeakLoadComponent({:sensible_instant => @fan_heat_gain_peak})
+      return PeakLoadComponent.new({:sensible_instant => @fan_heat_gain_peak})
     end
   end
 
   def calculate_enthalpy(t_db, w)
-    1.006 * t_db + w * (2501 + 1.86 * t_db)
+    (1.006 * t_db + w * (2501 + 1.86 * t_db)) * 1000
+  end
+
+  def calculate_fan_temperature_difference
+    self.fan_heat_gain_peak / (self.moist_air_heat_capacity * self.airmass_peak)
   end
 end
 

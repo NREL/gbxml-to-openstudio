@@ -25,7 +25,7 @@ class PeakLoadComponentRepository
   # @param component [String] of the type of load (i.e. "People", "Lights", "Equipment")
   def get(type, name, conditioning_type, component)
     component_query = BASE_QUERY + " WHERE ReportName = '#{type} Component Load Summary' AND TableName =
-          'Estimated #{conditioning_type} Peak Load Components' AND ReportForString = '#{name}' AND RowName = '#{component}'"
+          'Estimated #{conditioning_type} Peak Load Components' AND UPPER(ReportForString) = '#{name.upcase}' AND RowName = '#{component}'"
 
     params = {}
 
@@ -33,9 +33,8 @@ class PeakLoadComponentRepository
       query = component_query + " AND ColumnName == '#{param[:db_name]}'"
 
       result = self.sql_file.execAndReturnFirstDouble(query)
-      puts result
       if result.is_initialized
-        params[param[:param_sym]] = result.get
+        params[param[:param_sym]] = result.find_by_name
       end
     end
 

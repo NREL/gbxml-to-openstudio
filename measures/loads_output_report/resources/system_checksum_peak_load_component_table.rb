@@ -12,8 +12,7 @@ class SystemChecksumPeakLoadComponentTable < PeakLoadComponentTable
   def to_hash
     base_hash = self.peak_load_component_table.to_hash
 
-    instance_hash = instance_variables.map do |iv|
-      unless iv == '@peak_load_component_table'
+    instance_hash = instance_variables.select {|iv| iv.to_s !=  '@peak_load_component_table'}.map do |iv|
         value = instance_variable_get(:"#{iv}")
         [
             iv.to_s[1..-1], # name without leading `@`
@@ -26,7 +25,6 @@ class SystemChecksumPeakLoadComponentTable < PeakLoadComponentTable
             else value # seems to be non-convertable, put as is
             end
         ]
-      end
     end.to_h
 
     base_hash.merge(instance_hash)

@@ -28,8 +28,3 @@ class PeakLoadComponent < JSONable
     return equal
   end
 end
-
-params = {:sensible_instant => '0.1', :sensible_delayed => 0.2, :sensible_return_air => PeakLoadComponent.new(:sensible_instant => 1)}
-puts PeakLoadComponent.new(params).to_hash
-
-puts ({:sensible_instant => '0.1', :sensible_delayed => 0.2})

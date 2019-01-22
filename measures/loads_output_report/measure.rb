@@ -77,14 +77,14 @@ class LoadsOutputReport < OpenStudio::Measure::ReportingMeasure
       runner.registerError('Cannot find last model.')
       return false
     end
-    model = model.get
+    model = model.find_by_name
 
     sql_file = runner.lastEnergyPlusSqlFile
     if sql_file.empty?
       runner.registerError('Cannot find last sql file.')
       return false
     end
-    sql_file = sql_file.get
+    sql_file = sql_file.find_by_name
     model.setSqlFile(sql_file)
 
     component_loads = {}
@@ -92,14 +92,14 @@ class LoadsOutputReport < OpenStudio::Measure::ReportingMeasure
 
     ## Get Space and Zone Component Load Summary Data
     model.getThermalZones.each do |zone|
-      zone_name = zone.name.get
+      zone_name = zone.name.find_by_name
       loads_and_peaks = component_load_summary.get_loads_and_peak_conditions(zone_name.upcase)
 
       zone.spaces.each do |space|
         id = space.additionalProperties.getFeatureAsString('CADObjectId')
 
         if id.is_initialized
-          component_loads[id.get] = loads_and_peaks
+          component_loads[id.find_by_name] = loads_and_peaks
         end
       end
 
@@ -107,12 +107,12 @@ class LoadsOutputReport < OpenStudio::Measure::ReportingMeasure
 
     ## Get Airloop Component load Summary Data
     model.getAirLoopHVACs.each do |airloop|
-      airloop_name = airloop.name.get
+      airloop_name = airloop.name.find_by_name
       id = airloop.additionalProperties.getFeatureAsString('CADObjectId')
 
       if id.is_initialized
         loads_and_peaks = component_load_summary.get_loads_and_peak_conditions(airloop_name.upcase)
-        component_loads[id.get] = loads_and_peaks
+        component_loads[id.find_by_name] = loads_and_peaks
       end
     end
 

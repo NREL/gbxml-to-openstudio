@@ -1,14 +1,13 @@
 require_relative 'jsonable'
 
 class PeakLoadComponentTable < JSONable
-  attr_accessor :name, :people, :lights, :equipment, :refrigeration, :water_use_equipment, :hvac_equipment_loss,
+  attr_accessor :people, :lights, :equipment, :refrigeration, :water_use_equipment, :hvac_equipment_loss,
                 :power_generation_equipment, :doas_direct_to_zone, :infiltration, :zone_ventilation, :interzone_mixing,
                 :roof, :interzone_ceiling, :other_roof, :exterior_wall, :interzone_wall, :ground_contact_wall,
                 :other_wall, :exterior_floor, :interzone_floor, :ground_contact_floor, :other_floor,
                 :fenestration_conduction, :fenestration_solar, :opaque_door, :grand_total
 
   def initialize(options)
-    @name = options[:name]
     @people = options[:people]
     @lights = options[:lights]
     @equipment = options[:equipment]

@@ -27,20 +27,26 @@ class PeakConditionTableRepository
     self.sql_file = sql_file
   end
 
-  # @param type [String] whether it's a "Zone", "Airloop" or "Facility"
   # @param name [String] the name of the object
-  # @param conditioning_type [String] "heating" or "cooling"
-  def get(type, name, conditioning_type)
-    component_query = BASE_QUERY + " WHERE ReportName = '#{type} Component Load Summary' AND TableName =
-          '#{conditioning_type} Peak Conditions' AND UPPER(ReportForString) = '#{name.upcase}'"
-    params = {}
+  # @param type [String] either "Zone", "AirLoop" or "Facility"
+  # @param conditioning [String] either "Cooling" or "Heating"
+  def find_by_name_type_and_conditioning(name, type, conditioning)
+    names_query = "SELECT DISTINCT UPPER(ReportForString) From TabularDataWithStrings WHERE ReportName == '#{type} Component Load Summary'
+AND TableName == '#{conditioning} Peak Conditions'"
+    names = @sql_file.execAndReturnVectorOfString(names_query).get
 
-    PARAM_MAP.each do |param|
-      query = component_query + " AND RowName == '#{param[:db_name]}'"
-      params[param[:param_name].to_sym] = get_optional_value(param[:param_type], query)
+    if names.include? name.upcase
+      component_query = BASE_QUERY + " WHERE ReportName = '#{type} Component Load Summary' AND TableName =
+          '#{conditioning} Peak Conditions' AND UPPER(ReportForString) = '#{name.upcase}'"
+      params = {}
+
+      PARAM_MAP.each do |param|
+        query = component_query + " AND RowName == '#{param[:db_name]}'"
+        params[param[:param_name].to_sym] = get_optional_value(param[:param_type], query)
+      end
+
+      PeakConditionTable.new(params)
     end
-
-    PeakConditionTable.new(params)
   end
 
   def get_optional_value(param_type, query)
