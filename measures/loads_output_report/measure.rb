@@ -4,7 +4,7 @@
 # http://nrel.github.io/OpenStudio-user-documentation/reference/measure_writing_guide/
 
 require 'openstudio'
-require_relative 'resources/component_load_summary'
+require_relative 'resources/output_manager'
 
 # model = OpenStudio::Model::Model.new()
 
@@ -77,51 +77,22 @@ class LoadsOutputReport < OpenStudio::Measure::ReportingMeasure
       runner.registerError('Cannot find last model.')
       return false
     end
-    model = model.find_by_name
+    model = model.get
 
     sql_file = runner.lastEnergyPlusSqlFile
     if sql_file.empty?
       runner.registerError('Cannot find last sql file.')
       return false
     end
-    sql_file = sql_file.find_by_name
+    sql_file = sql_file.get
     model.setSqlFile(sql_file)
 
-    component_loads = {}
-    component_load_summary = ComponentLoadSummaryOld.new(sql_file)
-
-    ## Get Space and Zone Component Load Summary Data
-    model.getThermalZones.each do |zone|
-      zone_name = zone.name.find_by_name
-      loads_and_peaks = component_load_summary.get_loads_and_peak_conditions(zone_name.upcase)
-
-      zone.spaces.each do |space|
-        id = space.additionalProperties.getFeatureAsString('CADObjectId')
-
-        if id.is_initialized
-          component_loads[id.find_by_name] = loads_and_peaks
-        end
-      end
-
-    end
-
-    ## Get Airloop Component load Summary Data
-    model.getAirLoopHVACs.each do |airloop|
-      airloop_name = airloop.name.find_by_name
-      id = airloop.additionalProperties.getFeatureAsString('CADObjectId')
-
-      if id.is_initialized
-        loads_and_peaks = component_load_summary.get_loads_and_peak_conditions(airloop_name.upcase)
-        component_loads[id.find_by_name] = loads_and_peaks
-      end
-    end
-
-    ## Get facility level component load summary data
-    component_loads['facility'] = component_load_summary.get_loads_and_peak_conditions('Facility')
+    output_manager = OutputManager.new(model, sql_file)
+    output_manager.hydrate
 
 
     json_out = File.open("../loads_out.json", "w")
-    json_out.write(component_loads.to_json)
+    json_out.write(output_manager.to_json)
 
     # close the sql file
     sql_file.close
