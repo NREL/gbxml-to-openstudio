@@ -116,7 +116,7 @@ class CoilSizingDetailRepository
     coil_names_query = "SELECT DISTINCT RowName From TabularDataWithStrings WHERE ReportName == 'CoilSizingDetails'"
     coil_sizing_details = []
 
-    @sql_file.execAndReturnVectorOfString(coil_names_query).find_by_name.each do |coil_name|
+    @sql_file.execAndReturnVectorOfString(coil_names_query).get.each do |coil_name|
       coil_sizing_details << find_by_name(coil_name)
     end
 
