@@ -34,6 +34,8 @@ class ZoneHVACEquipment
         ACB.create_from_xml(model_manager, xml)
       when 'RadiantPanel'
         RadiantPanel.create_from_xml(model_manager, xml)
+      when 'VRFFanCoil'
+        VRFFanCoilUnit.create_from_xml(model_manager, xml)
       end
     end
   end
