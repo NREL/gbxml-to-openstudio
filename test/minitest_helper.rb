@@ -4,6 +4,9 @@ require 'json'
 require 'open3'
 
 require_relative 'test_config'
+# require_relative '../measures/loads_output_report/resources/repository'
+# require_relative '../measures/loads_output_report/resources/coil_sizing_detail'
+
 
 # DLM: requiring this file doesn't seem correct right here
 require_relative '../measures/gbxml_hvac_import/resources/model_manager/model_manager'
