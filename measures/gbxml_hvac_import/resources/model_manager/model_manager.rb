@@ -10,7 +10,7 @@ Dir[require_path].each do |file|
 end
 
 class ModelManager
-  attr_accessor :gbxml_parser, :model, :cw_loops, :hw_loops, :chw_loops, :air_systems, :zone_hvac_equipments, :zones,
+  attr_accessor :gbxml_parser, :model, :cw_loops, :hw_loops, :chw_loops, :vrf_loops, :air_systems, :zone_hvac_equipments, :zones,
                 :os_cw_loops, :os_hw_loops, :os_chw_loops, :os_air_systems
 
   def initialize(model, gbxml_path)
@@ -20,6 +20,7 @@ class ModelManager
     self.cw_loops = {}
     self.hw_loops = {}
     self.chw_loops = {}
+    self.vrf_loops = {}
     self.air_systems = {}
     self.zone_hvac_equipments = {}
     self.zones = {}
@@ -40,6 +41,11 @@ class ModelManager
     self.gbxml_parser.chw_loops.each do |chw_loop|
        chilled_water_loop = ChilledWaterLoop.create_from_xml(self, chw_loop)
        self.chw_loops[chilled_water_loop.id] = chilled_water_loop
+    end
+
+    self.gbxml_parser.vrf_loops.each do |vrf_loop|
+      vrf_loop = VRFCondenser.create_from_xml(self, vrf_loop)
+      self.vrf_loops[vrf_loop.id] = vrf_loop
     end
 
     self.gbxml_parser.air_systems.each do |air_sys|
@@ -73,6 +79,10 @@ class ModelManager
       chw_loop.resolve_read_relationships
     end
 
+    self.vrf_loops.values.each do |chw_loop|
+      chw_loop.resolve_read_relationships
+    end
+
     self.air_systems.values.each do |air_system|
       air_system.resolve_read_relationships
     end
@@ -93,6 +103,10 @@ class ModelManager
     end
 
     self.chw_loops.values.each do |chw_loop|
+      chw_loop.build
+    end
+
+    self.vrf_loops.values.each do |chw_loop|
       chw_loop.build
     end
 
