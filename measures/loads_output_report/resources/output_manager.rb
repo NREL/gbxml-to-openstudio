@@ -1,6 +1,6 @@
 require_relative 'output_service'
 
-class OutputManager
+class OutputManager < JSONable
   attr_accessor :model, :sql_file, :output_service, :zone_loads_by_component, :system_checksums, :facility_component_load_summary,
                 :design_psychrometrics, :system_component_summary
 
@@ -16,25 +16,31 @@ class OutputManager
 
   def hydrate
     hydrate_zone_loads_by_component
-    # hydrate_system_checksums
+    hydrate_system_checksums
     hydrate_facility_loads_by_component
-    # hydrate_design_psychrometrics
+    hydrate_design_psychrometrics
     # hydrate_system_component_summary
   end
 
   def to_json
-    results = {
-        'zone_component_load_summaries': zone_loads_by_component
+    zone_component_load_summaries = {}
+    zone_loads_by_component.each do |key, value|
+      zone_component_load_summaries[key] = value.to_hash
+    end
+    outputs = {
+        "zone_component_load_summaries": zone_component_load_summaries
     }
+
+    JSON.dump(outputs)
   end
 
   def hydrate_zone_loads_by_component
     @model.getThermalZones.each do |zone|
-      name = zone.name.find_by_name
+      name = zone.name.get
       cad_object_id = zone.additionalProperties.getFeatureAsString('CADObjectId')
       if cad_object_id.is_initialized
-        cad_object_id = cad_object_id.find_by_name
-        @zone_loads_by_components[cad_object_id] = @output_service.get_zone_loads_by_component(name) #.to_json
+        cad_object_id = cad_object_id.get
+        @zone_loads_by_component[cad_object_id] = @output_service.get_zone_loads_by_component(name) #.to_json
       end
 
     end
@@ -42,42 +48,20 @@ class OutputManager
 
   def hydrate_system_checksums
     @model.getAirLoopHVACs.each do |air_loop|
-      name = air_loop.name.find_by_name
+      name = air_loop.name.get
       cad_object_id = air_loop.additionalProperties.getFeatureAsString('CADObjectId')
 
       if cad_object_id.is_initialized
-        cad_object_id = cad_object_id.find_by_name
-        system_cad_object_id = nil
-        cooling_coil_name = nil
-        heating_coil_name = nil
+        cad_object_id = cad_object_id.get
 
-        self.get_cooling_coils.each do |coil|
-          system_cad_object_id = coil.additionalProperties.getFeatureAsString("system_cad_object_id")
-          coil_type = coil.additionalProperties.getFeatureAsString("coil_type")
-          if system_cad_object_id.is_initialized and coil_type.is_initialized
-            system_cad_object_id = system_cad_object_id.find_by_name
-            coil_type = coil_type.find_by_name
+        cooling_coil = find_cooling_coil_by_features({"system_cad_object_id": cad_object_id, "coil_type": "primary_cooling"})
+        cooling_coil_name = cooling_coil.nil? ? nil : cooling_coil.name.get
 
-            if system_cad_object_id == cad_object_id and coil_type == 'primary_cooling'
-              cooling_coil_name = coil.name.find_by_name
-            end
-          end
-        end
-
-        self.get_heating_coils.each do |coil|
-          system_cad_object_id = coil.additionalProperties.getFeatureAsString("system_cad_object_id")
-          if system_cad_object_id.is_initialized
-
-            system_cad_object_id = system_cad_object_id.find_by_name
-            if system_cad_object_id == cad_object_id and coil_type == 'primary_heating'
-              heating_coil_name = coil.name.find_by_name
-            end
-          end
-        end
+        heating_coil = find_heating_coil_by_features({"system_cad_object_id": cad_object_id, "coil_type": "primary_heating"})
+        heating_coil_name = heating_coil.nil? ? nil : heating_coil.name.get
 
         @system_checksums[cad_object_id] = @output_service.get_system_checksum(name, cooling_coil_name, heating_coil_name)
       end
-
     end
   end
 
@@ -87,7 +71,7 @@ class OutputManager
 
   def hydrate_design_psychrometrics
     self.get_cooling_coils.each do |coil|
-      name = coil.name.find_by_name
+      name = coil.name.get
       cad_object_id = coil.additionalProperties.getFeatureAsString('system_cad_object_id')
 
       if cad_object_id.is_initialized
@@ -98,6 +82,56 @@ class OutputManager
 
   def hydrate_system_component_summary
 
+  end
+
+  def find_cooling_coil_by_features(options = {})
+    self.get_cooling_coils.each do |cooling_coil|
+      match = true
+
+      options.each do |key, value|
+        unless cooling_coil.additionalProperties.hasFeature(key.to_s)
+          match = false
+          break
+        end
+
+        feature = cooling_coil.additionalProperties.getFeatureAsString(key.to_s).get
+        unless feature == value
+          match = false
+          break
+        end
+      end
+
+      if match
+        return cooling_coil
+      end
+    end
+
+    return nil
+  end
+
+  def find_heating_coil_by_features(options = {})
+    self.get_heating_coils.each do |heating_coil|
+      match = true
+
+      options.each do |key, value|
+        unless heating_coil.additionalProperties.hasFeature(key.to_s)
+          match = false
+          break
+        end
+
+        feature = heating_coil.additionalProperties.getFeatureAsString(key.to_s).get
+        unless feature == value
+          match = false
+          break
+        end
+      end
+
+      if match
+        return heating_coil
+      end
+    end
+
+    return nil
   end
 
   def get_cooling_coils
@@ -123,20 +157,20 @@ class OutputManager
   def get_heating_coils
     heating_coils = []
 
-    heating_coils += self.model.getCoilHeatingDXMultiSpeed
-    heating_coils += self.model.getCoilHeatingDXSingleSpeed
-    heating_coils += self.model.getCoilHeatingDXVariableSpeed
-    heating_coils += self.model.getCoilHeatingElectric
-    heating_coils += self.model.getCoilHeatingFourPipeBeam
-    heating_coils += self.model.getCoilHeatingGas
-    heating_coils += self.model.getCoilHeatingGasMultiStage
-    heating_coils += self.model.getCoilHeatingLowTempRadiantConstFlow
-    heating_coils += self.model.getCoilHeatingLowTempRadiantVarFlow
-    heating_coils += self.model.getCoilHeatingWater
-    heating_coils += self.model.getCoilHeatingWaterBaseboard
-    heating_coils += self.model.getCoilHeatingWaterBaseboardRadiant
-    heating_coils += self.model.getCoilHeatingWaterToAirHeatPumpEquationFit
-    heating_coils += self.model.getCoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit
+    heating_coils += self.model.getCoilHeatingDXMultiSpeeds
+    heating_coils += self.model.getCoilHeatingDXSingleSpeeds
+    heating_coils += self.model.getCoilHeatingDXVariableSpeeds
+    heating_coils += self.model.getCoilHeatingElectrics
+    heating_coils += self.model.getCoilHeatingFourPipeBeams
+    heating_coils += self.model.getCoilHeatingGass
+    heating_coils += self.model.getCoilHeatingGasMultiStages
+    heating_coils += self.model.getCoilHeatingLowTempRadiantConstFlows
+    heating_coils += self.model.getCoilHeatingLowTempRadiantVarFlows
+    heating_coils += self.model.getCoilHeatingWaters
+    heating_coils += self.model.getCoilHeatingWaterBaseboards
+    heating_coils += self.model.getCoilHeatingWaterBaseboardRadiants
+    heating_coils += self.model.getCoilHeatingWaterToAirHeatPumpEquationFits
+    heating_coils += self.model.getCoilHeatingWaterToAirHeatPumpVariableSpeedEquationFits
 
     heating_coils
   end

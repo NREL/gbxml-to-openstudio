@@ -90,7 +90,6 @@ class LoadsOutputReport < OpenStudio::Measure::ReportingMeasure
     output_manager = OutputManager.new(model, sql_file)
     output_manager.hydrate
 
-
     json_out = File.open("../loads_out.json", "w")
     json_out.write(output_manager.to_json)
 

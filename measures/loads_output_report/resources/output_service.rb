@@ -33,8 +33,8 @@ class OutputService
       zone_loads_by_component = ZoneLoadsByComponent.new
       zone_loads_by_component.cooling_peak_load_component_table = cooling_peak_load_component_table
       zone_loads_by_component.heating_peak_load_component_table = heating_peak_load_component_table
-      zone_loads_by_component.cooling_peak_condition_table_repository = cooling_peak_condition_table_repository
-      zone_loads_by_component.heating_peak_condition_table_repository = heating_peak_condition_table_repository
+      zone_loads_by_component.cooling_peak_condition_table = cooling_peak_condition_table_repository
+      zone_loads_by_component.heating_peak_condition_table = heating_peak_condition_table_repository
       zone_loads_by_component.cooling_engineering_check_table = cooling_engineering_check_table
       zone_loads_by_component.heating_engineering_check_table = heating_engineering_check_table
 
