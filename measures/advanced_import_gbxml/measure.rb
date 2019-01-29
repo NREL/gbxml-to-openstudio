@@ -223,7 +223,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         ventilation_def[:ventilation_flow_per_space] = element.elements['OAFlowPerSpace'].text.to_f
       end
       if !element.elements['AirChangesPerHour'].nil?
-        ventilation_def[:ventilation_flow_air_changes_per_hour] = element.elements['OAFlowAirChangesPerHour'].text.to_f
+        ventilation_def[:ventilation_flow_air_changes_per_hour] = element.elements['AirChangesPerHour'].text.to_f
       end
       advanced_inputs[:spaces][element.attributes['id']][:ventilation_def] = ventilation_def
 
