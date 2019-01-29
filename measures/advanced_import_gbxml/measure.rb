@@ -196,7 +196,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       if !element.elements['InfiltrationFlowPerSpaceArea'].nil?
         infiltration_def[:infiltration_flow_per_space_area] = element.elements['InfiltrationFlowPerSpaceArea'].text.to_f
       end
-      if !element.elements['InfiltrationFlowPerExteriorSurfaceArea'].nil?
+      if !element.elements['InfiltrationFlowPerArea'].nil?
         infiltration_def[:infiltration_flow_per_exterior_surface_area] = element.elements['InfiltrationFlowPerExteriorSurfaceArea'].text.to_f
       end
       if !element.elements['InfiltrationFlowPerExteriorWallArea'].nil?
@@ -222,7 +222,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       if !element.elements['OAFlowPerSpace'].nil?
         ventilation_def[:ventilation_flow_per_space] = element.elements['OAFlowPerSpace'].text.to_f
       end
-      if !element.elements['OAFlowAirChangesPerHour'].nil?
+      if !element.elements['AirChangesPerHour'].nil?
         ventilation_def[:ventilation_flow_air_changes_per_hour] = element.elements['OAFlowAirChangesPerHour'].text.to_f
       end
       advanced_inputs[:spaces][element.attributes['id']][:ventilation_def] = ventilation_def
