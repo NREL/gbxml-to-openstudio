@@ -2,8 +2,11 @@ require 'openstudio'
 require 'minitest/autorun'
 require 'json'
 require 'open3'
+require 'rexml/document'
 
 require_relative 'test_config'
+require_relative '../measures/advanced_import_gbxml/resources/gbxml'
+require_relative '../measures/advanced_import_gbxml/resources/mappers'
 # require_relative '../measures/loads_output_report/resources/repository'
 # require_relative '../measures/loads_output_report/resources/coil_sizing_detail'
 

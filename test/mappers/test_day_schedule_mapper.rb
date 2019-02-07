@@ -1,0 +1,33 @@
+require_relative '../minitest_helper'
+require_relative '../../measures/advanced_import_gbxml/resources/gbxml/day_schedule'
+require_relative '../../measures/advanced_import_gbxml/resources/mappers/day_schedule'
+
+class TestDayScheduleMapper < MiniTest::Test
+
+  include Mappers
+
+  def test_insert_day_schedule
+    model = OpenStudio::Model::Model.new
+    gbxml_day_schedule = GBXML::DaySchedule.new
+    gbxml_day_schedule.schedule_values = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0,
+                                          15.0, 16.0, 17.0, 18.0, 19.0, 20.0, 21.0, 22.0, 23.0, 24.0]
+
+    day_schedule_mapper = Mappers::DaySchedule.new(model)
+    os_day_schedule = day_schedule_mapper.insert(gbxml_day_schedule)
+
+    assert(gbxml_day_schedule.schedule_values == os_day_schedule.values)
+  end
+
+  def test_get_day_schedule
+    model = OpenStudio::Model::Model.new
+    gbxml_day_schedule = GBXML::DaySchedule.new
+    gbxml_day_schedule.id = "aim0345"
+    gbxml_day_schedule.name = "TestName"
+
+    day_schedule_mapper = Mappers::DaySchedule.new(model)
+    os_day_schedule = day_schedule_mapper.insert(gbxml_day_schedule)
+    os_day_schedule_get = day_schedule_mapper.get(gbxml_day_schedule.id)
+
+    assert(os_day_schedule_get == os_day_schedule)
+  end
+end
