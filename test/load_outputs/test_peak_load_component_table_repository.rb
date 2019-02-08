@@ -1,5 +1,5 @@
 require 'openstudio'
-require_relative '../minitest_helper'
+require_relative '../gbxml_hvac_import/minitest_helper'
 require_relative 'resources/zone_peak_load_component_table'
 require_relative '../../measures/loads_output_report/resources/repositories/peak_load_component_table_repository'
 
@@ -7,7 +7,7 @@ class TestPeakLoadComponentTableRepository < MiniTest::Test
   attr_accessor :sql_file, :repository
 
   def before_setup
-    path = OpenStudio::Path.new(File.join(TestConfig::TEST_RESOURCES + '/vav_box.sql'))
+    path = OpenStudio::Path.new(File.join(Config::TEST_RESOURCES + '/vav_box.sql'))
     self.sql_file = OpenStudio::SqlFile.new(path)
     @repository = PeakLoadComponentTableRepository.new(@sql_file)
   end

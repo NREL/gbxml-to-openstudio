@@ -1,12 +1,12 @@
 require 'openstudio'
-require_relative '../minitest_helper'
+require_relative '../gbxml_hvac_import/minitest_helper'
 require_relative '../../measures/loads_output_report/resources/repositories/engineering_check_table_repository'
 
 class TestEngineeringCheckTableRepository < MiniTest::Test
   attr_accessor :sql_file, :repository
 
   def before_setup
-    path = OpenStudio::Path.new(File.join(TestConfig::TEST_RESOURCES + '/vav_box.sql'))
+    path = OpenStudio::Path.new(File.join(Config::TEST_RESOURCES + '/vav_box.sql'))
     @sql_file = OpenStudio::SqlFile.new(path)
     @repository = EngineeringCheckTableRepository.new(@sql_file)
   end

@@ -5,10 +5,10 @@
 
 require 'rexml/document'
 require 'rexml/xpath'
-require_relative 'resources/model_manager/model_manager'
-
+# require_relative 'resources/model_manager/rb'
+require_relative 'gbxml_hvac_import'
 # require all .rb files in resources folder
-Dir[File.dirname(__FILE__) + '/resources/*/*.rb'].each { |file| require file }
+# Dir[File.dirname(__FILE__) + '/resources/*/*.rb'].each { |file| require file }
 
 # start the measure
 class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure

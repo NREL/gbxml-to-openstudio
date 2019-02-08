@@ -7,11 +7,11 @@ measures/*/tests/output
 /OpenStudio CLI For Revit 2020-cache/
 /OpenStudio CLI For Revit 2020-SetupFiles/
 test/*/*.osm
-test/output_models/*/out.osw
-test/output_models/*/reports
-test/output_models/*/run
-test/output_models/manual/
-test/resources/revit_test_models/*.0*.rvt
+test/gbxml_hvac_import/output_models/*/out.osw
+test/gbxml_hvac_import/output_models/*/reports
+test/gbxml_hvac_import/output_models/*/run
+test/gbxml_hvac_import/output_models/manual/
+test/gbxml_hvac_import/resources/revit_test_models/*.0*.rvt
 workflows/out.osw
 workflows/reports
 workflows/run
