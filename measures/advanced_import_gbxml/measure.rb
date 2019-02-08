@@ -92,6 +92,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     # create hash used for importing
     advanced_inputs = {}
     advanced_inputs[:spaces] = {}
+    advanced_inputs[:zones] = {}
     advanced_inputs[:schedule_sets] = {} # key is "light|equip|people|"
     advanced_inputs[:schedules] = {}
     advanced_inputs[:week_schedules] = {}
@@ -262,9 +263,6 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
               else
                 thermal_zone.setVolume(volume)
               end
-
-              # todo - set heating and cooling setpoint for thermal zone
-
             end
           end
         end
@@ -334,6 +332,31 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       else
         puts name.text
       end
+
+      # create hash entry for space with attributes
+      advanced_inputs[:zones][element.attributes['id']] = {}
+      unless element.elements['Name'].nil?
+        advanced_inputs[:zones][element.attributes['id']][:name] = element.elements['Name'].text
+      end
+
+      # store DesignHeatT and DesignCoolT
+      unless element.elements['DesignHeatT'].nil?
+        advanced_inputs[:zones][element.attributes['id']][:design_heat_t] = element.elements['DesignHeatT'].text.to_f
+      end
+      unless element.elements['DesignCoolT'].nil?
+        advanced_inputs[:zones][element.attributes['id']][:design_cool_t] = element.elements['DesignCoolT'].text.to_f
+      end
+
+=begin
+      # store heatSchedIdRef and coolSchedIdRef (not currently using these)
+      unless element.attributes['heatSchedIdRef'].nil?
+        advanced_inputs[:zones][element.attributes['id']][:heat_sche_id_ref] = element.attributes['heatSchedIdRef']
+      end
+      unless element.attributes['coolSchedIdRef'].nil?
+        advanced_inputs[:zones][element.attributes['id']][:cool_sche_id_ref] = element.attributes['coolSchedIdRef']
+      end
+=end
+
     end
 
     puts "**Looping through ZoneHVACEquipment"
