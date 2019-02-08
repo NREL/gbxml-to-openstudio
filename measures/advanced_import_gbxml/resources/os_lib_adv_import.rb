@@ -56,6 +56,9 @@ module OsLib_AdvImport
     # make space load instances and assign schedule sets to spaces
     modified_spaces = assign_space_attributes(runner, model, advanced_inputs[:spaces], schedule_sets, lights, elec_equipment, people)
 
+    # add thermostats
+    modified_zones = assign_zone_attributes(runner, model,advanced_inputs[:zones])
+
     return true
   end
 
@@ -76,7 +79,7 @@ module OsLib_AdvImport
       elsif model.getSpaceByName(id).is_initialized
         space = model.getSpaceByName(id).get
       else
-        runner.registerWarning("Did not find space in model assciated with #{id}. Not connecting objects realted to this space.")
+        runner.registerWarning("Did not find space in model assciated with #{id}. Not connecting objects related to this space.")
         next
       end
 
@@ -192,6 +195,60 @@ module OsLib_AdvImport
     return modified_spaces
   end
 
+  # assign newly made space objects to existing spaces
+  def self.assign_zone_attributes(runner, model,zones)
+
+    modified_zones = {}
+    zones.each do |id, zone_data|
+
+      modified = false
+
+      # find model zone
+      if zone_data.has_key?(:name) && model.getThermalZoneByName(zone_data[:name]).is_initialized
+        zone = model.getThermalZoneByName(zone_data[:name]).get
+      elsif model.getThermalZoneByName(id).is_initialized
+        zone = model.getThermalZoneByName(id).get
+      else
+        runner.registerWarning("Did not find zone in model assciated with #{id}. Not connecting objects related to this zone.")
+        next
+      end
+
+      # make and assign thermostat if requested
+      if zone_data.has_key?(:design_heat_t) || zone_data.has_key?(:design_cool_t)
+        thermostatSetpointDualSetpoint = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(model)
+        zone.setThermostatSetpointDualSetpoint(thermostatSetpointDualSetpoint)
+        modified = true
+
+        # create and assign heating and cooling setpoint
+        # todo - update schedule to be non-constant
+        if zone_data.has_key?(:design_heat_t)
+          htg_ip = zone_data[:design_heat_t]
+          htg_si = OpenStudio.convert(htg_ip,"F","C").get
+          options = {'name' => "htg_#{zone.name.to_s}", 'default_day' => ["htg_#{zone.name.to_s}_default", [24.0, htg_si]]}
+          htg_sch = OsLib_Schedules.createComplexSchedule(model, options)
+          thermostatSetpointDualSetpoint.setHeatingSetpointTemperatureSchedule(htg_sch)
+        end
+        if zone_data.has_key?(:design_cool_t)
+          clg_ip = zone_data[:design_cool_t]
+          clg_si = OpenStudio.convert(clg_ip,"F","C").get
+          options = {'name' => "clg_#{zone.name.to_s}", 'default_day' => ["clg_#{zone.name.to_s}_default", [24.0, clg_si]]}
+          clg_sch = OsLib_Schedules.createComplexSchedule(model, options)
+          thermostatSetpointDualSetpoint.setCoolingSetpointTemperatureSchedule(clg_sch)
+        end
+      end
+
+
+      # if modified add to modified_spaces hash
+      if modified
+        modified_zones[id] = zone
+      end
+      runner.registerInfo("Assigned new data to  #{modified_zones.size} existing zones in the model.")
+
+    end
+
+    return modified_zones
+  end
+
   # create ruleset schedule from inputs
   def self.import_schs(runner, model, schedules, week_schedules, day_schedules)
 
@@ -207,7 +264,7 @@ module OsLib_AdvImport
       else
         ruleset_name = schedule_data['name']
       end
-      date_range = '1/1-12/31' # todo - in future pull form gbxml
+      date_range = '1/1-12/31' # todo - in future pull from gbxml
       winter_design_day = nil
       summer_design_day = nil
       default_day = nil
@@ -295,6 +352,11 @@ module OsLib_AdvImport
   # create schedule set from inputs
   def self.import_sch_set(runner, model, schedule_sets, schedules)
 
+    # create whole building infiltration schedule
+    # todo - update schedule to be non-constant
+    options = {'name' => "infil_bldg", 'default_day' => ["infil_bldg_default", [24.0, 1.0]]}
+    infil_bldg_sch = OsLib_Schedules.createComplexSchedule(model, options)
+
     # loop through and add schedule sets
     new_schedule_sets = {}
     schedule_sets.each do |id, schedule_set_data|
@@ -314,6 +376,7 @@ module OsLib_AdvImport
         target_sch = schedules[schedule_set_data[:people_schedule_id_ref]]
         default_sch_set.setNumberofPeopleSchedule(target_sch)
       end
+      default_sch_set.setInfiltrationSchedule(infil_bldg_sch)
     end
     runner.registerInfo("Created #{new_schedule_sets.size} new DefaultScheduleSet objects.")
 
