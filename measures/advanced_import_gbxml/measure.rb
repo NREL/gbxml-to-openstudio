@@ -197,7 +197,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         infiltration_def[:infiltration_flow_per_space_area] = element.elements['InfiltrationFlowPerSpaceArea'].text.to_f
       end
       if !element.elements['InfiltrationFlowPerArea'].nil?
-        infiltration_def[:infiltration_flow_per_exterior_surface_area] = element.elements['InfiltrationFlowPerExteriorSurfaceArea'].text.to_f
+        infiltration_def[:infiltration_flow_per_exterior_surface_area] = element.elements['InfiltrationFlowPerArea'].text.to_f
       end
       if !element.elements['InfiltrationFlowPerExteriorWallArea'].nil?
         infiltration_def[:infiltration_flow_per_exterior_wall_area] = element.elements['InfiltrationFlowPerExteriorWallArea'].text.to_f

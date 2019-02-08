@@ -16,7 +16,7 @@ require 'fileutils'
 task default: 'test'
 
 Rake::TestTask.new do |t|
-  t.pattern = "test/*/test*.rb"
+  t.pattern = "test/gbxml_hvac_import/test*.rb"
 end
 
 desc 'Build Installer'

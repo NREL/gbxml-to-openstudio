@@ -1,5 +1,5 @@
 require 'openstudio'
-require_relative '../minitest_helper'
+require_relative '../gbxml_hvac_import/minitest_helper'
 require_relative '../../measures/loads_output_report/resources/output_service'
 require_relative 'resources/coil_sizing_detail_params'
 
@@ -7,9 +7,9 @@ class TestOutputService < MiniTest::Test
   attr_accessor :model, :sql_file
 
   def before_setup
-    path = OpenStudio::Path.new(File.join(TestConfig::TEST_RESOURCES + '/vav_box.sql'))
+    path = OpenStudio::Path.new(File.join(Config::TEST_RESOURCES + '/vav_box.sql'))
     self.sql_file = OpenStudio::SqlFile.new(path)
-    self.model = OpenStudio::Model::Model.load(OpenStudio::Path.new(File.join(TestConfig::TEST_RESOURCES + '/vav_box.osm'))).get
+    self.model = OpenStudio::Model::Model.load(OpenStudio::Path.new(File.join(Config::TEST_RESOURCES + '/vav_box.osm'))).get
   end
 
   def test_get_zone_loads_by_component_name
