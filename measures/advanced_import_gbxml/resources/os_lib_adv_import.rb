@@ -207,7 +207,7 @@ module OsLib_AdvImport
       else
         ruleset_name = schedule_data['name']
       end
-      date_range = '1/1-12/31' # todo - in future pull form gbxml
+      date_range = '1/1-12/31' # todo - in future pull from gbxml
       winter_design_day = nil
       summer_design_day = nil
       default_day = nil
@@ -295,6 +295,11 @@ module OsLib_AdvImport
   # create schedule set from inputs
   def self.import_sch_set(runner, model, schedule_sets, schedules)
 
+    # create whole building infiltration schedule
+    # todo - update schedule to be non-constant
+    options = {'name' => "infil_bldg", 'default_day' => ["infil_bldg_default", [24.0, 1.0]]}
+    infil_bldg_sch = OsLib_Schedules.createComplexSchedule(model, options)
+
     # loop through and add schedule sets
     new_schedule_sets = {}
     schedule_sets.each do |id, schedule_set_data|
@@ -314,6 +319,7 @@ module OsLib_AdvImport
         target_sch = schedules[schedule_set_data[:people_schedule_id_ref]]
         default_sch_set.setNumberofPeopleSchedule(target_sch)
       end
+      default_sch_set.setInfiltrationSchedule(infil_bldg_sch)
     end
     runner.registerInfo("Created #{new_schedule_sets.size} new DefaultScheduleSet objects.")
 

@@ -263,6 +263,8 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
                 thermal_zone.setVolume(volume)
               end
 
+              # todo - set heating and cooling setpoint for thermal zone
+
             end
           end
         end
