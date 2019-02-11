@@ -18,6 +18,11 @@ module Mappers
       @gbxml.schedules.values.each do |schedule|
         @schedule.insert(schedule)
       end
+
+      @gbxml.spaces.values.each do |gbxml_space|
+        os_space = @os_model.find_by_space_by_id(gbxml_space.id)
+        @space.update_loads(gbxml_space, os_space)
+      end
     end
   end
 end
