@@ -6,8 +6,13 @@ class SFPB < HVACObject
   end
 
   def connect_thermal_zone(thermal_zone)
-    outlet_node = self.air_terminal.outletModelObject.get.to_Node.get
-    thermal_zone.addToNode(outlet_node)
+    # outlet_node = self.air_terminal.outletModelObject.get.to_Node.get
+    # thermal_zone.addToNode(outlet_node)
+
+    unless self.air_loop_ref.nil?
+      air_loop = self.model_manager.air_systems[self.air_loop_ref]
+      air_loop.air_loop_hvac.addBranchForZone(thermal_zone, self.air_terminal)
+    end
   end
 
   def add_air_terminal
@@ -57,10 +62,10 @@ class SFPB < HVACObject
       heating_loop.plant_loop.addDemandBranchForComponent(self.heating_coil)
     end
 
-    unless self.air_loop_ref.nil?
-      air_loop = self.model_manager.air_systems[self.air_loop_ref]
-      air_loop.air_loop_hvac.addBranchForHVACComponent(self.air_terminal)
-    end
+    # unless self.air_loop_ref.nil?
+    #   air_loop = self.model_manager.air_systems[self.air_loop_ref]
+    #   air_loop.air_loop_hvac.addBranchForHVACComponent(self.air_terminal)
+    # end
   end
 
   def build

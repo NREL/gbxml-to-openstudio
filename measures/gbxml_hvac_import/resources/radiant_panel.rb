@@ -42,6 +42,7 @@ class RadiantPanel < HVACObject
   def add_cooling_coil
     cooling_coil = OpenStudio::Model::CoilCoolingWater.new(self.model)
     cooling_coil.setName("#{self.name} Cooling Coil")
+    cooling_coil
   end
 
   def resolve_dependencies
