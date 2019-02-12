@@ -9,10 +9,10 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPPRODUCTICON" Value="os.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="NREL"/>
-    <ROW Property="ProductCode" Value="1033:{96A9CCA9-7367-413E-A6D1-0910E48A02F3} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{02E951AA-8CA9-4D3C-AD82-4EDA476DA251} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
-    <ROW Property="ProductName" Value="OpenStudio CLI For Revit 2020"/>
-    <ROW Property="ProductVersion" Value="0.0.7" Type="32"/>
+    <ROW Property="ProductName" Value="OpenStudio CLI For Revit 2021"/>
+    <ROW Property="ProductVersion" Value="0.0.9" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{8151B9D3-9C8B-408A-8BDB-231665C21C13}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -32,46 +32,30 @@
     <ROW Directory="SetThermostatSchedules_Dir" Directory_Parent="measures_Dir" DefaultDir="SETTHE~1|SetThermostatSchedules"/>
     <ROW Directory="SpaceTypeAndConstructionSetWiza_Dir" Directory_Parent="measures_Dir" DefaultDir="SPACET~1|SpaceTypeAndConstructionSetWizard"/>
     <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
-    <ROW Directory="acb_Dir" Directory_Parent="resources_4_Dir" DefaultDir="acb"/>
     <ROW Directory="add_xml_output_control_style_Dir" Directory_Parent="measures_Dir" DefaultDir="ADD_XM~1|add_xml_output_control_style"/>
     <ROW Directory="advanced_import_gbxml_Dir" Directory_Parent="measures_Dir" DefaultDir="ADVANC~1|advanced_import_gbxml"/>
-    <ROW Directory="air_system_Dir" Directory_Parent="resources_4_Dir" DefaultDir="AIR_SY~1|air_system"/>
-    <ROW Directory="baseboard_convective_Dir" Directory_Parent="resources_4_Dir" DefaultDir="BASEBO~1|baseboard_convective"/>
-    <ROW Directory="baseboard_radiant_Dir" Directory_Parent="resources_4_Dir" DefaultDir="BASEBO~2|baseboard_radiant"/>
     <ROW Directory="bin_Dir" Directory_Parent="APPDIR" DefaultDir="bin"/>
-    <ROW Directory="cav_box_Dir" Directory_Parent="resources_4_Dir" DefaultDir="cav_box"/>
-    <ROW Directory="chilled_water_loop_Dir" Directory_Parent="resources_4_Dir" DefaultDir="CHILLE~1|chilled_water_loop"/>
-    <ROW Directory="condenser_loop_Dir" Directory_Parent="resources_4_Dir" DefaultDir="CONDEN~1|condenser_loop"/>
     <ROW Directory="docs_1_Dir" Directory_Parent="set_simulation_control_Dir" DefaultDir="docs"/>
     <ROW Directory="docs_2_Dir" Directory_Parent="SpaceTypeAndConstructionSetWiza_Dir" DefaultDir="docs"/>
     <ROW Directory="docs_3_Dir" Directory_Parent="advanced_import_gbxml_Dir" DefaultDir="docs"/>
     <ROW Directory="docs_4_Dir" Directory_Parent="gbxml_hvac_import_Dir" DefaultDir="docs"/>
     <ROW Directory="docs_Dir" Directory_Parent="gbxml_to_openstudio_cleanup_Dir" DefaultDir="docs"/>
-    <ROW Directory="fpfc_Dir" Directory_Parent="resources_4_Dir" DefaultDir="fpfc"/>
     <ROW Directory="gbxml_hvac_import_Dir" Directory_Parent="measures_Dir" DefaultDir="GBXML_~2|gbxml_hvac_import"/>
-    <ROW Directory="gbxml_parser_Dir" Directory_Parent="resources_4_Dir" DefaultDir="GBXML_~1|gbxml_parser"/>
     <ROW Directory="gbxml_to_openstudio_cleanup_Dir" Directory_Parent="measures_Dir" DefaultDir="GBXML_~1|gbxml_to_openstudio_cleanup"/>
     <ROW Directory="gbxmls_Dir" Directory_Parent="APPDIR" DefaultDir="gbxmls"/>
-    <ROW Directory="hot_water_loop_Dir" Directory_Parent="resources_4_Dir" DefaultDir="HOT_WA~1|hot_water_loop"/>
-    <ROW Directory="hvac_object_Dir" Directory_Parent="resources_4_Dir" DefaultDir="HVAC_O~1|hvac_object"/>
     <ROW Directory="import_gbxml_Dir" Directory_Parent="measures_Dir" DefaultDir="IMPORT~1|import_gbxml"/>
+    <ROW Directory="loads_output_report_Dir" Directory_Parent="measures_Dir" DefaultDir="LOADS_~1|loads_output_report"/>
     <ROW Directory="measures_Dir" Directory_Parent="APPDIR" DefaultDir="measures"/>
-    <ROW Directory="model_Dir" Directory_Parent="resources_4_Dir" DefaultDir="model"/>
-    <ROW Directory="model_manager_Dir" Directory_Parent="resources_4_Dir" DefaultDir="MODEL_~1|model_manager"/>
     <ROW Directory="openstudio_results_Dir" Directory_Parent="measures_Dir" DefaultDir="OPENST~1|openstudio_results"/>
-    <ROW Directory="pcb_Dir" Directory_Parent="resources_4_Dir" DefaultDir="pcb"/>
-    <ROW Directory="pfpb_Dir" Directory_Parent="resources_4_Dir" DefaultDir="pfpb"/>
-    <ROW Directory="ptac_Dir" Directory_Parent="resources_4_Dir" DefaultDir="ptac"/>
-    <ROW Directory="pthp_Dir" Directory_Parent="resources_4_Dir" DefaultDir="pthp"/>
-    <ROW Directory="radiant_panel_Dir" Directory_Parent="resources_4_Dir" DefaultDir="RADIAN~1|radiant_panel"/>
+    <ROW Directory="repositories_Dir" Directory_Parent="resources_5_Dir" DefaultDir="REPOSI~1|repositories"/>
     <ROW Directory="resources_1_Dir" Directory_Parent="SpaceTypeAndConstructionSetWiza_Dir" DefaultDir="RESOUR~1|resources"/>
     <ROW Directory="resources_2_Dir" Directory_Parent="advanced_import_gbxml_Dir" DefaultDir="RESOUR~1|resources"/>
     <ROW Directory="resources_3_Dir" Directory_Parent="ChangeBuildingLocation_Dir" DefaultDir="RESOUR~1|resources"/>
     <ROW Directory="resources_4_Dir" Directory_Parent="gbxml_hvac_import_Dir" DefaultDir="RESOUR~1|resources"/>
+    <ROW Directory="resources_5_Dir" Directory_Parent="loads_output_report_Dir" DefaultDir="RESOUR~1|resources"/>
     <ROW Directory="resources_Dir" Directory_Parent="openstudio_results_Dir" DefaultDir="RESOUR~1|resources"/>
     <ROW Directory="seeds_Dir" Directory_Parent="APPDIR" DefaultDir="seeds"/>
     <ROW Directory="set_simulation_control_Dir" Directory_Parent="measures_Dir" DefaultDir="SET_SI~1|set_simulation_control"/>
-    <ROW Directory="sfpb_Dir" Directory_Parent="resources_4_Dir" DefaultDir="sfpb"/>
     <ROW Directory="tests_1_Dir" Directory_Parent="import_gbxml_Dir" DefaultDir="tests"/>
     <ROW Directory="tests_2_Dir" Directory_Parent="openstudio_results_Dir" DefaultDir="tests"/>
     <ROW Directory="tests_3_Dir" Directory_Parent="SetThermostatSchedules_Dir" DefaultDir="tests"/>
@@ -81,14 +65,8 @@
     <ROW Directory="tests_7_Dir" Directory_Parent="ChangeBuildingLocation_Dir" DefaultDir="tests"/>
     <ROW Directory="tests_8_Dir" Directory_Parent="EnableIdealAirLoadsForAllZones_Dir" DefaultDir="tests"/>
     <ROW Directory="tests_Dir" Directory_Parent="gbxml_to_openstudio_cleanup_Dir" DefaultDir="tests"/>
-    <ROW Directory="unit_heater_Dir" Directory_Parent="resources_4_Dir" DefaultDir="UNIT_H~1|unit_heater"/>
-    <ROW Directory="unit_ventilator_Dir" Directory_Parent="resources_4_Dir" DefaultDir="UNIT_V~1|unit_ventilator"/>
-    <ROW Directory="vav_box_Dir" Directory_Parent="resources_4_Dir" DefaultDir="vav_box"/>
     <ROW Directory="weather_Dir" Directory_Parent="APPDIR" DefaultDir="weather"/>
     <ROW Directory="workflows_Dir" Directory_Parent="APPDIR" DefaultDir="WORKFL~1|workflows"/>
-    <ROW Directory="wshp_Dir" Directory_Parent="resources_4_Dir" DefaultDir="wshp"/>
-    <ROW Directory="zone_Dir" Directory_Parent="resources_4_Dir" DefaultDir="zone"/>
-    <ROW Directory="zone_hvac_equipment_Dir" Directory_Parent="resources_4_Dir" DefaultDir="ZONE_H~1|zone_hvac_equipment"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
     <ROW Component="Annualsimulation.osw" ComponentId="{9411C263-F4E7-4CF6-83D5-DD0550161B7D}" Directory_="workflows_Dir" Attributes="0" KeyPath="Systemsizingforheatingandcoolingloads.osw" Type="0"/>
@@ -104,14 +82,13 @@
     <ROW Component="LICENSE.md_5" ComponentId="{CCE61696-8568-4589-BCFF-D8CA497A4135}" Directory_="advanced_import_gbxml_Dir" Attributes="0" KeyPath="LICENSE.md_5" Type="0"/>
     <ROW Component="LICENSE.md_6" ComponentId="{7D245EE1-4872-4F80-93A7-721361EC47BF}" Directory_="ChangeBuildingLocation_Dir" Attributes="0" KeyPath="LICENSE.md_6" Type="0"/>
     <ROW Component="LICENSE.md_7" ComponentId="{9DCF7737-0747-4FB4-8954-D39C724AB6A1}" Directory_="gbxml_hvac_import_Dir" Attributes="0" KeyPath="LICENSE.md_7" Type="0"/>
+    <ROW Component="LICENSE.md_8" ComponentId="{2CD24ACE-66B1-42B0-BBF9-CEADAA2699E0}" Directory_="loads_output_report_Dir" Attributes="0" KeyPath="LICENSE.md_8" Type="0"/>
     <ROW Component="ProductInformation" ComponentId="{8845EE96-7C3F-4EA1-BAB7-B156FF6BC18E}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
     <ROW Component="SetThermostatSchedules_Test.rb" ComponentId="{174A2652-E2CB-426A-BD3D-3C2ABE75C060}" Directory_="tests_3_Dir" Attributes="0" KeyPath="SetThermostatSchedules_Test.rb" Type="0"/>
     <ROW Component="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" ComponentId="{C79C1A6F-CBC5-4F83-91FC-0922DC95EF18}" Directory_="weather_Dir" Attributes="0" KeyPath="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" Type="0"/>
     <ROW Component="_SmallHotel_a.osm" ComponentId="{A06C6A86-F58C-41AC-9737-C445785D82C8}" Directory_="tests_2_Dir" Attributes="0" KeyPath="_SmallHotel_a.osm" Type="0"/>
-    <ROW Component="acb.rb" ComponentId="{ABFAF6DC-6917-43C2-BBC8-5ACC05866DDB}" Directory_="acb_Dir" Attributes="0" KeyPath="acb.rb" Type="0"/>
     <ROW Component="add_xml_output_control_style_test.rb" ComponentId="{F375568A-38C9-497C-A785-4A257704E6CF}" Directory_="tests_5_Dir" Attributes="0" KeyPath="add_xml_output_control_style_test.rb" Type="0"/>
     <ROW Component="advanced_import_gbxml_test.rb" ComponentId="{BD9708C1-9682-4F04-A309-92B5BB8E864D}" Directory_="tests_6_Dir" Attributes="0" KeyPath="advanced_import_gbxml_test.rb" Type="0"/>
-    <ROW Component="air_system.rb" ComponentId="{46065183-95B2-4D40-8CD8-F4978A4ECB70}" Directory_="air_system_Dir" Attributes="0" KeyPath="air_system.rb" Type="0"/>
     <ROW Component="another_weather_file.ddy" ComponentId="{B70CBDC0-82EF-4650-8C16-975F91B9DCD8}" Directory_="tests_7_Dir" Attributes="0" KeyPath="another_weather_file.ddy" Type="0"/>
     <ROW Component="apimswincoreconsolel110.dll" ComponentId="{B04A5CAB-57C8-48DF-B0AB-48A404F110B6}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoreconsolel110.dll"/>
     <ROW Component="apimswincoredatetimel110.dll" ComponentId="{0C539400-4A65-4CAA-B72D-DD16B595FC0A}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoredatetimel110.dll"/>
@@ -153,59 +130,39 @@
     <ROW Component="apimswincrtstringl110.dll" ComponentId="{19A579E3-10F8-4D82-BAF3-D9D66F9C211B}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrtstringl110.dll"/>
     <ROW Component="apimswincrttimel110.dll" ComponentId="{FE18C92D-A4AB-46FA-B882-00F5F853757A}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrttimel110.dll"/>
     <ROW Component="apimswincrtutilityl110.dll" ComponentId="{D90C819E-23EE-4354-A148-D66020A32FF6}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrtutilityl110.dll"/>
-    <ROW Component="baseboard_convective.rb" ComponentId="{F75FB8FE-6A2D-4561-A485-2463609A3253}" Directory_="baseboard_convective_Dir" Attributes="0" KeyPath="baseboard_convective.rb" Type="0"/>
-    <ROW Component="baseboard_radiant.rb" ComponentId="{200A34D1-1824-42AB-8D15-C94F04F67704}" Directory_="baseboard_radiant_Dir" Attributes="0" KeyPath="baseboard_radiant.rb" Type="0"/>
-    <ROW Component="cav_box.rb" ComponentId="{7A346B74-358D-4E09-99EB-9F815D4080D1}" Directory_="cav_box_Dir" Attributes="0" KeyPath="cav_box.rb" Type="0"/>
-    <ROW Component="chilled_water_loop.rb" ComponentId="{210DF7F7-D09F-44C2-85C9-5AF720DEC541}" Directory_="chilled_water_loop_Dir" Attributes="0" KeyPath="chilled_water_loop.rb" Type="0"/>
-    <ROW Component="condenser_loop.rb" ComponentId="{0447D8B5-AC80-4FE4-80FD-075240C32212}" Directory_="condenser_loop_Dir" Attributes="0" KeyPath="condenser_loop.rb" Type="0"/>
+    <ROW Component="chilled_water_loop.rb" ComponentId="{CC71AF3C-83D6-4B14-8ED7-C054DEA208A4}" Directory_="resources_4_Dir" Attributes="0" KeyPath="chilled_water_loop.rb" Type="0"/>
+    <ROW Component="coil_sizing_detail.rb" ComponentId="{DF4A6E7E-1BF8-4DBD-B0E9-054F4D673BF8}" Directory_="resources_5_Dir" Attributes="0" KeyPath="coil_sizing_detail.rb" Type="0"/>
+    <ROW Component="coil_sizing_detail_repository.rb" ComponentId="{2538870E-2373-4A73-8BC2-4B3E8C2B313A}" Directory_="repositories_Dir" Attributes="0" KeyPath="coil_sizing_detail_repository.rb" Type="0"/>
     <ROW Component="denver_seed_empty.osm" ComponentId="{6F1D111D-0D4E-4BA9-9982-DE53F2769508}" Directory_="seeds_Dir" Attributes="0" KeyPath="denver_seed_empty.osm" Type="0"/>
     <ROW Component="design_doc.txt" ComponentId="{08A6DB03-CC3B-4BC9-8F42-994726B6B18C}" Directory_="resources_1_Dir" Attributes="0" KeyPath="design_doc.txt" Type="0"/>
     <ROW Component="energyplus.exe" ComponentId="{6B743745-CCEF-41B5-AF47-3BB625AA8863}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="energyplus.exe"/>
     <ROW Component="energyplusapi.dll" ComponentId="{AA460151-31E5-429C-ACCD-62202B221EBF}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="energyplusapi.dll"/>
     <ROW Component="epw.rb" ComponentId="{2F594F56-8B48-4744-8F92-9BAB2EDBEBC5}" Directory_="resources_3_Dir" Attributes="0" KeyPath="epw.rb" Type="0"/>
     <ROW Component="example_model.osm" ComponentId="{8A61F1B1-C14E-4E14-B49F-12E5A03A47CF}" Directory_="tests_Dir" Attributes="0" KeyPath="example_model.osm" Type="0"/>
-    <ROW Component="fpfc.rb" ComponentId="{13E5A953-C201-4B69-BD1C-C16501694B62}" Directory_="fpfc_Dir" Attributes="0" KeyPath="fpfc.rb" Type="0"/>
     <ROW Component="gbXMLStandardTestModel2016.xml" ComponentId="{8A6DD0CF-1E04-49DD-993F-5FDDD9C30635}" Directory_="tests_1_Dir" Attributes="0" KeyPath="gbXMLStandardTestModel2016.xml" Type="0"/>
-    <ROW Component="gbxml_parser.rb" ComponentId="{D22AA7F0-1E1F-46A5-940D-5968FB9A655B}" Directory_="gbxml_parser_Dir" Attributes="0" KeyPath="gbxml_parser.rb" Type="0"/>
     <ROW Component="gbxmls" ComponentId="{FC89F11D-1114-4899-B44E-359DB1595218}" Directory_="gbxmls_Dir" Attributes="0"/>
     <ROW Component="gitkeep" ComponentId="{76F58421-B07B-4EAB-8676-0DE487BC0E5D}" Directory_="docs_Dir" Attributes="0" KeyPath="gitkeep" Type="0"/>
     <ROW Component="gitkeep_1" ComponentId="{8411A0A5-BA1C-4883-B9C8-8BD4071020CF}" Directory_="docs_1_Dir" Attributes="0" KeyPath="gitkeep_1" Type="0"/>
     <ROW Component="gitkeep_2" ComponentId="{18710354-C521-4B3C-B1C7-46BB5025E961}" Directory_="docs_3_Dir" Attributes="0" KeyPath="gitkeep_2" Type="0"/>
     <ROW Component="gitkeep_3" ComponentId="{8D56F6DC-6748-4554-A147-9A64A40F36AE}" Directory_="docs_4_Dir" Attributes="0" KeyPath="gitkeep_3" Type="0"/>
-    <ROW Component="helpers.rb" ComponentId="{4346E363-A78C-492C-A6F6-E306C8D6844A}" Directory_="model_Dir" Attributes="0" KeyPath="helpers.rb" Type="0"/>
-    <ROW Component="hot_water_loop.rb" ComponentId="{37EF20FC-6E09-4D40-B5C1-3A9EC8047ED5}" Directory_="hot_water_loop_Dir" Attributes="0" KeyPath="hot_water_loop.rb" Type="0"/>
-    <ROW Component="hvac_object.rb" ComponentId="{7DD6DE08-91A4-40BC-9C47-9E2B16B517A3}" Directory_="hvac_object_Dir" Attributes="0" KeyPath="hvac_object.rb" Type="0"/>
     <ROW Component="libeay32.dll" ComponentId="{C6913A67-07F9-41B1-8F1D-407C2BC4664C}" Directory_="bin_Dir" Attributes="256" KeyPath="libeay32.dll"/>
     <ROW Component="measure.rb" ComponentId="{65830DC2-C855-4A60-B846-2266555A5BFF}" Directory_="import_gbxml_Dir" Attributes="0" KeyPath="measure.rb_1" Type="0"/>
     <ROW Component="measure.rb_1" ComponentId="{B2D448F0-41EA-4173-B196-003A9FCFB8D1}" Directory_="SetThermostatSchedules_Dir" Attributes="0" KeyPath="measure.rb_4" Type="0"/>
     <ROW Component="measure.rb_2" ComponentId="{187197FE-EE77-4E34-A382-09B7454AAFDD}" Directory_="EnableIdealAirLoadsForAllZones_Dir" Attributes="0" KeyPath="measure.rb_9" Type="0"/>
     <ROW Component="measures" ComponentId="{D14B721E-9E95-41CA-A132-6DFF4607E2A2}" Directory_="measures_Dir" Attributes="0"/>
-    <ROW Component="model_manager.rb" ComponentId="{FAFEB6B4-17D0-476A-81BD-C50EF2FC412C}" Directory_="model_manager_Dir" Attributes="0" KeyPath="model_manager.rb" Type="0"/>
     <ROW Component="msvcp120.dll" ComponentId="{94734FC8-45A7-439F-A4BB-741D5C1B4137}" Directory_="bin_Dir" Attributes="256" KeyPath="msvcp120.dll"/>
     <ROW Component="msvcp140.dll" ComponentId="{C29ACF27-B1C6-4E53-A5B5-03255790B176}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="msvcp140.dll"/>
     <ROW Component="msvcr120.dll" ComponentId="{A6D8C006-3CE9-4F85-91B8-0DB8DD9D0FB4}" Directory_="bin_Dir" Attributes="256" KeyPath="msvcr120.dll"/>
     <ROW Component="openstudio.exe" ComponentId="{3A701EDC-15FB-4550-ADAF-B93F228521A5}" Directory_="bin_Dir" Attributes="256" KeyPath="openstudio.exe"/>
     <ROW Component="os_lib_adv_import.rb" ComponentId="{3F7C1720-917E-4499-894D-5372C5ADA373}" Directory_="resources_2_Dir" Attributes="0" KeyPath="os_lib_adv_import.rb" Type="0"/>
     <ROW Component="os_lib_helper_methods.rb" ComponentId="{D24C7BEB-36F8-478F-9A02-F4C680496622}" Directory_="resources_Dir" Attributes="0" KeyPath="os_lib_helper_methods.rb" Type="0"/>
-    <ROW Component="pcb.rb" ComponentId="{8627C665-C519-4AE2-B692-044F7D593E52}" Directory_="pcb_Dir" Attributes="0" KeyPath="pcb.rb" Type="0"/>
-    <ROW Component="pfpb.rb" ComponentId="{CF1F3218-3726-45E9-906D-00FC16398DC9}" Directory_="pfpb_Dir" Attributes="0" KeyPath="pfpb.rb" Type="0"/>
-    <ROW Component="ptac.rb" ComponentId="{3D663501-B7F6-44B2-9047-186D6EC9A5A9}" Directory_="ptac_Dir" Attributes="0" KeyPath="ptac.rb" Type="0"/>
-    <ROW Component="pthp.rb" ComponentId="{83E6CB15-FC90-41AA-AB1A-4317E617C5D5}" Directory_="pthp_Dir" Attributes="0" KeyPath="pthp.rb" Type="0"/>
-    <ROW Component="radiant_panel.rb" ComponentId="{A7112197-72EA-4EB8-86E3-CFA05A631819}" Directory_="radiant_panel_Dir" Attributes="0" KeyPath="radiant_panel.rb" Type="0"/>
-    <ROW Component="sfpb.rb" ComponentId="{ABFD444A-8A24-453F-B64C-CA412F8186E6}" Directory_="sfpb_Dir" Attributes="0" KeyPath="sfpb.rb" Type="0"/>
     <ROW Component="ssleay32.dll" ComponentId="{74D4801E-AADF-4B9B-BD5C-F767AD015E9F}" Directory_="bin_Dir" Attributes="256" KeyPath="ssleay32.dll"/>
     <ROW Component="ucrtbase.dll" ComponentId="{2C6DE8CF-8FED-4CB3-9D15-628F2E9CCF43}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="ucrtbase.dll"/>
-    <ROW Component="unit_heater.rb" ComponentId="{AFAE9160-6093-42BA-97D7-C368456CA251}" Directory_="unit_heater_Dir" Attributes="0" KeyPath="unit_heater.rb" Type="0"/>
-    <ROW Component="unit_ventilator.rb" ComponentId="{0D790211-02BC-4CDB-BC3D-F5561D8E0B26}" Directory_="unit_ventilator_Dir" Attributes="0" KeyPath="unit_ventilator.rb" Type="0"/>
-    <ROW Component="vav_box.rb" ComponentId="{8F710B9C-0D24-487C-B48A-5999546FEF18}" Directory_="vav_box_Dir" Attributes="0" KeyPath="vav_box.rb" Type="0"/>
     <ROW Component="vcruntime140.dll" ComponentId="{0E57F90F-3716-4CA3-82FE-76994AB42179}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="vcruntime140.dll"/>
     <ROW Component="wizard_interface_screenshot.png" ComponentId="{6D5AC555-A139-452B-83C3-8A17E3FC49BA}" Directory_="docs_2_Dir" Attributes="0" KeyPath="wizard_interface_screenshot.png" Type="0"/>
-    <ROW Component="wshp.rb" ComponentId="{23D889EC-6083-4405-B2EE-01F10C3357E7}" Directory_="wshp_Dir" Attributes="0" KeyPath="wshp.rb" Type="0"/>
-    <ROW Component="zone.rb" ComponentId="{BA33081D-B841-4FAD-A4EF-0C7D6D8B2BF5}" Directory_="zone_Dir" Attributes="0" KeyPath="zone.rb" Type="0"/>
-    <ROW Component="zone_hvac_equipment.rb" ComponentId="{CF59C7A4-B66B-499F-B601-EF3BAD1298A3}" Directory_="zone_hvac_equipment_Dir" Attributes="0" KeyPath="zone_hvac_equipment.rb" Type="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
-    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="Annualsimulation.osw EmptySeedModel.osm EnableIdealAirLoadsForAllZones_Test.rb Energy.idd ExpandObjects.exe LICENSE.md LICENSE.md_1 LICENSE.md_2 LICENSE.md_3 LICENSE.md_4 LICENSE.md_5 LICENSE.md_6 LICENSE.md_7 ProductInformation SetThermostatSchedules_Test.rb USA_CO_Denver.Intl.AP.725650_TMY3.ddy _SmallHotel_a.osm acb.rb add_xml_output_control_style_test.rb advanced_import_gbxml_test.rb air_system.rb another_weather_file.ddy apimswincoreconsolel110.dll apimswincoredatetimel110.dll apimswincoredebugl110.dll apimswincoreerrorhandlingl110.dll apimswincorefilel110.dll apimswincorefilel120.dll apimswincorefilel210.dll apimswincorehandlel110.dll apimswincoreheapl110.dll apimswincoreinterlockedl110.dll apimswincorelibraryloaderl110.dll apimswincorelocalizationl120.dll apimswincorememoryl110.dll apimswincorenamedpipel110.dll apimswincoreprocessenvironmentl110.dll apimswincoreprocessthreadsl110.dll apimswincoreprocessthreadsl111.dll apimswincoreprofilel110.dll apimswincorertlsupportl110.dll apimswincorestringl110.dll apimswincoresynchl110.dll apimswincoresynchl120.dll apimswincoresysinfol110.dll apimswincoretimezonel110.dll apimswincoreutill110.dll apimswincrtconiol110.dll apimswincrtconvertl110.dll apimswincrtenvironmentl110.dll apimswincrtfilesysteml110.dll apimswincrtheapl110.dll apimswincrtlocalel110.dll apimswincrtmathl110.dll apimswincrtmultibytel110.dll apimswincrtprivatel110.dll apimswincrtprocessl110.dll apimswincrtruntimel110.dll apimswincrtstdiol110.dll apimswincrtstringl110.dll apimswincrttimel110.dll apimswincrtutilityl110.dll baseboard_convective.rb baseboard_radiant.rb cav_box.rb chilled_water_loop.rb condenser_loop.rb denver_seed_empty.osm design_doc.txt energyplus.exe energyplusapi.dll epw.rb example_model.osm fpfc.rb gbXMLStandardTestModel2016.xml gbxml_parser.rb gbxmls gitkeep gitkeep_1 gitkeep_2 gitkeep_3 helpers.rb hot_water_loop.rb hvac_object.rb libeay32.dll measure.rb measure.rb_1 measure.rb_2 measures model_manager.rb msvcp120.dll msvcp140.dll msvcr120.dll openstudio.exe os_lib_adv_import.rb os_lib_helper_methods.rb pcb.rb pfpb.rb ptac.rb pthp.rb radiant_panel.rb sfpb.rb ssleay32.dll ucrtbase.dll unit_heater.rb unit_ventilator.rb vav_box.rb vcruntime140.dll wizard_interface_screenshot.png wshp.rb zone.rb zone_hvac_equipment.rb"/>
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="Annualsimulation.osw EmptySeedModel.osm EnableIdealAirLoadsForAllZones_Test.rb Energy.idd ExpandObjects.exe LICENSE.md LICENSE.md_1 LICENSE.md_2 LICENSE.md_3 LICENSE.md_4 LICENSE.md_5 LICENSE.md_6 LICENSE.md_7 LICENSE.md_8 ProductInformation SetThermostatSchedules_Test.rb USA_CO_Denver.Intl.AP.725650_TMY3.ddy _SmallHotel_a.osm add_xml_output_control_style_test.rb advanced_import_gbxml_test.rb another_weather_file.ddy apimswincoreconsolel110.dll apimswincoredatetimel110.dll apimswincoredebugl110.dll apimswincoreerrorhandlingl110.dll apimswincorefilel110.dll apimswincorefilel120.dll apimswincorefilel210.dll apimswincorehandlel110.dll apimswincoreheapl110.dll apimswincoreinterlockedl110.dll apimswincorelibraryloaderl110.dll apimswincorelocalizationl120.dll apimswincorememoryl110.dll apimswincorenamedpipel110.dll apimswincoreprocessenvironmentl110.dll apimswincoreprocessthreadsl110.dll apimswincoreprocessthreadsl111.dll apimswincoreprofilel110.dll apimswincorertlsupportl110.dll apimswincorestringl110.dll apimswincoresynchl110.dll apimswincoresynchl120.dll apimswincoresysinfol110.dll apimswincoretimezonel110.dll apimswincoreutill110.dll apimswincrtconiol110.dll apimswincrtconvertl110.dll apimswincrtenvironmentl110.dll apimswincrtfilesysteml110.dll apimswincrtheapl110.dll apimswincrtlocalel110.dll apimswincrtmathl110.dll apimswincrtmultibytel110.dll apimswincrtprivatel110.dll apimswincrtprocessl110.dll apimswincrtruntimel110.dll apimswincrtstdiol110.dll apimswincrtstringl110.dll apimswincrttimel110.dll apimswincrtutilityl110.dll chilled_water_loop.rb coil_sizing_detail.rb coil_sizing_detail_repository.rb denver_seed_empty.osm design_doc.txt energyplus.exe energyplusapi.dll epw.rb example_model.osm gbXMLStandardTestModel2016.xml gbxmls gitkeep gitkeep_1 gitkeep_2 gitkeep_3 libeay32.dll measure.rb measure.rb_1 measure.rb_2 measures msvcp120.dll msvcp140.dll msvcr120.dll openstudio.exe os_lib_adv_import.rb os_lib_helper_methods.rb ssleay32.dll ucrtbase.dll vcruntime140.dll wizard_interface_screenshot.png"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
@@ -228,6 +185,7 @@
     <ROW File="LICENSE.md_5" Component_="LICENSE.md_5" FileName="LICENSE.md" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\LICENSE.md" SelfReg="false" NextFile="measure.rb_7"/>
     <ROW File="LICENSE.md_6" Component_="LICENSE.md_6" FileName="LICENSE.md" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\LICENSE.md" SelfReg="false" NextFile="measure.rb_8"/>
     <ROW File="LICENSE.md_7" Component_="LICENSE.md_7" FileName="LICENSE.md" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\LICENSE.md" SelfReg="false" NextFile="measure.rb_10"/>
+    <ROW File="LICENSE.md_8" Component_="LICENSE.md_8" FileName="LICENSE.md" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\LICENSE.md" SelfReg="false" NextFile="measure.rb_11"/>
     <ROW File="NoRunPeriod.osm" Component_="_SmallHotel_a.osm" FileName="NORUNP~1.OSM|NoRunPeriod.osm" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\tests\NoRunPeriod.osm" SelfReg="false" NextFile="OpenStudioResults_Test.rb"/>
     <ROW File="OpenStudioResults_Test.rb" Component_="_SmallHotel_a.osm" FileName="OPENST~1.RB|OpenStudioResults_Test.rb" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\tests\OpenStudioResults_Test.rb" SelfReg="false" NextFile="PeriodInConstName.osm"/>
     <ROW File="PeriodInConstName.osm" Component_="_SmallHotel_a.osm" FileName="PERIOD~1.OSM|PeriodInConstName.osm" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\tests\PeriodInConstName.osm" SelfReg="false" NextFile="USA_CO_GoldenNREL.724666_TMY3.epw"/>
@@ -239,7 +197,8 @@
     <ROW File="README.md.erb_4" Component_="LICENSE.md_4" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="installer_staging\measures\add_xml_output_control_style\README.md.erb" SelfReg="false" NextFile="add_xml_output_control_style_test.rb"/>
     <ROW File="README.md.erb_5" Component_="LICENSE.md_5" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\README.md.erb" SelfReg="false" NextFile="os_lib_adv_import.rb"/>
     <ROW File="README.md.erb_6" Component_="LICENSE.md_6" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\README.md.erb" SelfReg="false" NextFile="epw.rb"/>
-    <ROW File="README.md.erb_7" Component_="LICENSE.md_7" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\README.md.erb" SelfReg="false" NextFile="acb.rb"/>
+    <ROW File="README.md.erb_7" Component_="LICENSE.md_7" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\README.md.erb" SelfReg="false" NextFile="ddy"/>
+    <ROW File="README.md.erb_8" Component_="LICENSE.md_8" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\README.md.erb" SelfReg="false" NextFile="coil_sizing_detail.rb"/>
     <ROW File="README.md_1" Component_="LICENSE.md_1" FileName="README.md" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\README.md" SelfReg="false" NextFile="README.md.erb_1"/>
     <ROW File="README.md_2" Component_="LICENSE.md_2" FileName="README.md" Attributes="0" SourcePath="installer_staging\measures\set_simulation_control\README.md" SelfReg="false" NextFile="README.md.erb_2"/>
     <ROW File="README.md_3" Component_="LICENSE.md_3" FileName="README.md" Attributes="0" SourcePath="installer_staging\measures\SpaceTypeAndConstructionSetWizard\README.md" SelfReg="false" NextFile="README.md.erb_3"/>
@@ -247,6 +206,7 @@
     <ROW File="README.md_5" Component_="LICENSE.md_5" FileName="README.md" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\README.md" SelfReg="false" NextFile="README.md.erb_5"/>
     <ROW File="README.md_6" Component_="LICENSE.md_6" FileName="README.md" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\README.md" SelfReg="false" NextFile="README.md.erb_6"/>
     <ROW File="README.md_7" Component_="LICENSE.md_7" FileName="README.md" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\README.md" SelfReg="false" NextFile="README.md.erb_7"/>
+    <ROW File="README.md_8" Component_="LICENSE.md_8" FileName="README.md" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\README.md" SelfReg="false" NextFile="README.md.erb_8"/>
     <ROW File="SetThermostatSchedules_Test.rb" Component_="SetThermostatSchedules_Test.rb" FileName="SETTHE~1.RB|SetThermostatSchedules_Test.rb" Attributes="0" SourcePath="installer_staging\measures\SetThermostatSchedules\tests\SetThermostatSchedules_Test.rb" SelfReg="false" NextFile="wizard_interface_screenshot.png"/>
     <ROW File="Siz.AirConditionerVariableRefrigerantFlow.rb" Component_="os_lib_helper_methods.rb" FileName="SIZAIR~1.RB|Siz.AirConditionerVariableRefrigerantFlow.rb" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\resources\Siz.AirConditionerVariableRefrigerantFlow.rb" SelfReg="false" NextFile="Siz.AirLoopHVAC.rb"/>
     <ROW File="Siz.AirLoopHVAC.rb" Component_="os_lib_helper_methods.rb" FileName="SIZAIR~2.RB|Siz.AirLoopHVAC.rb" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\resources\Siz.AirLoopHVAC.rb" SelfReg="false" NextFile="Siz.AirLoopHVACUnitaryHeatCoolVAVChangeoverBypass.rb"/>
@@ -389,12 +349,13 @@
     <ROW File="USA_WA_Renton.Muni.AP.727934_TMY3.ddy" Component_="another_weather_file.ddy" FileName="USA_WA~1.DDY|USA_WA_Renton.Muni.AP.727934_TMY3.ddy" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\USA_WA_Renton.Muni.AP.727934_TMY3.ddy" SelfReg="false" NextFile="USA_WA_Renton.Muni.AP.727934_TMY3.epw"/>
     <ROW File="USA_WA_Renton.Muni.AP.727934_TMY3.epw" Component_="another_weather_file.ddy" FileName="USA_WA~1.EPW|USA_WA_Renton.Muni.AP.727934_TMY3.epw" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\USA_WA_Renton.Muni.AP.727934_TMY3.epw" SelfReg="false" NextFile="USA_WA_Renton.Muni.AP.727934_TMY3.stat"/>
     <ROW File="USA_WA_Renton.Muni.AP.727934_TMY3.stat" Component_="another_weather_file.ddy" FileName="USA_WA~1.STA|USA_WA_Renton.Muni.AP.727934_TMY3.stat" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\USA_WA_Renton.Muni.AP.727934_TMY3.stat" SelfReg="false" NextFile="measure.rb_9"/>
+    <ROW File="VentilationAndInfiltration.xml" Component_="advanced_import_gbxml_test.rb" FileName="VENTIL~1.XML|VentilationAndInfiltration.xml" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\tests\VentilationAndInfiltration.xml" SelfReg="false" NextFile="LICENSE.md_8"/>
     <ROW File="_SmallHotel_a.osm" Component_="_SmallHotel_a.osm" FileName="1004_S~1.OSM|1004_SmallHotel_a.osm" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\tests\1004_SmallHotel_a.osm" SelfReg="false" NextFile="add_tariff.osw"/>
-    <ROW File="acb.rb" Component_="acb.rb" FileName="acb.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\acb\acb.rb" SelfReg="false" NextFile="air_system.rb"/>
+    <ROW File="acb.rb" Component_="chilled_water_loop.rb" FileName="acb.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\acb.rb" SelfReg="false" NextFile="air_system.rb"/>
     <ROW File="add_tariff.osw" Component_="_SmallHotel_a.osm" FileName="ADD_TA~1.OSW|add_tariff.osw" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\tests\add_tariff.osw" SelfReg="false" NextFile="EdgeCaseModel.osm"/>
     <ROW File="add_xml_output_control_style_test.rb" Component_="add_xml_output_control_style_test.rb" FileName="ADD_XM~1.RB|add_xml_output_control_style_test.rb" Attributes="0" SourcePath="installer_staging\measures\add_xml_output_control_style\tests\add_xml_output_control_style_test.rb" SelfReg="false" NextFile="gitkeep_2"/>
     <ROW File="advanced_import_gbxml_test.rb" Component_="advanced_import_gbxml_test.rb" FileName="ADVANC~1.RB|advanced_import_gbxml_test.rb" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\tests\advanced_import_gbxml_test.rb" SelfReg="false" NextFile="AnalyticalSystems01.xml"/>
-    <ROW File="air_system.rb" Component_="air_system.rb" FileName="AIR_SY~1.RB|air_system.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\air_system\air_system.rb" SelfReg="false" NextFile="baseboard_convective.rb"/>
+    <ROW File="air_system.rb" Component_="chilled_water_loop.rb" FileName="AIR_SY~1.RB|air_system.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\air_system.rb" SelfReg="false" NextFile="baseboard_convective.rb"/>
     <ROW File="another_weather_file.ddy" Component_="another_weather_file.ddy" FileName="ANOTHE~1.DDY|another_weather_file.ddy" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\another_weather_file.ddy" SelfReg="false" NextFile="another_weather_file.epw"/>
     <ROW File="another_weather_file.epw" Component_="another_weather_file.ddy" FileName="ANOTHE~1.EPW|another_weather_file.epw" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\another_weather_file.epw" SelfReg="false" NextFile="another_weather_file.stat"/>
     <ROW File="another_weather_file.stat" Component_="another_weather_file.ddy" FileName="ANOTHE~1.STA|another_weather_file.stat" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\another_weather_file.stat" SelfReg="false" NextFile="change_building_location_test.rb"/>
@@ -438,37 +399,47 @@
     <ROW File="apimswincrtstringl110.dll" Component_="apimswincrtstringl110.dll" FileName="API-M~38.DLL|api-ms-win-crt-string-l1-1-0.dll" Attributes="0" SourcePath="installer_staging\EnergyPlus\api-ms-win-crt-string-l1-1-0.dll" SelfReg="false" NextFile="apimswincrttimel110.dll"/>
     <ROW File="apimswincrttimel110.dll" Component_="apimswincrttimel110.dll" FileName="API-M~39.DLL|api-ms-win-crt-time-l1-1-0.dll" Attributes="0" SourcePath="installer_staging\EnergyPlus\api-ms-win-crt-time-l1-1-0.dll" SelfReg="false" NextFile="apimswincrtutilityl110.dll"/>
     <ROW File="apimswincrtutilityl110.dll" Component_="apimswincrtutilityl110.dll" FileName="API-M~40.DLL|api-ms-win-crt-utility-l1-1-0.dll" Attributes="0" SourcePath="installer_staging\EnergyPlus\api-ms-win-crt-utility-l1-1-0.dll" SelfReg="false" NextFile="Energy.idd"/>
-    <ROW File="baseboard_convective.rb" Component_="baseboard_convective.rb" FileName="BASEBO~1.RB|baseboard_convective.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\baseboard_convective\baseboard_convective.rb" SelfReg="false" NextFile="baseboard_radiant.rb"/>
-    <ROW File="baseboard_radiant.rb" Component_="baseboard_radiant.rb" FileName="BASEBO~1.RB|baseboard_radiant.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\baseboard_radiant\baseboard_radiant.rb" SelfReg="false" NextFile="cav_box.rb"/>
-    <ROW File="cav_box.rb" Component_="cav_box.rb" FileName="cav_box.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\cav_box\cav_box.rb" SelfReg="false" NextFile="chilled_water_loop.rb"/>
+    <ROW File="baseboard_convective.rb" Component_="chilled_water_loop.rb" FileName="BASEBO~1.RB|baseboard_convective.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\baseboard_convective.rb" SelfReg="false" NextFile="baseboard_radiant.rb"/>
+    <ROW File="baseboard_radiant.rb" Component_="chilled_water_loop.rb" FileName="BASEBO~2.RB|baseboard_radiant.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\baseboard_radiant.rb" SelfReg="false" NextFile="cav_box.rb"/>
+    <ROW File="cav_box.rb" Component_="chilled_water_loop.rb" FileName="cav_box.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\cav_box.rb" SelfReg="false"/>
     <ROW File="change_building_location_test.rb" Component_="another_weather_file.ddy" FileName="CHANGE~1.RB|change_building_location_test.rb" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\change_building_location_test.rb" SelfReg="false" NextFile="multiyear.ddy"/>
-    <ROW File="chilled_water_loop.rb" Component_="chilled_water_loop.rb" FileName="CHILLE~1.RB|chilled_water_loop.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\chilled_water_loop\chilled_water_loop.rb" SelfReg="false" NextFile="condenser_loop.rb"/>
-    <ROW File="condenser_loop.rb" Component_="condenser_loop.rb" FileName="CONDEN~1.RB|condenser_loop.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\condenser_loop\condenser_loop.rb" SelfReg="false" NextFile="fpfc.rb"/>
+    <ROW File="chilled_water_loop.rb" Component_="chilled_water_loop.rb" FileName="CHILLE~1.RB|chilled_water_loop.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\chilled_water_loop.rb" SelfReg="false" NextFile="condenser_loop.rb"/>
+    <ROW File="coil_sizing_detail.rb" Component_="coil_sizing_detail.rb" FileName="COIL_S~1.RB|coil_sizing_detail.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\coil_sizing_detail.rb" SelfReg="false" NextFile="component_load_summary.rb"/>
+    <ROW File="coil_sizing_detail_repository.rb" Component_="coil_sizing_detail_repository.rb" FileName="COIL_S~1.RB|coil_sizing_detail_repository.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\repositories\coil_sizing_detail_repository.rb" SelfReg="false" NextFile="engineering_check_table_repository.rb"/>
+    <ROW File="component_load_summary.rb" Component_="coil_sizing_detail.rb" FileName="COMPON~1.RB|component_load_summary.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\component_load_summary.rb" SelfReg="false" NextFile="design_psychrometric.rb"/>
+    <ROW File="condenser_loop.rb" Component_="chilled_water_loop.rb" FileName="CONDEN~1.RB|condenser_loop.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\condenser_loop.rb" SelfReg="false" NextFile="fpfc.rb"/>
     <ROW File="ddy" Component_="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" FileName="듥듦.ddy" Attributes="0" SourcePath="installer_staging\weather\듥듦.ddy" SelfReg="false" NextFile="epw"/>
     <ROW File="denver_seed_empty.osm" Component_="denver_seed_empty.osm" FileName="DENVER~1.OSM|denver_seed_empty.osm" Attributes="0" SourcePath="installer_staging\seeds\denver_seed_empty.osm" SelfReg="false" NextFile="seed_empty.osm"/>
     <ROW File="design_doc.txt" Component_="design_doc.txt" FileName="DESIGN~1.TXT|design_doc.txt" Attributes="0" SourcePath="installer_staging\measures\SpaceTypeAndConstructionSetWizard\resources\design_doc.txt" SelfReg="false" NextFile="os_lib_helper_methods.rb_1"/>
+    <ROW File="design_psychrometric.rb" Component_="coil_sizing_detail.rb" FileName="DESIGN~1.RB|design_psychrometric.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\design_psychrometric.rb" SelfReg="false" NextFile="engineering_check_table.rb"/>
     <ROW File="energyplus.exe" Component_="energyplus.exe" FileName="ENERGY~1.EXE|energyplus.exe" Attributes="0" SourcePath="installer_staging\EnergyPlus\energyplus.exe" SelfReg="false" NextFile="energyplusapi.dll" DigSign="true"/>
     <ROW File="energyplusapi.dll" Component_="energyplusapi.dll" FileName="ENERGY~1.DLL|energyplusapi.dll" Attributes="0" SourcePath="installer_staging\EnergyPlus\energyplusapi.dll" SelfReg="false" NextFile="ExpandObjects.exe"/>
+    <ROW File="engineering_check_table.rb" Component_="coil_sizing_detail.rb" FileName="ENGINE~1.RB|engineering_check_table.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\engineering_check_table.rb" SelfReg="false" NextFile="facility_component_load_summary.rb"/>
+    <ROW File="engineering_check_table_repository.rb" Component_="coil_sizing_detail_repository.rb" FileName="ENGINE~1.RB|engineering_check_table_repository.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\repositories\engineering_check_table_repository.rb" SelfReg="false" NextFile="peak_condition_table_repository.rb"/>
     <ROW File="epw" Component_="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" FileName="듥듦.epw" Attributes="0" SourcePath="installer_staging\weather\듥듦.epw" SelfReg="false" NextFile="stat"/>
     <ROW File="epw.rb" Component_="epw.rb" FileName="epw.rb" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\resources\epw.rb" SelfReg="false" NextFile="os_lib_helper_methods.rb_2"/>
     <ROW File="example_model.osm" Component_="example_model.osm" FileName="EXAMPL~1.OSM|example_model.osm" Attributes="0" SourcePath="installer_staging\measures\gbxml_to_openstudio_cleanup\tests\example_model.osm" SelfReg="false" NextFile="gbxml_to_openstudio_cleanup_test.rb"/>
-    <ROW File="fpfc.rb" Component_="fpfc.rb" FileName="fpfc.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\fpfc\fpfc.rb" SelfReg="false" NextFile="gbxml_parser.rb"/>
+    <ROW File="facility_component_load_summary.rb" Component_="coil_sizing_detail.rb" FileName="FACILI~1.RB|facility_component_load_summary.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\facility_component_load_summary.rb" SelfReg="false" NextFile="jsonable.rb"/>
+    <ROW File="fpfc.rb" Component_="chilled_water_loop.rb" FileName="fpfc.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\fpfc.rb" SelfReg="false" NextFile="gbxml_parser.rb"/>
     <ROW File="gbXMLStandardTestModel2016.xml" Component_="gbXMLStandardTestModel2016.xml" FileName="GBXMLS~1.XML|gbXMLStandard Test Model 2016.xml" Attributes="0" SourcePath="installer_staging\measures\import_gbxml\tests\gbXMLStandard Test Model 2016.xml" SelfReg="false" NextFile="import_gbxml_test.rb"/>
     <ROW File="gbXMLStandardTestModel2016.xml_1" Component_="advanced_import_gbxml_test.rb" FileName="GBXMLS~1.XML|gbXMLStandard Test Model 2016.xml" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\tests\gbXMLStandard Test Model 2016.xml" SelfReg="false" NextFile="TestVillaScenario2_alt_a.xml"/>
-    <ROW File="gbxml_parser.rb" Component_="gbxml_parser.rb" FileName="GBXML_~1.RB|gbxml_parser.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\gbxml_parser\gbxml_parser.rb" SelfReg="false" NextFile="hot_water_loop.rb"/>
+    <ROW File="gbxml_hvac_import.rb" Component_="LICENSE.md_7" FileName="GBXML_~1.RB|gbxml_hvac_import.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\gbxml_hvac_import.rb" SelfReg="false" NextFile="chilled_water_loop.rb"/>
+    <ROW File="gbxml_parser.rb" Component_="chilled_water_loop.rb" FileName="GBXML_~1.RB|gbxml_parser.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\gbxml_parser.rb" SelfReg="false" NextFile="helpers.rb"/>
     <ROW File="gbxml_to_openstudio_cleanup_test.rb" Component_="example_model.osm" FileName="GBXML_~1.RB|gbxml_to_openstudio_cleanup_test.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_to_openstudio_cleanup\tests\gbxml_to_openstudio_cleanup_test.rb" SelfReg="false" NextFile="measure.rb_1"/>
     <ROW File="gitkeep" Component_="gitkeep" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="installer_staging\measures\gbxml_to_openstudio_cleanup\docs\.gitkeep" SelfReg="false" NextFile="LICENSE.md"/>
     <ROW File="gitkeep_1" Component_="gitkeep_1" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="installer_staging\measures\set_simulation_control\docs\.gitkeep" SelfReg="false" NextFile="LICENSE.md_2"/>
     <ROW File="gitkeep_2" Component_="gitkeep_2" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\docs\.gitkeep" SelfReg="false" NextFile="LICENSE.md_5"/>
     <ROW File="gitkeep_3" Component_="gitkeep_3" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\docs\.gitkeep" SelfReg="false" NextFile="LICENSE.md_7"/>
-    <ROW File="helpers.rb" Component_="helpers.rb" FileName="helpers.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\model\helpers.rb" SelfReg="false" NextFile="model_manager.rb"/>
-    <ROW File="hot_water_loop.rb" Component_="hot_water_loop.rb" FileName="HOT_WA~1.RB|hot_water_loop.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\hot_water_loop\hot_water_loop.rb" SelfReg="false" NextFile="hvac_object.rb"/>
-    <ROW File="hvac_object.rb" Component_="hvac_object.rb" FileName="HVAC_O~1.RB|hvac_object.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\hvac_object\hvac_object.rb" SelfReg="false" NextFile="helpers.rb"/>
+    <ROW File="helpers.rb" Component_="chilled_water_loop.rb" FileName="helpers.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\helpers.rb" SelfReg="false" NextFile="hot_water_loop.rb"/>
+    <ROW File="hot_water_loop.rb" Component_="chilled_water_loop.rb" FileName="HOT_WA~1.RB|hot_water_loop.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\hot_water_loop.rb" SelfReg="false" NextFile="hvac_object.rb"/>
+    <ROW File="hvac_object.rb" Component_="chilled_water_loop.rb" FileName="HVAC_O~1.RB|hvac_object.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\hvac_object.rb" SelfReg="false" NextFile="model_manager.rb"/>
     <ROW File="import_gbxml_test.rb" Component_="gbXMLStandardTestModel2016.xml" FileName="IMPORT~1.RB|import_gbxml_test.rb" Attributes="0" SourcePath="installer_staging\measures\import_gbxml\tests\import_gbxml_test.rb" SelfReg="false" NextFile="LICENSE.md_1"/>
+    <ROW File="jsonable.rb" Component_="coil_sizing_detail.rb" FileName="jsonable.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\jsonable.rb" SelfReg="false" NextFile="output_manager.rb"/>
     <ROW File="libeay32.dll" Component_="libeay32.dll" FileName="libeay32.dll" Attributes="0" SourcePath="installer_staging\bin\libeay32.dll" SelfReg="false" NextFile="msvcp120.dll"/>
     <ROW File="measure.rb" Component_="LICENSE.md" FileName="measure.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_to_openstudio_cleanup\measure.rb" SelfReg="false" NextFile="measure.xml"/>
     <ROW File="measure.rb_1" Component_="measure.rb" FileName="measure.rb" Attributes="0" SourcePath="installer_staging\measures\import_gbxml\measure.rb" SelfReg="false" NextFile="measure.xml_1"/>
     <ROW File="measure.rb_10" Component_="LICENSE.md_7" FileName="measure.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\measure.rb" SelfReg="false" NextFile="measure.xml_10"/>
+    <ROW File="measure.rb_11" Component_="LICENSE.md_8" FileName="measure.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\measure.rb" SelfReg="false" NextFile="measure.xml_11"/>
     <ROW File="measure.rb_2" Component_="LICENSE.md_1" FileName="measure.rb" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\measure.rb" SelfReg="false" NextFile="measure.xml_2"/>
     <ROW File="measure.rb_3" Component_="LICENSE.md_2" FileName="measure.rb" Attributes="0" SourcePath="installer_staging\measures\set_simulation_control\measure.rb" SelfReg="false" NextFile="measure.xml_3"/>
     <ROW File="measure.rb_4" Component_="measure.rb_1" FileName="measure.rb" Attributes="0" SourcePath="installer_staging\measures\SetThermostatSchedules\measure.rb" SelfReg="false" NextFile="measure.xml_4"/>
@@ -480,6 +451,7 @@
     <ROW File="measure.xml" Component_="LICENSE.md" FileName="measure.xml" Attributes="0" SourcePath="installer_staging\measures\gbxml_to_openstudio_cleanup\measure.xml" SelfReg="false" NextFile="README.md"/>
     <ROW File="measure.xml_1" Component_="measure.rb" FileName="measure.xml" Attributes="0" SourcePath="installer_staging\measures\import_gbxml\measure.xml" SelfReg="false" NextFile="gbXMLStandardTestModel2016.xml"/>
     <ROW File="measure.xml_10" Component_="LICENSE.md_7" FileName="measure.xml" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\measure.xml" SelfReg="false" NextFile="README.md_7"/>
+    <ROW File="measure.xml_11" Component_="LICENSE.md_8" FileName="measure.xml" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\measure.xml" SelfReg="false" NextFile="README.md_8"/>
     <ROW File="measure.xml_2" Component_="LICENSE.md_1" FileName="measure.xml" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\measure.xml" SelfReg="false" NextFile="README.md_1"/>
     <ROW File="measure.xml_3" Component_="LICENSE.md_2" FileName="measure.xml" Attributes="0" SourcePath="installer_staging\measures\set_simulation_control\measure.xml" SelfReg="false" NextFile="README.md_2"/>
     <ROW File="measure.xml_4" Component_="measure.rb_1" FileName="measure.xml" Attributes="0" SourcePath="installer_staging\measures\SetThermostatSchedules\measure.xml" SelfReg="false" NextFile="SetThermostatSchedules_Test.rb"/>
@@ -488,7 +460,7 @@
     <ROW File="measure.xml_7" Component_="LICENSE.md_5" FileName="measure.xml" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\measure.xml" SelfReg="false" NextFile="README.md_5"/>
     <ROW File="measure.xml_8" Component_="LICENSE.md_6" FileName="measure.xml" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\measure.xml" SelfReg="false" NextFile="README.md_6"/>
     <ROW File="measure.xml_9" Component_="measure.rb_2" FileName="measure.xml" Attributes="0" SourcePath="installer_staging\measures\EnableIdealAirLoadsForAllZones\measure.xml" SelfReg="false" NextFile="EnableIdealAirLoadsForAllZones_Test.rb"/>
-    <ROW File="model_manager.rb" Component_="model_manager.rb" FileName="MODEL_~1.RB|model_manager.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\model_manager\model_manager.rb" SelfReg="false" NextFile="pcb.rb"/>
+    <ROW File="model_manager.rb" Component_="chilled_water_loop.rb" FileName="MODEL_~1.RB|model_manager.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\model_manager.rb" SelfReg="false" NextFile="pcb.rb"/>
     <ROW File="msvcp120.dll" Component_="msvcp120.dll" FileName="msvcp120.dll" Attributes="0" SourcePath="installer_staging\bin\msvcp120.dll" SelfReg="false" NextFile="msvcr120.dll"/>
     <ROW File="msvcp140.dll" Component_="msvcp140.dll" FileName="msvcp140.dll" Attributes="0" SourcePath="installer_staging\EnergyPlus\msvcp140.dll" SelfReg="false" NextFile="ucrtbase.dll"/>
     <ROW File="msvcr120.dll" Component_="msvcr120.dll" FileName="msvcr120.dll" Attributes="0" SourcePath="installer_staging\bin\msvcr120.dll" SelfReg="false" NextFile="ssleay32.dll"/>
@@ -505,29 +477,42 @@
     <ROW File="os_lib_reporting.rb" Component_="os_lib_helper_methods.rb" FileName="OS_LIB~2.RB|os_lib_reporting.rb" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\resources\os_lib_reporting.rb" SelfReg="false" NextFile="os_lib_schedules.rb"/>
     <ROW File="os_lib_schedules.rb" Component_="os_lib_helper_methods.rb" FileName="OS_LIB~3.RB|os_lib_schedules.rb" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\resources\os_lib_schedules.rb" SelfReg="false" NextFile="report.html.erb"/>
     <ROW File="os_lib_schedules.rb_1" Component_="os_lib_adv_import.rb" FileName="OS_LIB~3.RB|os_lib_schedules.rb" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\resources\os_lib_schedules.rb" SelfReg="false" NextFile="advanced_import_gbxml_test.rb"/>
-    <ROW File="pcb.rb" Component_="pcb.rb" FileName="pcb.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\pcb\pcb.rb" SelfReg="false" NextFile="pfpb.rb"/>
-    <ROW File="pfpb.rb" Component_="pfpb.rb" FileName="pfpb.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\pfpb\pfpb.rb" SelfReg="false" NextFile="ptac.rb"/>
-    <ROW File="ptac.rb" Component_="ptac.rb" FileName="ptac.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\ptac\ptac.rb" SelfReg="false" NextFile="pthp.rb"/>
-    <ROW File="pthp.rb" Component_="pthp.rb" FileName="pthp.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\pthp\pthp.rb" SelfReg="false" NextFile="radiant_panel.rb"/>
-    <ROW File="radiant_panel.rb" Component_="radiant_panel.rb" FileName="RADIAN~1.RB|radiant_panel.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\radiant_panel\radiant_panel.rb" SelfReg="false" NextFile="sfpb.rb"/>
+    <ROW File="output_manager.rb" Component_="coil_sizing_detail.rb" FileName="OUTPUT~1.RB|output_manager.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\output_manager.rb" SelfReg="false" NextFile="output_service.rb"/>
+    <ROW File="output_service.rb" Component_="coil_sizing_detail.rb" FileName="OUTPUT~2.RB|output_service.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\output_service.rb" SelfReg="false" NextFile="peak_condition_table.rb"/>
+    <ROW File="pcb.rb" Component_="chilled_water_loop.rb" FileName="pcb.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\pcb.rb" SelfReg="false" NextFile="pfpb.rb"/>
+    <ROW File="peak_condition_table.rb" Component_="coil_sizing_detail.rb" FileName="PEAK_C~1.RB|peak_condition_table.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\peak_condition_table.rb" SelfReg="false" NextFile="peak_load_component.rb"/>
+    <ROW File="peak_condition_table_repository.rb" Component_="coil_sizing_detail_repository.rb" FileName="PEAK_C~1.RB|peak_condition_table_repository.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\repositories\peak_condition_table_repository.rb" SelfReg="false" NextFile="peak_load_component_repository.rb"/>
+    <ROW File="peak_load_component.rb" Component_="coil_sizing_detail.rb" FileName="PEAK_L~1.RB|peak_load_component.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\peak_load_component.rb" SelfReg="false" NextFile="peak_load_component_table.rb"/>
+    <ROW File="peak_load_component_repository.rb" Component_="coil_sizing_detail_repository.rb" FileName="PEAK_L~1.RB|peak_load_component_repository.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\repositories\peak_load_component_repository.rb" SelfReg="false" NextFile="peak_load_component_table_repository.rb"/>
+    <ROW File="peak_load_component_table.rb" Component_="coil_sizing_detail.rb" FileName="PEAK_L~2.RB|peak_load_component_table.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\peak_load_component_table.rb" SelfReg="false" NextFile="coil_sizing_detail_repository.rb"/>
+    <ROW File="peak_load_component_table_repository.rb" Component_="coil_sizing_detail_repository.rb" FileName="PEAK_L~2.RB|peak_load_component_table_repository.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\repositories\peak_load_component_table_repository.rb" SelfReg="false" NextFile="system_checksum.rb"/>
+    <ROW File="pfpb.rb" Component_="chilled_water_loop.rb" FileName="pfpb.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\pfpb.rb" SelfReg="false" NextFile="ptac.rb"/>
+    <ROW File="ptac.rb" Component_="chilled_water_loop.rb" FileName="ptac.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\ptac.rb" SelfReg="false" NextFile="pthp.rb"/>
+    <ROW File="pthp.rb" Component_="chilled_water_loop.rb" FileName="pthp.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\pthp.rb" SelfReg="false" NextFile="radiant_panel.rb"/>
+    <ROW File="radiant_panel.rb" Component_="chilled_water_loop.rb" FileName="RADIAN~1.RB|radiant_panel.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\radiant_panel.rb" SelfReg="false" NextFile="sfpb.rb"/>
     <ROW File="report.html.erb" Component_="os_lib_helper_methods.rb" FileName="REPORT~1.ERB|report.html.erb" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\resources\report.html.erb" SelfReg="false" NextFile="Siz.AirConditionerVariableRefrigerantFlow.rb"/>
     <ROW File="seed_empty.osm" Component_="denver_seed_empty.osm" FileName="SEED_E~1.OSM|seed_empty.osm" Attributes="0" SourcePath="installer_staging\seeds\seed_empty.osm" SelfReg="false" NextFile="USA_CO_Denver.Intl.AP.725650_TMY3.ddy"/>
-    <ROW File="sfpb.rb" Component_="sfpb.rb" FileName="sfpb.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\sfpb\sfpb.rb" SelfReg="false" NextFile="unit_heater.rb"/>
+    <ROW File="sfpb.rb" Component_="chilled_water_loop.rb" FileName="sfpb.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\sfpb.rb" SelfReg="false" NextFile="unit_heater.rb"/>
     <ROW File="ssleay32.dll" Component_="ssleay32.dll" FileName="ssleay32.dll" Attributes="0" SourcePath="installer_staging\bin\ssleay32.dll" SelfReg="false" NextFile="gitkeep"/>
-    <ROW File="stat" Component_="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" FileName="듥듦~1.STA|듥듦.stat" Attributes="0" SourcePath="installer_staging\weather\듥듦.stat" SelfReg="false"/>
+    <ROW File="stat" Component_="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" FileName="듥듦~1.STA|듥듦.stat" Attributes="0" SourcePath="installer_staging\weather\듥듦.stat" SelfReg="false" NextFile="VentilationAndInfiltration.xml"/>
     <ROW File="stat_file.rb" Component_="epw.rb" FileName="STAT_F~1.RB|stat_file.rb" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\resources\stat_file.rb" SelfReg="false" NextFile="another_weather_file.ddy"/>
+    <ROW File="system_checksum.rb" Component_="coil_sizing_detail.rb" FileName="SYSTEM~1.RB|system_checksum.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\system_checksum.rb" SelfReg="false" NextFile="system_checksum_peak_load_component_table.rb"/>
+    <ROW File="system_checksum_peak_load_component_table.rb" Component_="coil_sizing_detail.rb" FileName="SYSTEM~2.RB|system_checksum_peak_load_component_table.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\system_checksum_peak_load_component_table.rb" SelfReg="false" NextFile="zone_loads_by_component.rb"/>
     <ROW File="test.osm" Component_="another_weather_file.ddy" FileName="test.osm" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\test.osm" SelfReg="false" NextFile="test.osw"/>
     <ROW File="test.osw" Component_="another_weather_file.ddy" FileName="test.osw" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\test.osw" SelfReg="false" NextFile="USA_MA_BostonLogan.Intl.AP.725090_TMY3.ddy"/>
     <ROW File="two_story_bar.osm" Component_="EmptySeedModel.osm" FileName="TWO_ST~1.OSM|two_story_bar.osm" Attributes="0" SourcePath="installer_staging\measures\SpaceTypeAndConstructionSetWizard\tests\two_story_bar.osm" SelfReg="false" NextFile="LICENSE.md_4"/>
     <ROW File="ucrtbase.dll" Component_="ucrtbase.dll" FileName="ucrtbase.dll" Attributes="0" SourcePath="installer_staging\EnergyPlus\ucrtbase.dll" SelfReg="false" NextFile="vcruntime140.dll"/>
-    <ROW File="unit_heater.rb" Component_="unit_heater.rb" FileName="UNIT_H~1.RB|unit_heater.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\unit_heater\unit_heater.rb" SelfReg="false" NextFile="unit_ventilator.rb"/>
-    <ROW File="unit_ventilator.rb" Component_="unit_ventilator.rb" FileName="UNIT_V~1.RB|unit_ventilator.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\unit_ventilator\unit_ventilator.rb" SelfReg="false" NextFile="vav_box.rb"/>
-    <ROW File="vav_box.rb" Component_="vav_box.rb" FileName="vav_box.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\vav_box\vav_box.rb" SelfReg="false" NextFile="wshp.rb"/>
+    <ROW File="unit_heater.rb" Component_="chilled_water_loop.rb" FileName="UNIT_H~1.RB|unit_heater.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\unit_heater.rb" SelfReg="false" NextFile="unit_ventilator.rb"/>
+    <ROW File="unit_ventilator.rb" Component_="chilled_water_loop.rb" FileName="UNIT_V~1.RB|unit_ventilator.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\unit_ventilator.rb" SelfReg="false" NextFile="vav_box.rb"/>
+    <ROW File="vav_box.rb" Component_="chilled_water_loop.rb" FileName="vav_box.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\vav_box.rb" SelfReg="false" NextFile="vrf_condenser.rb"/>
     <ROW File="vcruntime140.dll" Component_="vcruntime140.dll" FileName="VCRUNT~1.DLL|vcruntime140.dll" Attributes="0" SourcePath="installer_staging\EnergyPlus\vcruntime140.dll" SelfReg="false" NextFile="denver_seed_empty.osm"/>
+    <ROW File="vrf_condenser.rb" Component_="chilled_water_loop.rb" FileName="VRF_CO~1.RB|vrf_condenser.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\vrf_condenser.rb" SelfReg="false" NextFile="vrf_fan_coil_unit.rb"/>
+    <ROW File="vrf_fan_coil_unit.rb" Component_="chilled_water_loop.rb" FileName="VRF_FA~1.RB|vrf_fan_coil_unit.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\vrf_fan_coil_unit.rb" SelfReg="false" NextFile="wshp.rb"/>
     <ROW File="wizard_interface_screenshot.png" Component_="wizard_interface_screenshot.png" FileName="WIZARD~1.PNG|wizard_interface_screenshot.png" Attributes="0" SourcePath="installer_staging\measures\SpaceTypeAndConstructionSetWizard\docs\wizard_interface_screenshot.png" SelfReg="false" NextFile="LICENSE.md_3"/>
-    <ROW File="wshp.rb" Component_="wshp.rb" FileName="wshp.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\wshp\wshp.rb" SelfReg="false" NextFile="zone.rb"/>
-    <ROW File="zone.rb" Component_="zone.rb" FileName="zone.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\zone\zone.rb" SelfReg="false" NextFile="zone_hvac_equipment.rb"/>
-    <ROW File="zone_hvac_equipment.rb" Component_="zone_hvac_equipment.rb" FileName="ZONE_H~1.RB|zone_hvac_equipment.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\zone_hvac_equipment\zone_hvac_equipment.rb" SelfReg="false" NextFile="ddy"/>
+    <ROW File="wshp.rb" Component_="chilled_water_loop.rb" FileName="wshp.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\wshp.rb" SelfReg="false" NextFile="zone.rb"/>
+    <ROW File="zone.rb" Component_="chilled_water_loop.rb" FileName="zone.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\zone.rb" SelfReg="false" NextFile="zone_hvac_equipment.rb"/>
+    <ROW File="zone_hvac_equipment.rb" Component_="chilled_water_loop.rb" FileName="ZONE_H~1.RB|zone_hvac_equipment.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\zone_hvac_equipment.rb" SelfReg="false" NextFile="acb.rb"/>
+    <ROW File="zone_loads_by_component.rb" Component_="coil_sizing_detail.rb" FileName="ZONE_L~1.RB|zone_loads_by_component.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\zone_loads_by_component.rb" SelfReg="false" NextFile="gbxml_hvac_import.rb"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
