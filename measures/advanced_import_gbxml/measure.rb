@@ -198,7 +198,10 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         infiltration_def[:infiltration_flow_per_space_area] = element.elements['InfiltrationFlowPerSpaceArea'].text.to_f
       end
       if !element.elements['InfiltrationFlowPerArea'].nil?
-        infiltration_def[:infiltration_flow_per_exterior_surface_area] = element.elements['InfiltrationFlowPerArea'].text.to_f
+        infiltration_element = element.elements['InfiltrationFlowPerArea'].text.to_f
+        infiltration = infiltration_element.text.to_f
+        infiltration = OpenStudio.convert(infiltration, "L/s*m^2", "cfm/ft^2").get if infiltration.attributes['unit'] == "LPerSecPerSquareM"
+        infiltration_def[:infiltration_flow_per_exterior_surface_area] = infiltration
       end
       if !element.elements['InfiltrationFlowPerExteriorWallArea'].nil?
         infiltration_def[:infiltration_flow_per_exterior_wall_area] = element.elements['InfiltrationFlowPerExteriorWallArea'].text.to_f
@@ -215,13 +218,22 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
                           ventilation_flow_per_space: 0.0,             # cfm
                           ventilation_flow_air_changes_per_hour: 0.0 } # 1/h
       if !element.elements['OAFlowPerPerson'].nil?
-        ventilation_def[:ventilation_flow_per_person] = element.elements['OAFlowPerPerson'].text.to_f
+        ventilation_element = element.elements['OAFlowPerSpace'].text.to_f
+        ventilation = ventilation_element.text.to_f
+        ventilation = OpenStudio.convert(infiltration, "L/s", "cfm").get if infiltration.attributes['unit'] == "LPerSec"
+        ventilation_def[:ventilation_flow_per_person] = ventilation
       end
       if !element.elements['OAFlowPerArea'].nil?
-        ventilation_def[:ventilation_flow_per_area] = element.elements['OAFlowPerArea'].text.to_f
+        ventilation_element = element.elements['OAFlowPerSpace'].text.to_f
+        ventilation = ventilation_element.text.to_f
+        ventilation = OpenStudio.convert(infiltration, "L/s*m^2", "cfm/ft^2").get if infiltration.attributes['unit'] == "LPerSecPerSquareM"
+        ventilation_def[:ventilation_flow_per_area] = ventilation
       end
       if !element.elements['OAFlowPerSpace'].nil?
-        ventilation_def[:ventilation_flow_per_space] = element.elements['OAFlowPerSpace'].text.to_f
+        ventilation_element = element.elements['OAFlowPerSpace'].text.to_f
+        ventilation = ventilation_element.text.to_f
+        ventilation = OpenStudio.convert(infiltration, "L/s", "cfm").get if infiltration.attributes['unit'] == "LPerSec"
+        ventilation_def[:ventilation_flow_per_space] = ventilation
       end
       if !element.elements['AirChangesPerHour'].nil?
         ventilation_def[:ventilation_flow_air_changes_per_hour] = element.elements['AirChangesPerHour'].text.to_f
