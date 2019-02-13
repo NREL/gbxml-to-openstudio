@@ -77,18 +77,6 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     gbxml_area = gbxml_doc.elements["/gbXML/Campus/Building/Area"]
     runner.registerInfo("the gbXML has an area of #{gbxml_area.text.to_f}.")
 
-=begin
-    puts "**Looping through surfaces"
-    gbxml_doc.elements.each('gbXML/Campus/Surface') do |element|
-      name = element.elements['Name']
-      if name.nil?
-        puts "Surface #{element.attributes['id']} does not have a name"
-      else
-        puts name.text
-      end
-    end
-=end
-
     # create hash used for importing
     advanced_inputs = {}
     advanced_inputs[:spaces] = {}
@@ -122,7 +110,6 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
           advanced_inputs[:schedule_sets][target_sch_set_key][:light_schedule_id_ref] = light_sch
           advanced_inputs[:schedule_sets][target_sch_set_key][:equipment_schedule_id_ref] = elec_sch
           advanced_inputs[:schedule_sets][target_sch_set_key][:people_schedule_id_ref] = occ_sch
-
         end
       end
 
@@ -145,9 +132,10 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       # Don't duplicate load definitions if an equivalent one has already been made.
 
       # gather lights
-      unless element.elements['LightPowerPerArea'].nil?
-        # todo - add code for different unit types, for now assuming value is W/ft^2
-        light_power_per_area = element.elements['LightPowerPerArea'].text.to_f
+      light_element = element.elements['LightPowerPerArea']
+      unless light_element.nil?
+        light_power_per_area = light_element.text.to_f
+        light_power_per_area = OpenStudio.convert(light_power_per_area, "W/m^2", "W/ft^2").get if light_element.attributes['unit'] == "WattPerSquareMeter"
         unless advanced_inputs[:light_defs].has_key?(light_power_per_area)
           advanced_inputs[:light_defs][light_power_per_area] = "adv_import_light_#{advanced_inputs[:light_defs].size}"
         end
@@ -155,9 +143,10 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       end
 
       # gather electric equipment
-      unless element.elements['EquipPowerPerArea'].nil?
-        # todo - add code for different unit types, for now assuming value is W/ft^2
-        equip_power_per_area = element.elements['EquipPowerPerArea'].text.to_f
+      equipment_element = element.elements['EquipPowerPerArea']
+      unless equipment_element.nil?
+        equip_power_per_area = equipment_element.text.to_f
+        equip_power_per_area = OpenStudio.convert(equip_power_per_area, "W/m^2", "W/ft^2").get if equipment_element.attributes['unit'] == "WattPerSquareMeter"
         unless advanced_inputs[:equip_defs].has_key?(equip_power_per_area)
           advanced_inputs[:equip_defs][equip_power_per_area] = "adv_import_elec_equip_#{advanced_inputs[:equip_defs].size}"
         end
@@ -168,10 +157,10 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       # unlike lights and equipment, there are multiple people objects in the space to inspect
       space_people_attributes = {}
       element.elements.each('PeopleHeatGain') do |people_heat_gain|
-        # todo - add code for different unit types, for now assuming value is W/ft^2
-        #unit = people_heat_gain.attributes['unit']
+        unit = people_heat_gain.attributes['unit']
         heat_gain_type = people_heat_gain.attributes['heatGainType']
-        space_people_attributes["people_heat_gain_#{heat_gain_type.downcase}"] = people_heat_gain.text.to_f
+        heat_gain = unit == "BtuPerHourPerson" ? people_heat_gain.text.to_f : OpenStudio.convert(people_heat_gain.text.to_f, "W", "Btu/h").get
+        space_people_attributes["people_heat_gain_#{heat_gain_type.downcase}"] = heat_gain
       end
       unless element.elements['PeopleNumber'].nil?
         space_people_attributes[:people_number] = element.elements['PeopleNumber'].text.to_f
@@ -184,55 +173,41 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       end
 
       # gather infiltration
-      # todo - add code for different unit types
       infiltration_def = { infiltration_flow_per_space: nil,                 # cfm
                            infiltration_flow_per_space_area: nil,            # cfm/ft2
                            infiltration_flow_per_exterior_surface_area: nil, # cfm/ft2
                            infiltration_flow_per_exterior_wall_area: nil,    # cfm/ft2
                            infiltration_flow_air_changes_per_hour: nil }     # 1/h
-      # todo - add support for infiltration coefficients
-      if !element.elements['InfiltrationFlowPerSpace'].nil?
-        infiltration_def[:infiltration_flow_per_space] = element.elements['InfiltrationFlowPerSpace'].text.to_f
-      end
-      if !element.elements['InfiltrationFlowPerSpaceArea'].nil?
-        infiltration_def[:infiltration_flow_per_space_area] = element.elements['InfiltrationFlowPerSpaceArea'].text.to_f
-      end
       if !element.elements['InfiltrationFlowPerArea'].nil?
-        infiltration_element = element.elements['InfiltrationFlowPerArea'].text.to_f
+        infiltration_element = element.elements['InfiltrationFlowPerArea']
         infiltration = infiltration_element.text.to_f
-        infiltration = OpenStudio.convert(infiltration, "L/s*m^2", "cfm/ft^2").get if infiltration.attributes['unit'] == "LPerSecPerSquareM"
+        infiltration = OpenStudio.convert(infiltration, "L/s*m^2", "cfm/ft^2").get if infiltration_element.attributes['unit'] == "LPerSecPerSquareM"
         infiltration_def[:infiltration_flow_per_exterior_surface_area] = infiltration
       end
-      if !element.elements['InfiltrationFlowPerExteriorWallArea'].nil?
-        infiltration_def[:infiltration_flow_per_exterior_wall_area] = element.elements['InfiltrationFlowPerExteriorWallArea'].text.to_f
-      end
-      if !element.elements['InfiltrationFlowAirChangesPerHour'].nil?
-        infiltration_def[:infiltration_flow_air_changes_per_hour] = element.elements['InfiltrationFlowAirChangesPerHour'].text.to_f
-      end
+
       advanced_inputs[:spaces][element.attributes['id']][:infiltration_def] = infiltration_def
 
       # gather ventilation
-      # todo - add code for different unit types
       ventilation_def = { ventilation_flow_per_person: 0.0,            # cfm
                           ventilation_flow_per_area: 0.0,              # cfm/ft2
                           ventilation_flow_per_space: 0.0,             # cfm
                           ventilation_flow_air_changes_per_hour: 0.0 } # 1/h
       if !element.elements['OAFlowPerPerson'].nil?
-        ventilation_element = element.elements['OAFlowPerSpace'].text.to_f
+        ventilation_element = element.elements['OAFlowPerPerson']
         ventilation = ventilation_element.text.to_f
-        ventilation = OpenStudio.convert(infiltration, "L/s", "cfm").get if infiltration.attributes['unit'] == "LPerSec"
+        ventilation = OpenStudio.convert(ventilation, "L/s", "cfm").get if ventilation_element.attributes['unit'] == "LPerSec"
         ventilation_def[:ventilation_flow_per_person] = ventilation
       end
       if !element.elements['OAFlowPerArea'].nil?
-        ventilation_element = element.elements['OAFlowPerSpace'].text.to_f
+        ventilation_element = element.elements['OAFlowPerArea']
         ventilation = ventilation_element.text.to_f
-        ventilation = OpenStudio.convert(infiltration, "L/s*m^2", "cfm/ft^2").get if infiltration.attributes['unit'] == "LPerSecPerSquareM"
+        ventilation = OpenStudio.convert(ventilation, "L/s*m^2", "cfm/ft^2").get if ventilation_element.attributes['unit'] == "LPerSecPerSquareM"
         ventilation_def[:ventilation_flow_per_area] = ventilation
       end
       if !element.elements['OAFlowPerSpace'].nil?
-        ventilation_element = element.elements['OAFlowPerSpace'].text.to_f
+        ventilation_element = element.elements['OAFlowPerSpace']
         ventilation = ventilation_element.text.to_f
-        ventilation = OpenStudio.convert(infiltration, "L/s", "cfm").get if infiltration.attributes['unit'] == "LPerSec"
+        ventilation = OpenStudio.convert(ventilation, "L/s", "cfm").get if ventilation_element.attributes['unit'] == "LPerSec"
         ventilation_def[:ventilation_flow_per_space] = ventilation
       end
       if !element.elements['AirChangesPerHour'].nil?
