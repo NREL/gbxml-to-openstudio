@@ -328,10 +328,16 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
 
       # store DesignHeatT and DesignCoolT
       unless element.elements['DesignHeatT'].nil?
-        advanced_inputs[:zones][element.attributes['id']][:design_heat_t] = element.elements['DesignHeatT'].text.to_f
+        design_heat_t_element = element.elements['DesignHeatT']
+        design_heat_t = design_heat_t_element.text.to_f
+        design_heat_t = OpenStudio.convert(design_heat_t, "C", "F").get if design_heat_t_element.attributes['unit'] == "C"
+        advanced_inputs[:zones][element.attributes['id']][:design_heat_t] = design_heat_t
       end
       unless element.elements['DesignCoolT'].nil?
-        advanced_inputs[:zones][element.attributes['id']][:design_cool_t] = element.elements['DesignCoolT'].text.to_f
+        design_cool_t_element = element.elements['DesignCoolT']
+        design_cool_t = design_cool_t_element.text.to_f
+        design_cool_t = OpenStudio.convert(design_cool_t, "C", "F").get if design_cool_t_element.attributes['unit'] == "C"
+        advanced_inputs[:zones][element.attributes['id']][:design_cool_t] = design_cool_t
       end
 
 =begin

@@ -15,21 +15,21 @@
       "measure_dir_name": "import_gbxml",
       "name": "ImportGbxml",
       "arguments": {
-        "gbxml_file_name": "gbxml6.xml"
+        "gbxml_file_name": "analysis.xml"
       }
     },
     {
       "measure_dir_name": "advanced_import_gbxml",
       "name": "Advanced Import Gbxml",
       "arguments": {
-        "gbxml_file_name": "gbxml6.xml"
+        "gbxml_file_name": "analysis.xml"
       }
     },
     {
       "measure_dir_name": "gbxml_hvac_import",
       "name": "GBXML HVAC Import",
       "arguments": {
-        "gbxml_file_name": "gbxml6.xml"
+        "gbxml_file_name": "analysis.xml"
       }
     },
     {
