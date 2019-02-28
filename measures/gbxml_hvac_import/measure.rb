@@ -1,19 +1,8 @@
-# insert your copyright here
-
-# see the URL below for information on how to write OpenStudio measures
-# http://nrel.github.io/OpenStudio-user-documentation/reference/measure_writing_guide/
-
-require 'rexml/document'
-require 'rexml/xpath'
-# require_relative 'resources/model_manager/rb'
+# insert copyright here
 require_relative 'gbxml_hvac_import'
-# require all .rb files in resources folder
-# Dir[File.dirname(__FILE__) + '/resources/*/*.rb'].each { |file| require file }
 
 # start the measure
 class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
-  require 'openstudio-standards'
-
   # human readable name
   def name
     # Measure name should be the title case of the class name.
@@ -62,7 +51,7 @@ class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
       runner.registerError("Empty gbXML filename was entered.")
       return false
     end
-    
+
     # find the gbXML file
     path = runner.workflow.findFile(gbxml_file_name)
     if path.empty?

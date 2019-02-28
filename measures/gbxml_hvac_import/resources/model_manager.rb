@@ -121,5 +121,10 @@ class ModelManager
     self.zones.values.each do |zone|
       zone.build
     end
+
+    self.air_systems.values.each do |air_system|
+      air_system.set_schedules
+    end
+
   end
 end

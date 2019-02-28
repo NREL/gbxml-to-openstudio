@@ -1,6 +1,10 @@
 require 'openstudio'
+require 'openstudio-standards'
 require 'rexml/document'
+require 'rexml/xpath'
 
+# require all .rb files in resources folder
+# Dir[File.dirname(__FILE__) + '/resources/*/*.rb'].each { |file| require file }
 require_relative 'resources/hvac_object'
 require_relative 'resources/acb'
 require_relative 'resources/air_system'
