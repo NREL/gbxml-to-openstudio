@@ -505,7 +505,7 @@ module OsLib_Schedules
 
     # ScheduleRuleset
     sch_ruleset = OpenStudio::Model::ScheduleRuleset.new(model)
-    if name
+    if options['name']
       sch_ruleset.setName(options['name'])
     end
 

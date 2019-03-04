@@ -56,7 +56,7 @@ class AdvancedImportGbxml_Test < Minitest::Test
 
     # save the model to test output directory
     output_file_path = OpenStudio::Path.new(File.dirname(__FILE__) + '/output/generic_test_output.osm')
-    model.save(output_file_path,true)
+    model.save(output_file_path, true)
   end
 
   def test_custom_gbxml_01

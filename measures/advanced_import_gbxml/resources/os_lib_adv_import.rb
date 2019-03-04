@@ -36,11 +36,15 @@
 # while methods initially setup for import from gbXML it can be used with import from any file such as csv, json, idf, etc
 # regardless of import format data is passed into these methods as hashes.
 require 'bigdecimal/newton'
+require 'openstudio-standards'
 
 module OsLib_AdvImport
 
   # primary method that calls other methods to add objects
   def self.add_objects_from_adv_import_hash(runner, model, advanced_inputs)
+
+    # add schedule type limits
+    OsLib_Schedules.addScheduleTypeLimits(model)
 
     # make schedules
     schedules = import_schs(runner, model, advanced_inputs[:schedules], advanced_inputs[:week_schedules], advanced_inputs[:day_schedules])
@@ -57,7 +61,7 @@ module OsLib_AdvImport
     modified_spaces = assign_space_attributes(runner, model, advanced_inputs[:spaces], schedule_sets, lights, elec_equipment, people)
 
     # add thermostats
-    modified_zones = assign_zone_attributes(runner, model,advanced_inputs[:zones])
+    modified_zones = assign_zone_attributes(runner, model, advanced_inputs[:zones])
 
     return true
   end
@@ -201,6 +205,7 @@ module OsLib_AdvImport
 
   # assign newly made space objects to existing spaces
   def self.assign_zone_attributes(runner, model,zones)
+    std = Standard.build('90.1-2013')
 
     modified_zones = {}
     zones.each do |id, zone_data|
@@ -223,24 +228,58 @@ module OsLib_AdvImport
         zone.setThermostatSetpointDualSetpoint(thermostatSetpointDualSetpoint)
         modified = true
 
-        # create and assign heating and cooling setpoint
-        # todo - update schedule to be non-constant
+        # get occupancy schedule if zone is occupied
+        zone_occupied = zone.numberOfPeople.zero? ? false : true
+        if zone_occupied
+          zone_occ_sch = std.thermal_zone_get_occupancy_schedule(zone)
+        end
+
+        # create and assign heating and cooling setpoint schedules
+        # apply 5F temperature setback for occupied zones
+        # setbacks enable when zone occupancy is below 0.05, and disable 1.5 hours before zone occupancy exceeds 0.05
         if zone_data.has_key?(:design_heat_t)
-          htg_ip = zone_data[:design_heat_t]
-          htg_si = OpenStudio.convert(htg_ip,"F","C").get
-          options = {'name' => "htg_#{zone.name.to_s}", 'default_day' => ["htg_#{zone.name.to_s}_default", [24.0, htg_si]]}
+          htg_setpoint_degF = zone_data[:design_heat_t]
+          htg_setpoint_degC = OpenStudio.convert(htg_setpoint_degF, 'F', 'C').get
+          options = { 'name' => "htg_#{zone.name.to_s}",
+                      'default_day' => ["htg_#{zone.name.to_s}_default", [24.0, htg_setpoint_degC]],
+                      'winter_design_day' => [[24.0, htg_setpoint_degC]],
+                      'summer_design_day' => [[24.0, htg_setpoint_degC]] }
           htg_sch = OsLib_Schedules.createComplexSchedule(model, options)
+          if model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').is_initialized
+            htg_sch.setScheduleTypeLimits(model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').get)
+          end
+          htg_sch.setName("#{zone.name} Htg Setpoint Schedule")
+          if zone_occupied
+            htg_setback_degC = htg_setpoint_degC - OpenStudio.convert(5.0, 'R', 'K').get
+            htg_sch = OsLib_Schedules.merge_schedule_rulesets(htg_sch, zone_occ_sch)
+            htg_sch = OsLib_Schedules.schedule_ruleset_edit(htg_sch, new_value_map: [[0.0, htg_setback_degC], [1.0, htg_setpoint_degC]], start_time_diff: 90)
+            htg_sch.setName("#{zone.name} Htg Setpoint Schedule with Setback")
+          end
           thermostatSetpointDualSetpoint.setHeatingSetpointTemperatureSchedule(htg_sch)
+          runner.registerInfo("Set heating setpoint schedule '#{htg_sch.name}' for thermal zone '#{zone.name}'.")
         end
         if zone_data.has_key?(:design_cool_t)
-          clg_ip = zone_data[:design_cool_t]
-          clg_si = OpenStudio.convert(clg_ip,"F","C").get
-          options = {'name' => "clg_#{zone.name.to_s}", 'default_day' => ["clg_#{zone.name.to_s}_default", [24.0, clg_si]]}
+          clg_setpoint_degF = zone_data[:design_cool_t]
+          clg_setpoint_degC = OpenStudio.convert(clg_setpoint_degF, 'F', 'C').get
+          options = { 'name' => "clg_#{zone.name.to_s}",
+                      'default_day' => ["clg_#{zone.name.to_s}_default", [24.0, clg_setpoint_degC]],
+                      'winter_design_day' => [[24.0, clg_setpoint_degC]],
+                      'summer_design_day' => [[24.0, clg_setpoint_degC]] }
           clg_sch = OsLib_Schedules.createComplexSchedule(model, options)
+          if model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').is_initialized
+            clg_sch.setScheduleTypeLimits(model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').get)
+          end
+          clg_sch.setName("#{zone.name} Clg Setpoint Schedule")
+          if zone_occupied
+            clg_setback_degC = clg_setpoint_degC + OpenStudio.convert(5.0, 'R', 'K').get
+            clg_sch = OsLib_Schedules.merge_schedule_rulesets(clg_sch, zone_occ_sch)
+            clg_sch = OsLib_Schedules.schedule_ruleset_edit(clg_sch, new_value_map: [[0.0, clg_setback_degC], [1.0, clg_setpoint_degC]], start_time_diff: 90)
+            clg_sch.setName("#{zone.name} Clg Setpoint Schedule with Setback")
+          end
           thermostatSetpointDualSetpoint.setCoolingSetpointTemperatureSchedule(clg_sch)
+          runner.registerInfo("Set cooling setpoint schedule '#{clg_sch.name}' for thermal zone '#{zone.name}'.")
         end
       end
-
 
       # if modified add to modified_spaces hash
       if modified
