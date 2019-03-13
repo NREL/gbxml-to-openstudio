@@ -163,10 +163,11 @@ module OsLib_AdvImport
         unless space_data[:infiltration_def][:infiltration_flow_air_changes_per_hour].nil?
           load_inst.setAirChangesperHour(space_data[:infiltration_def][:infiltration_flow_air_changes_per_hour])
         end
-        # For now assume infiltration schedule is always on
 
         load_inst.setName("#{space.name.to_s}_infiltration")
         load_inst.setSpace(space)
+        # infiltration schedule will be set to 0.25 when HVAC system is operational in HVAC section of code
+        # set default always on here in case no HVAC system is present in the space
         load_inst.setSchedule(model.alwaysOnDiscreteSchedule)
         modified = true
       end

@@ -166,6 +166,73 @@ class AirSystem < HVACObject
     self.air_loop_hvac
   end
 
+  # Replaces values in a Schedule Ruleset schedule
+  #
+  # @param sch [OpenStudio::Model::ScheduleRuleset] ScheduleRuleset
+  # @param new_value_map [Array<Array<Double,Double>>] array of old and new value pairs
+  #   e.g. [[1.0,0.25],[0.0,1.0]]
+  # @return [OpenStudio::Model::ScheduleRuleset] ScheduleRuleset with new values
+  def self.replace_schedule_ruleset_values(sch, new_value_map)
+    # get and store ScheduleDay objects
+    schedule_days = []
+    schedule_days << sch.defaultDaySchedule
+    sch.scheduleRules.each do |sch_rule|
+      schedule_days << sch_rule.daySchedule
+    end
+
+    # replace values in each ScheduleDay object
+    schedule_days.each do |sch_day|
+      # get times and values
+      sch_times = sch_day.times
+      sch_values = sch_day.values
+
+      # replace values
+      new_value_map.each do |pair|
+        sch_values = sch_values.map { |x| x == pair[0] ? pair[1] : x }
+      end
+
+      # clear values and set new ones
+      sch_day.clearValues
+      sch_times.each_with_index do |time, i|
+        sch_day.addValue(time, sch_values[i])
+      end
+    end
+
+    return sch
+  end
+
+  # infer an infiltration schedule from the HVAC schedule ruleset
+  def self.infer_infiltration_schedule(hvac_op_sch)
+    # clone HVAC operating schedule
+    infil_sch = hvac_op_sch.clone.to_ScheduleRuleset.get
+    infil_sch.setName("#{hvac_op_sch.name} based infiltration sch")
+    # set to 0.25 when HVAC is on and 1.0 when HVAC is off
+    infil_sch = AirSystem.replace_schedule_ruleset_values(infil_sch, [[1.0,0.25],[0,1.0]])
+    infil_sch
+  end
+
+  # assign a schedule to all infiltration objects in spaces served by an air loop
+  def assign_airloop_infiltration_sch(infil_sch)
+    self.air_loop_hvac.thermalZones.each do |zone|
+      zone.spaces.each do |space|
+        space.spaceInfiltrationDesignFlowRates.each do |space_infil|
+          space_infil.setSchedule(infil_sch)
+        end
+      end
+    end
+  end
+
+  def set_schedules
+    # set HVAC operating schedule to combined zone occupancy schedule
+    std = Standard.build('90.1-2013')
+    loop_occ_sch = std.air_loop_hvac_get_occupancy_schedule(self.air_loop_hvac)
+    self.air_loop_hvac.setAvailabilitySchedule(loop_occ_sch)
+
+    # set infiltration schedules for spaces matched to HVAC operation
+    infil_sch = AirSystem.infer_infiltration_schedule(loop_occ_sch)
+    self.assign_airloop_infiltration_sch(infil_sch)
+  end
+
   # TODO: Break out into classes for each object to prevent this mess.
   def self.create_from_xml(model_manager, xml)
     air_loop = new
