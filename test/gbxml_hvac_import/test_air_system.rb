@@ -111,4 +111,101 @@ class TestAirSystem < Minitest::Test
 
     assert(osw_out['completed_status'] == 'Success')
   end
+
+  def test_infer_infiltration_schedule
+    hourly_values = [0,0,0,0,0,1,1,1,1,1,1,1,1,1,
+                     1,1,1,1,1,1,0,0,0,0]
+
+    schedule_ruleset = OpenStudio::Model::ScheduleRuleset.new(model)
+    hourly_values.each_with_index do |hourly_value, i|
+      schedule_ruleset.defaultDaySchedule.addValue(OpenStudio::Time.new(0, i + 1,0,0), hourly_value)
+    end
+
+    inferred_schedule = AirSystem.infer_infiltration_schedule(schedule_ruleset)
+
+    expected_values = [1,1,1,1,1,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,
+                       0.25,0.25,0.25,0.25,0.25,0.25,1,1,1,1]
+
+    assert(inferred_schedule.defaultDaySchedule.values == expected_values)
+  end
+
+  def test_set_schedules
+    hourly_values = [0,0,0,0,0.04,0.05,0.06,0.1,0.3,0.4,0.5,0.5,0.5,0.5,
+                           0.5,0.5,0.5,0.5,0.06,0.05,0.04,0,0,0]
+
+    model = OpenStudio::Model::Model.new
+    space = OpenStudio::Model::Space.new(model)
+    thermal_zone = OpenStudio::Model::ThermalZone.new(model)
+
+    # Create floor for space
+    points = OpenStudio::Point3dVector.new
+    points << OpenStudio::Point3d.new(0, 0, 0)
+    points << OpenStudio::Point3d.new(0, 10, 0)
+    points << OpenStudio::Point3d.new(10, 10, 0)
+    points << OpenStudio::Point3d.new(10, 0, 0)
+
+    surface = OpenStudio::Model::Surface.new(points, model)
+    surface.setSurfaceType('Floor')
+    surface.setSpace(space)
+    puts space.floorArea
+
+    schedule_ruleset = OpenStudio::Model::ScheduleRuleset.new(model)
+    schedule_type_limits = OpenStudio::Model::ScheduleTypeLimits.new(model)
+    schedule_type_limits.setName("Fractional")
+    schedule_type_limits.setLowerLimitValue(0.0)
+    schedule_type_limits.setUpperLimitValue(1.0)
+    schedule_type_limits.setNumericType("Continuous")
+    schedule_type_limits.setUnitType("Dimensionless")
+    schedule_ruleset.setScheduleTypeLimits(schedule_type_limits)
+
+    hourly_values.each_with_index do |hourly_value, i|
+      schedule_ruleset.defaultDaySchedule.addValue(OpenStudio::Time.new(0, i + 1,0,0), hourly_value)
+    end
+
+    people_definition = OpenStudio::Model::PeopleDefinition.new(model)
+    people_definition.setSpaceFloorAreaperPerson(20)
+    # people_definition.setNumberofPeople(10)
+    people = OpenStudio::Model::People.new(people_definition)
+    people.setSpace(space)
+    puts people.getNumberOfPeople(space.floorArea)
+
+    puts people.setNumberofPeopleSchedule(schedule_ruleset)
+
+    space_infiltration = OpenStudio::Model::SpaceInfiltrationDesignFlowRate.new(model)
+    space_infiltration.setFlowperExteriorSurfaceArea(0.019)
+
+    space.setThermalZone(thermal_zone)
+    space_infiltration.setSpace(space)
+
+    air_loop_hvac = OpenStudio::Model::AirLoopHVAC.new(model)
+    vav_box = OpenStudio::Model::AirTerminalSingleDuctVAVReheat.new(model, model.alwaysOnDiscreteSchedule, OpenStudio::Model::CoilHeatingElectric.new(model))
+
+    air_loop_hvac.addBranchForZone(thermal_zone, vav_box)
+
+    air_system = AirSystem.new
+    air_system.air_loop_hvac = air_loop_hvac
+    air_system.set_schedules
+
+    expected_infiltration_values = [1.0,0.25,1.0]
+    expected_infiltration_times = []
+    expected_infiltration_times << OpenStudio::Time.new(0, 5, 0)
+    expected_infiltration_times << OpenStudio::Time.new(0, 20, 0)
+    expected_infiltration_times << OpenStudio::Time.new(0, 24, 0)
+
+    space.spaceInfiltrationDesignFlowRates[0].schedule.get.to_ScheduleRuleset.get.scheduleRules.each do |schedule_rule|
+      assert(schedule_rule.daySchedule.times == expected_infiltration_times)
+      assert(schedule_rule.daySchedule.values == expected_infiltration_values)
+    end
+
+    # puts space.people[0].numberofPeopleSchedule.get.to_ScheduleRuleset.get.defaultDaySchedule
+
+  end
+
+  def schedule_day_from_array(hours)
+    schedule_day = OpenStudio::Model::ScheduleDay.new()
+
+    hours.each_with_index do |hour, i|
+      schedule_day.addValue(time, sch_values[i])
+    end
+  end
 end

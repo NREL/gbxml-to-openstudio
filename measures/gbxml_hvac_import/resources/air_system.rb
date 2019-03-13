@@ -172,7 +172,7 @@ class AirSystem < HVACObject
   # @param new_value_map [Array<Array<Double,Double>>] array of old and new value pairs
   #   e.g. [[1.0,0.25],[0.0,1.0]]
   # @return [OpenStudio::Model::ScheduleRuleset] ScheduleRuleset with new values
-  def replace_schedule_ruleset_values(sch, new_value_map)
+  def self.replace_schedule_ruleset_values(sch, new_value_map)
     # get and store ScheduleDay objects
     schedule_days = []
     schedule_days << sch.defaultDaySchedule
@@ -202,12 +202,12 @@ class AirSystem < HVACObject
   end
 
   # infer an infiltration schedule from the HVAC schedule ruleset
-  def infer_infiltration_schedule(hvac_op_sch)
+  def self.infer_infiltration_schedule(hvac_op_sch)
     # clone HVAC operating schedule
     infil_sch = hvac_op_sch.clone.to_ScheduleRuleset.get
     infil_sch.setName("#{hvac_op_sch.name} based infiltration sch")
     # set to 0.25 when HVAC is on and 1.0 when HVAC is off
-    infil_sch = replace_schedule_ruleset_values(infil_sch, [[1.0,0.25],[0,1.0]])
+    infil_sch = AirSystem.replace_schedule_ruleset_values(infil_sch, [[1.0,0.25],[0,1.0]])
     infil_sch
   end
 
@@ -229,7 +229,7 @@ class AirSystem < HVACObject
     self.air_loop_hvac.setAvailabilitySchedule(loop_occ_sch)
 
     # set infiltration schedules for spaces matched to HVAC operation
-    infil_sch = infer_infiltration_schedule(loop_occ_sch)
+    infil_sch = AirSystem.infer_infiltration_schedule(loop_occ_sch)
     self.assign_airloop_infiltration_sch(infil_sch)
   end
 
