@@ -340,69 +340,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         advanced_inputs[:zones][element.attributes['id']][:design_cool_t] = design_cool_t
       end
 
-=begin
-      # store heatSchedIdRef and coolSchedIdRef (not currently using these)
-      unless element.attributes['heatSchedIdRef'].nil?
-        advanced_inputs[:zones][element.attributes['id']][:heat_sche_id_ref] = element.attributes['heatSchedIdRef']
-      end
-      unless element.attributes['coolSchedIdRef'].nil?
-        advanced_inputs[:zones][element.attributes['id']][:cool_sche_id_ref] = element.attributes['coolSchedIdRef']
-      end
-=end
-
     end
-
-    puts "**Looping through ZoneHVACEquipment"
-    gbxml_doc.elements.each('gbXML/ZoneHVACEquipment') do |element|
-      name = element.elements['Name']
-      if name.nil?
-        puts "ZoneHVACEquipment #{element.attributes['id']} does not have a name"
-      else
-        puts name.text
-      end
-    end
-
-    puts "**Looping through AirSystem"
-    gbxml_doc.elements.each('gbXML/AirSystem') do |element|
-      name = element.elements['Name']
-      if name.nil?
-        puts "ZoneHVACEquipment #{element.attributes['id']} does not have a name"
-      else
-        puts name.text
-      end
-    end
-
-    puts "**Looping through HydronicLoop"
-    gbxml_doc.elements.each('gbXML/HydronicLoop') do |element|
-      name = element.elements['Name']
-      if name.nil?
-        puts "ZoneHVACEquipment #{element.attributes['id']} does not have a name"
-      else
-        puts name.text
-      end
-    end
-
-=begin
-    # todo - remove temp code to inspect hash
-    puts "** inspecting space hash"
-    puts advanced_inputs[:spaces]
-    puts "** inspecting schedule set hash"
-    puts advanced_inputs[:schedule_sets]
-    puts "** inspecting schedule hash"
-    puts advanced_inputs[:schedules]
-    puts "** inspecting week schedule hash"
-    puts advanced_inputs[:week_schedules]
-    puts "** inspecting day schedule hash"
-    puts advanced_inputs[:day_schedules]
-    puts "** inspecting lights"
-    puts advanced_inputs[:light_defs]
-    puts "** inspecting elec equip"
-    puts advanced_inputs[:equip_defs]
-    puts "** inspecting people"
-    puts advanced_inputs[:people_defs]
-=end
-
-
 
     # create model objects from hash
     OsLib_AdvImport.add_objects_from_adv_import_hash(runner, model, advanced_inputs)
