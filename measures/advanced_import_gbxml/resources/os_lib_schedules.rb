@@ -128,7 +128,8 @@ module OsLib_Schedules
   end
 
   # find the maximum profile value for a schedule
-  def self.simpleScheduleValueAdjust(model, schedule, double, modificationType = 'Multiplier') # can increase/decrease by percentage or static value
+  def self.simpleScheduleValueAdjust(model, schedule, double, modificationType = 'Multiplier')
+    # can increase/decrease by percentage or static value
     # TODO: - add in design days, maybe as optional argument
 
     # give option to clone or not
