@@ -40,6 +40,233 @@ require 'openstudio-standards'
 
 module OsLib_AdvImport
 
+  def self.thermal_zone_get_occupancy_schedule(thermal_zone, sch_name: nil, occupied_percentage_threshold: nil)
+    if sch_name.nil?
+      sch_name = "#{thermal_zone.name} Occ Sch"
+    end
+    # Get the occupancy schedule for all spaces in thermal_zone
+    sch_ruleset = self.spaces_get_occupancy_schedule(thermal_zone.spaces,
+                                                sch_name: sch_name,
+                                                occupied_percentage_threshold: occupied_percentage_threshold)
+    return sch_ruleset
+  end
+
+  def self.spaces_get_occupancy_schedule(spaces, sch_name: nil, occupied_percentage_threshold: nil)
+    # Get all the occupancy schedules in spaces.
+    # Include people added via the SpaceType and hard-assigned to the Space itself.
+    occ_schedules_num_occ = {}
+    max_occ_in_spaces = 0
+    spaces.each do |space|
+      # From the space type
+      if space.spaceType.is_initialized
+        space.spaceType.get.people.each do |people|
+          num_ppl_sch = people.numberofPeopleSchedule
+          if num_ppl_sch.is_initialized
+            num_ppl_sch = num_ppl_sch.get
+            num_ppl_sch = num_ppl_sch.to_ScheduleRuleset
+            next if num_ppl_sch.empty? # Skip non-ruleset schedules
+            num_ppl_sch = num_ppl_sch.get
+            num_ppl = people.getNumberOfPeople(space.floorArea)
+            if occ_schedules_num_occ[num_ppl_sch].nil?
+              occ_schedules_num_occ[num_ppl_sch] = num_ppl
+            else
+              occ_schedules_num_occ[num_ppl_sch] += num_ppl
+            end
+            max_occ_in_spaces += num_ppl
+          end
+        end
+      end
+      # From the space
+      space.people.each do |people|
+        num_ppl_sch = people.numberofPeopleSchedule
+        if num_ppl_sch.is_initialized
+          num_ppl_sch = num_ppl_sch.get
+          num_ppl_sch = num_ppl_sch.to_ScheduleRuleset
+          next if num_ppl_sch.empty? # Skip non-ruleset schedules
+          num_ppl_sch = num_ppl_sch.get
+          num_ppl = people.getNumberOfPeople(space.floorArea)
+          if occ_schedules_num_occ[num_ppl_sch].nil?
+            occ_schedules_num_occ[num_ppl_sch] = num_ppl
+          else
+            occ_schedules_num_occ[num_ppl_sch] += num_ppl
+          end
+          max_occ_in_spaces += num_ppl
+        end
+      end
+    end
+
+    unless sch_name.nil?
+      OpenStudio.logFree(OpenStudio::Debug, 'openstudio.Standards.Model', "Finding space schedules for #{sch_name}.")
+    end
+    OpenStudio.logFree(OpenStudio::Debug, 'openstudio.Standards.Model', "The #{spaces.size} spaces have #{occ_schedules_num_occ.size} unique occ schedules.")
+    occ_schedules_num_occ.each do |occ_sch, num_occ|
+      OpenStudio.logFree(OpenStudio::Debug, 'openstudio.Standards.Model', "...#{occ_sch.name} - #{num_occ.round} people")
+    end
+    OpenStudio.logFree(OpenStudio::Debug, 'openstudio.Standards.Model', "   Total #{max_occ_in_spaces.round} people in #{spaces.size} spaces.")
+
+    # For each day of the year, determine time_value_pairs = []
+    year = spaces[0].model.getYearDescription
+    yearly_data = []
+    yearly_times = OpenStudio::DateTimeVector.new
+    yearly_values = []
+    (1..365).each do |i|
+      times_on_this_day = []
+      os_date = year.makeDate(i)
+      day_of_week = os_date.dayOfWeek.valueName
+
+      # Get the unique time indices and corresponding day schedules
+      occ_schedules_day_schs = {}
+      day_sch_num_occ = {}
+      occ_schedules_num_occ.each do |occ_sch, num_occ|
+        # Get the day schedules for this day
+        # (there should only be one)
+        day_schs = occ_sch.getDaySchedules(os_date, os_date)
+        OpenStudio.logFree(OpenStudio::Debug, 'openstudio.Standards.Model', "Schedule #{occ_sch.name} has #{day_schs.size} day schs") unless day_schs.size == 1
+        day_schs[0].times.each do |time|
+          times_on_this_day << time.toString
+        end
+        day_sch_num_occ[day_schs[0]] = num_occ
+      end
+
+      # Determine the total fraction for the spaces at each time
+      daily_times = []
+      daily_os_times = []
+      daily_values = []
+      daily_occs = []
+      times_on_this_day.uniq.sort.each do |time|
+        os_time = OpenStudio::Time.new(time)
+        os_date_time = OpenStudio::DateTime.new(os_date, os_time)
+        # Total number of people at each time
+        tot_occ_at_time = 0
+        day_sch_num_occ.each do |day_sch, num_occ|
+          occ_frac = day_sch.getValue(os_time)
+          tot_occ_at_time += occ_frac * num_occ
+        end
+
+        # Total fraction for the spaces at each time
+        spaces_occ_frac = tot_occ_at_time / max_occ_in_spaces
+
+        # If occupied_percentage_threshold is specified, schedule values are boolean
+        # Otherwise use the actual spaces_occ_frac
+        if occupied_percentage_threshold.nil?
+          occ_status = spaces_occ_frac
+        else
+          occ_status = 0 # unoccupied
+          if spaces_occ_frac >= occupied_percentage_threshold
+            occ_status = 1
+          end
+        end
+
+        # Add this data to the daily arrays
+        daily_times << time
+        daily_os_times << os_time
+        daily_values << occ_status
+        daily_occs << spaces_occ_frac.round(2)
+      end
+
+      # Simplify the daily times to eliminate intermediate points with the same value as the following point
+      simple_daily_times = []
+      simple_daily_os_times = []
+      simple_daily_values = []
+      simple_daily_occs = []
+      daily_values.each_with_index do |value, j|
+        next if value == daily_values[j + 1]
+        simple_daily_times << daily_times[j]
+        simple_daily_os_times << daily_os_times[j]
+        simple_daily_values << daily_values[j]
+        simple_daily_occs << daily_occs[j]
+      end
+
+      # Store the daily values
+      yearly_data << { 'date' => os_date, 'day_of_week' => day_of_week, 'times' => simple_daily_times, 'values' => simple_daily_values, 'daily_os_times' => simple_daily_os_times, 'daily_occs' => simple_daily_occs }
+    end
+
+    # Create a TimeSeries from the data
+    # time_series = OpenStudio::TimeSeries.new(times, values, 'unitless')
+
+    # Make a schedule ruleset
+    if sch_name.nil?
+      sch_name = "#{spaces.size} space(s) Occ Sch"
+    end
+    sch_ruleset = OpenStudio::Model::ScheduleRuleset.new(spaces[0].model)
+    sch_ruleset.setName(sch_name.to_s)
+
+    # Default - All Occupied
+    day_sch = sch_ruleset.defaultDaySchedule
+    day_sch.setName("#{sch_name} Default")
+    day_sch.addValue(OpenStudio::Time.new(0, 24, 0, 0), 1)
+
+    # Winter Design Day - All Occupied
+    day_sch = OpenStudio::Model::ScheduleDay.new(spaces[0].model)
+    sch_ruleset.setWinterDesignDaySchedule(day_sch)
+    day_sch = sch_ruleset.winterDesignDaySchedule
+    day_sch.setName("#{sch_name} Winter Design Day")
+    day_sch.addValue(OpenStudio::Time.new(0, 24, 0, 0), 1)
+
+    # Summer Design Day - All Occupied
+    day_sch = OpenStudio::Model::ScheduleDay.new(spaces[0].model)
+    sch_ruleset.setSummerDesignDaySchedule(day_sch)
+    day_sch = sch_ruleset.summerDesignDaySchedule
+    day_sch.setName("#{sch_name} Summer Design Day")
+    day_sch.addValue(OpenStudio::Time.new(0, 24, 0, 0), 1)
+
+    # Create ruleset schedules, attempting to create the minimum number of unique rules
+    ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].each do |weekday|
+      end_of_prev_rule = yearly_data[0]['date']
+      yearly_data.each_with_index do |daily_data, k|
+        # Skip unless it is the day of week
+        # currently under inspection
+        day = daily_data['day_of_week']
+        next unless day == weekday
+        date = daily_data['date']
+        times = daily_data['times']
+        values = daily_data['values']
+        daily_occs = daily_data['daily_occs']
+
+        # If the next (Monday, Tuesday, etc.) is the same as today, keep going
+        # If the next is different, or if we've reached the end of the year, create a new rule
+        unless yearly_data[k + 7].nil?
+          next_day_times = yearly_data[k + 7]['times']
+          next_day_values = yearly_data[k + 7]['values']
+          next if times == next_day_times && values == next_day_values
+        end
+
+        daily_os_times = daily_data['daily_os_times']
+        daily_occs = daily_data['daily_occs']
+
+        # If here, we need to make a rule to cover from the previous rule to today
+        OpenStudio.logFree(OpenStudio::Debug, 'openstudio.Standards.Model', "Making a new rule for #{weekday} from #{end_of_prev_rule} to #{date}")
+        sch_rule = OpenStudio::Model::ScheduleRule.new(sch_ruleset)
+        sch_rule.setName("#{sch_name} #{weekday} Rule")
+        day_sch = sch_rule.daySchedule
+        day_sch.setName("#{sch_name} #{weekday}")
+        daily_os_times.each_with_index do |time, t|
+          value = values[t]
+          next if value == values[t + 1] # Don't add breaks if same value
+          day_sch.addValue(time, value)
+        end
+
+        # Set the dates when the rule applies
+        sch_rule.setStartDate(end_of_prev_rule)
+        sch_rule.setEndDate(date)
+
+        # Individual Days
+        sch_rule.setApplyMonday(true) if weekday == 'Monday'
+        sch_rule.setApplyTuesday(true) if weekday == 'Tuesday'
+        sch_rule.setApplyWednesday(true) if weekday == 'Wednesday'
+        sch_rule.setApplyThursday(true) if weekday == 'Thursday'
+        sch_rule.setApplyFriday(true) if weekday == 'Friday'
+        sch_rule.setApplySaturday(true) if weekday == 'Saturday'
+        sch_rule.setApplySunday(true) if weekday == 'Sunday'
+
+        # Reset the previous rule end date
+        end_of_prev_rule = date + OpenStudio::Time.new(0, 24, 0, 0)
+      end
+    end
+
+    return sch_ruleset
+  end
+
   # primary method that calls other methods to add objects
   def self.add_objects_from_adv_import_hash(runner, model, advanced_inputs)
 
@@ -205,8 +432,6 @@ module OsLib_AdvImport
 
   # assign newly made space objects to existing spaces
   def self.assign_zone_attributes(runner, model,zones)
-    std = Standard.build('90.1-2013')
-
     modified_zones = {}
     zones.each do |id, zone_data|
 
@@ -231,7 +456,7 @@ module OsLib_AdvImport
         # get occupancy schedule if zone is occupied
         zone_occupied = zone.numberOfPeople.zero? ? false : true
         if zone_occupied
-          zone_occ_sch = std.thermal_zone_get_occupancy_schedule(zone)
+          zone_occ_sch = self.thermal_zone_get_occupancy_schedule(zone)
         end
 
         # create and assign heating and cooling setpoint schedules
