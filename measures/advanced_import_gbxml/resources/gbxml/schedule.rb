@@ -1,5 +1,6 @@
 module GBXML
   class Schedule
+    @@instances = {}
     attr_accessor :year_schedules, :name, :type, :id
 
     def initialize
@@ -10,14 +11,21 @@ module GBXML
       schedule = new
       schedule.name = xml.elements['Name'].text unless xml.elements['Name'].nil?
 
-      xml.get_elements('YearSchedule').each do |day|
-        schedule.year_schedules << YearSchedule.from_xml(day)
+      xml.get_elements('YearSchedule').each do |year_schedule|
+        schedule.year_schedules << YearSchedule.from_xml(year_schedule)
       end
 
       schedule.id = xml.attributes['id'] unless xml.attributes['id'].nil?
       schedule.type = xml.attributes['type'] unless xml.attributes['type'].nil?
 
+      @@instances[schedule.id] = schedule
       schedule
+    end
+
+    def self.find(id)
+      if @@instances.key?(id)
+        return @@instances[id]
+      end
     end
 
     def ==(other)
