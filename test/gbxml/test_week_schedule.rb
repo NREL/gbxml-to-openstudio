@@ -35,4 +35,18 @@ EOF
 
     assert(xml_week_schedule == memory_week_schedule)
   end
+
+  def test_week_schedule_find
+    xml = <<EOF
+  <WeekSchedule type="Fraction" id="aim0028">
+    <Day dayScheduleIdRef="aim0027" dayType="All" />
+    <Name>School Lighting - 7 AM to 9 PM</Name>
+  </WeekSchedule>
+EOF
+
+    document = REXML::Document.new(xml)
+    expected_schedule = GBXML::WeekSchedule.from_xml(document.get_elements('WeekSchedule')[0])
+    retrieved_schedule = GBXML::WeekSchedule.find(document.get_elements('WeekSchedule')[0].attributes['id'])
+    assert(expected_schedule == retrieved_schedule)
+  end
 end

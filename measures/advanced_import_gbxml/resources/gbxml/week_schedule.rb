@@ -1,9 +1,14 @@
 module GBXML
   class WeekSchedule
+    @@instances = {}
     attr_accessor :type, :id, :days, :name
 
     def initialize
       self.days = []
+    end
+
+    def self.instances
+      return @@instances
     end
 
     def self.from_xml(xml)
@@ -17,7 +22,18 @@ module GBXML
       week_schedule.id = xml.attributes['id'] unless xml.attributes['id'].nil?
       week_schedule.type = xml.attributes['type'] unless xml.attributes['type'].nil?
 
+      @@instances[week_schedule.id] = week_schedule
       week_schedule
+    end
+
+    def self.find(id)
+      if @@instances.key?(id)
+        return @@instances[id]
+      end
+    end
+
+    def self.all
+      return @@instances.values
     end
 
     def ==(other)
