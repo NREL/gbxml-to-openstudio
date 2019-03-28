@@ -2,6 +2,7 @@ require 'date'
 
 module GBXML
   class YearSchedule
+    @@instances = {}
     attr_accessor :begin_date, :end_date, :week_schedule_id, :name, :id
 
     def self.from_xml(xml)
@@ -16,7 +17,14 @@ module GBXML
 
       year_schedule.id = xml.attributes['id'] unless xml.attributes['id'].nil?
 
+      @@instances[year_schedule.id] = year_schedule
       year_schedule
+    end
+
+    def self.find(id)
+      if @@instances.key?(id)
+        return @@instances[id]
+      end
     end
 
     def ==(other)

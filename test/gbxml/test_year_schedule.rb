@@ -36,4 +36,19 @@ EOF
 
     assert(xml_schedule == memory_schedule)
   end
+
+  def test_year_schedule_find
+    xml = <<EOF
+      <YearSchedule id="aim0160">
+        <BeginDate>2019-01-01</BeginDate>
+        <EndDate>2019-12-31</EndDate>
+        <WeekScheduleId weekScheduleIdRef="aim0157" />
+      </YearSchedule>
+EOF
+
+    document = REXML::Document.new(xml)
+    expected_schedule = GBXML::YearSchedule.from_xml(document.get_elements('YearSchedule')[0])
+    retrieved_schedule = GBXML::YearSchedule.find(document.get_elements('YearSchedule')[0].attributes['id'])
+    assert(expected_schedule == retrieved_schedule)
+  end
 end
