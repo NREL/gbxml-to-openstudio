@@ -55,4 +55,41 @@ EOF
 
     assert(xml_day_schedule == memory_day_schedule)
   end
+
+  def test_day_schedule_find
+    xml = <<EOF
+  <DaySchedule type="Fraction" id="aim0027">
+    <ScheduleValue>0</ScheduleValue>
+    <ScheduleValue>0</ScheduleValue>
+    <ScheduleValue>0</ScheduleValue>
+    <ScheduleValue>0</ScheduleValue>
+    <ScheduleValue>0</ScheduleValue>
+    <ScheduleValue>0</ScheduleValue>
+    <ScheduleValue>0</ScheduleValue>
+    <ScheduleValue>0.3</ScheduleValue>
+    <ScheduleValue>0.85</ScheduleValue>
+    <ScheduleValue>0.95</ScheduleValue>
+    <ScheduleValue>0.95</ScheduleValue>
+    <ScheduleValue>0.95</ScheduleValue>
+    <ScheduleValue>0.8</ScheduleValue>
+    <ScheduleValue>0.8</ScheduleValue>
+    <ScheduleValue>0.8</ScheduleValue>
+    <ScheduleValue>0.7</ScheduleValue>
+    <ScheduleValue>0.5</ScheduleValue>
+    <ScheduleValue>0.5</ScheduleValue>
+    <ScheduleValue>0.35</ScheduleValue>
+    <ScheduleValue>0.35</ScheduleValue>R
+    <ScheduleValue>0.3</ScheduleValue>
+    <ScheduleValue>0.3</ScheduleValue>
+    <ScheduleValue>0</ScheduleValue>
+    <ScheduleValue>0</ScheduleValue>
+    <Name>School Lighting - 7 AM to 9 PM</Name>
+  </DaySchedule>
+EOF
+
+    document = REXML::Document.new(xml)
+    expected_schedule = GBXML::DaySchedule.from_xml(document.get_elements('DaySchedule')[0])
+    retrieved_schedule = GBXML::DaySchedule.find(document.get_elements('DaySchedule')[0].attributes['id'])
+    assert(expected_schedule == retrieved_schedule)
+  end
 end

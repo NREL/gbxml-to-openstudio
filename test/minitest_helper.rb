@@ -211,3 +211,19 @@ def run_command(command)
     return false 
   end
 end
+
+def data_fields_equal?(os_obj1, os_obj2)
+  if os_obj1.iddObjectType.valueName != os_obj2.iddObjectType.valueName
+    return false
+  end
+
+  os_obj1.dataFields.each do |data_field|
+    if data_field > 1
+      unless os_obj1.getString(data_field).get == os_obj2.getString(data_field).get
+        return false
+      end
+    end
+  end
+
+  return true
+end

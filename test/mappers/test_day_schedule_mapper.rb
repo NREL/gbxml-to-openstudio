@@ -18,16 +18,16 @@ class TestDayScheduleMapper < MiniTest::Test
     assert(gbxml_day_schedule.schedule_values == os_day_schedule.values)
   end
 
-  def test_get_day_schedule
+  def test_day_schedule_find
     model = OpenStudio::Model::Model.new
     gbxml_day_schedule = GBXML::DaySchedule.new
     gbxml_day_schedule.id = "aim0345"
     gbxml_day_schedule.name = "TestName"
 
     day_schedule_mapper = Mappers::DaySchedule.new(model)
-    os_day_schedule = day_schedule_mapper.insert(gbxml_day_schedule)
-    os_day_schedule_get = day_schedule_mapper.get(gbxml_day_schedule.id)
+    expected_schedule = day_schedule_mapper.insert(gbxml_day_schedule)
+    found_schedule = day_schedule_mapper.find(gbxml_day_schedule.id)
 
-    assert(os_day_schedule_get == os_day_schedule)
+    assert(expected_schedule == found_schedule)
   end
 end

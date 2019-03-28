@@ -1,6 +1,6 @@
 module Mappers
   class DaySchedule < BaseMapper
-    attr_accessor :gbxml_day_schedule, :os_day_schedule, :os_model
+    @@instances = {}
 
     def initialize(os_model)
       super(os_model)
@@ -16,15 +16,15 @@ module Mappers
       end
 
       if gbxml_day_schedule.id
-        @loaded_objects[gbxml_day_schedule.id] = os_day_schedule
+        @@instances[gbxml_day_schedule.id] = os_day_schedule
       end
 
       os_day_schedule
     end
 
-    def get(id)
-      if loaded_objects.has_key? id
-        return loaded_objects[id]
+    def self.find(id)
+      if @@instances.key?(id)
+        return @@instances[id]
       end
     end
   end

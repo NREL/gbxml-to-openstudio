@@ -1,5 +1,6 @@
 module GBXML
-    class DaySchedule
+  class DaySchedule
+    @@instances = {}
     attr_accessor :type, :id, :name, :schedule_values
 
     def initialize
@@ -16,7 +17,14 @@ module GBXML
       day_schedule.id = xml.attributes['id'] unless xml.attributes['id'].nil?
       day_schedule.type = xml.attributes['type'] unless xml.attributes['type'].nil?
 
+      @@instances[day_schedule.id] = day_schedule
       day_schedule
+    end
+
+    def self.find(id)
+      if @@instances.key?(id)
+        return @@instances[id]
+      end
     end
 
     def ==(other)
