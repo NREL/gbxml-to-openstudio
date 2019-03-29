@@ -1,7 +1,7 @@
 class AirSystem < HVACObject
   attr_accessor :air_loop_hvac, :supply_fan, :heating_coil, :cooling_coil, :preheat_coil, :oa_system, :heat_exchanger,
                 :spm, :supply_fan_type, :heating_coil_type, :heating_loop_ref, :cooling_coil_type, :cooling_loop_ref,
-                :preheat_coil_type, :preheat_loop_ref, :heat_exchanger_type
+                :preheat_coil_type, :preheat_loop_ref, :heat_exchanger_type, :is_doas
 
   def initialize
     self.name = "Air System"
@@ -112,8 +112,25 @@ class AirSystem < HVACObject
     heat_exchanger
   end
 
-  def add_spm
+  def add_spm_warmest
     OpenStudio::Model::SetpointManagerWarmest.new(model)
+  end
+
+  def add_spm_doas
+    temp_sch = OpenStudio::Model::ScheduleRuleset.new(self.model)
+    temp_sch.setName("#{self.name} Air Supply Temperature Schedule")
+    temp_sch.defaultDaySchedule.setName("#{self.name} Air Supply Temperature Schedule Default")
+    # default to 70F / 21.11C
+    temp_sch.defaultDaySchedule.addValue(OpenStudio::Time.new(0, 24, 0, 0), 21.11)
+    spm = OpenStudio::Model::SetpointManagerScheduled.new(self.model, temp_sch)
+    spm.setName("#{self.name} Setpoint Manager")
+    spm
+  end
+
+  def add_spm
+    spm = add_spm_warmest if !self.is_doas
+    spm = add_spm_doas if self.is_doas
+    spm
   end
 
   def resolve_read_relationships
@@ -233,6 +250,31 @@ class AirSystem < HVACObject
     self.assign_airloop_infiltration_sch(infil_sch)
   end
 
+  def assign_airloop_sizing_properties
+    if self.is_doas
+      # set minimum outdoor air flow fraction to 1
+      oa_controller = self.oa_system.getControllerOutdoorAir
+      oa_controller.setMinimumFractionofOutdoorAirSchedule(self.model.alwaysOnDiscreteSchedule)
+
+      # set system sizing properties
+      air_loop_sizing = self.air_loop_hvac.sizingSystem
+      air_loop_sizing.setTypeofLoadtoSizeOn('VentilationRequirement')
+      air_loop_sizing.setAllOutdoorAirinCooling(true)
+      air_loop_sizing.setAllOutdoorAirinHeating(true)
+      air_loop_sizing.setZoneMaximumOutdoorAirFraction(1.0)
+      air_loop_sizing.setCentralCoolingDesignSupplyAirTemperature(21.11)
+      air_loop_sizing.setCentralHeatingDesignSupplyAirTemperature(21.11)
+
+      # set zone sizing properties
+      self.air_loop_hvac.thermalZones.each do |zone|
+        sizing_zone = zone.sizingZone
+        sizing_zone.setAccountforDedicatedOutdoorAirSystem(true)
+        sizing_zone.setDedicatedOutdoorAirLowSetpointTemperatureforDesign(21.11)
+        sizing_zone.setDedicatedOutdoorAirHighSetpointTemperatureforDesign(21.11)
+      end
+    end
+  end
+
   # TODO: Break out into classes for each object to prevent this mess.
   def self.create_from_xml(model_manager, xml)
     air_loop = new
@@ -245,6 +287,12 @@ class AirSystem < HVACObject
 
     supply_fan = xml.elements['Fan']
     air_loop.supply_fan_type = supply_fan.attributes['FanType'] unless supply_fan.nil?
+
+    if xml.attributes['isDOAS'].nil? or xml.attributes['isDOAS'] == "None"
+      air_loop.is_doas = false
+    else
+      air_loop.is_doas == xml.attributes['isDOAS']
+    end
 
     unless xml.attributes['heatingCoilType'].nil? or xml.attributes['heatingCoilType'] == "None"
       air_loop.heating_coil_type = xml.attributes['heatingCoilType']
