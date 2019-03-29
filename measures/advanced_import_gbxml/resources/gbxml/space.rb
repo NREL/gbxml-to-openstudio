@@ -1,5 +1,6 @@
 module GBXML
   class Space
+    @@instances = {}
     attr_accessor :infiltration_flow_per_area, :people_number, :people_heat_gain_total, :people_heat_gain_sensible,
                   :people_heat_gain_latent, :light_power_per_area, :equip_power_per_area, :air_changes_per_hour,
                   :oa_flow_per_area, :oa_flow_per_person, :oa_flow_per_space, :volume, :zone_id_ref, :space_type,
@@ -12,13 +13,14 @@ module GBXML
       # children
       space.name = xml.elements['Name'].text unless xml.elements['Name'].nil?
       space.cad_object_id = xml.elements['CADObjectId'].text unless xml.elements['CADObjectId'].nil?
-      space.infiltration_flow_per_area = xml.elements['InfiltrationFlowPerArea'].text unless xml.elements['InfiltrationFlowPerArea'].nil?
-      space.people_number = xml.elements['PeopleNumber'].text unless xml.elements['PeopleNumber'].nil?
-      space.people_heat_gain_total = xml.elements['PeopleHeatGain[@heatGainType="Total"]'].text unless xml.elements['PeopleHeatGain[@heatGainType="Total"]'].nil?
-      space.people_heat_gain_sensible = xml.elements['PeopleHeatGain[@heatGainType="Sensible"]'].text unless xml.elements['PeopleHeatGain[@heatGainType="Sensible"]'].nil?
-      space.people_heat_gain_latent = xml.elements['PeopleHeatGain[@heatGainType="Latent"]'].text unless xml.elements['PeopleHeatGain[@heatGainType="Latent"]'].nil?
-      space.light_power_per_area = xml.elements['LightPowerPerArea'].text unless xml.elements['LightPowerPerArea'].nil?
-      space.equip_power_per_area = xml.elements['EquipPowerPerArea'].text unless xml.elements['EquipPowerPerArea'].nil?
+      space.infiltration_flow_per_area = calculate_infiltration_from_xml(xml.elements['InfiltrationFlowPerArea'])
+      space.light_power_per_area = calculate_lighting_power_per_area_from_xml(xml.elements['LightPowerPerArea'])
+      space.equip_power_per_area = calculate_equipment_power_per_area_from_xml(xml.elements['EquipPowerPerArea'])
+      space.people_number = xml.elements['PeopleNumber'].text.to_f unless xml.elements['PeopleNumber'].nil?
+      space.people_heat_gain_total = calculate_people_heat_gain_from_xml(xml.elements['PeopleHeatGain[@heatGainType="Total"]'])
+      space.people_heat_gain_sensible = calculate_people_heat_gain_from_xml(xml.elements['PeopleHeatGain[@heatGainType="Sensible"]'])
+      space.people_heat_gain_latent = calculate_people_heat_gain_from_xml(xml.elements['PeopleHeatGain[@heatGainType="Latent"]'])
+
       space.air_changes_per_hour = xml.elements['AirChangesPerHour'].text unless xml.elements['AirChangesPerHour'].nil?
       space.oa_flow_per_area = xml.elements['OAFlowPerArea'].text unless xml.elements['OAFlowPerArea'].nil?
       space.oa_flow_per_person = xml.elements['OAFlowPerPerson'].text unless xml.elements['OAFlowPerPerson'].nil?
@@ -33,7 +35,46 @@ module GBXML
       space.people_schedule_id_ref = xml.attributes['peopleScheduleIdRef'] unless xml.attributes['peopleScheduleIdRef'].nil?
       space.condition_type = xml.attributes['conditionType'] unless xml.attributes['conditionType'].nil?
 
+      @@instances[space.id] = space
       space
+    end
+
+    def self.calculate_infiltration_from_xml(xml)
+      unless xml.nil?
+        value = xml.text.to_f
+        value = OpenStudio.convert(value, "cfm/ft^2", "L/s*m^2").get if xml.attributes['unit'] == "CFMPerSquareFoot"
+        return value
+      end
+    end
+
+    def self.calculate_lighting_power_per_area_from_xml(xml)
+      unless xml.nil?
+        value = xml.text.to_f
+        value = OpenStudio.convert(value, "W/ft^2", "W/m^2").get if xml.attributes['unit'] == "WattPerSquareFoot"
+        return value
+      end
+    end
+
+    def self.calculate_equipment_power_per_area_from_xml(xml)
+      unless xml.nil?
+        value = xml.text.to_f
+        value = OpenStudio.convert(value, "W/ft^2", "W/m^2").get if xml.attributes['unit'] == "WattPerSquareFoot"
+        return value
+      end
+    end
+
+    def self.calculate_people_heat_gain_from_xml(xml)
+      unless xml.nil?
+        value = xml.text.to_f
+        value = OpenStudio.convert(value, "Btu/h", "W").get if xml.attributes['unit'] == "BtuPerHourPerson"
+        return value
+      end
+    end
+
+    def self.find(id)
+      if @@instances.key?(id)
+        return @@instances[id]
+      end
     end
 
     def ==(other)

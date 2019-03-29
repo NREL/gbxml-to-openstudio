@@ -16,29 +16,29 @@ module Mappers
       if gbxml_space.infiltration_flow_per_area
         load = OpenStudio::Model::SpaceInfiltrationDesignFlowRate.new(@os_model)
         load.setName("#{gbxml_space.name} Infiltration") if gbxml_space.name
-        load.setDesignFlowRate(gbxml_space.infiltration_flow_per_area)
+        load.setFlowperExteriorSurfaceArea(gbxml_space.infiltration_flow_per_area)
         load.setSpace(os_space)
       end
     end
 
     def update_people(gbxml_space, os_space)
       if gbxml_space.people_number or gbxml_space.people_heat_gain_total or gbxml_space.people_heat_gain_sensible or gbxml_space.people_heat_gain_latent
-        load = OpenStudio::Model::People.new(model)
-        load.setName("#{gbxml_space.name} People") if gbxml_space.name
 
         definition = OpenStudio::Model::PeopleDefinition.new(@os_model)
         definition.setName("#{gbxml_space.name} People Definition") if gbxml_space.name
         definition.setNumberofPeople(gbxml_space.people_number) if gbxml_space.people_number
-        sensible_heat_fraction = calculate_sensible_heat_fraction(gbxml_space.people_heat_gain_total, gbxml_space.people_heat_gain_sensible, gbxml_space.people_heat_gain_latent)
+        sensible_heat_fraction = Space.calculate_sensible_heat_fraction(gbxml_space.people_heat_gain_total, gbxml_space.people_heat_gain_sensible, gbxml_space.people_heat_gain_latent)
         definition.setSensibleHeatFraction(sensible_heat_fraction) if sensible_heat_fraction
 
+        load = OpenStudio::Model::People.new(definition)
+        load.setName("#{gbxml_space.name} People") if gbxml_space.name
         load.setPeopleDefinition(definition)
         load.setSpace(os_space)
         # Not sure schedule creation should be here, but not sure else how to map people load
         if gbxml_space.people_heat_gain_total
-          schedule_rulset = OpenStudio::Model::ScheduleRulset.new(model)
+          schedule_ruleset = OpenStudio::Model::ScheduleRuleset.new(@os_model)
           definition.setName("#{gbxml_space.name} People Activity Level Schedule") if gbxml_space.name
-          day_schedule = schedule_rulset.defaultDaySchedule
+          day_schedule = schedule_ruleset.defaultDaySchedule
           day_schedule.addValue(OpenStudio::Time.new(0,24,0,0), gbxml_space.people_heat_gain_total)
           load.setActivityLevelSchedule(schedule_ruleset)
         end
@@ -82,7 +82,7 @@ module Mappers
 
     def self.calculate_sensible_heat_fraction(total, sensible, latent)
       if sensible and total
-        return sensible/total
+        return sensible / total
       elsif sensible and latent
         return sensible / (sensible + latent)
       elsif total and latent

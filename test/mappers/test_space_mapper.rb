@@ -13,7 +13,7 @@ class TestSpaceMapper < MiniTest::Test
     space_mapper = Space.new(model)
     space_mapper.update_infiltration(gbxml_space, os_space)
 
-    assert(gbxml_space.infiltration_flow_per_area == os_space.spaceInfiltrationDesignFlowRates[0].designFlowRate.get)
+    assert(gbxml_space.infiltration_flow_per_area == os_space.infiltrationDesignFlowPerExteriorSurfaceArea)
   end
 
   def test_update_lighting
@@ -38,6 +38,26 @@ class TestSpaceMapper < MiniTest::Test
     space_mapper.update_equipment(gbxml_space, os_space)
 
     assert(gbxml_space.equip_power_per_area == os_space.electricEquipmentPowerPerFloorArea)
+  end
+
+  def test_update_people
+    model = OpenStudio::Model::Model.new
+    os_space = OpenStudio::Model::Space.new(model)
+    gbxml_space = GBXML::Space.new
+    gbxml_space.people_number = 10
+    gbxml_space.people_heat_gain_total = 131.0
+    gbxml_space.people_heat_gain_sensible = 85.0
+    gbxml_space.people_heat_gain_latent = 46.0
+
+    space_mapper = Space.new(model)
+    space_mapper.update_people(gbxml_space, os_space)
+
+    expected_shr = gbxml_space.people_heat_gain_sensible / gbxml_space.people_heat_gain_total
+    activity_schedule_level = os_space.people[0].activityLevelSchedule.get.to_ScheduleRuleset.get.defaultDaySchedule.values[0]
+
+    assert(gbxml_space.people_number, os_space.numberOfPeople)
+    assert(gbxml_space.people_heat_gain_total, activity_schedule_level)
+    assert_in_delta(expected_shr, os_space.people[0].peopleDefinition.sensibleHeatFraction.get, 0.0001)
   end
 
   def test_update_ventilation
