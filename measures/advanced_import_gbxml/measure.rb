@@ -73,6 +73,21 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     xml_string = File.read(path.to_s)
     gbxml_doc = REXML::Document.new(xml_string)
 
+    temperature_unit = gbxml_doc.elements['gbXML'].attributes['temperatureUnit']
+    length_unit = gbxml_doc.elements['gbXML'].attributes['lengthUnit']
+    area_unit = gbxml_doc.elements['gbXML'].attributes['areaUnit']
+    volume_unit = gbxml_doc.elements['gbXML'].attributes['volumeUnit']
+
+    ## Configuration
+    GBXML::Space.configure_units(temperature_unit, length_unit, area_unit, volume_unit)
+
+    ## Load gbXML in memory object
+    GBXML::GBXML.from_xml(gbxml_doc)
+
+    ## Map gbXML to OpenStudio
+    mapper = Mappers::Mapper.new(model)
+    mapper.translate_gbxml_to_os
+
     # test looking for building area
     gbxml_area = gbxml_doc.elements["/gbXML/Campus/Building/Area"]
     runner.registerInfo("the gbXML has an area of #{gbxml_area.text.to_f}.")

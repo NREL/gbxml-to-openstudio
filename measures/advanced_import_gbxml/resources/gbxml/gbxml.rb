@@ -10,6 +10,7 @@ module GBXML
       xml.get_elements('WeekSchedule').each { |element| WeekSchedule.from_xml(element) }
       xml.get_elements('YearSchedule').each { |element| YearSchedule.from_xml(element) }
       xml.get_elements('Schedule').each { |element| Schedule.from_xml(element) }
+      xml.get_elements('Space').each { |element| Space.from_xml(element) }
 
       gbxml
     end

@@ -1,9 +1,8 @@
 module Mappers
   class Mapper
-    attr_accessor :gbxml, :os_model, :day_schedule, :schedule, :space
+    attr_accessor :os_model, :day_schedule, :schedule, :space
 
-    def initialize(gbxml, os_model)
-      @gbxml = gbxml
+    def initialize(os_model)
       @os_model = os_model
       Mappers::DaySchedule.connect_model(os_model)
       Mappers::Schedule.connect_model(os_model)
