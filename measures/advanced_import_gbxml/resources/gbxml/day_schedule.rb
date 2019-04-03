@@ -27,6 +27,10 @@ module GBXML
       end
     end
 
+    def self.all
+      return @@instances.values
+    end
+
     def ==(other)
       equal = true
       self.instance_variables.each do |variable|

@@ -2,12 +2,6 @@ module GBXML
   class GBXML
     attr_accessor :campus, :schedules, :week_schedules, :day_schedules
 
-    def initialize
-      self.schedules = {}
-      self.week_schedules = {}
-      self.day_schedules = {}
-    end
-
     def self.from_xml(xml)
       gbxml = new
       gbxml.campus = xml.elements['Campus'] if xml.elements['Campus']

@@ -5,23 +5,18 @@ module Mappers
     def initialize(gbxml, os_model)
       @gbxml = gbxml
       @os_model = os_model
-      @day_schedule = Mappers::DaySchedule.new(os_model)
-      @schedule = Mappers::Schedule.new(@gbxml, self, os_model)
-      @space = Mappers::Space.new(os_model)
+      Mappers::DaySchedule.connect_model(os_model)
+      Mappers::Schedule.connect_model(os_model)
+      Mappers::Space.connect_model(os_model)
     end
 
     def translate_gbxml_to_os
-      @gbxml.day_schedules.values.each do |day_schedule|
-        @day_schedule.insert(day_schedule)
-      end
-
-      @gbxml.schedules.values.each do |schedule|
-        @schedule.insert(schedule)
-      end
-
-      @gbxml.spaces.values.each do |gbxml_space|
-        os_space = @os_model.find_by_space_by_id(gbxml_space.id)
-        @space.update_loads(gbxml_space, os_space)
+      GBXML::DaySchedule.all.each { |schedule| Mappers::DaySchedule.insert(schedule) }
+      GBXML::Schedule.all.each { |schedule| Mappers::ScheduleRuleset.insert(schedule) }
+      GBXML::Space.all.each do |gbxml_space|
+        next if gbxml_space.cad_object_id.nil?
+        os_space = Mappers::Space.find_by_cad_object_id(gbxml_space.cad_object_id)
+        Mappers::Space.update(gbxml_space, os_space) unless os_space.nil?
       end
     end
   end

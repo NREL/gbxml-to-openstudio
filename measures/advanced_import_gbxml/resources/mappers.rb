@@ -1,5 +1,5 @@
 require_relative 'mappers/base_mapper'
 require_relative 'mappers/day_schedule'
 require_relative 'mappers/mapper'
-require_relative 'mappers/schedule'
+require_relative 'mappers/schedule_ruleset'
 require_relative 'mappers/space'

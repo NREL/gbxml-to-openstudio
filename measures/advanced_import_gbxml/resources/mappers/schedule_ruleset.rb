@@ -2,12 +2,12 @@ module Mappers
   class ScheduleRuleset < BaseMapper
     @@instances = {}
 
-    def initialize(os_model)
-      super(os_model)
+    def self.connect_model(os_model)
+      @@os_model = os_model
     end
 
-    def insert(gbxml_schedule)
-      ruleset = OpenStudio::Model::ScheduleRuleset.new(@os_model)
+    def self.insert(gbxml_schedule)
+      ruleset = OpenStudio::Model::ScheduleRuleset.new(@@os_model)
       ruleset.setName(gbxml_schedule.name) if gbxml_schedule.name
 
       gbxml_schedule.year_schedules.each do |year_schedule|
@@ -40,7 +40,7 @@ module Mappers
       ruleset
     end
 
-    def find(id)
+    def self.find(id)
       if @@instances.key?(id)
         return @@instances[id]
       end

@@ -53,11 +53,15 @@ EOF
     gbxml_day_schedule = GBXML::DaySchedule.from_xml(document.get_elements('DaySchedule')[0])
     GBXML::WeekSchedule.from_xml(document.get_elements('WeekSchedule')[0])
     gbxml_schedule = GBXML::Schedule.from_xml(document.get_elements('Schedule')[0])
-    day_schedule_mapper = Mappers::DaySchedule.new(model)
-    os_day_schedule = day_schedule_mapper.insert(gbxml_day_schedule)
+    Mappers::DaySchedule.connect_model(model)
 
-    schedule_mapper = Mappers::ScheduleRuleset.new(model)
-    os_schedule = schedule_mapper.insert(gbxml_schedule)
+    Mappers::DaySchedule.new(model)
+    os_day_schedule = Mappers::DaySchedule.insert(gbxml_day_schedule)
+
+    Mappers::ScheduleRuleset.connect_model(model)
+    os_schedule = Mappers::ScheduleRuleset.insert(gbxml_schedule)
+      puts os_schedule
+      puts gbxml_schedule.inspect
 
     assert(os_schedule.name.get == gbxml_schedule.name)
     schedule_rule = os_schedule.scheduleRules[0]
@@ -77,9 +81,9 @@ EOF
       gbxml_schedule.id = "aim0345"
       gbxml_schedule.name = "TestName"
 
-      schedule_mapper = Mappers::ScheduleRuleset.new(model)
-      expected_schedule = schedule_mapper.insert(gbxml_schedule)
-      found_schedule = schedule_mapper.find(gbxml_schedule.id)
+      Mappers::ScheduleRuleset.connect_model(model)
+      expected_schedule = Mappers::ScheduleRuleset.insert(gbxml_schedule)
+      found_schedule = Mappers::ScheduleRuleset.find(gbxml_schedule.id)
 
       assert(expected_schedule == found_schedule)
   end
