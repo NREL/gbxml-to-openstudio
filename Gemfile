@@ -6,6 +6,7 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 gem 'ansi'
 gem 'openstudio-api-stubs'
+gem 'openstudio-standards'
 gem 'minitest'
 gem 'minitest-reporters'
 gem 'rake'
