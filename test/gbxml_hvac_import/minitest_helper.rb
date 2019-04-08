@@ -5,12 +5,6 @@ require 'open3'
 
 require_relative '../../measures/gbxml_hvac_import/gbxml_hvac_import'
 require_relative 'config'
-puts 'loaded minitest_helper'
-# require_relative '../measures/loads_output_report/resources/repository'
-# require_relative '../measures/loads_output_report/resources/coil_sizing_detail'
-
-
-# DLM: requiring this file doesn't seem correct right here
 
 def create_standard_osw(gbxml_name)
   workflow = OpenStudio::WorkflowJSON.new

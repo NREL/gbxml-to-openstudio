@@ -7,7 +7,7 @@ class OutputManager < JSONable
   def initialize(model, sql_file)
     @model = model
     @sql_file = sql_file
-    @output_service = OutputService.new(@sql_file)
+    @output_service = OutputService.new(model, sql_file)
     @zone_loads_by_component = {}
     @system_checksums = {}
     @design_psychrometrics = {}
@@ -16,7 +16,7 @@ class OutputManager < JSONable
 
   def hydrate
     hydrate_zone_loads_by_component
-    hydrate_system_checksums
+    # hydrate_system_checksums
     hydrate_facility_loads_by_component
     hydrate_design_psychrometrics
     # hydrate_system_component_summary
@@ -46,22 +46,26 @@ class OutputManager < JSONable
     end
   end
 
+  def add_system_checksum(system)
+    name = system.name.get
+    cad_object_id = system.additionalProperties.getFeatureAsString('CADObjectId')
+
+    if cad_object_id.is_initialized
+      cad_object_id = cad_object_id.get
+
+      cooling_coil = find_cooling_coil_by_features({"system_cad_object_id": cad_object_id, "coil_type": "primary_cooling"})
+      cooling_coil_name = cooling_coil.nil? ? nil : cooling_coil.name.get
+
+      heating_coil = find_heating_coil_by_features({"system_cad_object_id": cad_object_id, "coil_type": "primary_heating"})
+      heating_coil_name = heating_coil.nil? ? nil : heating_coil.name.get
+
+      @system_checksums[cad_object_id] = @output_service.get_system_checksum(name, cooling_coil_name, heating_coil_name)
+    end
+  end
+
   def hydrate_system_checksums
-    @model.getAirLoopHVACs.each do |air_loop|
-      name = air_loop.name.get
-      cad_object_id = air_loop.additionalProperties.getFeatureAsString('CADObjectId')
-
-      if cad_object_id.is_initialized
-        cad_object_id = cad_object_id.get
-
-        cooling_coil = find_cooling_coil_by_features({"system_cad_object_id": cad_object_id, "coil_type": "primary_cooling"})
-        cooling_coil_name = cooling_coil.nil? ? nil : cooling_coil.name.get
-
-        heating_coil = find_heating_coil_by_features({"system_cad_object_id": cad_object_id, "coil_type": "primary_heating"})
-        heating_coil_name = heating_coil.nil? ? nil : heating_coil.name.get
-
-        @system_checksums[cad_object_id] = @output_service.get_system_checksum(name, cooling_coil_name, heating_coil_name)
-      end
+    get_systems.each do |system|
+      add_system_checksum(system)
     end
   end
 
@@ -75,6 +79,7 @@ class OutputManager < JSONable
       cad_object_id = coil.additionalProperties.getFeatureAsString('system_cad_object_id')
 
       if cad_object_id.is_initialized
+        cad_object_id = cad_object_id.get
         @design_psychrometrics[cad_object_id] = @output_service.get_design_psychrometric(name)
       end
     end
@@ -173,5 +178,22 @@ class OutputManager < JSONable
     heating_coils += self.model.getCoilHeatingWaterToAirHeatPumpVariableSpeedEquationFits
 
     heating_coils
+  end
+
+  def get_systems
+    systems = []
+
+    systems += @model.getAirLoopHVACs
+    systems += @model.getZoneHVACFourPipeFanCoils
+    systems += @model.getZoneHVACPackagedTerminalAirConditioners
+    systems += @model.getZoneHVACPackagedTerminalHeatPumps
+    systems += @model.getZoneHVACUnitHeaters
+    systems += @model.getZoneHVACUnitVentilators
+    systems += @model.getZoneHVACTerminalUnitVariableRefrigerantFlows
+    systems += @model.getZoneHVACWaterToAirHeatPumps
+
+    return systems
+
+    return
   end
 end

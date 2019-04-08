@@ -1,45 +1,43 @@
-require 'openstudio'
-require_relative '../gbxml_hvac_import/minitest_helper'
-require_relative '../../measures/loads_output_report/resources/repositories/peak_condition_table_repository'
+require_relative 'minitest_helper'
 
 class TestPeakConditionTableRepository < MiniTest::Test
   attr_accessor :sql_file, :repository
 
   def before_setup
-    path = OpenStudio::Path.new(File.join(Config::TEST_RESOURCES + '/vav_box.sql'))
+    path = OpenStudio::Path.new(Config::RESOURCES + '/peak_load_component_repository.sql')
     @sql_file = OpenStudio::SqlFile.new(path)
     @repository = PeakConditionTableRepository.new(@sql_file)
   end
 
   def test_find_valid_name_zone_cooling
-    repo_result = @repository.find_by_name_type_and_conditioning('VAV Box Electric-1', 'Zone', 'Cooling')
+    repo_result = @repository.find_by_name_type_and_conditioning('ZONE EQUIPMENT 1-1', 'Cooling')
 
     params = {
-        :time_of_peak_load => "7/21 11:00:00",
-        :oa_drybulb => 31.1,
-        :oa_wetbulb => 16.64,
-        :oa_hr => 0.00591,
-        :zone_drybulb => 23.89,
-        :zone_rh => 46.78,
-        :zone_hr => 0.00863,
-        :sat => 14.0,
-        :mat => 0.0,
-        :fan_flow => 1.39,
-        :oa_flow => 0.63,
-        :sensible_peak_sf => 15965.68,
-        :sf_diff => 2082.48,
-        :sensible_peak => 13883.2,
-        :estimate_instant_delayed_sensible => 13886.61,
-        :peak_estimate_diff => -3.4
+        "time_of_peak_load": "7/21 17:00:00",
+        "oa_drybulb": 32.47,
+        "oa_wetbulb": 17.11,
+        "oa_hr": 0.00591,
+        "zone_drybulb": 23.33,
+        "zone_rh": 47.34,
+        "zone_hr": 0.00845,
+        "sat": 14.0,
+        "mat": 0.0,
+        "fan_flow": 1.21,
+        "oa_flow": 0.22,
+        "sensible_peak_sf": 13052.74,
+        "sf_diff": 1702.53,
+        "sensible_peak": 11350.21,
+        "estimate_instant_delayed_sensible": 11349.12,
+        "peak_estimate_diff": 1.09
     }
 
-    native_result = PeakConditionTable.new(params)
+    expected_result = PeakConditionTable.new(params)
 
-    assert(repo_result == native_result)
+    assert(repo_result == expected_result)
   end
 
   def test_find_invalid_name_zone_cooling
-    result = @repository.find_by_name_type_and_conditioning('VAV BOX ELECTRIC-12345sdfgr', 'Zone', 'Cooling')
+    result = @repository.find_by_name_type_and_conditioning('VAV BOX ELECTRIC-12345sdfgr', 'Cooling')
 
     assert(result.nil?)
   end

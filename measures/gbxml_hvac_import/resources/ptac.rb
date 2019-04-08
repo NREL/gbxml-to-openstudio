@@ -42,10 +42,11 @@ class PTAC < HVACObject
   end
 
   def add_cooling_coil
-    OpenStudio::Model::CoilCoolingDXSingleSpeed.new(self.model)
+    cooling_coil = OpenStudio::Model::CoilCoolingDXSingleSpeed.new(self.model)
     cooling_coil.setName("#{self.name} + Cooling Coil")
     cooling_coil.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.name.nil?
     cooling_coil.additionalProperties.setFeature('coil_type', 'primary_cooling')
+    cooling_coil
   end
 
   def resolve_dependencies

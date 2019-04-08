@@ -1,263 +1,262 @@
-PEAK_LOAD_COMPONENT = {
-    :name => nil,
-    :people => {
-        :sensible_instant => 3429.62,
-        :sensible_delayed => 1587.39,
-        :sensible_return_air => 0.0,
-        :latent => 791.13,
-        :total => 5808.13,
-        :percent_grand_total => 43.11,
-        :related_area => 167.04,
-        :total_per_area => 34.77
+PEAK_LOAD_COMPONENT_TABLE = {
+    "people": {
+        "sensible_instant": 494.06,
+        "sensible_delayed": 338.07,
+        "sensible_return_air": 0.0,
+        "latent": 547.08,
+        "total": 1379.21,
+        "percent_grand_total": 12.33,
+        "related_area": 284.24,
+        "total_per_area": 4.85
     },
-    :lights => {
-        :sensible_instant => 3414.49,
-        :sensible_delayed => 1013.48,
-        :sensible_return_air => 704.82,
-        :latent => 0.0,
-        :total => 5132.78,
-        :percent_grand_total => 38.1,
-        :related_area => 167.04,
-        :total_per_area => 30.73
+    "lights": {
+        "sensible_instant": 2753.58,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 2753.58,
+        "percent_grand_total": 24.62,
+        "related_area": 284.24,
+        "total_per_area": 9.69
     },
-    :equipment => {
-        :sensible_instant => 4279.24,
-        :sensible_delayed => 1015.68,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 5294.92,
-        :percent_grand_total => 39.3,
-        :related_area => 167.04,
-        :total_per_area => 31.7
+    "equipment": {
+        "sensible_instant": 3579.65,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 3579.65,
+        "percent_grand_total": 32.01,
+        "related_area": 284.24,
+        "total_per_area": 12.59
     },
-    :refrigeration => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 0.0,
-        :percent_grand_total => 0.0,
-        :related_area => 167.04,
-        :total_per_area => 0.0
+    "refrigeration": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 284.24,
+        "total_per_area": 0.0
     },
-    :water_use_equipment => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 0.0,
-        :percent_grand_total => 0.0,
-        :related_area => 167.04,
-        :total_per_area => 0.0
+    "water_use_equipment": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 284.24,
+        "total_per_area": 0.0
     },
-    :hvac_equipment_loss => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 0.0,
-        :percent_grand_total => 0.0,
-        :related_area => 0.0,
-        :total_per_area => 0.0
+    "hvac_equipment_loss": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 0.0,
+        "total_per_area": 0.0
     },
-    :power_generation_equipment => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 0.0,
-        :percent_grand_total => 0.0,
-        :related_area => 0.0,
-        :total_per_area => 0.0
+    "power_generation_equipment": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 0.0,
+        "total_per_area": 0.0
     },
-    :doas_direct_to_zone => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 0.0,
-        :percent_grand_total => 0.0,
-        :related_area => 0.0,
-        :total_per_area => 0.0
+    "doas_direct_to_zone": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 0.0,
+        "total_per_area": 0.0
     },
-    :infiltration => {
-        :sensible_instant => 219.74,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => -244.8,
-        :total => -25.0,
-        :percent_grand_total => -0.2,
-        :related_area => 90.95,
-        :total_per_area => -0.3
+    "infiltration": {
+        "sensible_instant": 1065.04,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": -711.8,
+        "total": 353.2,
+        "percent_grand_total": 3.16,
+        "related_area": 320.78,
+        "total_per_area": 1.1
     },
-    :zone_ventilation => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 0.0,
-        :percent_grand_total => 0.0,
-        :related_area => 0.0,
-        :total_per_area => 0.0
+    "zone_ventilation": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 0.0,
+        "total_per_area": 0.0
     },
-    :interzone_mixing => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 0.0,
-        :percent_grand_total => 0.0,
-        :related_area => 0.0,
-        :total_per_area => 0.0
+    "interzone_mixing": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 0.0,
+        "total_per_area": 0.0
     },
-    :roof => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 1237.55,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 1237.55,
-        :percent_grand_total => 9.19,
-        :related_area => 166.08,
-        :total_per_area => 7.45
+    "roof": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 1678.33,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 1678.33,
+        "percent_grand_total": 15.01,
+        "related_area": 284.24,
+        "total_per_area": 5.9
     },
-    :interzone_ceiling => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 0.0,
-        :percent_grand_total => 0.0,
-        :related_area => 0.0,
-        :total_per_area => 0.0
+    "interzone_ceiling": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 0.0,
+        "total_per_area": 0.0
     },
-    :other_roof => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 0.0,
-        :percent_grand_total => 0.0,
-        :related_area => 166.08,
-        :total_per_area => 0.0
+    "other_roof": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 284.24,
+        "total_per_area": 0.0
     },
-    :exterior_wall => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => -597.1,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => -597.1,
-        :percent_grand_total => -4.4,
-        :related_area => 90.95,
-        :total_per_area => -6.6
+    "exterior_wall": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 2585.34,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 2585.34,
+        "percent_grand_total": 23.12,
+        "related_area": 320.78,
+        "total_per_area": 8.06
     },
-    :interzone_wall => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => -1074.4,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => -1074.4,
-        :percent_grand_total => -8.0,
-        :related_area => 90.95,
-        :total_per_area => -11.8
+    "interzone_wall": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 0.0,
+        "total_per_area": 0.0
     },
-    :ground_contact_wall => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 0.0,
-        :percent_grand_total => 0.0,
-        :related_area => 0.0,
-        :total_per_area => 0.0
+    "ground_contact_wall": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 0.0,
+        "total_per_area": 0.0
     },
-    :other_wall => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 0.0,
-        :percent_grand_total => 0.0,
-        :related_area => 90.95,
-        :total_per_area => 0.0
+    "other_wall": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 320.78,
+        "total_per_area": 0.0
     },
-    :exterior_floor => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 0.0,
-        :percent_grand_total => 0.0,
-        :related_area => 0.0,
-        :total_per_area => 0.0
+    "exterior_floor": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 0.0,
+        "total_per_area": 0.0
     },
-    :interzone_floor => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 0.0,
-        :percent_grand_total => 0.0,
-        :related_area => 0.0,
-        :total_per_area => 0.0
+    "interzone_floor": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 0.0,
+        "total_per_area": 0.0
     },
-    :ground_contact_floor => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => -2305.1,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => -2305.1,
-        :percent_grand_total => -17.1,
-        :related_area => 167.04,
-        :total_per_area => -13.8
+    "ground_contact_floor": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": -1144.9,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": -1144.9,
+        "percent_grand_total": -10.2,
+        "related_area": 284.24,
+        "total_per_area": -4.0
     },
-    :other_floor => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 0.0,
-        :percent_grand_total => 0.0,
-        :related_area => 0.0,
-        :total_per_area => 0.0
+    "other_floor": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 0.0,
+        "total_per_area": 0.0
     },
-    :fenestration_conduction => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 0.0,
-        :percent_grand_total => 0.0,
-        :related_area => 0.0,
-        :total_per_area => 0.0
+    "fenestration_conduction": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 0.0,
+        "total_per_area": 0.0
     },
-    :fenestration_solar => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 0.0,
-        :percent_grand_total => 0.0,
-        :related_area => 0.0,
-        :total_per_area => 0.0
+    "fenestration_solar": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 0.0,
+        "total_per_area": 0.0
     },
-    :opaque_door => {
-        :sensible_instant => 0.0,
-        :sensible_delayed => 0.0,
-        :sensible_return_air => 0.0,
-        :latent => 0.0,
-        :total => 0.0,
-        :percent_grand_total => 0.0,
-        :related_area => 0.0,
-        :total_per_area => 0.0
+    "opaque_door": {
+        "sensible_instant": 0.0,
+        "sensible_delayed": 0.0,
+        "sensible_return_air": 0.0,
+        "latent": 0.0,
+        "total": 0.0,
+        "percent_grand_total": 0.0,
+        "related_area": 0.0,
+        "total_per_area": 0.0
     },
-    :grand_total => {
-        :sensible_instant => 11343.09,
-        :sensible_delayed => 877.52,
-        :sensible_return_air => 704.82,
-        :latent => 546.35,
-        :total => 13471.78,
-        :percent_grand_total => 0.0,
-        :related_area => 0.0,
-        :total_per_area => 0.0
+    "grand_total": {
+        "sensible_instant": 7892.33,
+        "sensible_delayed": 3456.79,
+        "sensible_return_air": 0.0,
+        "latent": -164.8,
+        "total": 11184.37,
+        "percent_grand_total": 0.0,
+        "related_area": 0.0,
+        "total_per_area": 0.0
     }
 }

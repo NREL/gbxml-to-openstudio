@@ -1,19 +1,17 @@
-require 'openstudio'
-require_relative '../gbxml_hvac_import/minitest_helper'
-require_relative '../../measures/loads_output_report/resources/output_manager'
+require_relative 'minitest_helper'
 
 class TestOutputManager < MiniTest::Test
-  attr_accessor :model, :sql_file
+  attr_accessor :model, :sql_file, :output_manager
 
   def before_setup
-    path = OpenStudio::Path.new(File.join(Config::TEST_RESOURCES + '/vav_box.sql'))
+    path = OpenStudio::Path.new(File.join(Config::RESOURCES + '/peak_load_component_repository.sql'))
     self.sql_file = OpenStudio::SqlFile.new(path)
-    self.model = OpenStudio::Model::Model.load(OpenStudio::Path.new(File.join(Config::TEST_RESOURCES + '/vav_box.osm'))).get
+    self.model = OpenStudio::Model::Model.load(OpenStudio::Path.new(File.join(Config::RESOURCES + '/peak_load_component_repository.osm'))).get
+    @output_manager = OutputManager.new(@model, @sql_file)
   end
 
   def test_hydrate
-    output_manager = OutputManager.new(@model, @sql_file)
-    output_manager.hydrate
+    @output_manager.hydrate
     puts output_manager.to_json
   end
 

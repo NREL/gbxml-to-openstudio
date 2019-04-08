@@ -17,16 +17,13 @@ class EngineeringCheckTableRepository
   end
 
   # @param name [String] the name of the object
-  # @param type [String] either "Zone", "AirLoop" or "Facility"
   # @param conditioning [String] either "Cooling" or "Heating"
-  def find_by_name_type_and_conditioning(name, type, conditioning)
-    names_query = "SELECT DISTINCT UPPER(ReportForString) From TabularDataWithStrings WHERE ReportName == '#{type} Component Load Summary'
-                        AND TableName == 'Engineering Checks for #{conditioning}'"
+  def find_by_name_type_and_conditioning(name, conditioning)
+    names_query = "SELECT DISTINCT UPPER(ReportForString) From TabularDataWithStrings WHERE TableName == 'Engineering Checks for #{conditioning}'"
     names = @sql_file.execAndReturnVectorOfString(names_query).get
 
     if names.include? name.upcase
-      component_query = BASE_QUERY + " WHERE ReportName = '#{type} Component Load Summary' AND TableName =
-            'Engineering Checks for #{conditioning}' AND UPPER(ReportForString) = '#{name.upcase}'"
+      component_query = BASE_QUERY + " WHERE TableName = 'Engineering Checks for #{conditioning}' AND UPPER(ReportForString) = '#{name.upcase}'"
       params = {}
 
       PARAM_MAP.each do |param|

@@ -14,12 +14,3 @@ module Config
   WORKFLOW_TEMPLATE_PATH = File.join(BASE_PATH + '/test/resources/workflow_template.osw')
 end
 
-puts Config::BASE_PATH
-puts Config::CLI_PATH
-puts Config::GBXML_FILES
-puts Config::REVIT_MODELS
-puts Config::TEST_OUTPUT_PATH
-puts Config::TEST_RESOURCES
-puts Config::WEATHER_FILE_PATH
-puts Config::WORKFLOW_MEASURE_PATHS
-puts Config::WORKFLOW_TEMPLATE_PATH

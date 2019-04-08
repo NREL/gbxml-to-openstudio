@@ -7,51 +7,64 @@
    ],
    "hash" : "9A1D2B97",
    "measure_paths" : [ "../../../../measures" ],
-   "steps" : [
+   "steps": [
       {
-         "arguments" : {
-            "gbxml_file_name" : "PTACAllVariations.xml"
-         },
-         "measure_dir_name" : "import_gbxml",
-         "name" : "ImportGbxml"
+         "measure_dir_name": "import_gbxml",
+         "name": "ImportGbxml",
+         "arguments": {
+            "gbxml_file_name": "PTACAllVariations.xml"
+         }
       },
       {
-         "arguments" : {
-            "gbxml_file_name" : "PTACAllVariations.xml"
-         },
-         "measure_dir_name" : "advanced_import_gbxml",
-         "name" : "Advanced Import Gbxml"
+         "measure_dir_name": "advanced_import_gbxml",
+         "name": "Advanced Import Gbxml",
+         "arguments": {
+            "gbxml_file_name": "PTACAllVariations.xml"
+         }
       },
       {
-         "arguments" : {
-            "gbxml_file_name" : "PTACAllVariations.xml"
-         },
-         "measure_dir_name" : "gbxml_hvac_import",
-         "name" : "GBXML HVAC Import"
+         "measure_dir_name": "gbxml_hvac_import",
+         "name": "GBXML HVAC Import",
+         "arguments": {
+            "gbxml_file_name": "PTACAllVariations.xml"
+         }
       },
       {
-         "arguments" : {
-            "weather_file_name" : "USA_CO_Denver.Intl.AP.725650_TMY3.epw"
+         "arguments": {
+            "do_plant_sizing": true,
+            "do_system_sizing": true,
+            "do_zone_sizing": true,
+            "end_date": "12/31",
+            "loads_convergence_tolerance": 0.1,
+            "max_warmup_days": 25,
+            "min_warmup_days": 3,
+            "sim_for_run_period": false,
+            "sim_for_sizing": true,
+            "solar_distribution": "MinimalShadowing",
+            "start_date": "01/01",
+            "temp_convergence_tolerance": 0.5,
+            "timesteps_per_hour": 4,
+            "max_hvac_iterations": 8
          },
-         "measure_dir_name" : "ChangeBuildingLocation",
-         "name" : "Change Building Location"
+         "description": "The measures sets simulation control, timestep and convergence parameters.",
+         "measure_dir_name": "set_simulation_control",
+         "modeler_description": "",
+         "name": "Set Simulation Control"
       },
       {
-         "arguments" : {},
-         "description" : "Create space types and or construction sets for the requested building type, climate zone, and target.",
-         "measure_dir_name" : "SpaceTypeAndConstructionSetWizard",
-         "modeler_description" : "The data for this measure comes from the openstudio-standards Ruby Gem. They are no longer created from the same JSON file that was used to make the OpenStudio templates. Optionally this will also set the building default space type and construction set.",
-         "name" : "Space Type and Construction Set Wizard"
+         "measure_dir_name": "ChangeBuildingLocation",
+         "name": "Change Building Location",
+         "arguments": {
+            "weather_file_name": "USA_CO_Denver.Intl.AP.725650_TMY3.epw"
+         }
       },
       {
-         "arguments" : {
-            "cooling_sch" : "OfficeSmall CLGSETP_SCH_NO_OPTIMUM",
-            "heating_sch" : "OfficeSmall HTGSETP_SCH_NO_OPTIMUM"
-         },
-         "description" : "Sets zone thermostat schedules to schedules in the same file. If a zone does not have a thermostat this measure will add one.",
-         "measure_dir_name" : "SetThermostatSchedules",
-         "modeler_description" : "Sets zone thermostat schedules to schedules in the same file. If a zone does not have a thermostat this measure will add one.",
-         "name" : "Set Thermostat Schedules"
+         "measure_dir_name": "gbxml_to_openstudio_cleanup",
+         "name": "gbxml_to_openstudio_cleanup"
+      },
+      {
+         "measure_dir_name": "add_xml_output_control_style",
+         "name": "Add XML Output Control Style"
       }
    ],
    "updated_at" : "20190208T174514Z"

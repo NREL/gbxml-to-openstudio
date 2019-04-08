@@ -19,13 +19,17 @@ class PeakLoadComponentRepository
     @sql_file = sql_file
   end
 
-  # @param type [String] whether it's a "zone", "airloop" or "facility"
   # @param name [String] the name of the object
   # @param conditioning_type [String] "heating" or "cooling"
   # @param component [String] of the type of load (i.e. "People", "Lights", "Equipment")
-  def get(type, name, conditioning_type, component)
-    component_query = BASE_QUERY + " WHERE ReportName = '#{type} Component Load Summary' AND TableName =
-          'Estimated #{conditioning_type} Peak Load Components' AND UPPER(ReportForString) = '#{name.upcase}' AND RowName = '#{component}'"
+  def find(name, conditioning_type, component)
+    names_query = "SELECT DISTINCT UPPER(ReportForString) From TabularDataWithStrings WHERE TableName == 'Estimated #{conditioning_type} Peak Load Components'"
+    names = @sql_file.execAndReturnVectorOfString(names_query).get
+
+    return unless names.include? name.upcase
+
+    component_query = BASE_QUERY + " WHERE TableName = 'Estimated #{conditioning_type} Peak Load Components'
+AND UPPER(ReportForString) = '#{name.upcase}' AND RowName = '#{component}'"
 
     params = {}
 
@@ -34,81 +38,10 @@ class PeakLoadComponentRepository
 
       result = self.sql_file.execAndReturnFirstDouble(query)
       if result.is_initialized
-        params[param[:param_sym]] = result.find_by_name
+        params[param[:param_sym]] = result.get
       end
     end
 
     PeakLoadComponent.new(params)
   end
-
-  # Do I need this method and the following commented out methods?
-  # Should I just provide the single get method?
-  def get_zone_cooling_component(name, component)
-    get('zone', name, 'cooling', component)
-  end
-
-  # def get_zone_heating_component(name, component)
-  #   component_query = BASE_QUERY + " WHERE ReportName = 'Zone Component Load Summary' AND TableName = 'Estimated Heating Peak Load Components'"
-  #   query = component_query + " AND ReportForString = '#{name}' AND RowName = '#{component}'"
-  #
-  #   result = self.sql_file.execAndReturnFirstDouble(query)
-  #
-  #   if result.is_initialized
-  #     return result.get
-  #   else
-  #     return nil
-  #   end
-  # end
-  #
-  # def get_air_cooling_component(name, component)
-  #   component_query = BASE_QUERY + " WHERE ReportName = 'Air Component Load Summary' AND TableName = 'Estimated Cooling Peak Load Components'"
-  #   query = component_query + " AND ReportForString = '#{name}' AND RowName = '#{component}'"
-  #
-  #   result = self.sql_file.execAndReturnFirstDouble(query)
-  #
-  #   if result.is_initialized
-  #     return result.get
-  #   else
-  #     return nil
-  #   end
-  # end
-  #
-  # def get_air_heating_component(name, component)
-  #   component_query = BASE_QUERY + " WHERE ReportName = 'Air Component Load Summary' AND TableName = 'Estimated Heating Peak Load Components'"
-  #   query = component_query + " AND ReportForString = '#{name}' AND RowName = '#{component}'"
-  #
-  #   result = self.sql_file.execAndReturnFirstDouble(query)
-  #
-  #   if result.is_initialized
-  #     return result.get
-  #   else
-  #     return nil
-  #   end
-  # end
-  #
-  # def get_facility_cooling_component(component)
-  #   component_query = BASE_QUERY + " WHERE ReportName = 'Facility Component Load Summary' AND TableName = 'Estimated Cooling Peak Load Components'"
-  #   query = component_query + " AND RowName = '#{component}'"
-  #
-  #   result = self.sql_file.execAndReturnFirstDouble(query)
-  #
-  #   if result.is_initialized
-  #     return result.get
-  #   else
-  #     return nil
-  #   end
-  # end
-  #
-  # def get_facility_heating_component(component)
-  #   component_query = BASE_QUERY + " WHERE ReportName = 'Facility Component Load Summary' AND TableName = 'Estimated Heating Peak Load Components'"
-  #   query = component_query + " AND RowName = '#{component}'"
-  #
-  #   result = self.sql_file.execAndReturnFirstDouble(query)
-  #
-  #   if result.is_initialized
-  #     return result.get
-  #   else
-  #     return nil
-  #   end
-  # end
 end
