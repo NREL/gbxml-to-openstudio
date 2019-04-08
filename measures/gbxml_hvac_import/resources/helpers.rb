@@ -30,6 +30,16 @@ class Helpers
     return false
   end
 
+  def self.get_thermal_zone_by_cad_object_id(model, cad_object_id)
+    model.getThermalZones.each do |thermal_zone|
+      feature = thermal_zone.additionalProperties.getFeatureAsString('CADObjectId')
+      if feature.is_initialized and feature.get == cad_object_id
+        return thermal_zone
+      end
+    end
+    return false
+  end
+
   def self.clean_up_model(model)
     model.getAirTerminalSingleDuctVAVReheats.each do |vav_box|
       outlet_node = vav_box.outletModelObject.get.to_Node
