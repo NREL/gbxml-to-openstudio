@@ -59,9 +59,4 @@ EOF
     zone = Zone.create_from_xml(nil, document)
     assert(zone.use_ideal_air_loads)
   end
-
-  def test_space_dsoa
-    model = OpenStudio::Model::Model.new
-    space = OpenStudio::Model::Space.new(model)
-  end
 end
