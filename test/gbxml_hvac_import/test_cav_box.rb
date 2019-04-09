@@ -43,7 +43,7 @@ class TestCAVBox < MiniTest::Test
     assert(cav_box_elec.additionalProperties.getFeatureAsString('CADObjectId').get == '280066-1')
   end
 
-  def test_create_osw
+  def create_osw
     osw = create_test_sizing_osw
     osw = adjust_gbxml_paths(osw, 'CAVBoxAllVariations.xml')
     osw_in_path = Config::TEST_OUTPUT_PATH + '/cav_box/in.osw'
@@ -51,6 +51,7 @@ class TestCAVBox < MiniTest::Test
   end
 
   def test_simulation
+    create_osw
     # set osw_path to find location of osw to run
     osw_in_path = Config::TEST_OUTPUT_PATH + '/cav_box/in.osw'
     cmd = "\"#{Config::CLI_PATH}\" run -w \"#{osw_in_path}\""
@@ -60,17 +61,5 @@ class TestCAVBox < MiniTest::Test
     osw_out = JSON.parse(File.read(osw_out_path))
 
     assert(osw_out['completed_status'] == 'Success')
-  end
-
-  def test_sizing_simulation
-
-  end
-
-  def test_annual_simulation
-
-  end
-
-  def duplicate_osw
-
   end
 end
