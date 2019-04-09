@@ -327,10 +327,6 @@ module OsLib_AdvImport
         load_inst.setSpace(space)
         modified = true
 
-        # create activity schedule if not already made and assign
-        # todo - this would be better setup as part of schedule set
-        # todo - inputs of Btu/h in sample of 40 seems 10x lower than expected to be 120W
-        # todo - take latent and sensible ratio to update peopleDefinition object
         if space_data[:people_defs].has_key?('people_heat_gain_total')
           activity_btu_h = space_data[:people_defs]['people_heat_gain_total']
           activity_w = OpenStudio.convert(activity_btu_h, 'Btu/h', 'W').get
@@ -387,13 +383,35 @@ module OsLib_AdvImport
       if space_data.has_key?(:ventilation_def)
         vent_inst = OpenStudio::Model::DesignSpecificationOutdoorAir.new(model)
         # include guard clause for valid ventilation input
-        value_m3_s = OpenStudio.convert(space_data[:ventilation_def][:ventilation_flow_per_person], 'cfm', 'm^3/s').get
-        vent_inst.setOutdoorAirFlowperPerson(value_m3_s)
-        value_m_s = OpenStudio.convert(space_data[:ventilation_def][:ventilation_flow_per_area], 'cfm/ft^2', 'm/s').get
-        vent_inst.setOutdoorAirFlowperFloorArea(value_m_s)
-        value_m3_s = OpenStudio.convert(space_data[:ventilation_def][:ventilation_flow_per_space], 'cfm', 'm^3/s').get
-        vent_inst.setOutdoorAirFlowRate(value_m3_s)
-        vent_inst.setOutdoorAirFlowAirChangesperHour(space_data[:ventilation_def][:ventilation_flow_air_changes_per_hour])
+        value_person = OpenStudio.convert(space_data[:ventilation_def][:ventilation_flow_per_person], 'cfm', 'm^3/s').get
+        value_area = OpenStudio.convert(space_data[:ventilation_def][:ventilation_flow_per_area], 'cfm/ft^2', 'm/s').get
+        # value_space = OpenStudio.convert(space_data[:ventilation_def][:ventilation_flow_per_space], 'cfm', 'm^3/s').get
+        # vent_inst.setOutdoorAirFlowRate(value_m3_s)
+        value_ach = space_data[:ventilation_def][:ventilation_flow_air_changes_per_hour]
+        outdoor_air_method = space_data[:ventilation_def][:outdoor_airflow_method]
+        case outdoor_air_method
+        when "SumPeopleAndArea"
+          vent_inst.setOutdoorAirMethod("Sum")
+          vent_inst.setOutdoorAirFlowperPerson(value_person)
+          vent_inst.setOutdoorAirFlowperFloorArea(value_area)
+        when "MaxPeopleAndArea"
+          vent_inst.setOutdoorAirMethod("Maximum")
+          vent_inst.setOutdoorAirFlowperPerson(value_person)
+          vent_inst.setOutdoorAirFlowperFloorArea(value_area)
+        when "MaxAirChangesPerHourAndSumPeopleAndArea"
+          vent_inst.setOutdoorAirMethod("Maximum")
+          vent_inst.setOutdoorAirFlowperPerson(value_person)
+          vent_inst.setOutdoorAirFlowperFloorArea(value_area)
+          vent_inst.setOutdoorAirFlowAirChangesperHour(value_ach)
+        when "MaxAirChangesPerHourAndPeopleAndArea"
+          vent_inst.setOutdoorAirMethod("Maximum")
+          vent_inst.setOutdoorAirFlowperPerson(value_person)
+          vent_inst.setOutdoorAirFlowperFloorArea(value_area)
+          vent_inst.setOutdoorAirFlowAirChangesperHour(value_ach)
+        when "AirChangesPerHour"
+          vent_inst.setOutdoorAirMethod("Maximum")
+          vent_inst.setOutdoorAirFlowAirChangesperHour(value_ach)
+        end
         vent_inst.setName("#{space.name.to_s}_ventilation")
         space.setDesignSpecificationOutdoorAir(vent_inst)
         modified = true
