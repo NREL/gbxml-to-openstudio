@@ -30,7 +30,6 @@ end
 def adjust_gbxml_paths(osw, gbxml_path)
   osw.getMeasureSteps(OpenStudio::MeasureType.new("ModelMeasure")).each do |measure_step|
     if ["import_gbxml", "advanced_import_gbxml", "gbxml_hvac_import"].include? measure_step.measureDirName
-      puts "here"
       measure_step.setArgument("gbxml_file_name", gbxml_path)
     end
   end
