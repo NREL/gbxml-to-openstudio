@@ -124,6 +124,9 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       unless element.attributes['conditionType'].nil?
         advanced_inputs[:spaces][element.attributes['id']][:condition_type] = element.attributes['conditionType']
       end
+      unless element.attributes['outdoorAirflowMethod'].nil?
+        advanced_inputs[:spaces][element.attributes['id']][:outdoor_air_method] = element.attributes['outdoorAirflowMethod']
+      end
       unless element.elements['Name'].nil?
         advanced_inputs[:spaces][element.attributes['id']][:name] = element.elements['Name'].text
       end
