@@ -384,13 +384,11 @@ module OsLib_AdvImport
         vent_inst = OpenStudio::Model::DesignSpecificationOutdoorAir.new(model)
         # include guard clause for valid ventilation input
         value_person = OpenStudio.convert(space_data[:ventilation_def][:ventilation_flow_per_person], 'cfm', 'm^3/s').get
-        vent_inst.setOutdoorAirFlowperPerson(value_m3_s)
         value_area = OpenStudio.convert(space_data[:ventilation_def][:ventilation_flow_per_area], 'cfm/ft^2', 'm/s').get
-        vent_inst.setOutdoorAirFlowperFloorArea(value_m_s)
         # value_space = OpenStudio.convert(space_data[:ventilation_def][:ventilation_flow_per_space], 'cfm', 'm^3/s').get
         # vent_inst.setOutdoorAirFlowRate(value_m3_s)
         value_ach = space_data[:ventilation_def][:ventilation_flow_air_changes_per_hour]
-        outdoor_air_method = space_data[:ventilation_def][:outdoor_air_method]
+        outdoor_air_method = space_data[:ventilation_def][:outdoor_airflow_method]
         case outdoor_air_method
         when "SumPeopleAndArea"
           vent_inst.setOutdoorAirMethod("Sum")
