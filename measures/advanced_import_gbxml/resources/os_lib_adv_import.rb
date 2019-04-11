@@ -388,8 +388,8 @@ module OsLib_AdvImport
         # value_space = OpenStudio.convert(space_data[:ventilation_def][:ventilation_flow_per_space], 'cfm', 'm^3/s').get
         # vent_inst.setOutdoorAirFlowRate(value_m3_s)
         value_ach = space_data[:ventilation_def][:ventilation_flow_air_changes_per_hour]
-        outdoor_air_method = space_data[:ventilation_def][:outdoor_airflow_method]
-        case outdoor_air_method
+        outdoor_airflow_method = space_data[:ventilation_def][:outdoor_airflow_method]
+        case outdoor_airflow_method
         when "SumPeopleAndArea"
           vent_inst.setOutdoorAirMethod("Sum")
           vent_inst.setOutdoorAirFlowperPerson(value_person)
