@@ -24,20 +24,21 @@ class ZoneSensibleSummaryRepository
   end
 
   def find_by_name_conditioning_type(name, conditioning_type)
-    fan_names_query = "SELECT DISTINCT UPPER(RowName) FROM TabularDataWithStrings WHERE ReportName == 'HVACSizingSummary' AND TableName == 'Fans'"
+    zone_names_query = "SELECT DISTINCT UPPER(RowName) FROM TabularDataWithStrings WHERE ReportName == 'HVACSizingSummary'
+ AND TableName == 'Zone Sensible #{conditioning_type}'"
 
-    fan_names = @sql_file.execAndReturnVectorOfString(fan_names_query).get
+    zone_names = @sql_file.execAndReturnVectorOfString(zone_names_query).get
 
-    if fan_names.include? name.upcase
-      fan_query = BASE_QUERY + " AND TableName == 'Zone Sensible #{conditioning_type}' AND UPPER(RowName) == '#{name.upcase}'"
+    if zone_names.include? name.upcase
+      zone_query = BASE_QUERY + " AND TableName == 'Zone Sensible #{conditioning_type}' AND UPPER(RowName) == '#{name.upcase}'"
       params = {}
 
       PARAM_MAP.each do |param|
-        query = fan_query + " AND ColumnName == '#{param[:db_name]}'"
+        query = zone_query + " AND ColumnName == '#{param[:db_name]}'"
         params[param[:param_name].to_sym] = get_optional_value(param[:param_type], query)
       end
 
-      FanEquipmentSummary.from_options(params)
+      ZoneSensibleSummary.from_options(params)
     end
   end
 

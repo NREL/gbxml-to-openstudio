@@ -41,11 +41,13 @@ class PeakLoadComponentTableRepository
   end
 
   # @param name [String] the name of the object
-  # @param type [String] whether it's a "Zone", "Airloop" or "Facility"
   # @param conditioning [String] "heating" or "cooling"
-  def find_by_name_type_and_conditioning(name, conditioning)
+  def find_by_name_and_conditioning(name, conditioning)
     names_query = "SELECT DISTINCT UPPER(ReportForString) From TabularDataWithStrings WHERE TableName == 'Estimated #{conditioning} Peak Load Components'"
     names = @sql_file.execAndReturnVectorOfString(names_query).get
+
+    puts "checking name: " + name.upcase
+    puts names
 
     return unless names.include? name.upcase
 

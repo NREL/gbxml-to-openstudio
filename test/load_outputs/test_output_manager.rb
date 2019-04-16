@@ -10,10 +10,10 @@ class TestOutputManager < MiniTest::Test
     @output_manager = OutputManager.new(@model, @sql_file)
   end
 
-  def test_hydrate
-    @output_manager.hydrate
-    puts output_manager.to_json
-  end
+  # def test_hydrate
+  #   @output_manager.hydrate
+  #   puts output_manager.to_json
+  # end
 
   def test_find_cooling_coil_by_features
     output_manager = OutputManager.new(@model, @sql_file)
@@ -35,6 +35,32 @@ class TestOutputManager < MiniTest::Test
     )
 
     assert(retrieved_coil.nil?)
+  end
+
+  def test_find_cooling_coils_by_features
+    output_manager = OutputManager.new(@model, @sql_file)
+    coil1 = OpenStudio::Model::CoilCoolingDXSingleSpeed.new(model)
+    coil1.additionalProperties.setFeature("system_cad_object_id", "280629")
+
+    coil2 = OpenStudio::Model::CoilCoolingDXSingleSpeed.new(model)
+    coil2.additionalProperties.setFeature("system_cad_object_id", "280629")
+
+    retrieved_coils = output_manager.find_cooling_coils_by_features(
+        {"system_cad_object_id": "280629"}
+    )
+
+    assert(retrieved_coils.include? coil1)
+    assert(retrieved_coils.include? coil2)
+  end
+
+  def test_find_cooling_coils_by_features_wrong
+    output_manager = OutputManager.new(@model, @sql_file)
+
+    retrieved_coils = output_manager.find_cooling_coils_by_features(
+        {"system_cad_object_id": "asdf235f3d"}
+    )
+
+    assert(retrieved_coils.empty?)
   end
 
   def test_find_heating_coil_by_features

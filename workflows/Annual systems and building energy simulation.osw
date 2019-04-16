@@ -68,6 +68,10 @@
     {
       "measure_dir_name": "add_xml_output_control_style",
       "name": "Add XML Output Control Style"
+    },
+    {
+      "measure_dir_name": "loads_output_report",
+      "name": "Loads Output Report"
     }
   ]
 }

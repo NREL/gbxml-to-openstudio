@@ -29,7 +29,7 @@ class PeakConditionTableRepository
 
   # @param name [String] the name of the object
   # @param conditioning [String] either "Cooling" or "Heating"
-  def find_by_name_type_and_conditioning(name, conditioning)
+  def find_by_name_and_conditioning(name, conditioning)
     names_query = "SELECT DISTINCT UPPER(ReportForString) From TabularDataWithStrings WHERE TableName == '#{conditioning} Peak Conditions'"
     names = @sql_file.execAndReturnVectorOfString(names_query).get
 

@@ -1,5 +1,5 @@
 class DesignPsychrometric < JSONable
-  attr_accessor :system_cad_object_id, :time_of_peak, :coil_air_flow, :zone_sensible_load, :oa_flow_rate, :percent_oa,
+  attr_accessor :cad_object_id, :time_of_peak, :coil_air_flow, :zone_sensible_load, :oa_flow_rate, :percent_oa,
                 :air_specific_heat, :air_density, :zone_drybulb, :zone_hr, :zone_rh, :return_air_drybulb, :return_air_hr,
                 :oa_drybulb, :oa_hr, :entering_coil_drybulb, :entering_coil_hr, :leaving_coil_drybulb, :leaving_coil_hr,
                 :supply_fan_temp_diff
