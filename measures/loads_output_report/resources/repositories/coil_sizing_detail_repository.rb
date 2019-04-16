@@ -1,7 +1,7 @@
 require_relative '../coil_sizing_detail'
 
 class CoilSizingDetailRepository
-  attr_accessor :sql_file
+  attr_accessor :sql_file, :instances
 
   BASE_QUERY = "SELECT Value FROM TabularDataWithStrings WHERE ReportName == 'CoilSizingDetails'"
   PARAM_MAP = [
@@ -92,10 +92,16 @@ class CoilSizingDetailRepository
   ]
 
   def initialize(sql_file)
-    self.sql_file = sql_file
+    @sql_file = sql_file
+    @instances = {}
   end
 
   def find_by_name(name)
+
+    if self.instances.key?(name)
+      return self.instances[name]
+    end
+
     coil_names_query = "SELECT DISTINCT UPPER(RowName) From TabularDataWithStrings WHERE ReportName == 'CoilSizingDetails'"
     coil_names = @sql_file.execAndReturnVectorOfString(coil_names_query).get
 
@@ -108,7 +114,9 @@ class CoilSizingDetailRepository
         params[param[:param_name].to_sym] = get_optional_value(param[:param_type], query)
       end
 
-      CoilSizingDetail.new(params)
+      coil_sizing_detail = CoilSizingDetail.new(params)
+      @instances[name] = coil_sizing_detail
+      coil_sizing_detail
     end
   end
 

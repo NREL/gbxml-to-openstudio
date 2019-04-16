@@ -1,25 +1,21 @@
-require 'openstudio'
-require_relative '../gbxml_hvac_import/minitest_helper'
+require_relative 'minitest_helper'
 require_relative 'resources/coil_sizing_detail_params'
-require_relative '../../measures/loads_output_report/resources/repositories/coil_sizing_detail_repository'
 
 class TestCoilSizingDetailRepository < MiniTest::Test
   attr_accessor :sql_file, :repository
 
   def before_setup
-    path = OpenStudio::Path.new(File.join(Config::TEST_RESOURCES + '/vav_box.sql'))
-    self.sql_file = OpenStudio::SqlFile.new(path)
-    @repository = CoilSizingDetailRepository.new(@sql_file)
+    path = OpenStudio::Path.new(Config::RESOURCES + '/peak_load_component_repository.sql')
+    sql_file = OpenStudio::SqlFile.new(path)
+    @repository = CoilSizingDetailRepository.new(sql_file)
   end
 
   def test_find_valid_name
-    repo_coil = @repository.find_by_name('Air System Cooling Coil')
+    repo_coil = @repository.find_by_name('ZONE EQUIPMENT 1-1 HEATING COIL')
 
-    puts repo_coil.inspect
-    native_coil = CoilSizingDetail.new(COIL_1)
-    puts native_coil.inspect
+    expected_coil = CoilSizingDetail.new(COIL_1)
 
-    assert(repo_coil == native_coil)
+    assert(repo_coil == expected_coil)
   end
 
   def test_find_invalid_name

@@ -30,6 +30,8 @@ class BaseboardConvective < HVACObject
     if self.heating_coil_type == "HotWater"
       heating_coil = OpenStudio::Model::CoilHeatingWaterBaseboard.new(self.model)
       heating_coil.setName(self.name + " Heating Coil") unless self.name.nil?
+      heating_coil.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.name.nil?
+      heating_coil.additionalProperties.setFeature('coil_type', 'primary_heating')
     end
 
     heating_coil

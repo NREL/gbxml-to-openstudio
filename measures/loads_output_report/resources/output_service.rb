@@ -9,23 +9,26 @@ require_relative 'facility_component_load_summary'
 require_relative 'design_psychrometric'
 
 class OutputService
-  attr_accessor :sql_file, :peak_load_component_table_repository, :peak_condition_table_repository, :engineering_check_table_repository,
-                :coil_sizing_detail_repository
+  attr_accessor :model, :sql_file, :peak_load_component_table_repository, :peak_condition_table_repository, :engineering_check_table_repository,
+                :coil_sizing_detail_repository, :fan_equipment_summary_repository, :zone_sensible_summary_repository
 
-  def initialize(sql_file)
+  def initialize(model, sql_file)
+    self.model = model
     self.peak_load_component_table_repository = PeakLoadComponentTableRepository.new(sql_file)
     self.peak_condition_table_repository = PeakConditionTableRepository.new(sql_file)
     self.engineering_check_table_repository = EngineeringCheckTableRepository.new(sql_file)
     self.coil_sizing_detail_repository = CoilSizingDetailRepository.new(sql_file)
+    self.fan_equipment_summary_repository = FanEquipmentSummaryRepository.new(sql_file)
+    self.zone_sensible_summary_repository = ZoneSensibleSummaryRepository.new(sql_file)
   end
 
   def get_zone_loads_by_component(name)
-    cooling_peak_load_component_table = self.peak_load_component_table_repository.find_by_name_type_and_conditioning(name, 'Zone', 'Cooling')
-    heating_peak_load_component_table = self.peak_load_component_table_repository.find_by_name_type_and_conditioning(name, 'Zone', 'Heating')
-    cooling_peak_condition_table_repository = self.peak_condition_table_repository.find_by_name_type_and_conditioning(name, 'Zone', 'Cooling')
-    heating_peak_condition_table_repository = self.peak_condition_table_repository.find_by_name_type_and_conditioning(name, 'Zone', 'Heating')
-    cooling_engineering_check_table = self.engineering_check_table_repository.find_by_name_type_and_conditioning(name, 'Zone', 'Cooling')
-    heating_engineering_check_table = self.engineering_check_table_repository.find_by_name_type_and_conditioning(name, 'Zone', 'Heating')
+    cooling_peak_load_component_table = self.peak_load_component_table_repository.find_by_name_and_conditioning(name, 'Cooling')
+    heating_peak_load_component_table = self.peak_load_component_table_repository.find_by_name_and_conditioning(name, 'Heating')
+    cooling_peak_condition_table_repository = self.peak_condition_table_repository.find_by_name_and_conditioning(name, 'Cooling')
+    heating_peak_condition_table_repository = self.peak_condition_table_repository.find_by_name_and_conditioning(name, 'Heating')
+    cooling_engineering_check_table = self.engineering_check_table_repository.find_by_name_and_conditioning(name, 'Cooling')
+    heating_engineering_check_table = self.engineering_check_table_repository.find_by_name_and_conditioning(name, 'Heating')
 
     unless cooling_peak_load_component_table.nil? and heating_peak_load_component_table.nil? and cooling_peak_condition_table_repository.nil? and
         heating_peak_condition_table_repository.nil? and cooling_engineering_check_table.nil? and heating_engineering_check_table.nil?
@@ -43,13 +46,16 @@ class OutputService
   end
 
   def get_system_checksum(name, cooling_coil_name = nil, heating_coil_name = nil)
-    cooling_peak_load_component_table = self.peak_load_component_table_repository.find_by_name_type_and_conditioning(name, 'AirLoop', 'Cooling')
-    heating_peak_load_component_table = self.peak_load_component_table_repository.find_by_name_type_and_conditioning(name, 'AirLoop', 'Heating')
-    cooling_peak_condition_table_repository = self.peak_condition_table_repository.find_by_name_type_and_conditioning(name, 'AirLoop', 'Cooling')
-    heating_peak_condition_table_repository = self.peak_condition_table_repository.find_by_name_type_and_conditioning(name, 'AirLoop', 'Heating')
-    cooling_engineering_check_table = self.engineering_check_table_repository.find_by_name_type_and_conditioning(name, 'AirLoop', 'Cooling')
-    heating_engineering_check_table = self.engineering_check_table_repository.find_by_name_type_and_conditioning(name, 'AirLoop', 'Heating')
+    cooling_peak_load_component_table = self.peak_load_component_table_repository.find_by_name_and_conditioning(name, 'Cooling')
+    heating_peak_load_component_table = self.peak_load_component_table_repository.find_by_name_and_conditioning(name, 'Heating')
+    cooling_peak_condition_table_repository = self.peak_condition_table_repository.find_by_name_and_conditioning(name, 'Cooling')
+    heating_peak_condition_table_repository = self.peak_condition_table_repository.find_by_name_and_conditioning(name, 'Heating')
+    cooling_engineering_check_table = self.engineering_check_table_repository.find_by_name_and_conditioning(name, 'Cooling')
+    heating_engineering_check_table = self.engineering_check_table_repository.find_by_name_and_conditioning(name, 'Heating')
 
+    puts "In output service"
+    puts cooling_peak_load_component_table
+    puts heating_peak_load_component_table
     unless cooling_peak_load_component_table.nil? and heating_peak_load_component_table.nil? and cooling_peak_condition_table_repository.nil? and
         heating_peak_condition_table_repository.nil? and cooling_engineering_check_table.nil? and heating_engineering_check_table.nil?
 
@@ -83,12 +89,12 @@ class OutputService
   def get_facility_component_load_summary
     facility_component_load_summary = FacilityComponentLoadSummary.new
     name = 'Facility'
-    facility_component_load_summary.cooling_peak_load_component_table = self.peak_load_component_table_repository.find_by_name_type_and_conditioning(name, 'Facility', 'Cooling')
-    facility_component_load_summary.heating_peak_load_component_table = self.peak_load_component_table_repository.find_by_name_type_and_conditioning(name, 'Facility', 'Heating')
-    facility_component_load_summary.cooling_peak_condition_table_repository = self.peak_condition_table_repository.find_by_name_type_and_conditioning(name, 'Facility', 'Cooling')
-    facility_component_load_summary.heating_peak_condition_table_repository = self.peak_condition_table_repository.find_by_name_type_and_conditioning(name, 'Facility', 'Heating')
-    facility_component_load_summary.cooling_engineering_check_table = self.engineering_check_table_repository.find_by_name_type_and_conditioning(name, 'Facility', 'Cooling')
-    facility_component_load_summary.heating_engineering_check_table = self.engineering_check_table_repository.find_by_name_type_and_conditioning(name, 'Facility', 'Heating')
+    facility_component_load_summary.cooling_peak_load_component_table = self.peak_load_component_table_repository.find_by_name_and_conditioning(name, 'Cooling')
+    facility_component_load_summary.heating_peak_load_component_table = self.peak_load_component_table_repository.find_by_name_and_conditioning(name, 'Heating')
+    facility_component_load_summary.cooling_peak_condition_table_repository = self.peak_condition_table_repository.find_by_name_and_conditioning(name, 'Cooling')
+    facility_component_load_summary.heating_peak_condition_table_repository = self.peak_condition_table_repository.find_by_name_and_conditioning(name, 'Heating')
+    facility_component_load_summary.cooling_engineering_check_table = self.engineering_check_table_repository.find_by_name_and_conditioning(name, 'Cooling')
+    facility_component_load_summary.heating_engineering_check_table = self.engineering_check_table_repository.find_by_name_and_conditioning(name, 'Heating')
 
     facility_component_load_summary
   end
@@ -98,7 +104,27 @@ class OutputService
     DesignPsychrometric.new(coil_sizing_detail) if coil_sizing_detail
   end
 
-  def get_system_component_summary
+  def get_cooling_coil_component_summary(name)
+    coil_sizing_detail = self.coil_sizing_detail_repository.find_by_name(name)
+    CoolingCoilComponentSummary.from_coil_sizing_detail(coil_sizing_detail) if coil_sizing_detail
+  end
 
+  def get_heating_coil_component_summary(name)
+    coil_sizing_detail = self.coil_sizing_detail_repository.find_by_name(name)
+    HeatingCoilComponentSummary.from_coil_sizing_detail(coil_sizing_detail) if coil_sizing_detail
+  end
+
+  def get_load_airflow_summary(name)
+    cooling_zone_sensible_summary = self.zone_sensible_summary_repository.find_by_name_conditioning_type(name, "Cooling")
+    heating_zone_sensible_summary = self.zone_sensible_summary_repository.find_by_name_conditioning_type(name, "Heating")
+
+    if cooling_zone_sensible_summary or heating_zone_sensible_summary
+      LoadAirflowSummary.from_zone_sensible_summary(cooling_zone_sensible_summary, heating_zone_sensible_summary)
+    end
+  end
+
+  def get_fan_component_summary(name)
+    fan_equipment_summary = self.fan_equipment_summary_repository.find_by_name(name)
+    FanComponentSummary.from_fan_equipment_summary(fan_equipment_summary) if fan_equipment_summary
   end
 end

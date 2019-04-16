@@ -1,9 +1,9 @@
 require_relative 'jsonable'
 
 class SystemChecksum
-  attr_accessor :cooling_peak_load_component_table, :cooling_peak_condition_table, :cooling_engineering_check_table,
-                :heating_peak_load_component_table, :heating_peak_condition_table, :heating_engineering_check_table,
-                :cooling_coil_sizing_detail, :heating_coil_sizing_detail
+  attr_accessor :cad_object_id, :cooling_peak_load_component_table, :cooling_peak_condition_table,
+                :cooling_engineering_check_table, :heating_peak_load_component_table, :heating_peak_condition_table,
+                :heating_engineering_check_table, :cooling_coil_sizing_detail, :heating_coil_sizing_detail
 
   def calculate_additional_results
     calculate_ventilation_load
