@@ -9,10 +9,10 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPPRODUCTICON" Value="os.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="NREL"/>
-    <ROW Property="ProductCode" Value="1033:{31DDCA1F-8B80-4D78-8A94-823E6BB92985} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{3FF4EB5C-B4C9-4DE2-8CE8-77AFB8BE03C8} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="OpenStudio CLI For Revit 2021"/>
-    <ROW Property="ProductVersion" Value="0.0.14" Type="32"/>
+    <ROW Property="ProductVersion" Value="0.0.15" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{8151B9D3-9C8B-408A-8BDB-231665C21C13}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
