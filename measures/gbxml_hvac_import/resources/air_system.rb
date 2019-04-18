@@ -128,7 +128,7 @@ class AirSystem < HVACObject
   end
 
   def add_spm
-    spm = add_spm_warmest if !self.is_doas
+    spm = add_spm_warmest unless self.is_doas
     spm = add_spm_doas if self.is_doas
     spm
   end

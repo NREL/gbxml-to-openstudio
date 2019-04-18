@@ -124,6 +124,7 @@ class ModelManager
 
     self.air_systems.values.each do |air_system|
       air_system.set_schedules
+      air_system.assign_airloop_sizing_properties
     end
 
   end
