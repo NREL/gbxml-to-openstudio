@@ -35,7 +35,7 @@ class FPFC < HVACObject
   def add_cooling_coil
     cooling_coil = OpenStudio::Model::CoilCoolingWater.new(self.model)
     cooling_coil.setName("#{self.name} + Cooling Coil")
-    cooling_coil.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless cad_object_id.name.nil?
+    cooling_coil.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.cad_object_id.nil?
     cooling_coil.additionalProperties.setFeature('coil_type', 'primary_cooling')
     cooling_coil
   end
