@@ -43,8 +43,8 @@ class ModelManager
        self.chw_loops[chilled_water_loop.id] = chilled_water_loop
     end
 
-    self.gbxml_parser.vrf_loops.each do |vrf_loop|
-      vrf_loop = VRFCondenser.create_from_xml(self, vrf_loop)
+    self.gbxml_parser.vrf_loops.each do |vrf_gbxml_loop|
+      vrf_loop = VRFCondenser.create_from_xml(self, vrf_gbxml_loop)
       self.vrf_loops[vrf_loop.id] = vrf_loop
     end
 
@@ -126,6 +126,5 @@ class ModelManager
       air_system.set_schedules
       air_system.assign_airloop_sizing_properties
     end
-
   end
 end

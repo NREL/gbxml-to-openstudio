@@ -4,7 +4,7 @@
 # http://nrel.github.io/OpenStudio-user-documentation/reference/measure_writing_guide/
 
 require 'openstudio'
-require_relative 'resources/output_manager'
+require_relative 'loads_output_report'
 
 # model = OpenStudio::Model::Model.new()
 

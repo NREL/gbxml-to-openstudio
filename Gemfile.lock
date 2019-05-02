@@ -10,6 +10,7 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     openstudio-api-stubs (0.1.0)
+    openstudio-standards (0.2.9)
     rake (12.3.1)
     ruby-progressbar (1.10.0)
 
@@ -24,6 +25,7 @@ DEPENDENCIES
   minitest
   minitest-reporters
   openstudio-api-stubs
+  openstudio-standards
   rake
 
 BUNDLED WITH

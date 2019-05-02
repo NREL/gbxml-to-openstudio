@@ -1,21 +1,19 @@
-require 'openstudio'
-require_relative '../gbxml_hvac_import/minitest_helper'
-require_relative '../../measures/loads_output_report/resources/output_manager'
+require_relative 'minitest_helper'
 
 class TestOutputManager < MiniTest::Test
-  attr_accessor :model, :sql_file
+  attr_accessor :model, :sql_file, :output_manager
 
   def before_setup
-    path = OpenStudio::Path.new(File.join(Config::TEST_RESOURCES + '/vav_box.sql'))
+    path = OpenStudio::Path.new(File.join(Config::RESOURCES + '/peak_load_component_repository.sql'))
     self.sql_file = OpenStudio::SqlFile.new(path)
-    self.model = OpenStudio::Model::Model.load(OpenStudio::Path.new(File.join(Config::TEST_RESOURCES + '/vav_box.osm'))).get
+    self.model = OpenStudio::Model::Model.load(OpenStudio::Path.new(File.join(Config::RESOURCES + '/peak_load_component_repository.osm'))).get
+    @output_manager = OutputManager.new(@model, @sql_file)
   end
 
-  def test_hydrate
-    output_manager = OutputManager.new(@model, @sql_file)
-    output_manager.hydrate
-    puts output_manager.to_json
-  end
+  # def test_hydrate
+  #   @output_manager.hydrate
+  #   puts output_manager.to_json
+  # end
 
   def test_find_cooling_coil_by_features
     output_manager = OutputManager.new(@model, @sql_file)
@@ -37,6 +35,32 @@ class TestOutputManager < MiniTest::Test
     )
 
     assert(retrieved_coil.nil?)
+  end
+
+  def test_find_cooling_coils_by_features
+    output_manager = OutputManager.new(@model, @sql_file)
+    coil1 = OpenStudio::Model::CoilCoolingDXSingleSpeed.new(model)
+    coil1.additionalProperties.setFeature("system_cad_object_id", "280629")
+
+    coil2 = OpenStudio::Model::CoilCoolingDXSingleSpeed.new(model)
+    coil2.additionalProperties.setFeature("system_cad_object_id", "280629")
+
+    retrieved_coils = output_manager.find_cooling_coils_by_features(
+        {"system_cad_object_id": "280629"}
+    )
+
+    assert(retrieved_coils.include? coil1)
+    assert(retrieved_coils.include? coil2)
+  end
+
+  def test_find_cooling_coils_by_features_wrong
+    output_manager = OutputManager.new(@model, @sql_file)
+
+    retrieved_coils = output_manager.find_cooling_coils_by_features(
+        {"system_cad_object_id": "asdf235f3d"}
+    )
+
+    assert(retrieved_coils.empty?)
   end
 
   def test_find_heating_coil_by_features

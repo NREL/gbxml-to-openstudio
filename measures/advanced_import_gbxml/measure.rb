@@ -192,6 +192,9 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
                           ventilation_flow_per_area: 0.0,              # cfm/ft2
                           ventilation_flow_per_space: 0.0,             # cfm
                           ventilation_flow_air_changes_per_hour: 0.0 } # 1/h
+      unless element.attributes['outdoorAirflowMethod'].nil?
+        ventilation_def[:outdoor_airflow_method] = element.attributes['outdoorAirflowMethod']
+      end
       if !element.elements['OAFlowPerPerson'].nil?
         ventilation_element = element.elements['OAFlowPerPerson']
         ventilation = ventilation_element.text.to_f

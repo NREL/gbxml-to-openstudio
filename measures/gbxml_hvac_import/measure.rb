@@ -71,36 +71,6 @@ class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
     model_manager.resolve_read_relationships
     model_manager.build
 
-    # test looking for building area
-    # gbxml_area = gbxml_doc.elements["/gbXML/Campus/Building/Area"]
-    # runner.registerInfo("the gbXML has an area of #{gbxml_area.text.to_f}.")
-
-    # std = Standard.build('90.1-2013')
-    #
-    # gbxml_doc.elements.each("gbXML/HydronicLoop[@loopType='CondenserWater']") do |element|
-    #   CondenserLoop.create_cw_loop_from_xml(model, std, element)
-    # end
-    #
-    # gbxml_doc.elements.each("gbXML/HydronicLoop[@loopType='PrimaryChilledWater']") do |element|
-    #   ChilledWaterLoop.create_chw_loop_from_xml(model, std, element)
-    # end
-    #
-    # gbxml_doc.elements.each("gbXML/HydronicLoop[@loopType='HotWater']") do |element|
-    #   HotWaterLoop.create_hw_loop_from_xml(model, std, element)
-    # end
-    #
-    # gbxml_doc.elements.each("gbXML/AirSystem") do |element|
-    #   AirSystem.create_air_system_from_xml(model, std, element)
-    # end
-    #
-    # gbxml_doc.elements.each("gbXML/ZoneHVACEquipment") do |element|
-    #   ZoneHVACEquipment.equipment_type_mapping(model, std, element)
-    # end
-    #
-    # gbxml_doc.elements.each("gbXML/Zone") do |element|
-    #   Zone.map_to_zone_hvac_equipment(model, element)
-    # end
-
     Helpers.clean_up_model(model)
 
     return true
