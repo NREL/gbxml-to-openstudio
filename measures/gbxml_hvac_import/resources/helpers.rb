@@ -40,6 +40,18 @@ class Helpers
     return false
   end
 
+  def self.get_minimum_design_day_temperature(model)
+    min_temp = 20
+
+    model.getDesignDays.each do |design_day|
+      max_temp = design_day.maximumDryBulbTemperature
+      puts max_temp
+      min_temp = max_temp if max_temp < min_temp
+    end
+
+    min_temp
+  end
+
   def self.clean_up_model(model)
     model.getAirTerminalSingleDuctVAVReheats.each do |vav_box|
       outlet_node = vav_box.outletModelObject.get.to_Node

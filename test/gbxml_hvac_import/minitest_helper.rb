@@ -223,8 +223,8 @@ def run_command(command)
   stdout_str, stderr_str, status = Open3.capture3(get_run_env(), command)
   if status.success?
     puts "Command completed successfully"
-    #puts "stdout: #{stdout_str}"
-    #puts "stderr: #{stderr_str}"
+    puts "stdout: #{stdout_str}"
+    puts "stderr: #{stderr_str}"
     return true
   else
     puts "Error running command: '#{command}'"

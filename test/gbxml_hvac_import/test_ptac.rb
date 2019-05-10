@@ -26,10 +26,9 @@ class TestPTAC < MiniTest::Test
   def test_build
     self.model_manager.build
     ptac_elec = self.model_manager.zone_hvac_equipments.values[0].ptac
-    ptac_furnace = self.model_manager.zone_hvac_equipments.values[1].ptac
-    ptac_hw = self.model_manager.zone_hvac_equipments.values[2].ptac
+    ptac_furnace = self.model_manager.zone_hvac_equipments.values[2].ptac
+    ptac_hw = self.model_manager.zone_hvac_equipments.values[1].ptac
 
-    # TODO: update this test after Autodesk fix the xml output
     assert(ptac_elec.coolingCoil.to_CoilCoolingDXSingleSpeed.is_initialized)
     assert(ptac_elec.heatingCoil.to_CoilHeatingElectric.is_initialized)
     assert(ptac_elec.supplyAirFan.to_FanOnOff.is_initialized)
@@ -39,8 +38,8 @@ class TestPTAC < MiniTest::Test
     assert(ptac_hw.heatingCoil.to_CoilHeatingWater.is_initialized)
 
     # only need to test one object for this mapping
-    assert(ptac_elec.name.get == 'PTAC Elec')
-    assert(ptac_elec.additionalProperties.getFeatureAsString('id').get == 'aim0933')
+    # assert(ptac_elec.name.get == 'PTAC Elec-1')
+    assert(ptac_elec.additionalProperties.getFeatureAsString('id').get == 'aim0939')
     assert(ptac_elec.additionalProperties.getFeatureAsString('CADObjectId').get == '280066-1')
   end
 

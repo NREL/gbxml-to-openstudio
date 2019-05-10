@@ -6,6 +6,7 @@ require 'rexml/xpath'
 # require all .rb files in resources folder
 # Dir[File.dirname(__FILE__) + '/resources/*/*.rb'].each { |file| require file }
 require_relative 'resources/hvac_object'
+require_relative 'resources/zone_hvac_equipment'
 require_relative 'resources/acb'
 require_relative 'resources/air_system'
 require_relative 'resources/baseboard_convective'
@@ -31,4 +32,3 @@ require_relative 'resources/vrf_condenser'
 require_relative 'resources/vrf_fan_coil_unit'
 require_relative 'resources/wshp'
 require_relative 'resources/zone'
-require_relative 'resources/zone_hvac_equipment'

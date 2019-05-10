@@ -68,8 +68,10 @@ class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
     # gbxml_doc = REXML::Document.new(xml_string)
     model_manager = ModelManager.new(model, path)
     model_manager.load_gbxml
+    model_manager.resolve_references
     model_manager.resolve_read_relationships
     model_manager.build
+    model_manager.post_build
 
     Helpers.clean_up_model(model)
 

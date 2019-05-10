@@ -9,6 +9,8 @@ class TestAirSystem < Minitest::Test
     self.model = translator.loadModel(self.gbxml_path).get
     self.model_manager = ModelManager.new(self.model, self.gbxml_path)
     self.model_manager.load_gbxml
+    self.model_manager.resolve_references
+    self.model_manager.resolve_read_relationships
   end
 
   def test_air_system_xml_creation
@@ -21,6 +23,47 @@ class TestAirSystem < Minitest::Test
     assert(equipment.name == name)
     assert(equipment.cad_object_id == cad_object_id)
     assert(equipment.id == id)
+  end
+
+  def test_is_doas
+    xml_string = <<EOF
+  <AirSystem preheatCoilType="ElectricResistance" heatingCoilType="ElectricResistance" coolingCoilType="ChilledWater" id="aim0554">
+    <Name>Air System</Name>
+    <CADObjectId>355815</CADObjectId>
+    <HeatExchanger heatExchangerType="Enthalpy"/>
+    <Fan FanType="ConstantVolume"/>
+    <HydronicLoopId hydronicLoopIdRef="aim0553" hydronicLoopType="PrimaryChilledWater" coilType="Cooling"/>
+    <AnalysisParameter parameterType="xs:boolean">
+       <Name>DOAS</Name>
+       <Description>Dedicated Outdoor Air System</Description>
+       <ParameterValue>True</ParameterValue>
+     </AnalysisParameter>
+  </AirSystem>
+EOF
+
+    xml = REXML::Document.new(xml_string)
+    air_system_xml = xml.elements['AirSystem']
+    air_system = AirSystem.create_from_xml(self.model_manager, air_system_xml)
+
+    assert(air_system.is_doas)
+  end
+
+  def test_is_not_doas
+    xml_string = <<EOF
+  <AirSystem preheatCoilType="ElectricResistance" heatingCoilType="ElectricResistance" coolingCoilType="ChilledWater" id="aim0554">
+    <Name>Air System</Name>
+    <CADObjectId>355815</CADObjectId>
+    <HeatExchanger heatExchangerType="Enthalpy"/>
+    <Fan FanType="ConstantVolume"/>
+    <HydronicLoopId hydronicLoopIdRef="aim0553" hydronicLoopType="PrimaryChilledWater" coilType="Cooling"/>
+  </AirSystem>
+EOF
+
+    xml = REXML::Document.new(xml_string)
+    air_system_xml = xml.elements['AirSystem']
+    air_system = AirSystem.create_from_xml(self.model_manager, air_system_xml)
+
+    assert(air_system.is_doas == false)
   end
 
   def test_air_system_build
@@ -100,7 +143,7 @@ class TestAirSystem < Minitest::Test
     osw.saveAs(osw_in_path)
   end
 
-  def test_simulation
+  def test_simulation_air_system
     create_osw
     # set osw_path to find location of osw to run
     osw_in_path = Config::TEST_OUTPUT_PATH + '/air_system/in.osw'
@@ -148,7 +191,6 @@ class TestAirSystem < Minitest::Test
     surface = OpenStudio::Model::Surface.new(points, model)
     surface.setSurfaceType('Floor')
     surface.setSpace(space)
-    puts space.floorArea
 
     schedule_ruleset = OpenStudio::Model::ScheduleRuleset.new(model)
     schedule_type_limits = OpenStudio::Model::ScheduleTypeLimits.new(model)
