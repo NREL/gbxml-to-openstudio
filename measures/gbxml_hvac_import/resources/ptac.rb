@@ -1,75 +1,13 @@
-class PTAC < HVACObject
-  attr_accessor :ptac, :supply_fan, :cooling_coil, :heating_coil, :heating_coil_type, :heating_loop_ref
+class PTAC < ZoneHVACEquipment
+  attr_accessor :ptac, :supply_fan, :cooling_coil, :heating_coil, :heating_coil_type, :heating_loop_ref, :heating_loop,
+                :heating_inlet_water_temp, :heating_outlet_water_temp
+
+  COOLING_DESIGN_TEMP = 12.777778
+  HEATING_DESIGN_TEMP = 40
 
   def initialize
+    super()
     self.name = "PTAC"
-  end
-
-  def connect_thermal_zone(thermal_zone)
-    self.ptac.addToThermalZone(thermal_zone)
-  end
-
-  def add_ptac
-    ptac = OpenStudio::Model::ZoneHVACPackagedTerminalAirConditioner.new(self.model, self.model.alwaysOnDiscreteSchedule, self.supply_fan, self.heating_coil, self.cooling_coil)
-    ptac.setName(self.name) unless self.name.nil?
-    ptac.additionalProperties.setFeature('id', self.id) unless self.id.nil?
-    ptac.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
-    ptac
-  end
-
-  def add_supply_fan
-    fan = OpenStudio::Model::FanOnOff.new(self.model)
-    fan.setName("#{self.name} + Fan")
-    fan.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.cad_object_id.nil?
-    fan
-  end
-
-  def add_heating_coil
-    heating_coil = nil
-
-    if self.heating_coil_type == "ElectricResistance"
-      heating_coil = OpenStudio::Model::CoilHeatingElectric.new(self.model)
-    elsif self.heating_coil_type == "Furnace"
-      heating_coil = OpenStudio::Model::CoilHeatingGas.new(self.model)
-    elsif self.heating_coil_type == "HotWater"
-      heating_coil = OpenStudio::Model::CoilHeatingWater.new(self.model)
-    end
-
-    if heating_coil
-      heating_coil.setName(self.name + " Heating Coil") unless self.name.nil?
-      heating_coil.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.cad_object_id.nil?
-      heating_coil.additionalProperties.setFeature('coil_type', 'primary_heating')
-    end
-
-    heating_coil
-  end
-
-  def add_cooling_coil
-    cooling_coil = OpenStudio::Model::CoilCoolingDXSingleSpeed.new(self.model)
-    cooling_coil.setName("#{self.name} + Cooling Coil")
-    cooling_coil.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.cad_object_id.nil?
-    cooling_coil.additionalProperties.setFeature('coil_type', 'primary_cooling')
-    cooling_coil
-  end
-
-  def resolve_dependencies
-    unless self.heating_loop_ref.nil?
-      heating_loop = self.model_manager.hw_loops[self.heating_loop_ref]
-      heating_loop.plant_loop.addDemandBranchForComponent(self.heating_coil)
-    end
-  end
-
-  def build
-    # Object dependency resolution needs to happen before the object is built
-    self.model = self.model_manager.model
-    self.heating_coil = add_heating_coil
-    self.supply_fan = add_supply_fan
-    self.cooling_coil = add_cooling_coil
-    self.ptac = add_ptac
-    resolve_dependencies
-
-    self.built = true
-    self.ptac
   end
 
   def self.create_from_xml(model_manager, xml)
@@ -89,7 +27,6 @@ class PTAC < HVACObject
         unless hydronic_loop_id.nil?
           hydronic_loop_id_ref = hydronic_loop_id.attributes['hydronicLoopIdRef']
           unless hydronic_loop_id_ref.nil?
-            equipment.heating_coil_type = 'HotWater'
             equipment.heating_loop_ref = hydronic_loop_id_ref
           end
         end
@@ -97,5 +34,91 @@ class PTAC < HVACObject
     end
 
     equipment
+  end
+
+  def design_htg_temp
+    HEATING_DESIGN_TEMP
+  end
+
+  def design_clg_temp
+    COOLING_DESIGN_TEMP
+  end
+
+  def resolve_references
+    if self.heating_loop_ref
+      hw_loop = self.model_manager.hw_loops[self.heating_loop_ref]
+      self.heating_loop = hw_loop if hw_loop
+    end
+  end
+
+  def resolve_read_relationships
+    self.zone.design_clg_temp = design_clg_temp
+    self.zone.design_htg_temp = design_htg_temp
+
+    if self.heating_loop
+      self.heating_inlet_water_temp = self.heating_loop.design_loop_exit_temp
+      self.heating_outlet_water_temp = self.heating_loop.design_loop_return_temp
+    end
+  end
+
+  def build
+    self.model = self.model_manager.model
+    self.heating_coil = add_heating_coil
+    self.supply_fan = add_supply_fan
+    self.cooling_coil = add_cooling_coil
+    self.ptac = add_ptac
+  end
+
+  def post_build
+    self.heating_loop.plant_loop.addDemandBranchForComponent(self.heating_coil) if self.heating_loop
+    self.ptac.addToThermalZone(self.zone.thermal_zone) if self.zone.thermal_zone
+  end
+
+  private
+
+  def add_ptac
+    ptac = OpenStudio::Model::ZoneHVACPackagedTerminalAirConditioner.new(self.model, self.model.alwaysOnDiscreteSchedule, self.supply_fan, self.heating_coil, self.cooling_coil)
+    ptac.setName(self.name) unless self.name.nil?
+    ptac.additionalProperties.setFeature('id', self.id) unless self.id.nil?
+    ptac.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
+    ptac
+  end
+
+  def add_supply_fan
+    fan = OpenStudio::Model::FanOnOff.new(self.model)
+    fan.setName("#{self.name} + Fan")
+    fan.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.cad_object_id.nil?
+    fan
+  end
+
+  def add_heating_coil
+    if self.heating_coil_type == "ElectricResistance"
+      heating_coil = OpenStudio::Model::CoilHeatingElectric.new(self.model)
+    elsif self.heating_coil_type == "Furnace"
+      heating_coil = OpenStudio::Model::CoilHeatingGas.new(self.model)
+    elsif self.heating_coil_type == "HotWater"
+      heating_coil = OpenStudio::Model::CoilHeatingWater.new(self.model)
+      heating_coil.setRatedInletWaterTemperature(self.heating_loop.design_loop_exit_temp)
+      heating_coil.setRatedOutletWaterTemperature(self.heating_loop.design_loop_return_temp)
+      # heating_coil.setRatedInletAirTemperature(self.heating_coil_rated_inlet_air_temperature)
+      heating_coil.setRatedOutletAirTemperature(self.design_htg_temp)
+    else
+      heating_coil = OpenStudio::Model::CoilHeatingElectric.new(self.model)
+      heating_coil.setNominalCapacity(0)
+    end
+
+    heating_coil.setName(self.name + " Heating Coil") unless self.name.nil?
+    heating_coil.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.cad_object_id.nil?
+    heating_coil.additionalProperties.setFeature('coil_type', 'primary_heating')
+
+    heating_coil
+  end
+
+  def add_cooling_coil
+    cooling_coil = OpenStudio::Model::CoilCoolingDXSingleSpeed.new(self.model)
+    cooling_coil.setName("#{self.name} + Cooling Coil")
+    cooling_coil.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.cad_object_id.nil?
+    cooling_coil.additionalProperties.setFeature('coil_type', 'primary_cooling')
+    cooling_coil
   end
 end

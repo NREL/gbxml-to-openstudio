@@ -4,10 +4,17 @@
       "../../../seeds",
       "../../resources/test_gbxmls"
    ],
-   "hash" : "C1755D9F",
+   "hash" : "5FCB5161",
    "measure_paths" : [ "../../../../measures" ],
    "run_directory" : "./run",
    "steps" : [
+      {
+         "arguments" : {
+            "weather_file_name" : "USA_CO_Denver.Intl.AP.725650_TMY3.epw"
+         },
+         "measure_dir_name" : "ChangeBuildingLocation",
+         "name" : "Change Building Location"
+      },
       {
          "arguments" : {
             "gbxml_file_name" : "PCBAllVariations.xml"
@@ -52,13 +59,6 @@
          "name" : "Set Simulation Control"
       },
       {
-         "arguments" : {
-            "weather_file_name" : "USA_CO_Denver.Intl.AP.725650_TMY3.epw"
-         },
-         "measure_dir_name" : "ChangeBuildingLocation",
-         "name" : "Change Building Location"
-      },
-      {
          "arguments" : {},
          "measure_dir_name" : "gbxml_to_openstudio_cleanup",
          "name" : "gbxml_to_openstudio_cleanup"
@@ -67,8 +67,13 @@
          "arguments" : {},
          "measure_dir_name" : "add_xml_output_control_style",
          "name" : "Add XML Output Control Style"
+      },
+      {
+         "arguments" : {},
+         "measure_dir_name" : "loads_output_report",
+         "name" : "Loads Output Report"
       }
    ],
-   "updated_at" : "20190409T183713Z",
+   "updated_at" : "20190510T202947Z",
    "weather_file" : "USA_CO_Denver.Intl.AP.725650_TMY3.epw"
 }

@@ -27,7 +27,6 @@ class ModelManager
   end
 
   def load_gbxml
-
     self.gbxml_parser.cw_loops.each do |cw_loop|
       condenser_loop = CondenserLoop.create_from_xml(self, cw_loop)
       self.cw_loops[condenser_loop.id] = condenser_loop
@@ -66,64 +65,39 @@ class ModelManager
     end
   end
 
+  def resolve_references
+    self.zones.values.map(&:resolve_references)
+    self.zone_hvac_equipments.values.map(&:resolve_references)
+    self.air_systems.values.map(&:resolve_references)
+    self.vrf_loops.values.map(&:resolve_references)
+    self.chw_loops.values.map(&:resolve_references)
+  end
+
   def resolve_read_relationships
-    self.cw_loops.values.each do |cw_loop|
-      cw_loop.resolve_read_relationships
-    end
-
-    self.hw_loops.values.each do |hw_loop|
-      hw_loop.resolve_read_relationships
-    end
-
-    self.chw_loops.values.each do |chw_loop|
-      chw_loop.resolve_read_relationships
-    end
-
-    self.vrf_loops.values.each do |chw_loop|
-      chw_loop.resolve_read_relationships
-    end
-
-    self.air_systems.values.each do |air_system|
-      air_system.resolve_read_relationships
-    end
-
-    self.zone_hvac_equipments.values.each do |zone_hvac_equipment|
-      zone_hvac_equipment.resolve_read_relationships
-    end
+    self.cw_loops.values.map(&:resolve_read_relationships)
+    self.hw_loops.values.map(&:resolve_read_relationships)
+    self.chw_loops.values.map(&:resolve_read_relationships)
+    self.vrf_loops.values.map(&:resolve_read_relationships)
+    self.air_systems.values.map(&:resolve_read_relationships)
+    self.zone_hvac_equipments.values.map(&:resolve_read_relationships)
   end
 
   def build
+    self.cw_loops.values.map(&:build)
+    self.hw_loops.values.map(&:build)
+    self.chw_loops.values.map(&:build)
+    self.vrf_loops.values.map(&:build)
+    self.air_systems.values.map(&:build)
+    self.zone_hvac_equipments.values.map(&:build)
+    self.zones.values.map(&:build)
+  end
 
-    self.cw_loops.values.each do |cw_loop|
-      cw_loop.build
-    end
-
-    self.hw_loops.values.each do |hw_loop|
-      hw_loop.build
-    end
-
-    self.chw_loops.values.each do |chw_loop|
-      chw_loop.build
-    end
-
-    self.vrf_loops.values.each do |chw_loop|
-      chw_loop.build
-    end
-
-    self.air_systems.values.each do |air_system|
-      air_system.build
-    end
-
-    self.zone_hvac_equipments.values.each do |zone_hvac_equipment|
-      zone_hvac_equipment.build
-    end
-
-    self.zones.values.each do |zone|
-      zone.build
-    end
-
-    self.air_systems.values.each do |air_system|
-      air_system.set_schedules
-    end
+  def post_build
+    # self.zones.values.map(&:post_build)
+    self.zone_hvac_equipments.values.map(&:post_build)
+    self.chw_loops.values.map(&:post_build)
+    self.vrf_loops.values.map(&:post_build)
+    self.air_systems.values.map(&:post_build)
+    # self.air_systems.values.map(&:set_schedules)
   end
 end

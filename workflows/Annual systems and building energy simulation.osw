@@ -12,6 +12,13 @@
   "run_directory": "./run",
   "steps": [
     {
+      "measure_dir_name": "ChangeBuildingLocation",
+      "name": "Change Building Location",
+      "arguments": {
+        "weather_file_name": "USA_CO_Denver.Intl.AP.725650_TMY3.epw"
+      }
+    },
+    {
       "measure_dir_name": "import_gbxml",
       "name": "ImportGbxml",
       "arguments": {

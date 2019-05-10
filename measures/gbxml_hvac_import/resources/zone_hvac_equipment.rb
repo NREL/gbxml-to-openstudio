@@ -1,4 +1,10 @@
-class ZoneHVACEquipment
+class ZoneHVACEquipment < HVACObject
+  attr_accessor :zone
+
+  def add_zone(zone)
+    self.zone = zone
+  end
+
   # This can be a factory based on the zoneHVACEquipmentType
   def self.equipment_type_mapping(model_manager, xml)
     equipment_type = xml.attributes['zoneHVACEquipmentType']

@@ -1,13 +1,53 @@
-class PTHP < HVACObject
+class PTHP < ZoneHVACEquipment
   attr_accessor :pthp, :supply_fan, :cooling_coil, :heating_coil, :supplemental_heating_coil
+  COOLING_DESIGN_TEMP = 12.777778
+  HEATING_DESIGN_TEMP = 40
 
   def initialize
+    super()
     self.name = "PTHP"
   end
 
-  def connect_thermal_zone(thermal_zone)
-    self.pthp.addToThermalZone(thermal_zone)
+  def self.create_from_xml(model_manager, xml)
+    equipment = new
+    equipment.model_manager = model_manager
+
+    name = xml.elements['Name']
+    equipment.set_name(xml.elements['Name'].text) unless name.nil?
+    equipment.set_id(xml.attributes['id']) unless xml.attributes['id'].nil?
+    equipment.set_cad_object_id(xml.elements['CADObjectId'].text) unless xml.elements['CADObjectId'].nil?
+
+    equipment
   end
+
+  def design_htg_temp
+    HEATING_DESIGN_TEMP
+  end
+
+  def design_clg_temp
+    COOLING_DESIGN_TEMP
+  end
+
+  def resolve_read_relationships
+    self.zone.design_clg_temp = design_clg_temp
+    self.zone.design_htg_temp = design_htg_temp
+  end
+
+  def build
+    self.model_manager = model_manager
+    self.model = model_manager.model
+    self.heating_coil = add_heating_coil
+    self.supply_fan = add_supply_fan
+    self.cooling_coil = add_cooling_coil
+    self.supplemental_heating_coil = add_supplemental_heating_coil
+    self.pthp = add_pthp
+  end
+
+  def post_build
+    self.pthp.addToThermalZone(self.zone.thermal_zone) if self.zone.thermal_zone
+  end
+
+  private
 
   def add_pthp
     pthp = OpenStudio::Model::ZoneHVACPackagedTerminalHeatPump.new(self.model, self.model.alwaysOnDiscreteSchedule, self.supply_fan, self.heating_coil, self.cooling_coil, self.supplemental_heating_coil)
@@ -46,36 +86,5 @@ class PTHP < HVACObject
     heating_coil.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.cad_object_id.nil?
     heating_coil.additionalProperties.setFeature('coil_type', 'supplemental_heating')
     heating_coil
-  end
-
-  def resolve_dependencies
-
-  end
-
-  def build
-    # Object dependency resolution needs to happen before the object is built
-    self.model_manager = model_manager
-    self.model = model_manager.model
-    self.heating_coil = add_heating_coil
-    self.supply_fan = add_supply_fan
-    self.cooling_coil = add_cooling_coil
-    self.supplemental_heating_coil = add_supplemental_heating_coil
-    self.pthp = add_pthp
-    resolve_dependencies
-
-    self.built = true
-    self.pthp
-  end
-
-  def self.create_from_xml(model_manager, xml)
-    equipment = new
-    equipment.model_manager = model_manager
-
-    name = xml.elements['Name']
-    equipment.set_name(xml.elements['Name'].text) unless name.nil?
-    equipment.set_id(xml.attributes['id']) unless xml.attributes['id'].nil?
-    equipment.set_cad_object_id(xml.elements['CADObjectId'].text) unless xml.elements['CADObjectId'].nil?
-
-    equipment
   end
 end

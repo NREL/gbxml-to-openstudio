@@ -9,6 +9,8 @@ class TestChilledWaterLoop < MiniTest::Test
     self.model = translator.loadModel(self.gbxml_path).get
     self.model_manager = ModelManager.new(self.model, self.gbxml_path)
     self.model_manager.load_gbxml
+    self.model_manager.resolve_references
+    self.model_manager.resolve_read_relationships
   end
 
   def test_xml_creation

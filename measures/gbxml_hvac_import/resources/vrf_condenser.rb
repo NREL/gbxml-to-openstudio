@@ -1,41 +1,8 @@
 class VRFCondenser < HVACObject
-  attr_accessor :condenser, :condenser_loop_ref
+  attr_accessor :condenser, :condenser_loop_ref, :condenser_loop
 
   def initialize
     self.name = "VRF Condenser"
-  end
-
-  def add_condenser
-    condenser = OpenStudio::Model::AirConditionerVariableRefrigerantFlow.new(model)
-    condenser.setName(self.name) unless self.name.nil?
-    condenser.additionalProperties.setFeature('id', self.id) unless self.id.nil?
-    condenser.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
-
-    condenser
-  end
-
-  def resolve_dependencies
-    if self.condenser_loop_ref
-      condenser_loop = self.model_manager.cw_loops[self.condenser_loop_ref]
-      condenser_loop.plant_loop.addDemandBranchForComponent(self.condenser)
-      # self.condenser.setCondenserType('WaterCooled')
-      # get object from ModelManager and build that object
-    end
-  end
-
-  def build
-    # Object dependency resolution needs to happen before the object is built
-    self.model_manager = model_manager
-    self.model = model_manager.model
-    self.condenser = add_condenser
-
-    resolve_dependencies
-
-    self.condenser.additionalProperties.setFeature('id', self.id) unless self.id.nil?
-    self.condenser.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
-
-    self.built = true
-    self.condenser
   end
 
   def self.create_from_xml(model_manager, xml)
@@ -53,5 +20,39 @@ class VRFCondenser < HVACObject
     end
 
     vrf_condenser
+  end
+
+  def resolve_references
+    if self.condenser_loop_ref
+      cw_loop = self.model_manager.cw_loops[self.condenser_loop_ref]
+      self.condenser_loop = cw_loop if cw_loop
+    end
+  end
+
+  def build
+    self.model_manager = model_manager
+    self.model = model_manager.model
+    self.condenser = add_condenser
+
+    self.condenser.additionalProperties.setFeature('id', self.id) unless self.id.nil?
+    self.condenser.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
+  end
+
+  def post_build
+    if self.condenser_loop
+      self.condenser.setString(56, 'WaterCooled')
+      self.condenser_loop.plant_loop.addDemandBranchForComponent(self.condenser) if self.condenser_loop
+    end
+  end
+
+  private
+
+  def add_condenser
+    condenser = OpenStudio::Model::AirConditionerVariableRefrigerantFlow.new(model)
+    condenser.setName(self.name) unless self.name.nil?
+    condenser.additionalProperties.setFeature('id', self.id) unless self.id.nil?
+    condenser.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
+
+    condenser
   end
 end
