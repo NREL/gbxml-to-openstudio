@@ -77,6 +77,7 @@ class UnitHeater < ZoneHVACEquipment
   def add_unit_heater
     unit_heater = OpenStudio::Model::ZoneHVACUnitHeater.new(self.model, self.model.alwaysOnDiscreteSchedule, self.supply_fan, self.heating_coil)
     unit_heater.setName(self.name) unless self.name.nil?
+    unit_heater.autosizeMaximumHotWaterFlowRate
     unit_heater.additionalProperties.setFeature('id', self.id) unless self.id.nil?
     unit_heater.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
     unit_heater
