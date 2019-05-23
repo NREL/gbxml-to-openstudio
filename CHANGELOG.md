@@ -4,6 +4,9 @@
 ### Added
  - Setpoint Manager at 4C on the preheat coil to temper the incoming outdoor air stream
  - Zone equipment respond to the draw ventilation parameter
+ - Support for material solar absorptance
+ - eplustbl.html now respond to the output units desired by the gbXML file
+ - Sensible heat ratio of people load is translated correctly
 ### Changed
  - Adjusted zone equipment load priority so that air terminals on a DOAS are lowest ensuring they only respond to ventilation.
  - Zone equipment that provide outdoor air directly now have a constant volume fan so ventilation is always met
