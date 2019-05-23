@@ -92,12 +92,14 @@ class ModelManager
     self.zones.values.map(&:build)
   end
 
+  def connect
+    self.zone_hvac_equipments.values.map(&:connect)
+  end
+
   def post_build
-    # self.zones.values.map(&:post_build)
     self.zone_hvac_equipments.values.map(&:post_build)
     self.chw_loops.values.map(&:post_build)
     self.vrf_loops.values.map(&:post_build)
     self.air_systems.values.map(&:post_build)
-    # self.air_systems.values.map(&:set_schedules)
   end
 end

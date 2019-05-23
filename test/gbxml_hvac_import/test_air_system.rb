@@ -136,15 +136,35 @@ EOF
     assert(fan.is_initialized)
   end
 
-  def create_osw
+  def create_sizing_osw
     osw = create_test_sizing_osw
     osw = adjust_gbxml_paths(osw, 'AirSystemAllVariations.xml')
     osw_in_path = Config::TEST_OUTPUT_PATH + '/air_system/in.osw'
     osw.saveAs(osw_in_path)
   end
 
-  def test_simulation_air_system
-    create_osw
+  def test_sizing_simulation
+    create_sizing_osw
+    # set osw_path to find location of osw to run
+    osw_in_path = Config::TEST_OUTPUT_PATH + '/air_system/in.osw'
+    cmd = "\"#{Config::CLI_PATH}\" run -w \"#{osw_in_path}\""
+    assert(run_command(cmd))
+
+    osw_out_path = Config::TEST_OUTPUT_PATH + '/air_system/out.osw'
+    osw_out = JSON.parse(File.read(osw_out_path))
+
+    assert(osw_out['completed_status'] == 'Success')
+  end
+
+  def create_annual_osw
+    osw = create_test_annual_osw
+    osw = adjust_gbxml_paths(osw, 'AirSystemAllVariations.xml')
+    osw_in_path = Config::TEST_OUTPUT_PATH + '/air_system/in.osw'
+    osw.saveAs(osw_in_path)
+  end
+
+  def test_annual_simulation
+    create_annual_osw
     # set osw_path to find location of osw to run
     osw_in_path = Config::TEST_OUTPUT_PATH + '/air_system/in.osw'
     cmd = "\"#{Config::CLI_PATH}\" run -w \"#{osw_in_path}\""

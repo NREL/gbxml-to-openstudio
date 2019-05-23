@@ -77,6 +77,33 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     gbxml_area = gbxml_doc.elements["/gbXML/Campus/Building/Area"]
     runner.registerInfo("the gbXML has an area of #{gbxml_area.text.to_f}.")
 
+    #
+    gbxml_doc.elements.each('gbXML/Construction') do |construction|
+      absorptance = construction.elements['Absorptance'].text unless construction.elements['Absorptance'].nil?
+
+      next unless absorptance
+      layer_id = construction.elements['LayerId'].attributes['layerIdRef'] if construction.elements['LayerId']
+
+      next unless layer_id
+      gbxml_doc.elements.each('gbXML/Layer') do |layer|
+        next unless layer.attributes['id'] == layer_id
+
+        material_id = layer.elements['MaterialId'].attributes['materialIdRef'] if layer.elements['MaterialId']
+
+        gbxml_doc.elements.each('gbXML/Material') do |material|
+          next unless material.attributes['id'] == material_id
+
+          name = material.elements['Name'].text unless material.elements['Name'].nil?
+          material = model.getMaterialByName(name)
+
+          if material.is_initialized
+            absorptance = OpenStudio::OptionalDouble.new(absorptance.to_f)
+            material.get.to_OpaqueMaterial.get.setSolarAbsorptance(absorptance)
+          end
+        end
+      end
+    end
+
     # create hash used for importing
     advanced_inputs = {}
     advanced_inputs[:spaces] = {}
@@ -269,7 +296,6 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         puts "Schedule #{element.attributes['id']} does not have a name"
       end
       # add schedules to hash with array of week schedules
-      # todo - get sample with multiple WeekScheduleId objects and support that in schedule generation
       sch_week = element.elements['YearSchedule/WeekScheduleId'].attributes['weekScheduleIdRef']
       advanced_inputs[:schedules][element.attributes['id']] = {'name' => name.text, 'sch_week' => sch_week}
     end

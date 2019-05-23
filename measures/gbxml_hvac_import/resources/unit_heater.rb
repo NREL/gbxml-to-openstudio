@@ -67,9 +67,13 @@ class UnitHeater < ZoneHVACEquipment
     self.unit_heater = add_unit_heater
   end
 
-  def post_build
+  def connect
     self.heating_loop.plant_loop.addDemandBranchForComponent(self.heating_coil) if self.heating_loop
     self.unit_heater.addToThermalZone(self.zone.thermal_zone) if self.zone.thermal_zone
+  end
+
+  def post_build
+    self.zone.thermal_zone.setHeatingPriority(self.unit_heater, 0)
   end
 
   private
@@ -77,6 +81,7 @@ class UnitHeater < ZoneHVACEquipment
   def add_unit_heater
     unit_heater = OpenStudio::Model::ZoneHVACUnitHeater.new(self.model, self.model.alwaysOnDiscreteSchedule, self.supply_fan, self.heating_coil)
     unit_heater.setName(self.name) unless self.name.nil?
+    unit_heater.autosizeMaximumHotWaterFlowRate
     unit_heater.additionalProperties.setFeature('id', self.id) unless self.id.nil?
     unit_heater.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
     unit_heater

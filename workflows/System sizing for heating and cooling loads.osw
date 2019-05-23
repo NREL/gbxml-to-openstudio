@@ -47,10 +47,10 @@
         "end_date": "12/31",
         "loads_convergence_tolerance": 0.1,
         "max_warmup_days": 25,
-        "min_warmup_days": 3,
+        "min_warmup_days": 6,
         "sim_for_run_period": false,
         "sim_for_sizing": true,
-        "solar_distribution": "MinimalShadowing",
+        "solar_distribution": "FullExterior",
         "start_date": "01/01",
         "temp_convergence_tolerance": 0.5,
         "timesteps_per_hour": 4,
@@ -67,11 +67,10 @@
     },
     {
       "measure_dir_name": "add_xml_output_control_style",
-      "name": "Add XML Output Control Style"
-    },
-    {
-      "measure_dir_name": "loads_output_report",
-      "name": "Loads Output Report"
+      "name": "Add XML Output Control Style",
+      "arguments": {
+        "gbxml_file_name": "analysis.xml"
+      }
     }
   ]
 }

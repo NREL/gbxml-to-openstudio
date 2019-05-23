@@ -70,11 +70,16 @@ class PCB < ZoneHVACEquipment
     self.pcb = add_pcb
   end
 
-  def post_build
+  def connect
     self.heating_loop.plant_loop.addDemandBranchForComponent(self.heating_coil) if self.heating_loop
     self.cooling_loop.plant_loop.addDemandBranchForComponent(self.cooling_coil) if self.cooling_loop
 
     self.pcb.addToThermalZone(self.zone.thermal_zone) if self.zone.thermal_zone
+  end
+
+  def post_build
+    self.zone.thermal_zone.setCoolingPriority(self.pcb, 0)
+    self.zone.thermal_zone.setHeatingPriority(self.pcb, 0)
   end
 
   private

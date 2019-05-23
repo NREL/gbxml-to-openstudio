@@ -101,7 +101,7 @@ class ChilledWaterLoop < HVACObject
     chiller.setOptimumPartLoadRatio(1.0)
     chiller.setMinimumUnloadingRatio(0.25)
     chiller.setLeavingChilledWaterLowerTemperatureLimit(2)
-    chiller.setChillerFlowMode('ConstantFlow')
+    chiller.setChillerFlowMode('LeavingSetpointModulated')
 
     chiller
   end
@@ -126,9 +126,9 @@ class ChilledWaterLoop < HVACObject
     temp_sch.setName("#{self.name} Temp Schedule")
     temp_sch.defaultDaySchedule.setName("#{self.name} Schedule Default")
     if self.is_low_temperature
-      temp_sch.defaultDaySchedule.addValue(OpenStudio::Time.new(0, 24, 0, 0), self.loop_design_delta_t)
+      temp_sch.defaultDaySchedule.addValue(OpenStudio::Time.new(0, 24, 0, 0), self.design_loop_exit_temp)
     else
-      temp_sch.defaultDaySchedule.addValue(OpenStudio::Time.new(0, 24, 0, 0), self.loop_design_delta_t)
+      temp_sch.defaultDaySchedule.addValue(OpenStudio::Time.new(0, 24, 0, 0), self.design_loop_exit_temp)
     end
     temp_sch.setName("#{self.name} Temp Schedule")
     spm = OpenStudio::Model::SetpointManagerScheduled.new(self.model, temp_sch)

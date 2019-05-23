@@ -25,6 +25,11 @@ class AddXMLOutputControlStyle < OpenStudio::Measure::EnergyPlusMeasure
   def arguments(workspace)
     args = OpenStudio::Measure::OSArgumentVector.new
 
+    gbxml_file_name = OpenStudio::Measure::OSArgument.makeStringArgument("gbxml_file_name", true)
+    gbxml_file_name.setDisplayName("gbXML filename")
+    gbxml_file_name.setDescription("Filename or full path to gbXML file.")
+    args << gbxml_file_name
+
     return args
   end
 
@@ -38,7 +43,29 @@ class AddXMLOutputControlStyle < OpenStudio::Measure::EnergyPlusMeasure
       return false
     end
 
+    # assign the user inputs to variables
+    gbxml_file_name = runner.getStringArgumentValue("gbxml_file_name", user_arguments)
+
+    # check the space_name for reasonableness
+    if gbxml_file_name.empty?
+      runner.registerError("Empty gbXML filename was entered.")
+      return false
+    end
+
+    # find the gbXML file
+    path = runner.workflow.findFile(gbxml_file_name)
+    if path.empty?
+      runner.registerError("Could not find gbXML filename '#{gbxml_file_name}'.")
+      return false
+    end
+    path = path.get
+    xml_string = File.read(path.to_s)
+    gbxml_doc = REXML::Document.new(xml_string)
+
+    use_si = gbxml_doc.elements['gbXML'].attributes['useSIUnitsForResults'] == "true" ? true : false
+
     workspace.getObjectsByType('OutputControl:Table:Style'.to_IddObjectType)[0].setString(0, 'All')
+    workspace.getObjectsByType('OutputControl:Table:Style'.to_IddObjectType)[0].setString(1, 'InchPound') unless use_si
     workspace.getObjectsByType('Output:Table:SummaryReports'.to_IddObjectType)[0].setString(0, 'AllSummaryAndSizingPeriod')
 
     return true
