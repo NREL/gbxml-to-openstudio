@@ -5,6 +5,8 @@ gbxmls/Cases/
 measures/*/output_models/
 measures/*/tests/output
 /node_modules/
+/OpenStudio CLI For Revit 2020-cache/
+/OpenStudio CLI For Revit 2020-SetupFiles/
 /OpenStudio CLI For Revit 2021-cache/
 /OpenStudio CLI For Revit 2021-SetupFiles/
 test/*/*.osm

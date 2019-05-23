@@ -9,9 +9,9 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPPRODUCTICON" Value="os.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="NREL"/>
-    <ROW Property="ProductCode" Value="1033:{374DD9A1-6044-4F60-AF4A-23CA9BCE8B9D} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{25F6564D-F3AA-446F-A4EF-1DB952D3A071} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
-    <ROW Property="ProductName" Value="OpenStudio CLI For Revit 2021"/>
+    <ROW Property="ProductName" Value="OpenStudio CLI For Revit 2020"/>
     <ROW Property="ProductVersion" Value="0.1.2" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{8151B9D3-9C8B-408A-8BDB-231665C21C13}"/>
@@ -70,7 +70,7 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
     <ROW Component="Annualsimulation.osw" ComponentId="{9411C263-F4E7-4CF6-83D5-DD0550161B7D}" Directory_="workflows_Dir" Attributes="0" KeyPath="Systemsizingforheatingandcoolingloads.osw" Type="0"/>
-    <ROW Component="CHANGELOG.md" ComponentId="{B5D6E344-29B3-4550-8B08-D2370E9BC5EA}" Directory_="APPDIR" Attributes="0" KeyPath="CHANGELOG.md" Type="0"/>
+    <ROW Component="CHANGELOG.md" ComponentId="{4D137B09-6331-4DF4-B362-13CE72AACF99}" Directory_="APPDIR" Attributes="0" KeyPath="CHANGELOG.md" Type="0"/>
     <ROW Component="EmptySeedModel.osm" ComponentId="{1662D1F9-82DA-4669-BA29-8098BCD828A0}" Directory_="tests_4_Dir" Attributes="0" KeyPath="EmptySeedModel.osm" Type="0"/>
     <ROW Component="EnableIdealAirLoadsForAllZones_Test.rb" ComponentId="{59140963-1F6A-47A6-8B6B-5150A0D49C4B}" Directory_="tests_8_Dir" Attributes="0" KeyPath="EnableIdealAirLoadsForAllZones_Test.rb" Type="0"/>
     <ROW Component="Energy.idd" ComponentId="{25001669-B7FA-4F8C-8666-06954701D5DE}" Directory_="EnergyPlus_Dir" Attributes="0" KeyPath="Energy.idd" Type="0"/>
