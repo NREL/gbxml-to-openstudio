@@ -329,6 +329,10 @@ module OsLib_AdvImport
 
         if space_data[:people_defs].has_key?('people_heat_gain_total')
           activity_btu_h = space_data[:people_defs]['people_heat_gain_total']
+          if space_data[:people_defs].has_key?('people_heat_gain_sensible')
+            sensible_btu_h = space_data[:people_defs]['people_heat_gain_sensible']
+            load_def.setSensibleHeatFraction(sensible_btu_h / activity_btu_h)
+          end
           activity_w = OpenStudio.convert(activity_btu_h, 'Btu/h', 'W').get
           # assign or create schedule
           if model.getScheduleRulesetByName("activity_#{activity_w}").is_initialized
