@@ -4,7 +4,7 @@
       "../../../seeds",
       "../../resources/test_gbxmls"
    ],
-   "hash" : "2C06D332",
+   "hash" : "7C3314DA",
    "measure_paths" : [ "../../../../measures" ],
    "run_directory" : "./run",
    "steps" : [
@@ -64,13 +64,11 @@
          "name" : "gbxml_to_openstudio_cleanup"
       },
       {
-         "arguments" : {
-            "gbxml_file_name" : "PTACAllVariations.xml"
-         },
+         "arguments" : {},
          "measure_dir_name" : "add_xml_output_control_style",
          "name" : "Add XML Output Control Style"
       }
    ],
-   "updated_at" : "20190523T043304Z",
+   "updated_at" : "20190523T181205Z",
    "weather_file" : "USA_CO_Denver.Intl.AP.725650_TMY3.epw"
 }

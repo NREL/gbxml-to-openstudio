@@ -50,12 +50,6 @@ def adjust_gbxml_paths(osw, gbxml_path)
     end
   end
 
-  osw.getMeasureSteps(OpenStudio::MeasureType.new("EnergyPlusMeasure")).each do |measure_step|
-    if "add_xml_output_control_style" == measure_step.measureDirName
-      measure_step.setArgument("gbxml_file_name", gbxml_path)
-    end
-  end
-
   osw
 end
 

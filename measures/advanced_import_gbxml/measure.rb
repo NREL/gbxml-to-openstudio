@@ -73,6 +73,9 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     xml_string = File.read(path.to_s)
     gbxml_doc = REXML::Document.new(xml_string)
 
+    units = gbxml_doc.elements['gbXML'].attributes['useSIUnitsForResults'] == "true" ? "SI" : "IP"
+    runner.setUnitsPreference(units)
+
     # test looking for building area
     gbxml_area = gbxml_doc.elements["/gbXML/Campus/Building/Area"]
     runner.registerInfo("the gbXML has an area of #{gbxml_area.text.to_f}.")

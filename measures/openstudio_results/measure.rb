@@ -123,6 +123,14 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
   def arguments
     args = OpenStudio::Measure::OSArgumentVector.new
 
+    # chs = OpenStudio::StringVector.new
+    # chs << "IP"
+    # chs << "SI"
+    # units = OpenStudio::Measure::OSArgument::makeChoiceArgument('units', chs, true)
+    # units.setDisplayName("Which Unit System do you want to use?")
+    # units.setDefaultValue("IP")
+    # args << units
+
     # populate arguments
     possible_sections.each do |method_name|
       # get display name
@@ -132,6 +140,14 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
       arg.setDefaultValue(true)
       args << arg
     end
+
+    # monthly_details (added this argument to avoid cluttering up output for use cases where monthly data isn't needed)
+    # todo - could extend outputs to list these outputs when argument is true
+    reg_monthly_details = OpenStudio::Measure::OSArgument.makeBoolArgument('reg_monthly_details', true)
+    reg_monthly_details.setDisplayName("Report monthly fuel and enduse breakdown to registerValue")
+    reg_monthly_details.setDescription("This argument does not effect HTML file, instead it makes data from individal cells of monthly tables avaiable for machine readable values in the resulting OpenStudio Workflow file.")
+    reg_monthly_details.setDefaultValue(false) # set to false so no impact on existing projects using the measure
+    args << reg_monthly_details
 
     args
   end
@@ -153,6 +169,25 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
     if runner.getBoolArgumentValue('zone_condition_section', user_arguments)
       result << OpenStudio::IdfObject.load('Output:Variable,,Zone Air Temperature,hourly;').get
       result << OpenStudio::IdfObject.load('Output:Variable,,Zone Air Relative Humidity,hourly;').get
+    end
+
+    # gather monthly consumption data for all possible additional fuels
+    category_strs = []
+    OpenStudio::EndUseCategoryType.getValues.each do |category_type|
+      category_str = OpenStudio::EndUseCategoryType.new(category_type).valueDescription
+      category_strs << category_str
+    end
+    additional_fuel_types = ["FuelOil#1", "FuelOil#2", "PropaneGas", "Coal", "Diesel", "Gasoline", "OtherFuel1", "OtherFuel2"]
+    additional_fuel_types.each do |additional_fuel_type|
+      monthly_array = ['Output:Table:Monthly']
+      monthly_array << 'Building Energy Performance - FuelOil#1'
+      monthly_array << '2'
+      category_strs.each do |category_string|
+        monthly_array << "#{category_string}:#{additional_fuel_type}"
+        monthly_array << 'SumOrAverage'
+      end
+      # add ; to end of string
+      result << OpenStudio::IdfObject.load("#{monthly_array.join(",").to_s};").get
     end
 
     result
@@ -199,8 +234,15 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
       return false
     end
 
+    units = runner.unitsPreference
+    if units == "IP"
+      is_ip_units = true
+    else
+      is_ip_units = false
+    end
+
     # reporting final condition
-    runner.registerInitialCondition('Gathering data from EnergyPlus SQL file and OSM model.')
+    runner.registerInitialCondition("Gathering data from EnergyPlus SQL file and OSM model. Will report in #{units} Units")
 
     # create a array of sections to loop through in erb file
     @sections = []
@@ -216,8 +258,17 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
       runner.registerError("Can't find Building Area to get tabular units. Measure can't run")
       return false
     end
-
-    if energy_plus_area_units.get.first.to_s == 'm2'
+    
+    begin
+      runner.registerValue('standards_gem_version', OpenstudioStandards::VERSION)
+    rescue
+    end
+    begin
+      runner.registerValue('workflow_gem_version', OpenStudio::Workflow::VERSION)
+    rescue
+    end
+    
+    # if energy_plus_area_units.get.first.to_s == 'm2'
 
       # generate data for requested sections
       sections_made = 0
@@ -225,12 +276,12 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
         begin
           next unless args[method_name]
           section = false
-          eval("section = OsLib_Reporting.#{method_name}(model,sql_file,runner,false)")
+          eval("section = OsLib_Reporting.#{method_name}(model,sql_file,runner,false,is_ip_units)")
           display_name = eval("OsLib_Reporting.#{method_name}(nil,nil,nil,true)[:title]")
           if section
             @sections << section
             sections_made += 1
-            # look for emtpy tables and warn if skipped because returned empty
+            # look for empty tables and warn if skipped because returned empty
             section[:tables].each do |table|
               if !table
                 runner.registerWarning("A table in #{display_name} section returned false and was skipped.")
@@ -263,16 +314,16 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
         end
       end
 
-    else
-      wrong_tabular_units_string = 'IP units were provided, SI units were expected. Leave EnergyPlus tabular results in SI units to run this report.'
-      runner.registerWarning(wrong_tabular_units_string)
-      section = {}
-      section[:title] = 'Tabular EnergyPlus results provided in wrong units.'
-      section[:tables] = []
-      section[:messages] = []
-      section[:messages] << wrong_tabular_units_string
-      @sections << section
-    end
+    # else
+    #   wrong_tabular_units_string = 'IP units were provided, SI units were expected. Leave EnergyPlus tabular results in SI units to run this report.'
+    #   runner.registerWarning(wrong_tabular_units_string)
+    #   section = {}
+    #   section[:title] = 'Tabular EnergyPlus results provided in wrong units.'
+    #   section[:tables] = []
+    #   section[:messages] = []
+    #   section[:messages] << wrong_tabular_units_string
+    #   @sections << section
+    # end
 
     # read in template
     html_in_path = "#{File.dirname(__FILE__)}/resources/report.html.erb"
@@ -304,31 +355,6 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
 
     # adding additional runner.registerValues needed for project scripts in 2.x PAT
     # note: these are not in begin rescue like individual sections. Won't fail gracefully if any SQL query's can't be found
-
-    # annual_peak_electric_demand
-    annual_peak_electric_demand_k_query = "SELECT Value FROM tabulardatawithstrings WHERE ReportName='DemandEndUseComponentsSummary' and ReportForString='Entire Facility' and TableName='End Uses' and RowName= 'Total End Uses' and ColumnName='Electricity' and Units='W'"
-    annual_peak_electric_demand_kw = OpenStudio.convert(sql_file.execAndReturnFirstDouble(annual_peak_electric_demand_k_query).get, 'W', 'kW').get
-    runner.registerValue('annual_peak_electric_demand', annual_peak_electric_demand_kw, 'kW')
-
-    # get base year for use in first_year_cap_cost
-    baseYrString_query = "SELECT Value FROM tabulardatawithstrings WHERE ReportName='Life-Cycle Cost Report' and ReportForString='Entire Facility' and TableName='Life-Cycle Cost Parameters' and RowName= 'Base Date' and ColumnName= 'Value'"
-    baseYrString = sql_file.execAndReturnFirstString(baseYrString_query).get
-    # get first_year_cap_cost
-    first_year_cap_cost_query = "SELECT Value FROM tabulardatawithstrings WHERE ReportName='Life-Cycle Cost Report' and ReportForString='Entire Facility' and TableName='Capital Cash Flow by Category (Without Escalation)' and RowName= '#{baseYrString}' and ColumnName= 'Total'"
-    first_year_cap_cost = sql_file.execAndReturnFirstDouble(first_year_cap_cost_query).get
-    runner.registerValue('first_year_capital_cost', first_year_cap_cost, '$')
-
-    # annual_utility_cost
-    annual_utility_cost = sql_file.annualTotalUtilityCost
-    if annual_utility_cost.is_initialized
-      runner.registerValue('annual_utility_cost', annual_utility_cost.get, '$')
-    else
-      runner.registerValue('annual_utility_cost', 0.0, '$')
-    end
-
-    # total_lifecycle_cost
-    total_lifecycle_cost_query = "SELECT Value FROM tabulardatawithstrings WHERE ReportName='Life-Cycle Cost Report' and ReportForString='Entire Facility' and TableName='Present Value by Year' and RowName= 'TOTAL' and ColumnName= 'Present Value of Costs'"
-    runner.registerValue('total_lifecycle_cost', sql_file.execAndReturnFirstDouble(total_lifecycle_cost_query).get, '$')
 
     # closing the sql file
     sql_file.close

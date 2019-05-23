@@ -67,10 +67,7 @@
     },
     {
       "measure_dir_name": "add_xml_output_control_style",
-      "name": "Add XML Output Control Style",
-      "arguments": {
-        "gbxml_file_name": "analysis.xml"
-      }
+      "name": "Add XML Output Control Style"
     }
   ]
 }
