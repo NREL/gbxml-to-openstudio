@@ -4,7 +4,7 @@
       "../../../seeds",
       "../../resources/test_gbxmls"
    ],
-   "hash" : "E329A678",
+   "hash" : "EC053C31",
    "measure_paths" : [ "../../../../measures" ],
    "run_directory" : "./run",
    "steps" : [
@@ -48,7 +48,7 @@
             "min_warmup_days" : 6,
             "sim_for_run_period" : false,
             "sim_for_sizing" : true,
-            "solar_distribution" : "MinimalShadowing",
+            "solar_distribution" : "FullExterior",
             "start_date" : "01/01",
             "temp_convergence_tolerance" : 0.5,
             "timesteps_per_hour" : 4
@@ -64,11 +64,13 @@
          "name" : "gbxml_to_openstudio_cleanup"
       },
       {
-         "arguments" : {},
+         "arguments" : {
+            "gbxml_file_name" : "PTACAllVariations.xml"
+         },
          "measure_dir_name" : "add_xml_output_control_style",
          "name" : "Add XML Output Control Style"
       }
    ],
-   "updated_at" : "20190523T015937Z",
+   "updated_at" : "20190523T034249Z",
    "weather_file" : "USA_CO_Denver.Intl.AP.725650_TMY3.epw"
 }
