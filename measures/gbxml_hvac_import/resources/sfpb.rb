@@ -83,9 +83,14 @@ class SFPB < ZoneHVACEquipment
     self.air_terminal = add_air_terminal
   end
 
-  def post_build
+  def connect
     self.heating_loop.plant_loop.addDemandBranchForComponent(self.heating_coil) if self.heating_loop
     self.air_system.air_loop_hvac.addBranchForZone(self.zone.thermal_zone, self.air_terminal.to_StraightComponent) if self.zone.thermal_zone
+  end
+
+  def post_build
+    self.zone.thermal_zone.setCoolingPriority(self.air_terminal, 0) unless self.air_system.is_doas
+    self.zone.thermal_zone.setHeatingPriority(self.air_terminal, 0) unless self.air_system.is_doas
   end
 
   private

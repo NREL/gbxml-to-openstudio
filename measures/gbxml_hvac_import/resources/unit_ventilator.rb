@@ -1,7 +1,7 @@
 class UnitVentilator < ZoneHVACEquipment
   attr_accessor :unit_ventilator, :supply_fan, :cooling_coil, :cooling_coil_type, :cooling_loop_ref, :cooling_loop,
                 :heating_coil, :heating_coil_type, :heating_loop_ref, :heating_loop, :heating_inlet_water_temp,
-                :heating_outlet_water_temp
+                :heating_outlet_water_temp, :draw_ventilation
 
   COOLING_DESIGN_TEMP = 12.777778
   HEATING_DESIGN_TEMP = 40
@@ -19,6 +19,7 @@ class UnitVentilator < ZoneHVACEquipment
     equipment.set_name(xml.elements['Name'].text) unless name.nil?
     equipment.set_id(xml.attributes['id']) unless xml.attributes['id'].nil?
     equipment.set_cad_object_id(xml.elements['CADObjectId'].text) unless xml.elements['CADObjectId'].nil?
+    equipment.draw_ventilation = xml.attributes['DrawVentilation'] == "True" ? true : false
 
     unless xml.attributes['heatingCoilType'].nil? or xml.attributes['heatingCoilType'] == "None"
       equipment.heating_coil_type = xml.attributes['heatingCoilType']
@@ -97,11 +98,16 @@ class UnitVentilator < ZoneHVACEquipment
     self.unit_ventilator.setCoolingCoil(self.cooling_coil) unless self.cooling_coil.nil?
   end
 
-  def post_build
+  def connect
     self.heating_loop.plant_loop.addDemandBranchForComponent(self.heating_coil) if self.heating_loop
     self.cooling_loop.plant_loop.addDemandBranchForComponent(self.cooling_coil) if self.cooling_loop
 
     self.unit_ventilator.addToThermalZone(self.zone.thermal_zone) if self.zone.thermal_zone
+  end
+
+  def post_build
+    self.zone.thermal_zone.setCoolingPriority(self.unit_ventilator, 0)
+    self.zone.thermal_zone.setHeatingPriority(self.unit_ventilator, 0)
   end
 
   private
@@ -111,11 +117,19 @@ class UnitVentilator < ZoneHVACEquipment
     unit_ventilator.setName(self.name) unless self.name.nil?
     unit_ventilator.additionalProperties.setFeature('id', self.id) unless self.id.nil?
     unit_ventilator.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
+    unit_ventilator.setMinimumOutdoorAirSchedule(self.model.alwaysOnDiscreteSchedule)
+    unit_ventilator.setOutdoorAirControlType('FixedAmount')
+    unit_ventilator.setMinimumOutdoorAirFlowRate(0) unless self.draw_ventilation
     unit_ventilator
   end
 
   def add_supply_fan
-    fan = OpenStudio::Model::FanConstantVolume.new(self.model)
+    if self.draw_ventilation
+      fan = OpenStudio::Model::FanConstantVolume.new(self.model)
+    else
+      fan = OpenStudio::Model::FanOnOff.new(self.model)
+    end
+
     fan.setName("#{self.name} + Fan")
     fan.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.cad_object_id.nil?
     fan

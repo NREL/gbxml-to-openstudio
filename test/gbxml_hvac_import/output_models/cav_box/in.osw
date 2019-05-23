@@ -4,7 +4,7 @@
       "../../../seeds",
       "../../resources/test_gbxmls"
    ],
-   "hash" : "3C476AEE",
+   "hash" : "10F93D7D",
    "measure_paths" : [ "../../../../measures" ],
    "run_directory" : "./run",
    "steps" : [
@@ -45,7 +45,7 @@
             "loads_convergence_tolerance" : 0.10000000000000001,
             "max_hvac_iterations" : 8,
             "max_warmup_days" : 25,
-            "min_warmup_days" : 3,
+            "min_warmup_days" : 6,
             "sim_for_run_period" : false,
             "sim_for_sizing" : true,
             "solar_distribution" : "MinimalShadowing",
@@ -67,13 +67,8 @@
          "arguments" : {},
          "measure_dir_name" : "add_xml_output_control_style",
          "name" : "Add XML Output Control Style"
-      },
-      {
-         "arguments" : {},
-         "measure_dir_name" : "loads_output_report",
-         "name" : "Loads Output Report"
       }
    ],
-   "updated_at" : "20190510T194530Z",
+   "updated_at" : "20190523T015812Z",
    "weather_file" : "USA_CO_Denver.Intl.AP.725650_TMY3.epw"
 }

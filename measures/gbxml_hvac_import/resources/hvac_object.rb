@@ -28,4 +28,8 @@ class HVACObject
     # resolve dependencies
     raise "Subclass must overwrite build"
   end
+
+  def connect
+
+  end
 end

@@ -67,9 +67,13 @@ class UnitHeater < ZoneHVACEquipment
     self.unit_heater = add_unit_heater
   end
 
-  def post_build
+  def connect
     self.heating_loop.plant_loop.addDemandBranchForComponent(self.heating_coil) if self.heating_loop
     self.unit_heater.addToThermalZone(self.zone.thermal_zone) if self.zone.thermal_zone
+  end
+
+  def post_build
+    self.zone.thermal_zone.setHeatingPriority(self.unit_heater, 0)
   end
 
   private

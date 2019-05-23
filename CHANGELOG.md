@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.1.2] - 2019-05-22
+### Added
+ - Setpoint Manager at 4C on the preheat coil to temper the incoming outdoor air stream
+ - Zone equipment respond to the draw ventilation parameter
+### Changed
+ - Adjusted zone equipment load priority so that air terminals on a DOAS are lowest ensuring they only respond to ventilation.
+ - Zone equipment that provide outdoor air directly now have a constant volume fan so ventilation is always met
+ - Made the chilled water a variable speed setup
+ - VAV boxes on a DOAS control for outdoor air to enable DCV
+ - Set the solar distribution algorithm to 'FullExterior' from 'Minimal Shadowing'
+### Fixed
+ - Resolved issue with chilled water supplying at the loop temperature delta rather than design
+### Removed
+ - Removed the loads_out.json report
+
 ## [0.1.1] - 2019-05-10
 ### Added
 - Added the ability for an Air System to operate as a DOAS

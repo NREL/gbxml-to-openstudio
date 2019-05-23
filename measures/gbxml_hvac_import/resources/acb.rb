@@ -90,11 +90,16 @@ class ACB < ZoneHVACEquipment
     self.acb.setCoolingCoil(self.cooling_coil) unless self.cooling_coil.nil?
   end
 
-  def post_build
+  def connect
     self.heating_loop.plant_loop.addDemandBranchForComponent(self.heating_coil) if self.heating_loop
     self.cooling_loop.plant_loop.addDemandBranchForComponent(self.cooling_coil) if self.cooling_loop
 
     self.air_system.air_loop_hvac.addBranchForZone(self.zone.thermal_zone, self.acb) if self.zone.thermal_zone
+  end
+
+  def post_build
+    self.zone.thermal_zone.setCoolingPriority(self.acb, 0) unless self.air_system.is_doas
+    self.zone.thermal_zone.setHeatingPriority(self.acb, 0) unless self.air_system.is_doas
   end
 
   private
