@@ -4,7 +4,7 @@
       "../../../seeds",
       "../../resources/test_gbxmls"
    ],
-   "hash" : "656C164C",
+   "hash" : "104703BF",
    "measure_paths" : [ "../../../../measures" ],
    "run_directory" : "./run",
    "steps" : [
@@ -48,7 +48,7 @@
             "min_warmup_days" : 6,
             "sim_for_run_period" : true,
             "sim_for_sizing" : true,
-            "solar_distribution" : "MinimalShadowing",
+            "solar_distribution" : "FullExterior",
             "start_date" : "01/01",
             "temp_convergence_tolerance" : 0.5,
             "timesteps_per_hour" : 4
@@ -64,11 +64,13 @@
          "name" : "gbxml_to_openstudio_cleanup"
       },
       {
-         "arguments" : {},
+         "arguments" : {
+            "gbxml_file_name" : "AirSystemAllVariations.xml"
+         },
          "measure_dir_name" : "add_xml_output_control_style",
          "name" : "Add XML Output Control Style"
       }
    ],
-   "updated_at" : "20190523T015724Z",
+   "updated_at" : "20190523T043443Z",
    "weather_file" : "USA_CO_Denver.Intl.AP.725650_TMY3.epw"
 }

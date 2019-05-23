@@ -4,7 +4,7 @@
       "../../../seeds",
       "../../resources/test_gbxmls"
    ],
-   "hash" : "24F8544E",
+   "hash" : "2C06D332",
    "measure_paths" : [ "../../../../measures" ],
    "run_directory" : "./run",
    "steps" : [
@@ -71,6 +71,6 @@
          "name" : "Add XML Output Control Style"
       }
    ],
-   "updated_at" : "20190523T035904Z",
+   "updated_at" : "20190523T043304Z",
    "weather_file" : "USA_CO_Denver.Intl.AP.725650_TMY3.epw"
 }
