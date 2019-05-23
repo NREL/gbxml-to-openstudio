@@ -1,6 +1,6 @@
 class FPFC < ZoneHVACEquipment
   attr_accessor :fpfc, :supply_fan, :cooling_coil, :cooling_loop_ref, :cooling_loop, :heating_coil, :heating_loop_ref,
-                :heating_loop, :heating_inlet_water_temp, :heating_outlet_water_temp
+                :heating_loop, :heating_inlet_water_temp, :heating_outlet_water_temp, :draw_ventilation
 
   COOLING_DESIGN_TEMP = 12.777778
   HEATING_DESIGN_TEMP = 40
@@ -18,6 +18,7 @@ class FPFC < ZoneHVACEquipment
     equipment.set_name(xml.elements['Name'].text) unless name.nil?
     equipment.set_id(xml.attributes['id']) unless xml.attributes['id'].nil?
     equipment.set_cad_object_id(xml.elements['CADObjectId'].text) unless xml.elements['CADObjectId'].nil?
+    equipment.draw_ventilation = xml.attributes['DrawVentilation'] == "True" ? true : false
 
     hydronic_loop_id = xml.elements['HydronicLoopId[@hydronicLoopType="HotWater"]']
     unless hydronic_loop_id.nil?
@@ -80,11 +81,16 @@ class FPFC < ZoneHVACEquipment
     self.fpfc = add_fpfc
   end
 
-  def post_build
+  def connect
     self.heating_loop.plant_loop.addDemandBranchForComponent(self.heating_coil) if self.heating_loop
     self.cooling_loop.plant_loop.addDemandBranchForComponent(self.cooling_coil) if self.cooling_loop
 
     self.fpfc.addToThermalZone(self.zone.thermal_zone) if self.zone.thermal_zone
+  end
+
+  def post_build
+    self.zone.thermal_zone.setCoolingPriority(self.fpfc, 0)
+    self.zone.thermal_zone.setHeatingPriority(self.fpfc, 0)
   end
 
   private
@@ -94,11 +100,18 @@ class FPFC < ZoneHVACEquipment
     fpfc.setName(self.name) unless self.name.nil?
     fpfc.additionalProperties.setFeature('id', self.id) unless self.id.nil?
     fpfc.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
+    fpfc.setMaximumOutdoorAirFlowRate(0) unless self.draw_ventilation
+
     fpfc
   end
 
   def add_supply_fan
-    fan = OpenStudio::Model::FanOnOff.new(self.model)
+    if self.draw_ventilation
+      fan = OpenStudio::Model::FanConstantVolume.new(self.model)
+    else
+      fan = OpenStudio::Model::FanOnOff.new(self.model)
+    end
+
     fan.setName("#{self.name} + Fan")
     fan.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.cad_object_id.nil?
     fan

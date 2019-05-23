@@ -2,9 +2,9 @@ class AirSystem < HVACObject
   attr_accessor :air_loop_hvac, :supply_fan, :heating_coil, :cooling_coil, :preheat_coil, :oa_system, :heat_exchanger,
                 :spm, :supply_fan_type, :heating_coil_type, :heating_loop_ref, :heating_loop, :cooling_coil_type,
                 :cooling_loop_ref, :cooling_loop, :preheat_coil_type, :preheat_loop_ref, :preheat_loop,
-                :heat_exchanger_type, :is_doas, :zone_hvac_equipment
+                :heat_exchanger_type, :is_doas, :zone_hvac_equipment, :preheat_spm
 
-  PREHEAT_DESIGN_TEMP = 7
+  PREHEAT_DESIGN_TEMP = 4
   COOLING_DESIGN_TEMP = 12.777778
   HEATING_DESIGN_TEMP = 12.777778
   DOAS_COOLING_DESIGN_TEMP = 12.777778
@@ -134,15 +134,6 @@ class AirSystem < HVACObject
     unless self.cooling_loop.nil?
       self.cooling_loop.is_low_temperature = true
     end
-
-    # if self.is_doas
-    #   self.zone_hvac_equipment.each do |equipment|
-    #     equipment.zone.account_for_doas = true
-    #     equipment.zone.doas_control_strategy = "ColdSupplyAir"
-    #     equipment.zone.doas_low_setpoint = design_clg_temp
-    #     equipment.zone.doas_high_setpoint = design_htg_temp
-    #   end
-    # end
   end
 
   def build
@@ -159,9 +150,12 @@ class AirSystem < HVACObject
     self.supply_fan.addToNode(air_loop_hvac.supplyInletNode) unless self.supply_fan.nil?
     self.heating_coil.addToNode(air_loop_hvac.supplyInletNode) unless self.heating_coil.nil?
     self.cooling_coil.addToNode(air_loop_hvac.supplyInletNode) unless self.cooling_coil.nil?
-    self.heat_exchanger.addToNode(self.oa_system.outboardOANode.get) unless self.heat_exchanger.nil?
-    self.preheat_coil.addToNode(self.oa_system.outboardOANode.get) unless self.preheat_coil.nil?
     self.oa_system.addToNode(air_loop_hvac.supplyInletNode)
+    unless preheat_coil.nil?
+      self.preheat_coil.addToNode(self.oa_system.outboardOANode.get)
+      self.preheat_spm.addToNode(self.oa_system.outdoorAirModelObject.get.to_Node.get)
+    end
+    self.heat_exchanger.addToNode(self.oa_system.outdoorAirModelObject.get.to_Node.get) unless self.heat_exchanger.nil?
     self.spm.addToNode(self.air_loop_hvac.supplyOutletNode)
 
     self.air_loop_hvac.additionalProperties.setFeature('id', self.id) unless self.id.nil?
@@ -181,7 +175,7 @@ class AirSystem < HVACObject
     air_loop_hvac = OpenStudio::Model::AirLoopHVAC.new(self.model)
     air_loop_hvac.setName(self.name) unless self.name.nil?
     air_loop_hvac.setAvailabilitySchedule(self.model.alwaysOnDiscreteSchedule)
-    air_loop_hvac.setNightCycleControlType("CycleOnAny")
+    air_loop_hvac.setNightCycleControlType("CycleOnAny") unless self.is_doas
     air_loop_hvac.additionalProperties.setFeature('id', self.id) unless self.id.nil?
     air_loop_hvac.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
 
@@ -203,7 +197,6 @@ class AirSystem < HVACObject
       air_loop_sizing.setZoneMaximumOutdoorAirFraction(1.0)
     else
       air_loop_sizing.setTypeofLoadtoSizeOn('Sensible')
-      # air_loop_sizing.autosizeDesignOutdoorAirFlowRate
       air_loop_sizing.setMinimumSystemAirFlowRatio(0.3)
       air_loop_sizing.setAllOutdoorAirinCooling(false)
       air_loop_sizing.setAllOutdoorAirinHeating(false)
@@ -296,6 +289,10 @@ class AirSystem < HVACObject
       preheat_coil.setName(self.name + " Preheat Coil") unless self.name.nil?
       preheat_coil.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.name.nil?
       preheat_coil.additionalProperties.setFeature('coil_type', 'preheat')
+
+      preheat_schedule = OpenStudio::Model::ScheduleConstant.new(model)
+      preheat_schedule.setValue(PREHEAT_DESIGN_TEMP)
+      self.preheat_spm = OpenStudio::Model::SetpointManagerScheduled.new(self.model, preheat_schedule)
     end
 
     preheat_coil
@@ -304,12 +301,15 @@ class AirSystem < HVACObject
   def add_oa_system
     oa_controller = OpenStudio::Model::ControllerOutdoorAir.new(self.model)
     oa_controller.setName(self.name + " Controller Outdoor Air") unless self.name.nil?
-    oa_controller.setMinimumFractionofOutdoorAirSchedule(self.model.alwaysOnDiscreteSchedule)
+    oa_controller.setMinimumFractionofOutdoorAirSchedule(self.model.alwaysOnDiscreteSchedule) if self.is_doas
     oa_controller.setMinimumLimitType('FixedMinimum')
     oa_controller.autosizeMinimumOutdoorAirFlowRate
+    oa_controller.setEconomizerControlType('DifferentialEnthalpy') unless self.is_doas
+
     controller_mech_vent = oa_controller.controllerMechanicalVentilation
     controller_mech_vent.setName(self.name + " Controller Mechanical Ventilation") unless self.name.nil?
     controller_mech_vent.setDemandControlledVentilation(true)
+
     oa_system = OpenStudio::Model::AirLoopHVACOutdoorAirSystem.new(self.model, oa_controller)
     oa_system.setName(self.name + " Outdoor Air System") unless self.name.nil?
     oa_system
@@ -354,7 +354,6 @@ class AirSystem < HVACObject
       temp_sch.defaultDaySchedule.setName("#{self.name} Air Supply Temperature Schedule Default")
       temp_sch.defaultDaySchedule.addValue(OpenStudio::Time.new(0, 24, 0, 0), DOAS_COOLING_DESIGN_TEMP)
       spm = OpenStudio::Model::SetpointManagerScheduled.new(self.model, temp_sch)
-      spm
     else
       spm = OpenStudio::Model::SetpointManagerWarmest.new(self.model)
       spm.setMaximumSetpointTemperature(18.33333)

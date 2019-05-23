@@ -1,4 +1,3 @@
-# insert copyright here
 require_relative 'gbxml_hvac_import'
 
 # start the measure
@@ -63,14 +62,12 @@ class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
     # report initial condition of model
     runner.registerInitialCondition("The building started with #{model.objects.size} model objects.")
 
-    # read in and parse xml using using rexml
-    # xml_string = File.read(path.to_s)
-    # gbxml_doc = REXML::Document.new(xml_string)
     model_manager = ModelManager.new(model, path)
     model_manager.load_gbxml
     model_manager.resolve_references
     model_manager.resolve_read_relationships
     model_manager.build
+    model_manager.connect
     model_manager.post_build
 
     Helpers.clean_up_model(model)

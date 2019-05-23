@@ -1,5 +1,6 @@
 class VRFFanCoilUnit < ZoneHVACEquipment
-  attr_accessor :fcu, :supply_fan, :cooling_coil, :heating_coil, :vrf_loop_ref, :vrf_loop
+  attr_accessor :fcu, :supply_fan, :cooling_coil, :heating_coil, :vrf_loop_ref, :vrf_loop, :draw_ventilation
+
   COOLING_DESIGN_TEMP = 12.777778
   HEATING_DESIGN_TEMP = 40
 
@@ -16,6 +17,7 @@ class VRFFanCoilUnit < ZoneHVACEquipment
     equipment.set_name(xml.elements['Name'].text) unless name.nil?
     equipment.set_id(xml.attributes['id']) unless xml.attributes['id'].nil?
     equipment.set_cad_object_id(xml.elements['CADObjectId'].text) unless xml.elements['CADObjectId'].nil?
+    equipment.draw_ventilation = xml.attributes['DrawVentilation'] == "True" ? true : false
 
     hydronic_loop_id = xml.elements['HydronicLoopId[@hydronicLoopType="VRFLoop"]']
     unless hydronic_loop_id.nil?
@@ -56,9 +58,14 @@ class VRFFanCoilUnit < ZoneHVACEquipment
     self.fcu = add_vrf_fcu
   end
 
-  def post_build
+  def connect
     self.vrf_loop.condenser.addTerminal(self.fcu) if self.vrf_loop
     self.fcu.addToThermalZone(self.zone.thermal_zone) if self.zone.thermal_zone
+  end
+
+  def post_build
+    self.zone.thermal_zone.setCoolingPriority(self.fcu, 0)
+    self.zone.thermal_zone.setHeatingPriority(self.fcu, 0)
   end
 
   private
@@ -68,11 +75,20 @@ class VRFFanCoilUnit < ZoneHVACEquipment
     fcu.setName(self.name) unless self.name.nil?
     fcu.additionalProperties.setFeature('id', self.id) unless self.id.nil?
     fcu.additionalProperties.setFeature('CADObjectId', self.cad_object_id) unless self.cad_object_id.nil?
+    fcu.setOutdoorAirFlowRateWhenNoCoolingorHeatingisNeeded(0) unless self.draw_ventilation
+    fcu.setOutdoorAirFlowRateDuringHeatingOperation(0) unless self.draw_ventilation
+    fcu.setOutdoorAirFlowRateDuringCoolingOperation(0) unless self.draw_ventilation
+
     fcu
   end
 
   def add_supply_fan
-    fan = OpenStudio::Model::FanOnOff.new(self.model)
+    if self.draw_ventilation
+      fan = OpenStudio::Model::FanConstantVolume.new(self.model)
+    else
+      fan = OpenStudio::Model::FanOnOff.new(self.model)
+    end
+
     fan.setName("#{self.name} + Fan")
     fan.additionalProperties.setFeature('system_cad_object_id', self.cad_object_id) unless self.cad_object_id.nil?
     fan

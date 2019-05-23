@@ -27,6 +27,22 @@ def create_test_sizing_osw
   workflow_json
 end
 
+def create_test_annual_osw
+  os_path = OpenStudio::Path.new(Config::ANNUAL_WORKFLOW)
+  workflow_json = OpenStudio::WorkflowJSON.load(os_path).get
+
+  workflow_json.resetFilePaths
+  workflow_json.resetMeasurePaths
+  workflow_json.resetSeedFile
+
+  workflow_json.addFilePath(OpenStudio::Path.new('../../resources/weather'))
+  workflow_json.addFilePath(OpenStudio::Path.new('../../../seeds'))
+  workflow_json.addFilePath(OpenStudio::Path.new('../../resources/test_gbxmls'))
+  workflow_json.addMeasurePath(OpenStudio::Path.new('../../../../measures'))
+  # puts workflow_json
+  workflow_json
+end
+
 def adjust_gbxml_paths(osw, gbxml_path)
   osw.getMeasureSteps(OpenStudio::MeasureType.new("ModelMeasure")).each do |measure_step|
     if ["import_gbxml", "advanced_import_gbxml", "gbxml_hvac_import"].include? measure_step.measureDirName
