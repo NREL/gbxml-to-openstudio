@@ -36,6 +36,7 @@ task :build_installer do
 
   FileUtils.rm_rf(staging_dir) if File.exists?(staging_dir)
   FileUtils.mkdir_p(staging_dir)
+  FileUtils.cp(File.join(root_dir, 'CHANGELOG.md'), File.join(staging_dir, 'CHANGELOG.md'))
   FileUtils.mkdir_p(File.join(staging_dir, 'bin'))
   FileUtils.cp(openstudio_cli, File.join(staging_dir, 'bin', 'openstudio.exe'))
   FileUtils.cp(File.join(os_install_dir, 'bin', 'libeay32.dll'), File.join(staging_dir, 'bin', 'libeay32.dll'))
