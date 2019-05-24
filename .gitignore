@@ -10,6 +10,7 @@ measures/*/tests/output
 /OpenStudio CLI For Revit 2021-cache/
 /OpenStudio CLI For Revit 2021-SetupFiles/
 test/*/*.osm
+test/gbxml_hvac_import/output_models/*/in.osw
 test/gbxml_hvac_import/output_models/*/out.osw
 test/gbxml_hvac_import/output_models/*/reports
 test/gbxml_hvac_import/output_models/*/run

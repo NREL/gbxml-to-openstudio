@@ -574,7 +574,7 @@ module OsLib_Reporting
 
     if is_ip_units
       db_units = 'kBtu'
-      target_units = 'kBtu'
+      target_units = 'kWh'
     else
       db_units = 'GJ'
       target_units = "kWh"
@@ -2496,7 +2496,7 @@ module OsLib_Reporting
       # get fuel type and units
       if fuel_type == 'Electricity'
         if is_ip_units
-          db_units = 'kBtu'
+          db_units = 'kWh'
           units = '"kWh"'
           unit_str = 'kWh'
         else
