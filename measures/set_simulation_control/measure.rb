@@ -40,6 +40,14 @@ class SetSimulationControl < OpenStudio::Measure::ModelMeasure
     end_date.setDisplayName("Run Period End Date")
     args << end_date
 
+    heating_sizing_factor = OpenStudio::Measure::OSArgument.makeDoubleArgument("heating_sizing_factor", false)
+    heating_sizing_factor.setDisplayName("Heating Sizing Factor")
+    args << heating_sizing_factor
+
+    cooling_sizing_factor = OpenStudio::Measure::OSArgument.makeDoubleArgument("cooling_sizing_factor", false)
+    cooling_sizing_factor.setDisplayName("Cooling Sizing Factor")
+    args << cooling_sizing_factor
+
     timesteps = OpenStudio::Measure::OSArgument.makeIntegerArgument("timesteps_per_hour", false)
     timesteps.setDisplayName("Timesteps Per Hour")
     args << timesteps
@@ -117,6 +125,12 @@ class SetSimulationControl < OpenStudio::Measure::ModelMeasure
 
     end_date = runner.getOptionalStringArgumentValue("end_date", user_arguments)
     model_set_end_date(model, end_date.get) unless end_date.empty?
+
+    heating_sizing_factor = runner.getOptionalDoubleArgumentValue("heating_sizing_factor", user_arguments)
+    model.getSizingParameters.setHeatingSizingFactor(heating_sizing_factor.get) if heating_sizing_factor.is_initialized
+
+    cooling_sizing_factor = runner.getOptionalDoubleArgumentValue("cooling_sizing_factor", user_arguments)
+    model.getSizingParameters.setCoolingSizingFactor(cooling_sizing_factor.get) if cooling_sizing_factor.is_initialized
 
     timesteps = runner.getOptionalIntegerArgumentValue("timesteps_per_hour", user_arguments)
     model.getTimestep.setNumberOfTimestepsPerHour(timesteps.get) unless timesteps.empty?

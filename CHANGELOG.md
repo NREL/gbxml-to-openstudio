@@ -1,6 +1,8 @@
 # Changelog
 
 ## [0.1.4] - 2019-05-29
+### Added
+ - Global sizing factors added to set_simulation_control measure with default at 1.0 for heating and cooling
 ### Changed
  - Changed the OSW names to "Annual Building Energy Simulation.osw" and "HVAC Systems Loads and Sizing.osw"
  - Updated sizing schedules to be all off for heating and all on for cooling

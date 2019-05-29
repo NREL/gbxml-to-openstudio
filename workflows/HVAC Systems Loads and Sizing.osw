@@ -41,10 +41,12 @@
     },
     {
       "arguments": {
+        "cooling_sizing_factor": 1.0,
         "do_plant_sizing": true,
         "do_system_sizing": true,
         "do_zone_sizing": true,
         "end_date": "12/31",
+        "heating_sizing_factor": 1.0,
         "loads_convergence_tolerance": 0.1,
         "max_warmup_days": 25,
         "min_warmup_days": 6,
