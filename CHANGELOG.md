@@ -6,6 +6,8 @@
  - Updated sizing schedules to be all off for heating and all on for cooling
 ### Fixed
  - IP units electricity consumption issue on the openstudio_results html report.
+### Removed
+ - Redundant code
  
 ## [0.1.2] - 2019-05-22
 ### Added
