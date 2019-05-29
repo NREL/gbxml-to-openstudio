@@ -20,7 +20,7 @@ class AdvancedImportGbxml_Test < Minitest::Test
     runner = OpenStudio::Measure::OSRunner.new(osw)
 
     # locate the gbxml
-    path = OpenStudio::Path.new(File.dirname(__FILE__) + '/gbXMLStandard Test Model 2016.xml')
+    path = OpenStudio::Path.new(File.dirname(__FILE__) + '/AirSystemAllVariations.xml')
 
     # use model from gbXML instead of empty model
     translator = OpenStudio::GbXML::GbXMLReverseTranslator.new

@@ -498,7 +498,9 @@ module OsLib_Schedules
   def self.createComplexSchedule(model, options = {})
     defaults = {
       'name' => nil,
-      'default_day' => ['always_on', [24.0, 1.0]]
+      'default_day' => ['always_on', [24.0, 1.0]],
+      'winter_design_day' => [[24.0, 0.0]],
+      'summer_design_day' => [[24.0, 1.0]]
     }
 
     # merge user inputs with defaults
