@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4] - 2019-05-29
+### Changed
+ - Changed the OSW names to "Annual Building Energy Simulation.osw" and "HVAC Systems Loads and Sizing.osw"
+ - Updated sizing schedules to be all off for heating and all on for cooling
+### Fixed
+ - IP units electricity consumption issue on the openstudio_results html report.
+ 
 ## [0.1.2] - 2019-05-22
 ### Added
  - Setpoint Manager at 4C on the preheat coil to temper the incoming outdoor air stream

@@ -338,13 +338,21 @@ module OsLib_AdvImport
           if model.getScheduleRulesetByName("activity_#{activity_w}").is_initialized
             sch_ruleset = model.getScheduleRulesetByName("activity_#{activity_w}").get
           else
-            options = {'name' => "activity_#{activity_w}", 'default_day' => ["activity_#{activity_w}_default", [24.0, activity_w]]}
+            options = {'name' => "activity_#{activity_w}",
+                       'default_day' => ["activity_#{activity_w}_default", [24.0, activity_w]],
+                       'winter_design_day' => [[24.0, 0.0]],
+                       'summer_design_day' => [[24.0, activity_w]]
+            }
             sch_ruleset = OsLib_Schedules.createComplexSchedule(model, options)
           end
         else
           # create default activity level if one doesn't exist
           default_activity = 120.0
-          options = {'name' => "activity_#{activity_w}", 'default_day' => ["activity_#{activity_w}_default", [24.0, default_activity]]}
+          options = {'name' => "activity_#{activity_w}",
+                     'default_day' => ["activity_#{activity_w}_default", [24.0, default_activity]],
+                     'winter_design_day' => [[24.0, 0.0]],
+                     'summer_design_day' => [[24.0, activity_w]]
+          }
           sch_ruleset = OsLib_Schedules.createComplexSchedule(model, options)
           runner.registerWarning("Did not find data for acitivty schedule, adding default of #{default_activity} W.")
         end
@@ -535,8 +543,8 @@ module OsLib_AdvImport
         ruleset_name = schedule_data['name']
       end
       date_range = '1/1-12/31' # todo - in future pull from gbxml
-      winter_design_day = nil
-      summer_design_day = nil
+      # winter_design_day = nil
+      # summer_design_day = nil
       default_day = nil
       rules = []
 
@@ -606,8 +614,8 @@ module OsLib_AdvImport
 
       # populate schedule using schedule_data to update default profile and add rules to complex schedule
       options = { 'name' => ruleset_name,
-                  'winter_design_day' => winter_design_day,
-                  'summer_design_day' => summer_design_day,
+                  # 'winter_design_day' => winter_design_day,
+                  # 'summer_design_day' => summer_design_day,
                   'default_day' => default_day,
                   'rules' => rules }
 
