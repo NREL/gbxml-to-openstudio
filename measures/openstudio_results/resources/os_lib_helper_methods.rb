@@ -130,7 +130,6 @@ module OsLib_HelperMethods
       handle = runner.getOptionalStringArgumentValue(variableName, user_arguments)
       if handle.empty?
         # do nothing, this is a valid option
-        puts 'hello'
         modelObject = nil
         apply_to_building = false
       else

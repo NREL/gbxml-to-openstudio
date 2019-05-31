@@ -46,9 +46,6 @@ class PeakLoadComponentTableRepository
     names_query = "SELECT DISTINCT UPPER(ReportForString) From TabularDataWithStrings WHERE TableName == 'Estimated #{conditioning} Peak Load Components'"
     names = @sql_file.execAndReturnVectorOfString(names_query).get
 
-    puts "checking name: " + name.upcase
-    puts names
-
     return unless names.include? name.upcase
 
     params = {}

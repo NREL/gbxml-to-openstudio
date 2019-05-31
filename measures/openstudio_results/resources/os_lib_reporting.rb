@@ -2713,7 +2713,7 @@ module OsLib_Reporting
             row_name = OpenStudio::MonthOfYear.new(month).valueDescription
             column_name = "#{category_str.upcase}:#{fuel_type.upcase}"
             query = "SELECT Value FROM tabulardatawithstrings WHERE ReportName='#{report_name}' and ReportForString='Meter' and RowName= '#{row_name}' and ColumnName LIKE '%#{column_name}%';"
-            puts query
+
             if !sqlFile.execAndReturnFirstDouble(query).empty?
               valInJ = sqlFile.execAndReturnFirstDouble(query).get
             end

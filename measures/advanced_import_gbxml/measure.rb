@@ -228,7 +228,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         infiltration_element = element.elements['InfiltrationFlowPerArea']
         infiltration = infiltration_element.text.to_f
         infiltration = OpenStudio.convert(infiltration, "L/s*m^2", "cfm/ft^2").get if infiltration_element.attributes['unit'] == "LPerSecPerSquareM"
-        infiltration_def[:infiltration_flow_per_exterior_surface_area] = infiltration
+        infiltration_def[:infiltration_flow_per_exterior_wall_area] = infiltration
       end
 
       advanced_inputs[:spaces][element.attributes['id']][:infiltration_def] = infiltration_def

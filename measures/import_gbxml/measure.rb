@@ -70,15 +70,15 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
     new_model.getSpaceTypes.each do |space_type|
       space_type.remove
     end
-    
-    # add fake space type at the building level
-    space_type = OpenStudio::Model::SpaceType.new(new_model)
-    space_type.setStandardsBuildingType('Office')
-    space_type.setStandardsSpaceType('WholeBuilding - Md Office')
-    
-    building = new_model.getBuilding
-    building.setSpaceType(space_type)
-    building.setStandardsBuildingType('Office')
+
+    # # add fake space type at the building level
+    # space_type = OpenStudio::Model::SpaceType.new(new_model)
+    # space_type.setStandardsBuildingType('Office')
+    # space_type.setStandardsSpaceType('WholeBuilding - Md Office')
+    #
+    # building = new_model.getBuilding
+    # building.setSpaceType(space_type)
+    # building.setStandardsBuildingType('Office')
 
     # pull original weather file object over
     weatherFile = new_model.getOptionalWeatherFile

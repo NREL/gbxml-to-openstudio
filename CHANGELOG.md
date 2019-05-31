@@ -6,6 +6,8 @@
 ### Changed
  - Changed the OSW names to "Annual Building Energy Simulation.osw" and "HVAC Systems Loads and Sizing.osw"
  - Updated sizing schedules to be all off for heating and all on for cooling
+ - Weather file measure now grabs the most stringent percentiles available and falls back to less stringent if unavailable
+ - Infiltration set on a per unit of exterior wall area rather than all exterior area
 ### Fixed
  - IP units electricity consumption issue on the openstudio_results html report.
 ### Removed
