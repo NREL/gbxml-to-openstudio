@@ -80,7 +80,23 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     gbxml_area = gbxml_doc.elements["/gbXML/Campus/Building/Area"]
     runner.registerInfo("the gbXML has an area of #{gbxml_area.text.to_f}.")
 
-    #
+    # set location parameters
+    # @type [OpenStudio::Model::Site] site
+    site = model.getSite
+    location_element = gbxml_doc.elements["/gbXML/Campus/Location"]
+    site.setLongitude(location_element.elements["Longitude"].text.to_f) unless location_element.elements["Longitude"].nil?
+    site.setLatitude(location_element.elements["Latitude"].text.to_f) unless location_element.elements["Latitude"].nil?
+    site.setName(location_element.elements["Name"].text) unless location_element.elements["Name"].nil?
+    site.setTimeZone(model.getWeatherFile.timeZone)
+
+    length_unit = gbxml_doc.elements['gbXML'].attributes['lengthUnit']
+    unless location_element.elements["Elevation"].nil?
+      elevation = location_element.elements["Elevation"].text.to_f
+      elevation = OpenStudio.convert(elevation, "ft", "m").get if length_unit == "Feet"
+      site.setElevation(elevation)
+    end
+
+    # Assign construction absorptance
     gbxml_doc.elements.each('gbXML/Construction') do |construction|
       absorptance = construction.elements['Absorptance'].text unless construction.elements['Absorptance'].nil?
 
