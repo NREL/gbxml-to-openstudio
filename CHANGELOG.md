@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.1.4] - 2019-05-29
+## [0.1.4] - 2019-05-31
 ### Added
  - Global sizing factors added to set_simulation_control measure with default at 1.0 for heating and cooling
 ### Changed
