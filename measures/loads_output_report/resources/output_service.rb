@@ -53,9 +53,6 @@ class OutputService
     cooling_engineering_check_table = self.engineering_check_table_repository.find_by_name_and_conditioning(name, 'Cooling')
     heating_engineering_check_table = self.engineering_check_table_repository.find_by_name_and_conditioning(name, 'Heating')
 
-    puts "In output service"
-    puts cooling_peak_load_component_table
-    puts heating_peak_load_component_table
     unless cooling_peak_load_component_table.nil? and heating_peak_load_component_table.nil? and cooling_peak_condition_table_repository.nil? and
         heating_peak_condition_table_repository.nil? and cooling_engineering_check_table.nil? and heating_engineering_check_table.nil?
 

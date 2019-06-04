@@ -1,53 +1,53 @@
 require_relative '../engineering_check_table'
 
 class EngineeringCheckTableRepository
-  attr_accessor :sql_file
+  attr_accessor :sql_file, :names
 
   BASE_QUERY = "SELECT Value FROM TabularDataWithStrings"
   PARAM_MAP = [
-      {:db_name => 'Outside Air (%)', :param_name => 'oa_percent', :param_type => 'double'},
-      {:db_name => 'Airflow per Floor Area', :param_name => 'airflow_per_floor_area', :param_type => 'double'},
-      {:db_name => 'Airflow per Total Capacity', :param_name => 'airflow_per_total_cap', :param_type => 'double'},
-      {:db_name => 'Floor Area per Total Capacity', :param_name => 'floor_area_per_total_cap', :param_type => 'double'},
-      {:db_name => 'Total Capacity per Floor Area', :param_name => 'total_cap_per_floor_area', :param_type => 'double'},
-      {:db_name => 'Number of People', :param_name => 'number_of_people', :param_type => 'double'}
+      {:db_index => 0, :param_name => :airflow_per_floor_area, :param_type => 'double'},
+      {:db_index => 1, :param_name => :airflow_per_total_cap, :param_type => 'double'},
+      {:db_index => 2, :param_name => :floor_area_per_total_cap, :param_type => 'double'},
+      {:db_index => 3, :param_name => :number_of_people, :param_type => 'double'},
+      {:db_index => 4, :param_name => :oa_percent, :param_type => 'double'},
+      {:db_index => 5, :param_name => :total_cap_per_floor_area, :param_type => 'double'}
   ]
   def initialize(sql_file)
     self.sql_file = sql_file
+
+    names_query = "SELECT DISTINCT UPPER(ReportForString) From TabularDataWithStrings WHERE TableName LIKE 'Engineering Checks for %'"
+    @names = @sql_file.execAndReturnVectorOfString(names_query).get
   end
 
   # @param name [String] the name of the object
   # @param conditioning [String] either "Cooling" or "Heating"
   def find_by_name_and_conditioning(name, conditioning)
-    names_query = "SELECT DISTINCT UPPER(ReportForString) From TabularDataWithStrings WHERE TableName == 'Engineering Checks for #{conditioning}'"
-    names = @sql_file.execAndReturnVectorOfString(names_query).get
 
-    if names.include? name.upcase
-      component_query = BASE_QUERY + " WHERE TableName = 'Engineering Checks for #{conditioning}' AND UPPER(ReportForString) = '#{name.upcase}'"
+    if @names.include? name.upcase
+      component_query = BASE_QUERY + " WHERE TableName = 'Engineering Checks for #{conditioning}' AND UPPER(ReportForString) = '#{name.upcase}'  ORDER BY RowName ASC"
       params = {}
 
+      result = @sql_file.execAndReturnVectorOfString(component_query)
+
+      return nil if result.nil?
+
+      result = result.get
+
       PARAM_MAP.each do |param|
-        query = component_query + " AND RowName == '#{param[:db_name]}'"
-        params[param[:param_name].to_sym] = get_optional_value(param[:param_type], query)
+        params[param[:param_name]] = cast_type(result[param[:db_index]], param[:param_type])
       end
 
       EngineeringCheckTable.new(params)
     end
   end
 
-  def get_optional_value(param_type, query)
-    if param_type == 'string'
-      result = self.sql_file.execAndReturnFirstString(query)
-    elsif param_type == 'double'
-      result = self.sql_file.execAndReturnFirstDouble(query)
+  private
+
+  def cast_type(value, type)
+    if type == "double"
+      value = value.to_f
     end
 
-    if result.is_initialized
-      result = result.get
-    else
-      result = nil
-    end
-
-    return result
+    value
   end
 end

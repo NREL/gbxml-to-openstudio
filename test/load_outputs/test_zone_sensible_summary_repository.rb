@@ -1,37 +1,35 @@
 require_relative 'minitest_helper'
 
-class TestPeakConditionTableRepository < MiniTest::Test
+class TestZoneSensibleSummaryRepository < MiniTest::Test
   attr_accessor :sql_file, :repository
 
   def before_setup
     path = OpenStudio::Path.new(Config::RESOURCES + '/peak_load_component_repository.sql')
     @sql_file = OpenStudio::SqlFile.new(path)
-    @repository = PeakConditionTableRepository.new(@sql_file)
+    @repository = ZoneSensibleSummaryRepository.new(@sql_file)
   end
 
   def test_find_valid_name_zone_cooling
     repo_result = @repository.find_by_name_and_conditioning('ZONE EQUIPMENT 1-1', 'Cooling')
 
     params = {
-        "time_of_peak_load": "7/21 17:00:00",
-        "oa_drybulb": 32.47,
-        "oa_wetbulb": 17.11,
-        "oa_hr": 0.00591,
-        "zone_drybulb": 23.33,
-        "zone_rh": 47.34,
-        "zone_hr": 0.00845,
-        "sat": 14.0,
-        "mat": 0.0,
-        "fan_flow": 1.21,
-        "oa_flow": 0.22,
-        "sensible_peak_sf": 13052.74,
-        "sf_diff": 1702.53,
-        "sensible_peak": 11350.21,
-        "estimate_instant_delayed_sensible": 11349.12,
-        "peak_estimate_diff": 1.09
+        "calculated_design_load":11350.21,
+        "user_design_load": 13052.74,
+        "user_design_load_per_area": 45.92,
+        "calculated_design_air_flow": 1.208,
+        "user_design_air_flow": 1.389,
+        "design_day_name": "DENVER INTL AP ANN CLG .4% CONDNS DB=>MWB",
+        "date_time_of_peak": "7/21 17:00:00",
+        "thermostat_setpoint_temperature_at_peak_load": 23.33,
+        "indoor_temperature_at_peak_load": 23.33,
+        "indoor_humidity_ratio_at_peak_load": 0.00845,
+        "outdoor_temperature_at_peak_load": 32.47,
+        "outdoor_humidity_ratio_at_peak_load": 0.00591,
+        "minimum_outdoor_air_flow_rate": 0.22,
+        "heat_gain_rate_from_doas": 0.0
     }
 
-    expected_result = PeakConditionTable.new(params)
+    expected_result = ZoneSensibleSummary.from_options(params)
 
     assert(repo_result == expected_result)
   end
@@ -48,7 +46,7 @@ class TestPeakConditionTableRepository < MiniTest::Test
     starting = Process.clock_gettime(Process::CLOCK_MONOTONIC)
 
     (0..100).each do |i| sql_file.execAndReturnVectorOfString("SELECT Value FROM TabularDataWithStrings WHERE
-TableName = 'Cooling Peak Conditions' AND UPPER(ReportForString) = 'ZONE EQUIPMENT 1-1'").get
+ReportName == 'HVACSizingSummary' AND TableName == 'Zone Sensible Cooling' AND UPPER(RowName) == 'ZONE EQUIPMENT 1-1'").get
     end
 
     ending = Process.clock_gettime(Process::CLOCK_MONOTONIC)

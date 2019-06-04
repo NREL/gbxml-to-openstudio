@@ -6,8 +6,8 @@ module Config
   CLI_PATH = OpenStudio.getOpenStudioCLI
   GBXML_FILES = File.join(BASE_PATH + '/resources/test_gbxmls')
   REVIT_MODELS = File.join(BASE_PATH + '/resources/revit_test_models')
-  ANNUAL_WORKFLOW = File.expand_path(BASE_PATH + '/../../workflows/Annual systems and building energy simulation.osw')
-  SIZING_WORKFLOW = File.expand_path(BASE_PATH + '/../../workflows/System sizing for heating and cooling loads.osw')
+  ANNUAL_WORKFLOW = File.expand_path(BASE_PATH + '/../../workflows/Annual Building Energy Simulation.osw')
+  SIZING_WORKFLOW = File.expand_path(BASE_PATH + '/../../workflows/HVAC Systems Loads and Sizing.osw')
   TEST_OUTPUT_PATH = File.join(BASE_PATH + '/output_models')
   TEST_RESOURCES = File.join(BASE_PATH + '/resources')
   WEATHER_FILE_PATH = 'USA_CO_Denver.Intl.AP.725650_TMY3.epw'
