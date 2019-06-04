@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.5] - 2019-06-04
+### Changed
+ - Removed the "OpenStudio Results" header from the annual simulation report
+ - "OpenStudio Results" changed to "Annual Simulation Report" in the html title.
+
 ## [0.1.4] - 2019-05-31
 ### Added
  - Global sizing factors added to set_simulation_control measure with default at 1.0 for heating and cooling
