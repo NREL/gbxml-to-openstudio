@@ -102,9 +102,9 @@ class CoilSizingDetailRepository
 
   def find_by_name(name)
 
-    if self.instances.key?(name)
-      return self.instances[name]
-    end
+    # if self.instances.key?(name)
+    #   return self.instances[name]
+    # end
 
     if @names.include? name.upcase
       coil_query = BASE_QUERY + " AND UPPER(RowName) == '#{name.upcase}' ORDER BY ColumnName ASC"

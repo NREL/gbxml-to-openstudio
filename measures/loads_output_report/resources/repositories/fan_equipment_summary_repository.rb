@@ -7,6 +7,7 @@ class FanEquipmentSummaryRepository
       {:db_index => 1, :param_name => :delta_pressure, :param_type => 'double'},
       {:db_index => 2, :param_name => :design_day_name_for_fan_sizing_peak, :param_type => 'string'},
       {:db_index => 3, :param_name => :end_use, :param_type => 'string'},
+      {:db_index => 4, :param_name => :fan_energy_index, :param_type => 'double'},
       {:db_index => 5, :param_name => :max_air_flow_rate, :param_type => 'double'},
       {:db_index => 6, :param_name => :motor_heat_in_air_fraction, :param_type => 'double'},
       {:db_index => 7, :param_name => :rated_electric_power, :param_type => 'double'},

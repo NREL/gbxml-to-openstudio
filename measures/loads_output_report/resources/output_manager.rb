@@ -68,7 +68,6 @@ class OutputManager < JSONable
   def add_system_checksum(system)
     cad_object_id = system.additionalProperties.getFeatureAsString('CADObjectId')
 
-    puts cad_object_id
     if cad_object_id.is_initialized
 
       if system.to_ZoneHVACComponent.is_initialized
@@ -92,7 +91,6 @@ class OutputManager < JSONable
 
       system_checksum = @output_service.get_system_checksum(name, cooling_coil_name, heating_coil_name)
 
-      puts system_checksum
       if system_checksum
         system_checksum.cad_object_id = cad_object_id
         @system_checksums << system_checksum

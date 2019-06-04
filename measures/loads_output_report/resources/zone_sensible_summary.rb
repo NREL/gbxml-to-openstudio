@@ -1,4 +1,4 @@
-class ZoneSensibleSummary
+class ZoneSensibleSummary < JSONable
   attr_accessor :calculated_design_load, :user_design_load, :user_design_load_per_area, :calculated_design_air_flow,
                 :user_design_air_flow, :design_day_name, :date_time_of_peak, :thermostat_setpoint_temperature_at_peak_load,
                 :indoor_temperature_at_peak_load, :indoor_humidity_ratio_at_peak_load, :outdoor_temperature_at_peak_load,

@@ -34,7 +34,7 @@ class EngineeringCheckTableRepository
       result = result.get
 
       PARAM_MAP.each do |param|
-        params[param[:param_name]] = cast_type(param[:param_type], result[param[:db_index]])
+        params[param[:param_name]] = cast_type(result[param[:db_index]], param[:param_type])
       end
 
       EngineeringCheckTable.new(params)
@@ -43,7 +43,7 @@ class EngineeringCheckTableRepository
 
   private
 
-  def cast_type(type, value)
+  def cast_type(value, type)
     if type == "double"
       value = value.to_f
     end

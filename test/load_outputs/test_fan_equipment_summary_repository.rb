@@ -14,8 +14,6 @@ class TestFanEquipmentSummaryRepository < MiniTest::Test
     repo_fan = @repository.find_by_name('AIR SYSTEM SUPPLY FAN')
 
     expected_fan = FanEquipmentSummary.from_options(FAN)
-    puts JSON.dump(repo_fan.to_hash)
-    puts JSON.dump(expected_fan.to_hash)
 
     assert(repo_fan == expected_fan)
   end

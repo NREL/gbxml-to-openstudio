@@ -5,22 +5,22 @@ class PeakConditionTableRepository
 
   BASE_QUERY = "SELECT Value FROM TabularDataWithStrings"
   PARAM_MAP = [
-      {:db_index => 0, :param_name => 'peak_estimate_diff', :param_type => 'double'},
-      {:db_index => 1, :param_name => 'sf_diff', :param_type => 'double'},
-      {:db_index => 2, :param_name => 'estimate_instant_delayed_sensible', :param_type => 'double'},
-      {:db_index => 3, :param_name => 'fan_flow', :param_type => 'double'},
-      {:db_index => 4, :param_name => 'mat', :param_type => 'double'},
-      {:db_index => 5, :param_name => 'oa_drybulb', :param_type => 'double'},
-      {:db_index => 6, :param_name => 'oa_wetbulb', :param_type => 'double'},
-      {:db_index => 7, :param_name => 'oa_flow', :param_type => 'double'},
-      {:db_index => 8, :param_name => 'oa_hr', :param_type => 'double'},
-      {:db_index => 9, :param_name => 'sensible_peak', :param_type => 'double'},
-      {:db_index => 10, :param_name => 'sensible_peak_sf', :param_type => 'double'},
-      {:db_index => 11, :param_name => 'sat', :param_type => 'double'},
-      {:db_index => 12, :param_name => 'time_of_peak_load', :param_type => 'string'},
-      {:db_index => 13, :param_name => 'zone_drybulb', :param_type => 'double'},
-      {:db_index => 14, :param_name => 'zone_hr', :param_type => 'double'},
-      {:db_index => 15, :param_name => 'zone_rh', :param_type => 'double'},
+      {:db_index => 0, :param_name => :peak_estimate_diff, :param_type => 'double'},
+      {:db_index => 1, :param_name => :sf_diff, :param_type => 'double'},
+      {:db_index => 2, :param_name => :estimate_instant_delayed_sensible, :param_type => 'double'},
+      {:db_index => 3, :param_name => :fan_flow, :param_type => 'double'},
+      {:db_index => 4, :param_name => :mat, :param_type => 'double'},
+      {:db_index => 5, :param_name => :oa_drybulb, :param_type => 'double'},
+      {:db_index => 6, :param_name => :oa_wetbulb, :param_type => 'double'},
+      {:db_index => 7, :param_name => :oa_flow, :param_type => 'double'},
+      {:db_index => 8, :param_name => :oa_hr, :param_type => 'double'},
+      {:db_index => 9, :param_name => :sensible_peak, :param_type => 'double'},
+      {:db_index => 10, :param_name => :sensible_peak_sf, :param_type => 'double'},
+      {:db_index => 11, :param_name => :sat, :param_type => 'double'},
+      {:db_index => 12, :param_name => :time_of_peak_load, :param_type => 'string'},
+      {:db_index => 13, :param_name => :zone_drybulb, :param_type => 'double'},
+      {:db_index => 14, :param_name => :zone_hr, :param_type => 'double'},
+      {:db_index => 15, :param_name => :zone_rh, :param_type => 'double'},
   ]
 
   def initialize(sql_file)
@@ -35,7 +35,8 @@ class PeakConditionTableRepository
   def find_by_name_and_conditioning(name, conditioning)
 
     if names.include? name.upcase
-      component_query = BASE_QUERY + " WHERE TableName = '#{conditioning} Peak Conditions' AND UPPER(ReportForString) = '#{name.upcase}'"
+      component_query = BASE_QUERY + " WHERE TableName = '#{conditioning} Peak Conditions' AND
+UPPER(ReportForString) = '#{name.upcase}' ORDER BY RowName ASC"
       params = {}
 
       result = @sql_file.execAndReturnVectorOfString(component_query)
