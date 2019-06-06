@@ -338,8 +338,15 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
     end
 
     # configure template with variable values
+    resources_path = File.join(runner.workflow.findMeasure('openstudio_results').get.to_s, 'resources/')
     renderer = ERB.new(html_in)
     html_out = renderer.result(binding)
+
+    eplustbl_html_path = File.join(runner.workflow.absoluteRunDir.to_s, "eplustbl.htm")
+
+    html_to_insert = File.read(eplustbl_html_path).match(/<body>(.*)<\/body>/m)[1]
+    html_to_insert = html_to_insert.gsub(/<table/, "<table class=\"table table-striped table-bordered table-condensed\"")
+    html_out = html_out.gsub(/<\/body>/, "<div class=\"col-md-9\" role=\"main\"><h2>Detailed Report</h2><br>#{html_to_insert}</div>\\0")
 
     # write html file
     html_out_path = './report.html'

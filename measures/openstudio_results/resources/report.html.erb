@@ -42,12 +42,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Annual Simulation Report</title>
-  <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<%= File.join(resources_path, "bootstrap.min.css") %>" rel="stylesheet">
 
-  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-  <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.8/d3.min.js"></script>
-  <script type="text/javascript" src="http://dimplejs.org/dist/dimple.v2.1.2.min.js"></script>
+  <script type="text/javascript" src="<%= File.join(resources_path, "jquery.min.js") %>"></script>
+  <script type="text/javascript" src="<%= File.join(resources_path, "bootstrap.min.js") %>"></script>
+  <script type="text/javascript" src="<%= File.join(resources_path, "d3.min.js") %>"></script>
+  <script type="text/javascript" src="<%= File.join(resources_path, "dimple.v2.1.2.min.js") %>"></script>
   <style>
       body {
           position: relative;
@@ -56,6 +56,14 @@
 
       div.col-md-3 {
           padding-left: 0;
+      }
+
+      th {
+        text-align: right;
+      }
+
+      table {
+        text-align: right;
       }
 
       #tocItems {
@@ -141,16 +149,6 @@
 <body data-spy="scroll" data-target="#tocItems">
 <div id="content" class="container-fluid">
   <div class="row">
-    <div class="col-md-3">
-      <div id="tocItems" class="bs-docs-sidebar hidden-print well affix" role="complementary">
-        <ul class="nav nav-pills nav-stacked" role="navigation">
-          <% @sections.each do |section| %>
-              <% next if not section %>
-              <li><a href="#<%= section[:title].gsub(' ', '_').gsub('/', '_') %>"><%= section[:title] %></a></li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
     <div class="col-md-9" role="main">
       <% chart_index = table_index = 0 %>
       <% @sections.each do |section| %>
