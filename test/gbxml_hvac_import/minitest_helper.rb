@@ -12,7 +12,7 @@ require_relative 'config'
 # DLM: requiring this file doesn't seem correct right here
 
 def create_test_sizing_osw
-  os_path = OpenStudio::Path.new(Config::ANNUAL_WORKFLOW)
+  os_path = OpenStudio::Path.new(Config::SIZING_WORKFLOW)
   workflow_json = OpenStudio::WorkflowJSON.load(os_path).get
 
   workflow_json.resetFilePaths
