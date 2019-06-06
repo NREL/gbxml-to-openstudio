@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6] - 2019-06-07
+### Added
+ - Merged OpenStudio Results and eplustbl.htm report
+ 
+### Changed
+ - Both sizing and annual reports write to openstudio_results_report.html
+
 ## [0.1.5] - 2019-06-04
 ### Changed
  - Removed the "OpenStudio Results" header from the annual simulation report
