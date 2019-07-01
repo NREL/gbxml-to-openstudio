@@ -25,7 +25,7 @@ task :build_installer do
 
   root_dir = File.join(File.dirname(__FILE__))
   staging_dir = File.join(root_dir, 'installer_staging')
-  os_install_dir = 'C:\openstudio-2.8.0'
+  os_install_dir = 'C:\openstudio-2.8.1'
   openstudio_cli = File.join(os_install_dir, 'bin', 'openstudio.exe')
   energyplus_dir = File.join(os_install_dir, 'EnergyPlus')
 
