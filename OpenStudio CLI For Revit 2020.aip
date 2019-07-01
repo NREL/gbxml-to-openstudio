@@ -9,10 +9,10 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPPRODUCTICON" Value="os.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="NREL"/>
-    <ROW Property="ProductCode" Value="1033:{59F832DB-D4F9-49FD-862A-525C90DC7560} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{062EB22C-D6F4-4782-9F94-ADAEE9645920} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="OpenStudio CLI For Revit 2020"/>
-    <ROW Property="ProductVersion" Value="0.1.5" Type="32"/>
+    <ROW Property="ProductVersion" Value="0.1.6" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{8151B9D3-9C8B-408A-8BDB-231665C21C13}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -148,7 +148,7 @@
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="AirSystemAllVariations.xml" Component_="advanced_import_gbxml_test.rb" FileName="AIRSYS~1.XML|AirSystemAllVariations.xml" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\tests\AirSystemAllVariations.xml" SelfReg="false"/>
+    <ROW File="AirSystemAllVariations.xml" Component_="advanced_import_gbxml_test.rb" FileName="AIRSYS~1.XML|AirSystemAllVariations.xml" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\tests\AirSystemAllVariations.xml" SelfReg="false" NextFile="dimple.v2.1.2.min.js"/>
     <ROW File="AnalyticalSystems01.xml" Component_="advanced_import_gbxml_test.rb" FileName="ANALYT~1.XML|Analytical Systems 01.xml" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\tests\Analytical Systems 01.xml" SelfReg="false" NextFile="gbXMLStandardTestModel2016.xml_1"/>
     <ROW File="AnnualBuildingEnergySimulation.osw" Component_="HVACSystemsLoadsandSizing.osw" FileName="ANNUAL~1.OSW|Annual Building Energy Simulation.osw" Attributes="0" SourcePath="installer_staging\workflows\Annual Building Energy Simulation.osw" SelfReg="false" NextFile="AirSystemAllVariations.xml"/>
     <ROW File="CHANGELOG.md" Component_="CHANGELOG.md" FileName="CHANGE~1.MD|CHANGELOG.md" Attributes="0" SourcePath="installer_staging\CHANGELOG.md" SelfReg="false" NextFile="HVACSystemsLoadsandSizing.osw"/>
@@ -367,6 +367,8 @@
     <ROW File="apimswincrtutilityl110.dll" Component_="apimswincrtutilityl110.dll" FileName="API-M~40.DLL|api-ms-win-crt-utility-l1-1-0.dll" Attributes="0" SourcePath="installer_staging\EnergyPlus\api-ms-win-crt-utility-l1-1-0.dll" SelfReg="false" NextFile="Energy.idd"/>
     <ROW File="baseboard_convective.rb" Component_="chilled_water_loop.rb" FileName="BASEBO~1.RB|baseboard_convective.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\baseboard_convective.rb" SelfReg="false" NextFile="baseboard_radiant.rb"/>
     <ROW File="baseboard_radiant.rb" Component_="chilled_water_loop.rb" FileName="BASEBO~2.RB|baseboard_radiant.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\baseboard_radiant.rb" SelfReg="false" NextFile="cav_box.rb"/>
+    <ROW File="bootstrap.min.css" Component_="os_lib_helper_methods.rb" FileName="BOOTST~1.CSS|bootstrap.min.css" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\resources\bootstrap.min.css" SelfReg="false" NextFile="bootstrap.min.js"/>
+    <ROW File="bootstrap.min.js" Component_="os_lib_helper_methods.rb" FileName="BOOTST~1.JS|bootstrap.min.js" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\resources\bootstrap.min.js" SelfReg="false" NextFile="d3.min.js"/>
     <ROW File="cav_box.rb" Component_="chilled_water_loop.rb" FileName="cav_box.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\cav_box.rb" SelfReg="false" NextFile="loads_output_report.rb"/>
     <ROW File="change_building_location_test.rb" Component_="another_weather_file.ddy" FileName="CHANGE~1.RB|change_building_location_test.rb" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\change_building_location_test.rb" SelfReg="false" NextFile="multiyear.ddy"/>
     <ROW File="chilled_water_loop.rb" Component_="chilled_water_loop.rb" FileName="CHILLE~1.RB|chilled_water_loop.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\chilled_water_loop.rb" SelfReg="false" NextFile="condenser_loop.rb"/>
@@ -375,9 +377,11 @@
     <ROW File="component_load_summary.rb" Component_="coil_sizing_detail.rb" FileName="COMPON~1.RB|component_load_summary.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\component_load_summary.rb" SelfReg="false" NextFile="design_psychrometric.rb"/>
     <ROW File="condenser_loop.rb" Component_="chilled_water_loop.rb" FileName="CONDEN~1.RB|condenser_loop.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\condenser_loop.rb" SelfReg="false" NextFile="fpfc.rb"/>
     <ROW File="cooling_coil_component_summary.rb" Component_="coil_sizing_detail.rb" FileName="COOLIN~1.RB|cooling_coil_component_summary.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\cooling_coil_component_summary.rb" SelfReg="false" NextFile="fan_component_summary.rb"/>
+    <ROW File="d3.min.js" Component_="os_lib_helper_methods.rb" FileName="D3MIN~1.JS|d3.min.js" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\resources\d3.min.js" SelfReg="false"/>
     <ROW File="ddy" Component_="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" FileName="듥듦.ddy" Attributes="0" SourcePath="installer_staging\weather\듥듦.ddy" SelfReg="false" NextFile="epw"/>
     <ROW File="denver_seed_empty.osm" Component_="denver_seed_empty.osm" FileName="DENVER~1.OSM|denver_seed_empty.osm" Attributes="0" SourcePath="installer_staging\seeds\denver_seed_empty.osm" SelfReg="false" NextFile="seed_empty.osm"/>
     <ROW File="design_psychrometric.rb" Component_="coil_sizing_detail.rb" FileName="DESIGN~1.RB|design_psychrometric.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\design_psychrometric.rb" SelfReg="false" NextFile="engineering_check_table.rb"/>
+    <ROW File="dimple.v2.1.2.min.js" Component_="os_lib_helper_methods.rb" FileName="DIMPLE~1.JS|dimple.v2.1.2.min.js" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\resources\dimple.v2.1.2.min.js" SelfReg="false" NextFile="jquery.min.js"/>
     <ROW File="energyplus.exe" Component_="energyplus.exe" FileName="ENERGY~1.EXE|energyplus.exe" Attributes="0" SourcePath="installer_staging\EnergyPlus\energyplus.exe" SelfReg="false" NextFile="energyplusapi.dll" DigSign="true"/>
     <ROW File="energyplusapi.dll" Component_="energyplusapi.dll" FileName="ENERGY~1.DLL|energyplusapi.dll" Attributes="0" SourcePath="installer_staging\EnergyPlus\energyplusapi.dll" SelfReg="false" NextFile="ExpandObjects.exe"/>
     <ROW File="engineering_check_table.rb" Component_="coil_sizing_detail.rb" FileName="ENGINE~1.RB|engineering_check_table.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\engineering_check_table.rb" SelfReg="false" NextFile="facility_component_load_summary.rb"/>
@@ -404,6 +408,7 @@
     <ROW File="hot_water_loop.rb" Component_="chilled_water_loop.rb" FileName="HOT_WA~1.RB|hot_water_loop.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\hot_water_loop.rb" SelfReg="false" NextFile="hvac_object.rb"/>
     <ROW File="hvac_object.rb" Component_="chilled_water_loop.rb" FileName="HVAC_O~1.RB|hvac_object.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\hvac_object.rb" SelfReg="false" NextFile="model_manager.rb"/>
     <ROW File="import_gbxml_test.rb" Component_="gbXMLStandardTestModel2016.xml" FileName="IMPORT~1.RB|import_gbxml_test.rb" Attributes="0" SourcePath="installer_staging\measures\import_gbxml\tests\import_gbxml_test.rb" SelfReg="false" NextFile="LICENSE.md_1"/>
+    <ROW File="jquery.min.js" Component_="os_lib_helper_methods.rb" FileName="JQUERY~1.JS|jquery.min.js" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\resources\jquery.min.js" SelfReg="false" NextFile="bootstrap.min.css"/>
     <ROW File="jsonable.rb" Component_="coil_sizing_detail.rb" FileName="jsonable.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\jsonable.rb" SelfReg="false" NextFile="output_manager.rb"/>
     <ROW File="libeay32.dll" Component_="libeay32.dll" FileName="libeay32.dll" Attributes="0" SourcePath="installer_staging\bin\libeay32.dll" SelfReg="false" NextFile="msvcp120.dll"/>
     <ROW File="load_airflow_summary.rb" Component_="coil_sizing_detail.rb" FileName="LOAD_A~1.RB|load_airflow_summary.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\load_airflow_summary.rb" SelfReg="false" NextFile="system_component_summary.rb"/>
