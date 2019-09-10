@@ -80,6 +80,9 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     gbxml_area = gbxml_doc.elements["/gbXML/Campus/Building/Area"]
     runner.registerInfo("the gbXML has an area of #{gbxml_area.text.to_f}.")
 
+    # get building type
+    building_type = gbxml_doc.elements["/gbXML/Campus/Building"].attributes['buildingType']
+
     # set location parameters
     # @type [OpenStudio::Model::Site] site
     site = model.getSite
@@ -125,6 +128,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
 
     # create hash used for importing
     advanced_inputs = {}
+    advanced_inputs[:building_type] = building_type
     advanced_inputs[:spaces] = {}
     advanced_inputs[:zones] = {}
     advanced_inputs[:schedule_sets] = {} # key is "light|equip|people|"
@@ -136,14 +140,8 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     advanced_inputs[:light_defs] = {}
     advanced_inputs[:equip_defs] = {}
 
-    puts "**Looping through spaces"
     gbxml_doc.elements.each('gbXML/Campus/Building/Space') do |element|
       name = element.elements['Name']
-      unless name.nil?
-        puts name.text
-      else
-        puts "Space #{element.attributes['id']} does not have a name"
-      end
 
       # find or create schedule_set key in hash
       target_sch_set_key = "#{element.attributes['lightScheduleIdRef']}|#{element.attributes['equipmentScheduleIdRef']}|#{element.attributes['peopleScheduleIdRef']}"
@@ -270,7 +268,6 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
 
       model.getSpaces().each do |space|
 
-        # puts space.additionalProperties
         optional_id = space.additionalProperties.getFeatureAsString('CADObjectId')
 
         if optional_id.is_initialized && id
@@ -305,15 +302,9 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       end
     end
 
-    puts "**Looping through schedules"
     # note, schedules and schedule sets will be generated as used when looping through spaces
     gbxml_doc.elements.each('gbXML/Schedule') do |element|
       name = element.elements['Name']
-      unless name.nil?
-        puts name.text
-      else
-        puts "Schedule #{element.attributes['id']} does not have a name"
-      end
       # add schedules to hash with array of week schedules
       sch_week = element.elements['YearSchedule/WeekScheduleId'].attributes['weekScheduleIdRef']
       advanced_inputs[:schedules][element.attributes['id']] = {'name' => name.text, 'sch_week' => sch_week}
@@ -324,15 +315,9 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     model.getScheduleWeeks.each { |week| week.remove }
     model.getScheduleDays.each { |day| day.remove }
 
-    puts "**Looping through week schedules"
     # note, schedules and schedule sets will be generated as used when looping through spaces
     gbxml_doc.elements.each('gbXML/WeekSchedule') do |element|
       name = element.elements['Name']
-      if name.nil?
-        puts "WeekSchedule #{element.attributes['id']} does not have a name"
-      else
-        puts name.text
-      end
       # add schedules to hash with array of week schedules
       day_types = {}
       element.elements.each do |day_type|
@@ -342,15 +327,10 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       advanced_inputs[:week_schedules][element.attributes['id']] = day_types
     end
 
-    puts "**Looping through day schedules"
     # note, schedules and schedule sets will be generated as used when looping through spaces
     gbxml_doc.elements.each('gbXML/DaySchedule') do |element|
       name = element.elements['Name']
-      if name.nil?
-        puts "DaySchedule #{element.attributes['id']} does not have a name"
-      else
-        puts name.text
-      end
+
       # add schedules to hash with array of week schedules
       hourly_values = []
       element.elements.each('ScheduleValue') do |hour|
@@ -359,14 +339,8 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       advanced_inputs[:day_schedules][element.attributes['id']] = hourly_values
     end
 
-    puts "**Looping through zones"
     gbxml_doc.elements.each('gbXML/Zone') do |element|
       name = element.elements['Name']
-      if name.nil?
-        puts "Zone #{element.attributes['id']} does not have a name"
-      else
-        puts name.text
-      end
 
       # create hash entry for space with attributes
       advanced_inputs[:zones][element.attributes['id']] = {}
