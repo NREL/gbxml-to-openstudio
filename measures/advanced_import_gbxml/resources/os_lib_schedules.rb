@@ -539,15 +539,15 @@ module OsLib_Schedules
     end
 
     # Default Day
-    default_day = sch_ruleset.defaultDaySchedule
-    default_day.setName("#{sch_ruleset.name} #{options['default_day'][0]}")
-    default_data_array = options['default_day']
-    default_data_array.delete_at(0)
-    default_data_array.each do |data_pair|
-      hour = data_pair[0].truncate
-      min = ((data_pair[0] - hour) * 60).to_i
-      default_day.addValue(OpenStudio::Time.new(0, hour, min, 0), data_pair[1])
-    end
+    # default_day = sch_ruleset.defaultDaySchedule
+    # default_day.setName("#{sch_ruleset.name} #{options['default_day'][0]}")
+    # default_data_array = options['default_day']
+    # default_data_array.delete_at(0)
+    # default_data_array.each do |data_pair|
+    #   hour = data_pair[0].truncate
+    #   min = ((data_pair[0] - hour) * 60).to_i
+    #   default_day.addValue(OpenStudio::Time.new(0, hour, min, 0), data_pair[1])
+    # end
 
     # Rules
     unless options['rules'].nil?

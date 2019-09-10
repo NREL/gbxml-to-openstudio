@@ -254,7 +254,7 @@ module OsLib_AdvImport
     OsLib_Schedules.addScheduleTypeLimits(model)
 
     # make schedules
-    schedules = import_schs(runner, model, advanced_inputs[:schedules], advanced_inputs[:week_schedules], advanced_inputs[:day_schedules])
+    schedules = import_schs(runner, model, advanced_inputs[:building_type], advanced_inputs[:schedules], advanced_inputs[:week_schedules], advanced_inputs[:day_schedules])
 
     # make schedules sets
     schedule_sets = import_sch_set(runner, model, advanced_inputs[:schedule_sets], schedules)
@@ -528,7 +528,7 @@ module OsLib_AdvImport
   end
 
   # create ruleset schedule from inputs
-  def self.import_schs(runner, model, schedules, week_schedules, day_schedules)
+  def self.import_schs(runner, model, building_type, schedules, week_schedules, day_schedules)
 
     # loop through and add schedules
     new_schedules = {}
@@ -542,7 +542,7 @@ module OsLib_AdvImport
       else
         ruleset_name = schedule_data['name']
       end
-      date_range = '1/1-12/31' # todo - in future pull from gbxml
+      date_range = '1/1-12/31'
       # winter_design_day = nil
       # summer_design_day = nil
       default_day = nil
@@ -574,42 +574,24 @@ module OsLib_AdvImport
         time_value_array = time_value_array.reverse
 
         # create default profile, rule, or design day #
-        if day_type == 'HeatingDesignDay'
-          winter_design_day = time_value_array
-        elsif day_type == 'CoolingDesignDay'
-          summer_design_day = time_value_array
-        elsif day_type == 'Holiday'
-          # do nothing, not currently supporting holidays
-        elsif default_day.nil?
-          default_day = time_value_array.insert(0,day_type) #day_type is name of default day profile object
-        elsif day_type == 'All'
-          prefix_array = [day_type,date_range, 'Mon/Tue/Wed/Thu/Fri/Sat/Sun']
-          rules << prefix_array + time_value_array
-        elsif day_type == 'Weekday'
-          prefix_array = [day_type,date_range, 'Mon/Tue/Wed/Thu/Fri']
-          rules << prefix_array + time_value_array
-        elsif day_type == 'Sat'
-          prefix_array = [day_type,date_range, 'Sat']
-          rules << prefix_array + time_value_array
-        elsif day_type == 'Sun'
-          prefix_array = [day_type,date_range, 'Sun']
-          rules << prefix_array + time_value_array
-        elsif day_type == 'Mon'
-          prefix_array = [day_type,date_range, 'Mon']
-          rules << prefix_array + time_value_array
-        elsif day_type == 'Tue'
-          prefix_array = [day_type,date_range, 'Tue']
-          rules << prefix_array + time_value_array
-        elsif day_type == 'Wed'
-          prefix_array = [day_type,date_range, 'Wed']
-          rules << prefix_array + time_value_array
-        elsif day_type == 'Thu' #todo - confirm weekday abbreviations
-          prefix_array = [day_type,date_range, 'Thu']
-          rules << prefix_array + time_value_array
-        elsif day_type == 'Fri'
-          prefix_array = [day_type,date_range, 'Fri']
-          rules << prefix_array + time_value_array
-        end
+        days = BuildingTypeHelper.create_prefix_day_array(building_type)
+
+        prefix_array = [day_type, date_range, days]
+        rules << prefix_array + time_value_array
+      end
+
+      if BuildingTypeHelper.is_on_6_days(building_type)
+        prefix_array = ["Sun", "1/1-12/31", "Sun"]
+        time_value_array = [[7, 0.0], [9, 0.1], [13, 0.2], [16, 0.1], [24, 0.0]]
+        rules << prefix_array + time_value_array
+      elsif BuildingTypeHelper.is_on_5_days(building_type)
+        prefix_array = ["Sun", "1/1-12/31", "Sun"]
+        time_value_array = [[24, 0.0]]
+        rules << prefix_array + time_value_array
+
+        prefix_array = ["Sat", "1/1-12/31", "Sat"]
+        time_value_array = [[7, 0.0], [9, 0.1], [13, 0.2], [16, 0.1], [24, 0.0]]
+        rules << prefix_array + time_value_array
       end
 
       # populate schedule using schedule_data to update default profile and add rules to complex schedule
