@@ -9,10 +9,10 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPPRODUCTICON" Value="os.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="NREL"/>
-    <ROW Property="ProductCode" Value="1033:{A357479B-4F54-49CA-A46C-0E608DBCB00E} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{F45898C6-37F4-4967-8490-7CC630F4A7DA} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="OpenStudio CLI For Revit 2020"/>
-    <ROW Property="ProductVersion" Value="0.1.7" Type="32"/>
+    <ROW Property="ProductVersion" Value="0.1.8" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{8151B9D3-9C8B-408A-8BDB-231665C21C13}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -327,7 +327,7 @@
     <ROW File="another_weather_file.epw" Component_="another_weather_file.ddy" FileName="ANOTHE~1.EPW|another_weather_file.epw" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\another_weather_file.epw" SelfReg="false" NextFile="another_weather_file.stat"/>
     <ROW File="another_weather_file.stat" Component_="another_weather_file.ddy" FileName="ANOTHE~1.STA|another_weather_file.stat" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\another_weather_file.stat" SelfReg="false" NextFile="change_building_location_test.rb"/>
     <ROW File="apimswincoreconsolel110.dll" Component_="apimswincoreconsolel110.dll" FileName="API-MS~1.DLL|api-ms-win-core-console-l1-1-0.dll" Attributes="0" SourcePath="installer_staging\EnergyPlus\api-ms-win-core-console-l1-1-0.dll" SelfReg="false" NextFile="apimswincoredatetimel110.dll"/>
-    <ROW File="apimswincoreconsolel120.dll" Component_="apimswincoreconsolel120.dll" FileName="API-M~41.DLL|api-ms-win-core-console-l1-2-0.dll" Attributes="0" SourcePath="installer_staging\EnergyPlus\api-ms-win-core-console-l1-2-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreconsolel120.dll" Component_="apimswincoreconsolel120.dll" FileName="API-M~41.DLL|api-ms-win-core-console-l1-2-0.dll" Attributes="0" SourcePath="installer_staging\EnergyPlus\api-ms-win-core-console-l1-2-0.dll" SelfReg="false" NextFile="building_type_helper.rb"/>
     <ROW File="apimswincoredatetimel110.dll" Component_="apimswincoredatetimel110.dll" FileName="API-MS~2.DLL|api-ms-win-core-datetime-l1-1-0.dll" Attributes="0" SourcePath="installer_staging\EnergyPlus\api-ms-win-core-datetime-l1-1-0.dll" SelfReg="false" NextFile="apimswincoredebugl110.dll"/>
     <ROW File="apimswincoredebugl110.dll" Component_="apimswincoredebugl110.dll" FileName="API-MS~3.DLL|api-ms-win-core-debug-l1-1-0.dll" Attributes="0" SourcePath="installer_staging\EnergyPlus\api-ms-win-core-debug-l1-1-0.dll" SelfReg="false" NextFile="apimswincoreerrorhandlingl110.dll"/>
     <ROW File="apimswincoreerrorhandlingl110.dll" Component_="apimswincoreerrorhandlingl110.dll" FileName="API-MS~4.DLL|api-ms-win-core-errorhandling-l1-1-0.dll" Attributes="0" SourcePath="installer_staging\EnergyPlus\api-ms-win-core-errorhandling-l1-1-0.dll" SelfReg="false" NextFile="apimswincorefilel110.dll"/>
@@ -371,6 +371,7 @@
     <ROW File="baseboard_radiant.rb" Component_="chilled_water_loop.rb" FileName="BASEBO~2.RB|baseboard_radiant.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\baseboard_radiant.rb" SelfReg="false" NextFile="cav_box.rb"/>
     <ROW File="bootstrap.min.css" Component_="os_lib_helper_methods.rb" FileName="BOOTST~1.CSS|bootstrap.min.css" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\resources\bootstrap.min.css" SelfReg="false" NextFile="bootstrap.min.js"/>
     <ROW File="bootstrap.min.js" Component_="os_lib_helper_methods.rb" FileName="BOOTST~1.JS|bootstrap.min.js" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\resources\bootstrap.min.js" SelfReg="false" NextFile="d3.min.js"/>
+    <ROW File="building_type_helper.rb" Component_="os_lib_adv_import.rb" FileName="BUILDI~1.RB|building_type_helper.rb" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\resources\building_type_helper.rb" SelfReg="false"/>
     <ROW File="cav_box.rb" Component_="chilled_water_loop.rb" FileName="cav_box.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\cav_box.rb" SelfReg="false" NextFile="loads_output_report.rb"/>
     <ROW File="change_building_location_test.rb" Component_="another_weather_file.ddy" FileName="CHANGE~1.RB|change_building_location_test.rb" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\change_building_location_test.rb" SelfReg="false" NextFile="multiyear.ddy"/>
     <ROW File="chilled_water_loop.rb" Component_="chilled_water_loop.rb" FileName="CHILLE~1.RB|chilled_water_loop.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\chilled_water_loop.rb" SelfReg="false" NextFile="condenser_loop.rb"/>
