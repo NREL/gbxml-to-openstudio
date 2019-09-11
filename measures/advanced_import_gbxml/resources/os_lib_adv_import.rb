@@ -594,6 +594,24 @@ module OsLib_AdvImport
         rules << prefix_array + time_value_array
       end
 
+      if building_type == "SchoolOrUniversity"
+        prefix_array = ["January Break", "1/1-1/5", "Sun/Mon/Tue/Wed/Thu/Fri/Sat"]
+        time_value_array = [[24, 0.0]]
+        rules << prefix_array + time_value_array
+
+        prefix_array = ["Spring Break", "4/4-4/13", "Sun/Mon/Tue/Wed/Thu/Fri/Sat"]
+        time_value_array = [[24, 0.0]]
+        rules << prefix_array + time_value_array
+
+        prefix_array = ["Summer Break", "6/9-8/24", "Sun/Mon/Tue/Wed/Thu/Fri/Sat"]
+        time_value_array = [[24, 0.0]]
+        rules << prefix_array + time_value_array
+
+        prefix_array = ["Winter Break", "12/16-12/31", "Sun/Mon/Tue/Wed/Thu/Fri/Sat"]
+        time_value_array = [[24, 0.0]]
+        rules << prefix_array + time_value_array
+      end
+
       # populate schedule using schedule_data to update default profile and add rules to complex schedule
       options = { 'name' => ruleset_name,
                   # 'winter_design_day' => winter_design_day,

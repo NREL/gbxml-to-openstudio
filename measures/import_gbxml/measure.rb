@@ -124,6 +124,8 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
     # add new file to empty model
     model.addObjects( new_model.toIdfFile.objects )
 
+    model.setCalendarYear(1997)
+
     return true
 
   end

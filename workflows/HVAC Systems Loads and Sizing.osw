@@ -71,35 +71,35 @@
       "measure_dir_name": "add_xml_output_control_style",
       "name": "Add XML Output Control Style"
     },
-         {
-          "arguments" : {
-             "air_loops_detail_section" : false,
-             "annual_overview_section" : false,
-             "building_summary_section" : false,
-             "cost_summary_section" : false,
-             "envelope_section_section" : false,
-             "exterior_light_section" : false,
-             "hvac_load_profile" : false,
-             "interior_lighting_section" : false,
-             "monthly_overview_section" : false,
-             "outdoor_air_section" : false,
-             "plant_loops_detail_section" : false,
-             "plug_loads_section" : false,
-             "reg_monthly_details" : false,
-             "schedules_overview_section" : false,
-             "source_energy_section" : false,
-             "space_type_breakdown_section" : false,
-             "space_type_details_section" : false,
-             "utility_bills_rates_section" : false,
-             "water_use_section" : false,
-             "zone_condition_section" : false,
-             "zone_equipment_detail_section" : false,
-             "zone_summary_section" : false
-          },
-          "description" : "This measure creates high level tables and charts pulling both from model inputs and EnergyPlus results. It has building level information as well as detail on space types, thermal zones, HVAC systems, envelope characteristics, and economics. Click the heading above a chart to view a table of the chart data.",
-          "measure_dir_name" : "openstudio_results",
-          "modeler_description" : "For the most part consumption data comes from the tabular EnergyPlus results, however there are a few requests added for time series results. Space type and loop details come from the OpenStudio model. The code for this is modular, making it easy to use as a template for your own custom reports. The structure of the report uses bootstrap, and the graphs use dimple js.",
-          "name" : "OpenStudio Results"
-         }
+    {
+      "arguments": {
+        "air_loops_detail_section": false,
+        "annual_overview_section": false,
+        "building_summary_section": false,
+        "cost_summary_section": false,
+        "envelope_section_section": false,
+        "exterior_light_section": false,
+        "hvac_load_profile": false,
+        "interior_lighting_section": false,
+        "monthly_overview_section": false,
+        "outdoor_air_section": false,
+        "plant_loops_detail_section": false,
+        "plug_loads_section": false,
+        "reg_monthly_details": false,
+        "schedules_overview_section": false,
+        "source_energy_section": false,
+        "space_type_breakdown_section": false,
+        "space_type_details_section": false,
+        "utility_bills_rates_section": false,
+        "water_use_section": false,
+        "zone_condition_section": false,
+        "zone_equipment_detail_section": false,
+        "zone_summary_section": false
+      },
+      "description": "This measure creates high level tables and charts pulling both from model inputs and EnergyPlus results. It has building level information as well as detail on space types, thermal zones, HVAC systems, envelope characteristics, and economics. Click the heading above a chart to view a table of the chart data.",
+      "measure_dir_name": "openstudio_results",
+      "modeler_description": "For the most part consumption data comes from the tabular EnergyPlus results, however there are a few requests added for time series results. Space type and loop details come from the OpenStudio model. The code for this is modular, making it easy to use as a template for your own custom reports. The structure of the report uses bootstrap, and the graphs use dimple js.",
+      "name": "OpenStudio Results"
+    }
   ]
 }
