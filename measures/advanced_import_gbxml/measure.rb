@@ -100,30 +100,28 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     end
 
     # Assign construction absorptance
+    materials_set = Set.new
     gbxml_doc.elements.each('gbXML/Construction') do |construction|
-      absorptance = construction.elements['Absorptance'].text unless construction.elements['Absorptance'].nil?
+      absorptance = construction.elements['Absorptance'].text.to_f unless construction.elements['Absorptance'].nil?
+      construction_name = construction.elements['Name'].text unless construction.elements['Name'].nil?
 
-      next unless absorptance
-      layer_id = construction.elements['LayerId'].attributes['layerIdRef'] if construction.elements['LayerId']
+      next unless absorptance and construction_name
 
-      next unless layer_id
-      gbxml_doc.elements.each('gbXML/Layer') do |layer|
-        next unless layer.attributes['id'] == layer_id
+      absorptance = OpenStudio::OptionalDouble.new(absorptance)
+      os_construction = model.getConstructionByName(construction_name)
 
-        material_id = layer.elements['MaterialId'].attributes['materialIdRef'] if layer.elements['MaterialId']
+      next unless os_construction.is_initialized
+      os_construction = os_construction.get
 
-        gbxml_doc.elements.each('gbXML/Material') do |material|
-          next unless material.attributes['id'] == material_id
+      outer_material = os_construction.layers[0]
 
-          name = material.elements['Name'].text unless material.elements['Name'].nil?
-          material = model.getMaterialByName(name)
-
-          if material.is_initialized
-            absorptance = OpenStudio::OptionalDouble.new(absorptance.to_f)
-            material.get.to_OpaqueMaterial.get.setSolarAbsorptance(absorptance)
-          end
-        end
+      if materials_set.include? outer_material
+        outer_material = outer_material.clone.to_OpaqueMaterial.get
+        os_construction.setLayer(0, outer_material)
       end
+
+      outer_material.to_OpaqueMaterial.get.setSolarAbsorptance(absorptance)
+      materials_set.add(outer_material)
     end
 
     # create hash used for importing
