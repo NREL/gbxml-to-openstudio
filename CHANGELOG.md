@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.8] - 2019-09-13
+### Added
+ - Inference of annual and weekly schedules from the Building Type
+ 
+### Changed
+ - Improved absorptance property import to prevent issue related to material present on more than one construction outer layer.
+
 ## [0.1.6] - 2019-06-07
 ### Added
  - Merged OpenStudio Results and eplustbl.htm report
