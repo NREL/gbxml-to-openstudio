@@ -339,21 +339,21 @@ module OsLib_AdvImport
             sch_ruleset = model.getScheduleRulesetByName("activity_#{activity_w}").get
           else
             options = {'name' => "activity_#{activity_w}",
-                       'default_day' => ["activity_#{activity_w}_default", [24.0, activity_w]],
-                       'winter_design_day' => [[24.0, 0.0]],
-                       'summer_design_day' => [[24.0, activity_w]]
+                       'defaultTimeValuePairs' => { 24.0 => activity_w },
+                       'winterTimeValuePairs' => { 24.0 => 0 },
+                       'summerTimeValuePairs' => { 24.0 => activity_w }
             }
-            sch_ruleset = OsLib_Schedules.createComplexSchedule(model, options)
+            sch_ruleset = OsLib_Schedules.createSimpleSchedule(model, options)
           end
         else
           # create default activity level if one doesn't exist
           default_activity = 120.0
-          options = {'name' => "activity_#{activity_w}",
-                     'default_day' => ["activity_#{activity_w}_default", [24.0, default_activity]],
-                     'winter_design_day' => [[24.0, 0.0]],
-                     'summer_design_day' => [[24.0, activity_w]]
+          options = {'name' => "activity_#{default_activity}",
+                     'defaultTimeValuePairs' => { 24.0 => default_activity },
+                     'winterTimeValuePairs' => { 24.0 => 0 },
+                     'summerTimeValuePairs' => { 24.0 => default_activity }
           }
-          sch_ruleset = OsLib_Schedules.createComplexSchedule(model, options)
+          sch_ruleset = OsLib_Schedules.createSimpleSchedule(model, options)
           runner.registerWarning("Did not find data for acitivty schedule, adding default of #{default_activity} W.")
         end
         load_inst.setActivityLevelSchedule(sch_ruleset)
