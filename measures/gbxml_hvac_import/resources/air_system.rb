@@ -79,7 +79,7 @@ class AirSystem < HVACObject
     end
 
     doas_true_arr = REXML::XPath.match(xml,
-                                       "AnalysisParameter[Name[text()=='DOAS']][ParameterValue[text()='True']]")
+  "AnalysisParameter[Name[text()=='DOAS']][ParameterValue[text()='True']]")
     air_loop.is_doas = true unless doas_true_arr.empty?
 
     air_loop
