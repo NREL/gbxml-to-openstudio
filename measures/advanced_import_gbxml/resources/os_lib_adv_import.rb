@@ -113,11 +113,11 @@ module OsLib_AdvImport
       daily_occ_sch_num_ppl.each do |occ_sch, num_occ|
         # Get the day schedules for this day
         # (there should only be one)
-        day_schs = occ_sch[i]
+        day_schs = occ_sch[i - 1]
         day_schs.times.each do |time|
           times_on_this_day << time.toString
         end
-        day_sch_num_occ[day_schs[0]] = num_occ
+        day_sch_num_occ[day_schs] = num_occ
       end
 
       # Determine the total fraction for the airloop at each time
