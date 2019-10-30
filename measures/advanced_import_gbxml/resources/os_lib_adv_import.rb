@@ -87,9 +87,18 @@ module OsLib_AdvImport
       end
     end
 
-    # For each day of the year, determine
-    # time_value_pairs = []
+    # Transform Occupancy Schedules
     year = thermal_zone.model.getYearDescription
+    first_day_date = year.makeDate(1)
+    last_day_date = year.makeDate(365)
+
+    daily_occ_sch_num_ppl = []
+    occ_schedules_num_occ.each do |occ_sch, num_occ|
+      daily_occ_sch_num_ppl << [occ_sch.getDaySchedules(first_day_date, last_day_date), num_occ]
+    end
+
+
+    # time_value_pairs = []
     yearly_data = []
     yearly_times = OpenStudio::DateTimeVector.new
     yearly_values = []
@@ -101,11 +110,11 @@ module OsLib_AdvImport
       # Get the unique time indices and corresponding day schedules
       occ_schedules_day_schs = {}
       day_sch_num_occ = {}
-      occ_schedules_num_occ.each do |occ_sch, num_occ|
+      daily_occ_sch_num_ppl.each do |occ_sch, num_occ|
         # Get the day schedules for this day
         # (there should only be one)
-        day_schs = occ_sch.getDaySchedules(os_date, os_date)
-        day_schs[0].times.each do |time|
+        day_schs = occ_sch[i]
+        day_schs.times.each do |time|
           times_on_this_day << time.toString
         end
         day_sch_num_occ[day_schs[0]] = num_occ
