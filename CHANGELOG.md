@@ -1,10 +1,10 @@
 # Changelog
 
-## [0.2.0] - 2019-09-13
+## [0.2.0] - 2019-10-31
 ### Fixed
  - Performance issues related to the annual and weekly schedules being inferred from the Building Type
 
-## [0.1.9] - 2019-09-13
+## [0.1.9] - 2019-10-31
 ### Fixed
  - Activity Schedules regression
  
