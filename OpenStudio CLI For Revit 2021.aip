@@ -9,10 +9,10 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPPRODUCTICON" Value="os.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="NREL"/>
-    <ROW Property="ProductCode" Value="1033:{D44746E7-0E0F-4ADD-A416-2E17EAB47699} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{CD67BD67-5A43-4D49-8E6D-12C6B97A930B} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="OpenStudio CLI For Revit 2021"/>
-    <ROW Property="ProductVersion" Value="0.1.9" Type="32"/>
+    <ROW Property="ProductVersion" Value="0.1.10" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{B1348716-7728-4135-B07F-FF669CA8B02A}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -321,6 +321,7 @@
     <ROW File="VentilationAndInfiltration.xml" Component_="advanced_import_gbxml_test.rb" FileName="VENTIL~1.XML|VentilationAndInfiltration.xml" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\tests\VentilationAndInfiltration.xml" SelfReg="false" NextFile="LICENSE.md_8"/>
     <ROW File="acb.rb" Component_="chilled_water_loop.rb" FileName="acb.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\acb.rb" SelfReg="false" NextFile="air_system.rb"/>
     <ROW File="add_xml_output_control_style_test.rb" Component_="add_xml_output_control_style_test.rb" FileName="ADD_XM~1.RB|add_xml_output_control_style_test.rb" Attributes="0" SourcePath="installer_staging\measures\add_xml_output_control_style\tests\add_xml_output_control_style_test.rb" SelfReg="false" NextFile="gitkeep_2"/>
+    <ROW File="adhoc_test.rb" Component_="advanced_import_gbxml_test.rb" FileName="ADHOC_~1.RB|adhoc_test.rb" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\tests\adhoc_test.rb" SelfReg="false"/>
     <ROW File="advanced_import_gbxml_test.rb" Component_="advanced_import_gbxml_test.rb" FileName="ADVANC~1.RB|advanced_import_gbxml_test.rb" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\tests\advanced_import_gbxml_test.rb" SelfReg="false" NextFile="AnalyticalSystems01.xml"/>
     <ROW File="air_system.rb" Component_="chilled_water_loop.rb" FileName="AIR_SY~1.RB|air_system.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\air_system.rb" SelfReg="false" NextFile="baseboard_convective.rb"/>
     <ROW File="another_weather_file.ddy" Component_="another_weather_file.ddy" FileName="ANOTHE~1.DDY|another_weather_file.ddy" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\another_weather_file.ddy" SelfReg="false" NextFile="another_weather_file.epw"/>
@@ -371,7 +372,7 @@
     <ROW File="baseboard_radiant.rb" Component_="chilled_water_loop.rb" FileName="BASEBO~2.RB|baseboard_radiant.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\baseboard_radiant.rb" SelfReg="false" NextFile="cav_box.rb"/>
     <ROW File="bootstrap.min.css" Component_="os_lib_helper_methods.rb" FileName="BOOTST~1.CSS|bootstrap.min.css" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\resources\bootstrap.min.css" SelfReg="false" NextFile="bootstrap.min.js"/>
     <ROW File="bootstrap.min.js" Component_="os_lib_helper_methods.rb" FileName="BOOTST~1.JS|bootstrap.min.js" Attributes="0" SourcePath="installer_staging\measures\openstudio_results\resources\bootstrap.min.js" SelfReg="false" NextFile="d3.min.js"/>
-    <ROW File="building_type_helper.rb" Component_="os_lib_adv_import.rb" FileName="BUILDI~1.RB|building_type_helper.rb" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\resources\building_type_helper.rb" SelfReg="false"/>
+    <ROW File="building_type_helper.rb" Component_="os_lib_adv_import.rb" FileName="BUILDI~1.RB|building_type_helper.rb" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\resources\building_type_helper.rb" SelfReg="false" NextFile="adhoc_test.rb"/>
     <ROW File="cav_box.rb" Component_="chilled_water_loop.rb" FileName="cav_box.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\cav_box.rb" SelfReg="false" NextFile="loads_output_report.rb"/>
     <ROW File="change_building_location_test.rb" Component_="another_weather_file.ddy" FileName="CHANGE~1.RB|change_building_location_test.rb" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\change_building_location_test.rb" SelfReg="false" NextFile="multiyear.ddy"/>
     <ROW File="chilled_water_loop.rb" Component_="chilled_water_loop.rb" FileName="CHILLE~1.RB|chilled_water_loop.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\chilled_water_loop.rb" SelfReg="false" NextFile="condenser_loop.rb"/>
