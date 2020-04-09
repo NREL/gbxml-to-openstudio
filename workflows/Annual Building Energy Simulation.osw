@@ -100,6 +100,10 @@
      "measure_dir_name" : "openstudio_results",
      "modeler_description" : "For the most part consumption data comes from the tabular EnergyPlus results, however there are a few requests added for time series results. Space type and loop details come from the OpenStudio model. The code for this is modular, making it easy to use as a template for your own custom reports. The structure of the report uses bootstrap, and the graphs use dimple js.",
      "name" : "OpenStudio Results"
+    },
+    {
+      "measure_dir_name" : "systems_analysis_report_generator",
+      "name" : "Systems Analysis Report"
     }
   ]
 }
