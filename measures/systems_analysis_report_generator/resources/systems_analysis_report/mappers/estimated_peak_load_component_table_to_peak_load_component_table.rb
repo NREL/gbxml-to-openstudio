@@ -8,7 +8,7 @@ module SystemsAnalysisReport
       end
 
       def call(estimated_peak_load_component_table)
-        result = Models::PeakLoadComponentTable.new
+        result = Models::SystemPeakLoadComponentTable.new
 
         load_members = estimated_peak_load_component_table.excluded_members([:name, :grand_total])
         load_members.map { |member| result[member] = @peak_load_component_mapper.(estimated_peak_load_component_table[member]) unless estimated_peak_load_component_table[member].nil? }

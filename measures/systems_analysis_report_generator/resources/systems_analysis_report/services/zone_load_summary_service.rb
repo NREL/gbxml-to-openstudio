@@ -9,7 +9,14 @@ module SystemsAnalysisReport
       end
 
       def call(model)
-        @name_getter.(model).inject([]) { |results, name| results << @repository.find(name) }
+        results = []
+
+        @name_getter.(model).each do |name|
+          result = @repository.find(name)
+          results << result if result
+        end
+
+        results
       end
     end
   end

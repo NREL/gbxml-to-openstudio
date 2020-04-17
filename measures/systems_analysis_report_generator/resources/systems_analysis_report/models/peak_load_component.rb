@@ -9,7 +9,9 @@ module SystemsAnalysisReport
       end
 
       def update_percent_grand_total(grand_total)
-        self.percent_grand_total = (self.total / grand_total * 100)
+        if grand_total and grand_total > 0
+          self.percent_grand_total = (self.total / grand_total * 100)
+        end
       end
 
       def validate

@@ -7,21 +7,21 @@ module SystemsAnalysisReport
     container.register(:zone_load_summary_repo) do |c|
       Repositories::ZoneLoadSummaryRepo.new(
           c.eplusout.cooling_peak_conditions,
+          c.eplusout.heating_peak_conditions,
           c.eplusout.engineering_check_for_coolings,
           c.eplusout.engineering_check_for_heatings,
           c.eplusout.estimated_cooling_peak_load_component_tables,
           c.eplusout.estimated_heating_peak_load_component_tables,
-          c.eplusout.heating_peak_conditions
       )
     end
     container.register(:system_load_summary_repo) do |c|
       Repositories::SystemLoadSummaryRepo.new(
           c.eplusout.cooling_peak_conditions,
+          c.eplusout.heating_peak_conditions,
           c.eplusout.engineering_check_for_coolings,
           c.eplusout.engineering_check_for_heatings,
           c.eplusout.estimated_cooling_peak_load_component_tables,
           c.eplusout.estimated_heating_peak_load_component_tables,
-          c.eplusout.heating_peak_conditions,
           c.eplusout.coil_sizing_details
       )
     end

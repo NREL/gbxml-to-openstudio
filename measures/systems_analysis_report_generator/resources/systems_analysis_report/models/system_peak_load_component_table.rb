@@ -1,8 +1,7 @@
 module SystemsAnalysisReport
   module Models
-    PeakLoadComponentTable = Struct.new(
-        :name,
-        :airflow_correction_factor,
+    SystemPeakLoadComponentTable = Struct.new(
+        # :airflow_correction_factor,
         :doas_direct_to_zone,
         :equipment,
         :exterior_floor,

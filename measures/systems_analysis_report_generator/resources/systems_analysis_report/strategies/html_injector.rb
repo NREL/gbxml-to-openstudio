@@ -4,7 +4,7 @@ module SystemsAnalysisReport
       def self.call(input_path, data)
         bundle_js = input_path + "/bundle.js"
         file = File.read(bundle_js)
-        text = file.sub("function(e){e.exports=JSON.parse()", "function(e){e.exports=JSON.parse('#{data}')")
+        text = file.sub("function(e){e.exports=JSON.parse('{\"design_psychrometrics\":{},\"system_load_summarys\":{},\"zone_load_summarys\":{}}')", "function(e){e.exports=JSON.parse('#{data}')")
         File.write('./report_bundle.js', text)
 
         index = input_path + "/index.html"

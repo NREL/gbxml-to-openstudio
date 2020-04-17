@@ -14,8 +14,10 @@
       def call(data)
         result = klass.new
 
-        param_map.each do |param|
-          result.send("#{param[:name]}=", cast_type(data[param[:index]], param[:type]))
+        if data
+          param_map.each do |param|
+            result.send("#{param[:name]}=", cast_type(data[param[:index]], param[:type]))
+          end
         end
 
         return result

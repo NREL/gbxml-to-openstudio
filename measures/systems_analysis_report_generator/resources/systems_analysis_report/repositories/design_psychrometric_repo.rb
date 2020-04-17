@@ -9,9 +9,14 @@ module SystemsAnalysisReport
       end
 
       def find(name)
+        design_psychrometric = nil
         coil_sizing_detail = @coil_sizing_details.find_by_name(name)
-        design_psychrometric = @mapper.(coil_sizing_detail)
-        design_psychrometric.name = name
+
+        if coil_sizing_detail
+          design_psychrometric = @mapper.(coil_sizing_detail)
+          design_psychrometric.name = name
+        end
+
         design_psychrometric
       end
     end
