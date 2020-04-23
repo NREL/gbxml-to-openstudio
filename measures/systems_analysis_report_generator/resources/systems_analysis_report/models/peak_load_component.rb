@@ -1,6 +1,6 @@
 module SystemsAnalysisReport
   module Models
-    PeakLoadComponent = Struct.new(:sensible_instant, :sensible_delayed, :latent, :total, :percent_grand_total) do
+    PeakLoadComponent = Struct.new(:sensible_instant, :sensible_delayed, :latent, :total, :percent_grand_total, :related_area) do
       include Models::Model
 
       def initialize(*args)

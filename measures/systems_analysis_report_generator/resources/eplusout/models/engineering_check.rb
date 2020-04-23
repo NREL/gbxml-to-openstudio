@@ -8,6 +8,7 @@
                                   :outside_air_percent,
                                   :total_capacity_per_floor_area) do
       include Models::Model
+
     end
   end
 end

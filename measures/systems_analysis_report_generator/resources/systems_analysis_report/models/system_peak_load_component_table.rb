@@ -50,6 +50,11 @@ module SystemsAnalysisReport
         self.members.reject { |member| excluded.include? member }
       end
 
+      def floor_area
+        members = [:exterior_floor, :ground_contact_floor, :interzone_floor, :other_floor]
+        members.inject(0) { |sum, member| sum + self[member].related_area.to_f }
+      end
+
       private
       def recalculate_percent_grand_totals
         excluded_members([:name, :grand_total]).map { |member| self[member].update_percent_grand_total(self.grand_total.total) if self[member] }
