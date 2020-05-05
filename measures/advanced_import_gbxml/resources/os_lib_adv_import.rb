@@ -525,6 +525,60 @@ module OsLib_AdvImport
         end
       end
 
+      if zone_data.has_key?(:design_heat_rh) || zone_data.has_key?(:design_cool_rh)
+        zone_control_humidistat = OpenStudio::Model::ZoneControlHumidistat.new(model)
+        zone.setZoneControlHumidistat(zone_control_humidistat)
+        modified = true # What does this do?
+
+        # get occupancy schedule if zone is occupied
+        zone_occupied = zone.numberOfPeople.zero? ? false : true
+        if zone_occupied
+          zone_occ_sch = self.thermal_zone_get_occupancy_schedule(zone)
+        end
+
+        # create and assign heating and cooling setpoint schedules
+        # apply 5F temperature setback for occupied zones
+        # setbacks enable when zone occupancy is below 0.05, and disable 1.5 hours before zone occupancy exceeds 0.05
+        if zone_data.has_key?(:design_heat_rh)
+          humid_setpoint = zone_data[:design_heat_rh] * 100
+          options = { 'name' => "humid_#{zone.name.to_s}",
+                      'default_day' => ["humid#{zone.name.to_s}_default", [24.0, humid_setpoint]],
+                      'winter_design_day' => [[24.0, humid_setpoint]],
+                      'summer_design_day' => [[24.0, humid_setpoint]] }
+          humid_sch = OsLib_Schedules.createComplexSchedule(model, options)
+          # if model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').is_initialized
+          #   humid_sch.setScheduleTypeLimits(model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').get)
+          # end
+          humid_sch.setName("#{zone.name} Humdification Setpoint Schedule")
+          if zone_occupied
+            humid_setback = 0.0
+            humid_sch = OsLib_Schedules.merge_schedule_rulesets(humid_sch, zone_occ_sch)
+            humid_sch = OsLib_Schedules.schedule_ruleset_edit(humid_sch, new_value_map: [[0.0, humid_setback], [1.0, humid_setpoint]], start_time_diff: 90)
+          end
+          zone_control_humidistat.setHumidifyingRelativeHumiditySetpointSchedule(humid_sch)
+          runner.registerInfo("Set humidification setpoint schedule '#{humid_sch.name}' for thermal zone '#{zone.name}'.")
+        end
+        if zone_data.has_key?(:design_cool_rh)
+          dehumid_setpoint = zone_data[:design_cool_rh] * 100
+          options = { 'name' => "dehumid_#{zone.name.to_s}",
+                      'default_day' => ["dehumid_#{zone.name.to_s}_default", [24.0, dehumid_setpoint]],
+                      'winter_design_day' => [[24.0, dehumid_setpoint]],
+                      'summer_design_day' => [[24.0, dehumid_setpoint]] }
+          dehumid_sch = OsLib_Schedules.createComplexSchedule(model, options)
+          # if model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').is_initialized
+          #   clg_sch.setScheduleTypeLimits(model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').get)
+          # end
+          dehumid_sch.setName("#{zone.name} Dehumidification Setpoint Schedule")
+          if zone_occupied
+            dehumid_setback = 100.0
+            dehumid_sch = OsLib_Schedules.merge_schedule_rulesets(dehumid_sch, zone_occ_sch)
+            dehumid_sch = OsLib_Schedules.schedule_ruleset_edit(dehumid_sch, new_value_map: [[0.0, dehumid_setback], [1.0, dehumid_setpoint]], start_time_diff: 90)
+          end
+          zone_control_humidistat.setDehumidifyingRelativeHumiditySetpointSchedule(dehumid_sch)
+          runner.registerInfo("Set dehumidification setpoint schedule '#{dehumid_sch.name}' for thermal zone '#{zone.name}'.")
+        end
+      end
+
       # if modified add to modified_spaces hash
       if modified
         modified_zones[id] = zone

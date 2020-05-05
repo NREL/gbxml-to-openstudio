@@ -360,6 +360,17 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         advanced_inputs[:zones][element.attributes['id']][:design_cool_t] = design_cool_t
       end
 
+      unless element.elements['DesignHeatRH'].nil?
+        design_heat_rh_element = element.elements['DesignHeatRH']
+        design_heat_rh = design_heat_rh_element.text.to_f
+        advanced_inputs[:zones][element.attributes['id']][:design_heat_rh] = design_heat_rh
+      end
+      unless element.elements['DesignCoolRH'].nil?
+        design_cool_rh_element = element.elements['DesignCoolRH']
+        design_cool_rh = design_cool_rh_element.text.to_f
+        advanced_inputs[:zones][element.attributes['id']][:design_cool_rh] = design_cool_rh
+      end
+
     end
 
     # create model objects from hash
