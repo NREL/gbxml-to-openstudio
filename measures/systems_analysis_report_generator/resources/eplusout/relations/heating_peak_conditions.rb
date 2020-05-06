@@ -1,4 +1,4 @@
-﻿module EPlusOut
+module EPlusOut
   module Relations
     class HeatingPeakConditions < Relation
       def initialize(gateway, mapper = Mappers::PeakConditionMapper.new)

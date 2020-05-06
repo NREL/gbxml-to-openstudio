@@ -1,4 +1,4 @@
-﻿module EPlusOut
+module EPlusOut
   def self.container(sql_file)
     container = Canister.new
 

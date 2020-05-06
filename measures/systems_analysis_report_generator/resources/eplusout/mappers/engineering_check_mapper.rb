@@ -1,4 +1,4 @@
-﻿﻿module EPlusOut
+﻿module EPlusOut
   module Mappers
     class EngineeringCheckMapper < EPlusOut::Mappers::Mapper
 

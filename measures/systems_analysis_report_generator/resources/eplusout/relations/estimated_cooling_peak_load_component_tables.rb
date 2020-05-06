@@ -1,4 +1,4 @@
-﻿module EPlusOut
+module EPlusOut
   module Relations
     class EstimatedCoolingPeakLoadComponentTables < Relation
       def initialize(gateway, mapper = Mappers::EstimatedPeakLoadComponentTableMapper.new)

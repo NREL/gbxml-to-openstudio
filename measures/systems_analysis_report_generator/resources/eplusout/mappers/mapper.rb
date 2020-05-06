@@ -1,4 +1,4 @@
-﻿﻿module EPlusOut
+﻿module EPlusOut
   module Mappers
     class Mapper
       attr_reader :sql_file
@@ -9,6 +9,10 @@
 
       def klass
         raise NotImplementedError, 'Must be implemented by child class'
+      end
+
+      def size
+        return param_map.size
       end
 
       def call(data)

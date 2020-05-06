@@ -1,4 +1,4 @@
-﻿module EPlusOut
+module EPlusOut
   module Mappers
     class EstimatedPeakLoadComponentTableMapper < EPlusOut::Mappers::Mapper
       attr_reader :estimated_peak_load_component_mapper
@@ -34,6 +34,10 @@
 
       def initialize(estimated_peak_load_component_mapper = EstimatedPeakLoadComponentMapper.new)
         @estimated_peak_load_component_mapper = estimated_peak_load_component_mapper
+      end
+
+      def size
+        param_map.size * @estimated_peak_load_component_mapper.size
       end
 
       def call(data)

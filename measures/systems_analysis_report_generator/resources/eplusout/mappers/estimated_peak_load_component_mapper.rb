@@ -1,4 +1,4 @@
-﻿module EPlusOut
+module EPlusOut
   module Mappers
     class EstimatedPeakLoadComponentMapper
 
@@ -23,6 +23,10 @@
         end
 
         return result
+      end
+
+      def size
+        param_map.size
       end
 
       private

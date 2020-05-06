@@ -1,7 +1,7 @@
-﻿module EPlusOut
+module EPlusOut
   module Relations
     class Relation
-      attr_reader :gateway, :mapper
+      attr_reader :gateway, :mapper, :instances
 
       def initialize(gateway, mapper)
         @gateway = gateway
@@ -25,22 +25,28 @@
       end
 
       def find_by_name(name)
-        result = nil
+        load if @instances.nil?
 
-        data = @gateway.where(clauses_with_name(name), order_by:order_by, distinct: false)
-
-        unless data.empty?
-          result = @mapper.(data)
-          result.name = name
-        end
-
-        return result
+        @instances[name.upcase]
       end
 
       def all
-        names = gateway.where(clauses, select: name_field, order_by: order_by, distinct: true)
+        @instances
+      end
 
-        return names.reduce([]) {|results, name| results << find_by_name(name)}
+      private
+      def load
+        @instances = {}
+
+        names = @gateway.where(clauses, select: name_field, order_by: [name_field] + order_by, distinct: true)
+        data = @gateway.where(clauses, select: :value, order_by: [name_field] + order_by)
+
+        names.each_with_index do |name, idx|
+          instance_data = data.slice(idx * @mapper.size, @mapper.size)
+          result = @mapper.(instance_data)
+          result.name = name
+          @instances[name] = result
+        end
       end
     end
   end

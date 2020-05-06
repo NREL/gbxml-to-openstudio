@@ -1,4 +1,4 @@
-﻿module EPlusOut
+module EPlusOut
   module Gateways
     class SqlGateway
       attr_reader :sql_file

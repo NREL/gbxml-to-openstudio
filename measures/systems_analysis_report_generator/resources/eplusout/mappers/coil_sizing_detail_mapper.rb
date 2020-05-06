@@ -1,4 +1,4 @@
-﻿module EPlusOut
+module EPlusOut
   module Mappers
     class CoilSizingDetailMapper < EPlusOut::Mappers::Mapper
 

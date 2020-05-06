@@ -1,4 +1,4 @@
-﻿module EPlusOut
+module EPlusOut
   module Models
     CoilSizingDetail = Struct.new(:name,
                                   :autosized_coil_airflow,

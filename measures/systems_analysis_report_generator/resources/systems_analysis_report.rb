@@ -1,4 +1,4 @@
-﻿require 'json'
+require 'json'
 
 require_relative 'eplusout'
 require_relative 'canister'

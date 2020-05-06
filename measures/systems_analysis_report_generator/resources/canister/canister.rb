@@ -1,4 +1,4 @@
-﻿class Canister
+class Canister
   def initialize
     @stack = []
     @registry = {}
