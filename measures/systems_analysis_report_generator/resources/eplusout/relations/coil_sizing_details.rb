@@ -1,4 +1,4 @@
-module EPlusOut
+﻿module EPlusOut
   module Relations
     class CoilSizingDetails < Relation
       def initialize(gateway, mapper = Mappers::CoilSizingDetailMapper.new)

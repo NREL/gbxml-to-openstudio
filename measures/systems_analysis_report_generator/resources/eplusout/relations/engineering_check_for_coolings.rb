@@ -1,4 +1,4 @@
-module EPlusOut
+﻿module EPlusOut
   module Relations
     class EngineeringCheckForCoolings < Relation
       def initialize(gateway, mapper = Mappers::EngineeringCheckMapper.new)

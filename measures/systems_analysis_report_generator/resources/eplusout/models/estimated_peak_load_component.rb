@@ -1,4 +1,4 @@
-module EPlusOut
+﻿module EPlusOut
   module Models
     EstimatedPeakLoadComponent = Struct.new(
         :percent_grand_total,

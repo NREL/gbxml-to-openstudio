@@ -1,4 +1,4 @@
-module EPlusOut
+﻿module EPlusOut
   module Mappers
     class EstimatedPeakLoadComponentTableMapper < EPlusOut::Mappers::Mapper
       attr_reader :estimated_peak_load_component_mapper

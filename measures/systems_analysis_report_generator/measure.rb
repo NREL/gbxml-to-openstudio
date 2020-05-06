@@ -1,4 +1,4 @@
-require_relative 'resources/systems_analysis_report'
+﻿require_relative 'resources/systems_analysis_report'
 
 class SystemsAnalysisReportGenerator < OpenStudio::Measure::ReportingMeasure
   # human readable name

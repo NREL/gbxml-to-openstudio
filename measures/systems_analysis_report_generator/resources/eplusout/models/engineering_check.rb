@@ -1,4 +1,4 @@
-﻿module EPlusOut
+﻿﻿module EPlusOut
   module Models
     EngineeringCheck = Struct.new(:name,
                                   :airflow_per_floor_area,

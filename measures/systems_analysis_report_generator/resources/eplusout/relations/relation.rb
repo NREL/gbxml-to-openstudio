@@ -1,4 +1,4 @@
-module EPlusOut
+﻿module EPlusOut
   module Relations
     class Relation
       attr_reader :gateway, :mapper
