@@ -9,10 +9,10 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPPRODUCTICON" Value="os.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="NREL"/>
-    <ROW Property="ProductCode" Value="1033:{2B96F208-FF43-45DC-BF82-D49E286D6CB4} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{41ED74F0-2015-4ABB-BEDE-29D9A7DDADC6} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="OpenStudio CLI For Revit 2022"/>
-    <ROW Property="ProductVersion" Value="0.1.15" Type="32"/>
+    <ROW Property="ProductVersion" Value="0.1.16" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{932084BD-2149-42E4-BBEF-F4DE50BC83DF}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -362,6 +362,8 @@
     <ROW File="USA_WA_Renton.Muni.AP.727934_TMY3.epw" Component_="another_weather_file.ddy" FileName="USA_WA~1.EPW|USA_WA_Renton.Muni.AP.727934_TMY3.epw" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\USA_WA_Renton.Muni.AP.727934_TMY3.epw" SelfReg="false" NextFile="USA_WA_Renton.Muni.AP.727934_TMY3.stat"/>
     <ROW File="USA_WA_Renton.Muni.AP.727934_TMY3.stat" Component_="another_weather_file.ddy" FileName="USA_WA~1.STA|USA_WA_Renton.Muni.AP.727934_TMY3.stat" Attributes="0" SourcePath="installer_staging\measures\ChangeBuildingLocation\tests\USA_WA_Renton.Muni.AP.727934_TMY3.stat" SelfReg="false" NextFile="gitkeep_3"/>
     <ROW File="VentilationAndInfiltration.xml" Component_="advanced_import_gbxml_test.rb" FileName="VENTIL~1.XML|VentilationAndInfiltration.xml" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\tests\VentilationAndInfiltration.xml" SelfReg="false" NextFile="LICENSE.md_8"/>
+    <ROW File="_SpacesOneZE.xml" Component_="advanced_import_gbxml_test.rb" FileName="25_SPA~1.XML|25_SpacesOneZE.xml" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\tests\25_SpacesOneZE.xml" SelfReg="false" NextFile="_SpacesOneZE.xml_1"/>
+    <ROW File="_SpacesOneZE.xml_1" Component_="advanced_import_gbxml_test.rb" FileName="200_SP~1.XML|200_SpacesOneZE.xml" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\tests\200_SpacesOneZE.xml" SelfReg="false"/>
     <ROW File="acb.rb" Component_="chilled_water_loop.rb" FileName="acb.rb" Attributes="0" SourcePath="installer_staging\measures\gbxml_hvac_import\resources\acb.rb" SelfReg="false" NextFile="air_system.rb"/>
     <ROW File="add_xml_output_control_style_test.rb" Component_="add_xml_output_control_style_test.rb" FileName="ADD_XM~1.RB|add_xml_output_control_style_test.rb" Attributes="0" SourcePath="installer_staging\measures\add_xml_output_control_style\tests\add_xml_output_control_style_test.rb" SelfReg="false" NextFile="gitkeep_2"/>
     <ROW File="adhoc_test.rb" Component_="advanced_import_gbxml_test.rb" FileName="ADHOC_~1.RB|adhoc_test.rb" Attributes="0" SourcePath="installer_staging\measures\advanced_import_gbxml\tests\adhoc_test.rb" SelfReg="false" NextFile="eplusout.rb"/>
@@ -451,7 +453,7 @@
     <ROW File="engineering_check_for_coolings.rb" Component_="coil_sizing_details.rb" FileName="ENGINE~1.RB|engineering_check_for_coolings.rb" Attributes="0" SourcePath="installer_staging\measures\systems_analysis_report_generator\resources\eplusout\relations\engineering_check_for_coolings.rb" SelfReg="false" NextFile="engineering_check_for_heatings.rb"/>
     <ROW File="engineering_check_for_heatings.rb" Component_="coil_sizing_details.rb" FileName="ENGINE~2.RB|engineering_check_for_heatings.rb" Attributes="0" SourcePath="installer_staging\measures\systems_analysis_report_generator\resources\eplusout\relations\engineering_check_for_heatings.rb" SelfReg="false" NextFile="estimated_cooling_peak_load_component_tables.rb"/>
     <ROW File="engineering_check_mapper.rb" Component_="coil_sizing_detail_mapper.rb" FileName="ENGINE~1.RB|engineering_check_mapper.rb" Attributes="0" SourcePath="installer_staging\measures\systems_analysis_report_generator\resources\eplusout\mappers\engineering_check_mapper.rb" SelfReg="false" NextFile="estimated_peak_load_component_mapper.rb"/>
-    <ROW File="engineering_check_mapper.rb_1" Component_="design_psychrometric_mapper.rb" FileName="ENGINE~1.RB|engineering_check_mapper.rb" Attributes="0" SourcePath="installer_staging\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\engineering_check_mapper.rb" SelfReg="false"/>
+    <ROW File="engineering_check_mapper.rb_1" Component_="design_psychrometric_mapper.rb" FileName="ENGINE~1.RB|engineering_check_mapper.rb" Attributes="0" SourcePath="installer_staging\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\engineering_check_mapper.rb" SelfReg="false" NextFile="_SpacesOneZE.xml"/>
     <ROW File="engineering_check_table.rb" Component_="coil_sizing_detail.rb" FileName="ENGINE~1.RB|engineering_check_table.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\engineering_check_table.rb" SelfReg="false" NextFile="facility_component_load_summary.rb"/>
     <ROW File="engineering_check_table_repository.rb" Component_="coil_sizing_detail_repository.rb" FileName="ENGINE~1.RB|engineering_check_table_repository.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\resources\repositories\engineering_check_table_repository.rb" SelfReg="false" NextFile="peak_condition_table_repository.rb"/>
     <ROW File="engineering_checks.rb" Component_="coil_sizing_detail.rb_1" FileName="ENGINE~1.RB|engineering_checks.rb" Attributes="0" SourcePath="installer_staging\measures\loads_output_report\eplusout\models\engineering_checks.rb" SelfReg="false" NextFile="estimated_peak_load_components.rb"/>
