@@ -20,7 +20,7 @@ class AdvancedImportGbxml_Test < Minitest::Test
     runner = OpenStudio::Measure::OSRunner.new(osw)
 
     # locate the gbxml
-    path = OpenStudio::Path.new(File.dirname(__FILE__) + '/AirSystemAllVariations.xml')
+    path = OpenStudio::Path.new(File.dirname(__FILE__) + '/25_SpacesOneZE.xml')
 
     # use model from gbXML instead of empty model
     translator = OpenStudio::GbXML::GbXMLReverseTranslator.new
@@ -46,7 +46,12 @@ class AdvancedImportGbxml_Test < Minitest::Test
     end
 
     # run the measure
+    puts "Running the measure under test"
+    start = Process.clock_gettime(Process::CLOCK_MONOTONIC, unit=:float_second)
     measure.run(model, runner, argument_map)
+    finish = Process.clock_gettime(Process::CLOCK_MONOTONIC, unit=:float_second)
+    puts "Measure took #{finish - start} seconds to run"
+
     result = runner.result
 
     # show the output

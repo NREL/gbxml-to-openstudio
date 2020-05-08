@@ -466,6 +466,11 @@ module OsLib_AdvImport
         next
       end
 
+      zone_occupied = zone.numberOfPeople.zero? ? false : true
+      if zone_occupied
+        zone_occ_sch = self.thermal_zone_get_occupancy_schedule(zone)
+      end
+
       # make and assign thermostat if requested
       if zone_data.has_key?(:design_heat_t) || zone_data.has_key?(:design_cool_t)
         thermostatSetpointDualSetpoint = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(model)
@@ -473,10 +478,10 @@ module OsLib_AdvImport
         modified = true
 
         # get occupancy schedule if zone is occupied
-        zone_occupied = zone.numberOfPeople.zero? ? false : true
-        if zone_occupied
-          zone_occ_sch = self.thermal_zone_get_occupancy_schedule(zone)
-        end
+        # zone_occupied = zone.numberOfPeople.zero? ? false : true
+        # if zone_occupied
+        #   zone_occ_sch = self.thermal_zone_get_occupancy_schedule(zone)
+        # end
 
         # create and assign heating and cooling setpoint schedules
         # apply 5F temperature setback for occupied zones
@@ -531,10 +536,10 @@ module OsLib_AdvImport
         modified = true # What does this do?
 
         # get occupancy schedule if zone is occupied
-        zone_occupied = zone.numberOfPeople.zero? ? false : true
-        if zone_occupied
-          zone_occ_sch = self.thermal_zone_get_occupancy_schedule(zone)
-        end
+        # zone_occupied = zone.numberOfPeople.zero? ? false : true
+        # if zone_occupied
+        #   zone_occ_sch = self.thermal_zone_get_occupancy_schedule(zone)
+        # end
 
         # create and assign heating and cooling setpoint schedules
         # apply 5F temperature setback for occupied zones
