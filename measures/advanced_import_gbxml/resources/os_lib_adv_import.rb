@@ -40,13 +40,14 @@ require 'openstudio-standards'
 
 module OsLib_AdvImport
 
-  def self.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold = 0.05)
-    # Get all the occupancy schedules in every space in the zone
-    # Include people added via the SpaceType
-    # in addition to people hard-assigned to the Space itself.
+  def self.get_occ_schedules_and_occupancy(thermal_zone)
     occ_schedules_num_occ = {}
     max_occ_on_thermal_zone = 0
 
+    # This block gets the total number of people on each schedule used by a zone
+    #
+    # [@Returns] a hash of {Schedule: number of people}
+    #
     # Get the people objects
     thermal_zone.spaces.each do |space|
       # From the space type
@@ -87,18 +88,27 @@ module OsLib_AdvImport
       end
     end
 
-    # Transform Occupancy Schedules
-    year = thermal_zone.model.getYearDescription
+    return occ_schedules_num_occ, max_occ_on_thermal_zone
+  end
+
+  def self.get_day_schedules(occ_schedules_num_occ, year)
     first_day_date = year.makeDate(1)
     last_day_date = year.makeDate(365)
-
     daily_occ_sch_num_ppl = []
     occ_schedules_num_occ.each do |occ_sch, num_occ|
       daily_occ_sch_num_ppl << [occ_sch.getDaySchedules(first_day_date, last_day_date), num_occ]
     end
 
+    return daily_occ_sch_num_ppl
+  end
 
-    # time_value_pairs = []
+  def self.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold = 0.05)
+
+    occ_schedules_num_occ, max_occ_on_thermal_zone = get_occ_schedules_and_occupancy(thermal_zone)
+    year = thermal_zone.model.getYearDescription
+    daily_occ_sch_num_ppl = get_day_schedules(occ_schedules_num_occ, year)
+
+    time_value_pairs = {}
     yearly_data = []
     yearly_times = OpenStudio::DateTimeVector.new
     yearly_values = []
@@ -164,6 +174,13 @@ module OsLib_AdvImport
       end
 
       # Store the daily values
+
+      if time_value_pairs[[simple_daily_times, simple_daily_values]].nil?
+        time_value_pairs[[simple_daily_times, simple_daily_values]] = [os_date]
+      else
+        time_value_pairs[[simple_daily_times, simple_daily_values]] << os_date
+      end
+
       yearly_data << { 'date' => os_date, 'day_of_week' => day_of_week, 'times' => simple_daily_times, 'values' => simple_daily_values, 'daily_os_times' => simple_daily_os_times, 'daily_occs' => simple_daily_occs }
     end
 
@@ -194,63 +211,28 @@ module OsLib_AdvImport
     day_sch.setName("#{sch_name} Summer Design Day")
     day_sch.addValue(OpenStudio::Time.new(0, 24, 0, 0), 1)
 
-    # Create ruleset schedules, attempting to create
-    # the minimum number of unique rules.
-    ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].each do |weekday|
-      end_of_prev_rule = yearly_data[0]['date']
-      yearly_data.each_with_index do |daily_data, k|
-        # Skip unless it is the day of week
-        # currently under inspection
-        day = daily_data['day_of_week']
-        next unless day == weekday
-        date = daily_data['date']
-        times = daily_data['times']
-        values = daily_data['values']
-        daily_occs = daily_data['daily_occs']
+    ## New schedule creation
 
-        # If the next (Monday, Tuesday, etc.)
-        # is the same as today, keep going.
-        # If the next is different, or if
-        # we've reached the end of the year,
-        # create a new rule
-        unless yearly_data[k + 7].nil?
-          next_day_times = yearly_data[k + 7]['times']
-          next_day_values = yearly_data[k + 7]['values']
-          next if times == next_day_times && values == next_day_values
-        end
+    time_value_pairs.each do |key, dates|
+      times, values = key[0], key[1]
+      sch_rule = OpenStudio::Model::ScheduleRule.new(sch_ruleset)
+      sch_rule.setApplyMonday(true)
+      sch_rule.setApplyTuesday(true)
+      sch_rule.setApplyWednesday(true)
+      sch_rule.setApplyThursday(true)
+      sch_rule.setApplyFriday(true)
+      sch_rule.setApplySaturday(true)
+      sch_rule.setApplySunday(true)
+      sch_rule.setName("#{sch_name} Rule")
 
-        daily_os_times = daily_data['daily_os_times']
-        daily_occs = daily_data['daily_occs']
+      dates.map { |date| sch_rule.addSpecificDate(date) }
+      day_sch = sch_rule.daySchedule
 
-        # If here, we need to make a rule to cover from the previous
-        # rule to today
-
-        sch_rule = OpenStudio::Model::ScheduleRule.new(sch_ruleset)
-        sch_rule.setName("#{sch_name} #{weekday} Rule")
-        day_sch = sch_rule.daySchedule
-        day_sch.setName("#{sch_name} #{weekday}")
-        daily_os_times.each_with_index do |time, l|
-          value = values[l]
-          next if value == values[l + 1] # Don't add breaks if same value
-          day_sch.addValue(time, value)
-        end
-
-        # Set the dates when the rule applies
-        sch_rule.setStartDate(end_of_prev_rule)
-        sch_rule.setEndDate(date)
-
-        # Individual Days
-        sch_rule.setApplyMonday(true) if weekday == 'Monday'
-        sch_rule.setApplyTuesday(true) if weekday == 'Tuesday'
-        sch_rule.setApplyWednesday(true) if weekday == 'Wednesday'
-        sch_rule.setApplyThursday(true) if weekday == 'Thursday'
-        sch_rule.setApplyFriday(true) if weekday == 'Friday'
-        sch_rule.setApplySaturday(true) if weekday == 'Saturday'
-        sch_rule.setApplySunday(true) if weekday == 'Sunday'
-
-        # Reset the previous rule end date
-        end_of_prev_rule = date + OpenStudio::Time.new(0, 24, 0, 0)
-      end
+      times.each_with_index { |time, j|
+        value = values[j]
+        next if value == values[j + 1] # Don't add breaks if same value
+        day_sch.addValue(OpenStudio::Time.new(time), value)
+      }
     end
 
     return sch_ruleset
