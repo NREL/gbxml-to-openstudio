@@ -4,6 +4,8 @@ require_relative 'eplusout'
 require_relative 'canister'
 
 require_relative 'systems_analysis_report/container'
+require_relative 'systems_analysis_report/config/config'
+require_relative 'systems_analysis_report/config/json_writer'
 
 require_relative 'systems_analysis_report/mappers/mapper'
 require_relative 'systems_analysis_report/mappers/lighting_return_peak_load_air_mapper'

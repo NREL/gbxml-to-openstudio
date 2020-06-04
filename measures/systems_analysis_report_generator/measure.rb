@@ -1,4 +1,4 @@
-﻿require_relative 'resources/systems_analysis_report'
+require_relative 'resources/systems_analysis_report'
 
 class SystemsAnalysisReportGenerator < OpenStudio::Measure::ReportingMeasure
   # human readable name
@@ -51,7 +51,9 @@ class SystemsAnalysisReportGenerator < OpenStudio::Measure::ReportingMeasure
     container = SystemsAnalysisReport.container(model, sql_file)
     data = container.json_generator.generate.to_json
     input_dir = "#{File.dirname(__FILE__)}/resources/build"
-    SystemsAnalysisReport::Strategies::HtmlInjector.(input_dir, data)
+    config_path = "#{File.dirname(__FILE__)}/resources/build/reportConfig.json" # check this
+    config = SystemsAnalysisReport::Config.new({file_path:config_path})
+    SystemsAnalysisReport::Strategies::HtmlInjector.(input_dir, data, config)
 
     sql_file.close
 
