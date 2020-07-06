@@ -1,1 +1,1 @@
-﻿Insert your license here
+Insert your license here

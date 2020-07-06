@@ -18,7 +18,7 @@ module SystemsAnalysisReport
           OpenStudio::Model::CoilHeatingDXMultiSpeed::iddObjectType,
           OpenStudio::Model::CoilHeatingDXSingleSpeed::iddObjectType,
           OpenStudio::Model::CoilHeatingDXVariableSpeed::iddObjectType,
-          OpenStudio::Model::CoilCoolingDXVariableRefrigerantFlow::iddObjectType,
+          OpenStudio::Model::CoilHeatingDXVariableRefrigerantFlow::iddObjectType,
           OpenStudio::Model::CoilHeatingElectric::iddObjectType,
           OpenStudio::Model::CoilHeatingGas::iddObjectType,
           OpenStudio::Model::CoilHeatingGasMultiStage::iddObjectType,
