@@ -846,6 +846,40 @@ module OsLib_Schedules
       times = day_sch.times
       values = day_sch.values
 
+      # in this case delete all values outside of
+      # todo - may need similar logic if exactly 0 hours
+      if adjusted_opp_day_length == 24
+        start_val = day_sch.getValue(start_hoo_time)
+        finish_val = day_sch.getValue(finish_hoo_time)
+
+        # remove times out of range that should not be reference or compressed
+        if start_hoo_time < finish_hoo_time
+          times.each do |time|
+            if time <= start_hoo_time || time > finish_hoo_time
+              day_sch.removeValue(time)
+            end
+          end
+          # add in values
+          day_sch.addValue(start_hoo_time,start_val)
+          day_sch.addValue(finish_hoo_time,finish_val)
+          day_sch.addValue(time_24,[start_val,finish_val].max)
+        else
+          times.each do |time|
+            if time > start_hoo_time && time <= finish_hoo_time
+              day_sch.removeValue(time)
+            end
+          end
+          # add in values
+          day_sch.addValue(finish_hoo_time,finish_val)
+          day_sch.addValue(start_hoo_time,start_val)
+          day_sch.addValue(time_24,[values.first,values.last].max)
+        end
+
+      end
+
+      times = day_sch.times
+      values = day_sch.values
+
       # arrays for values to avoid overlap conflict of times
       new_times = []
       new_values = []
@@ -903,16 +937,25 @@ module OsLib_Schedules
       new_times << time_24
       new_values << min_time_value
 
+      new_time_val_hash = {}
+      new_times.each_with_index do |time,i|
+        new_time_val_hash[time.totalHours] = {:time => time, :value => new_values[i]}
+      end
+
       # clear values
       day_sch.clearValues
 
-      # make new values
-      for i in 0..(new_values.length - 1)
-        # skip datapoint if time is less than 1 minute, this will crash forward translation
-        if new_times[i] > time_1_min
-          day_sch.addValue(new_times[i], new_values[i])
+      new_time_val_hash = Hash[new_time_val_hash.sort]
+      prev_time = nil
+      new_time_val_hash.sort.each do |hours,time_val|
+        if prev_time.nil? || time_val[:time] - prev_time > time_1_min
+          day_sch.addValue(time_val[:time], time_val[:value])
+          prev_time = time_val[:time]
+        else
+          puts "time step in #{day_sch.name} between #{prev_time.toString} and #{time_val[:time].toString} is too small to support, not adding value"
         end
       end
+
     end
 
     return schedule

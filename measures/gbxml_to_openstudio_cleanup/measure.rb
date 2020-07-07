@@ -32,11 +32,15 @@ class GbxmlToOpenstudioCleanup < OpenStudio::Measure::ModelMeasure
   def run(model, runner, user_arguments)
     super(model, runner, user_arguments)
 
-    # Remove the hardcoded airwall material on subsurfaces
+    # Set airwall to single pane simple glazing
+    window_simple = OpenStudio::Model::SimpleGlazing.new(model, 3.7642, 0.78)
+    window_simple.setVisibleTransmittance(0.9)
+    window_construction = OpenStudio::Model::Construction.new(model)
+    window_construction.insertLayer(0, window_simple)
+
     model.getSubSurfaces.each do |sub_surface|
-      # @param sub_surface [OpenStudio::Model::SubSurface]
       if sub_surface.isAirWall
-        sub_surface.resetConstruction
+        sub_surface.setConstruction(window_construction)
       end
     end
 

@@ -1,0 +1,73 @@
+{
+  "seed_file": "seed_empty.osm",
+  "weather_file": "USA_CO_Denver.Intl.AP.725650_TMY3.epw",
+  "measure_paths": [
+    "../../measures/"
+  ],
+  "file_paths": [
+    "../../weather",
+    "../../seeds",
+    "../../gbxmls"
+  ],
+  "run_directory": "./run",
+  "steps": [
+    {
+      "measure_dir_name": "import_gbxml",
+      "name": "ImportGbxml",
+      "arguments": {
+        "gbxml_file_name": "VRFAllVariations.xml"
+      }
+    },
+    {
+      "measure_dir_name": "advanced_import_gbxml",
+      "name": "Advanced Import Gbxml",
+      "arguments": {
+        "gbxml_file_name": "VRFAllVariations.xml"
+      }
+    },
+    {
+      "measure_dir_name": "gbxml_hvac_import",
+      "name": "GBXML HVAC Import",
+      "arguments": {
+        "gbxml_file_name": "VRFAllVariations.xml"
+      }
+    },
+    {
+      "arguments": {
+        "do_plant_sizing": true,
+        "do_system_sizing": true,
+        "do_zone_sizing": true,
+        "end_date": "12/31",
+        "loads_convergence_tolerance": 0.1,
+        "max_warmup_days": 25,
+        "min_warmup_days": 3,
+        "sim_for_run_period": false,
+        "sim_for_sizing": true,
+        "solar_distribution": "MinimalShadowing",
+        "start_date": "01/01",
+        "temp_convergence_tolerance": 0.5,
+        "timesteps_per_hour": 4,
+        "max_hvac_iterations": 8
+      },
+      "description": "The measures sets simulation control, timestep and convergence parameters.",
+      "measure_dir_name": "set_simulation_control",
+      "modeler_description": "",
+      "name": "Set Simulation Control"
+    },
+    {
+      "measure_dir_name": "ChangeBuildingLocation",
+      "name": "Change Building Location",
+      "arguments": {
+        "weather_file_name": "USA_CO_Denver.Intl.AP.725650_TMY3.epw"
+      }
+    },
+    {
+      "measure_dir_name": "gbxml_to_openstudio_cleanup",
+      "name": "gbxml_to_openstudio_cleanup"
+    },
+    {
+      "measure_dir_name": "add_xml_output_control_style",
+      "name": "Add XML Output Control Style"
+    }
+  ]
+}

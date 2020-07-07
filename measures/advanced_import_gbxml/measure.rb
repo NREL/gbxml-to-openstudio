@@ -45,7 +45,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     super(model, runner, user_arguments)
 
     # use the built-in error checking
-    if !runner.validateUserArguments(arguments(model), user_arguments)
+    unless runner.validateUserArguments(arguments(model), user_arguments)
       return false
     end
 
@@ -57,7 +57,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       runner.registerError("Empty gbXML filename was entered.")
       return false
     end
-    
+
     # find the gbXML file
     path = runner.workflow.findFile(gbxml_file_name)
     if path.empty?
@@ -73,25 +73,62 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     xml_string = File.read(path.to_s)
     gbxml_doc = REXML::Document.new(xml_string)
 
+    units = gbxml_doc.elements['gbXML'].attributes['useSIUnitsForResults'] == "true" ? "SI" : "IP"
+    runner.setUnitsPreference(units)
+
     # test looking for building area
     gbxml_area = gbxml_doc.elements["/gbXML/Campus/Building/Area"]
     runner.registerInfo("the gbXML has an area of #{gbxml_area.text.to_f}.")
 
-=begin
-    puts "**Looping through surfaces"
-    gbxml_doc.elements.each('gbXML/Campus/Surface') do |element|
-      name = element.elements['Name']
-      if ! name.nil?
-        puts name.text
-      else
-        puts "Surface #{element.attributes['id']} does not have a name"
-      end
+    # get building type
+    building_type = gbxml_doc.elements["/gbXML/Campus/Building"].attributes['buildingType']
+
+    # set location parameters
+    # @type [OpenStudio::Model::Site] site
+    site = model.getSite
+    location_element = gbxml_doc.elements["/gbXML/Campus/Location"]
+    site.setLongitude(location_element.elements["Longitude"].text.to_f) unless location_element.elements["Longitude"].nil?
+    site.setLatitude(location_element.elements["Latitude"].text.to_f) unless location_element.elements["Latitude"].nil?
+    site.setName(location_element.elements["Name"].text) unless location_element.elements["Name"].nil?
+    site.setTimeZone(model.getWeatherFile.timeZone)
+
+    length_unit = gbxml_doc.elements['gbXML'].attributes['lengthUnit']
+    unless location_element.elements["Elevation"].nil?
+      elevation = location_element.elements["Elevation"].text.to_f
+      elevation = OpenStudio.convert(elevation, "ft", "m").get if length_unit == "Feet"
+      site.setElevation(elevation)
     end
-=end
+
+    # Assign construction absorptance
+    materials_set = Set.new
+    gbxml_doc.elements.each('gbXML/Construction') do |construction|
+      absorptance = construction.elements['Absorptance'].text.to_f unless construction.elements['Absorptance'].nil?
+      construction_name = construction.elements['Name'].text unless construction.elements['Name'].nil?
+
+      next unless absorptance and construction_name
+
+      absorptance = OpenStudio::OptionalDouble.new(absorptance)
+      os_construction = model.getConstructionByName(construction_name)
+
+      next unless os_construction.is_initialized
+      os_construction = os_construction.get
+
+      outer_material = os_construction.layers[0]
+
+      if materials_set.include? outer_material
+        outer_material = outer_material.clone.to_OpaqueMaterial.get
+        os_construction.setLayer(0, outer_material)
+      end
+
+      outer_material.to_OpaqueMaterial.get.setSolarAbsorptance(absorptance)
+      materials_set.add(outer_material)
+    end
 
     # create hash used for importing
     advanced_inputs = {}
+    advanced_inputs[:building_type] = building_type
     advanced_inputs[:spaces] = {}
+    advanced_inputs[:zones] = {}
     advanced_inputs[:schedule_sets] = {} # key is "light|equip|people|"
     advanced_inputs[:schedules] = {}
     advanced_inputs[:week_schedules] = {}
@@ -101,18 +138,12 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     advanced_inputs[:light_defs] = {}
     advanced_inputs[:equip_defs] = {}
 
-    puts "**Looping through spaces"
     gbxml_doc.elements.each('gbXML/Campus/Building/Space') do |element|
       name = element.elements['Name']
-      if ! name.nil?
-        puts name.text
-      else
-        puts "Space #{element.attributes['id']} does not have a name"
-      end
 
       # find or create schedule_set key in hash
       target_sch_set_key = "#{element.attributes['lightScheduleIdRef']}|#{element.attributes['equipmentScheduleIdRef']}|#{element.attributes['peopleScheduleIdRef']}"
-      if ! advanced_inputs[:schedule_sets].has_key?(target_sch_set_key)
+      unless advanced_inputs[:schedule_sets].has_key?(target_sch_set_key)
         if not target_sch_set_key == "||"
           light_sch = element.attributes['lightScheduleIdRef']
           elec_sch = element.attributes['equipmentScheduleIdRef']
@@ -121,71 +152,120 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
           advanced_inputs[:schedule_sets][target_sch_set_key][:light_schedule_id_ref] = light_sch
           advanced_inputs[:schedule_sets][target_sch_set_key][:equipment_schedule_id_ref] = elec_sch
           advanced_inputs[:schedule_sets][target_sch_set_key][:people_schedule_id_ref] = occ_sch
-
         end
       end
 
       # create hash entry for space with attributes
       advanced_inputs[:spaces][element.attributes['id']] = {}
-      if not target_sch_set_key == "||"
+      unless target_sch_set_key == "||"
         advanced_inputs[:spaces][element.attributes['id']][:sch_set] = target_sch_set_key
       end
-      if ! element.attributes['zoneIdRef'].nil?
+      unless element.attributes['zoneIdRef'].nil?
         advanced_inputs[:spaces][element.attributes['id']][:zone_id_ref] = element.attributes['zoneIdRef']
       end
-      if ! element.attributes['conditionType'].nil?
+      unless element.attributes['conditionType'].nil?
         advanced_inputs[:spaces][element.attributes['id']][:condition_type] = element.attributes['conditionType']
       end
-      if ! element.elements['Name'].nil?
+      unless element.elements['Name'].nil?
         advanced_inputs[:spaces][element.attributes['id']][:name] = element.elements['Name'].text
       end
 
-      # populate hash for space load instances for people, lights and electric equipment. Don't duplicate load definitions if an equivalent one has already been made.
+      # Populate hash for space load instances for people, lights, and electric equipment.
+      # Don't duplicate load definitions if an equivalent one has already been made.
+
       # gather lights
-      if ! element.elements['LightPowerPerArea'].nil?
-        # todo - add code for different unit types, for now assuming value is w/ft^2
-        light_power_per_area = element.elements['LightPowerPerArea'].text.to_f
-        if ! advanced_inputs[:light_defs].has_key?(light_power_per_area)
+      light_element = element.elements['LightPowerPerArea']
+      unless light_element.nil?
+        light_power_per_area = light_element.text.to_f
+        light_power_per_area = OpenStudio.convert(light_power_per_area, "W/m^2", "W/ft^2").get if light_element.attributes['unit'] == "WattPerSquareMeter"
+        unless advanced_inputs[:light_defs].has_key?(light_power_per_area)
           advanced_inputs[:light_defs][light_power_per_area] = "adv_import_light_#{advanced_inputs[:light_defs].size}"
         end
         advanced_inputs[:spaces][element.attributes['id']][:light_defs] = light_power_per_area
       end
+
       # gather electric equipment
-      if ! element.elements['EquipPowerPerArea'].nil?
-        # todo - add code for different unit types, for now assuming value is w/ft^2
-        light_power_per_area = element.elements['EquipPowerPerArea'].text.to_f
-        if ! advanced_inputs[:equip_defs].has_key?(light_power_per_area)
-          advanced_inputs[:equip_defs][light_power_per_area] = "adv_import_elec_equip_#{advanced_inputs[:equip_defs].size}"
+      equipment_element = element.elements['EquipPowerPerArea']
+      unless equipment_element.nil?
+        equip_power_per_area = equipment_element.text.to_f
+        equip_power_per_area = OpenStudio.convert(equip_power_per_area, "W/m^2", "W/ft^2").get if equipment_element.attributes['unit'] == "WattPerSquareMeter"
+        unless advanced_inputs[:equip_defs].has_key?(equip_power_per_area)
+          advanced_inputs[:equip_defs][equip_power_per_area] = "adv_import_elec_equip_#{advanced_inputs[:equip_defs].size}"
         end
-        advanced_inputs[:spaces][element.attributes['id']][:equip_defs] = light_power_per_area
+        advanced_inputs[:spaces][element.attributes['id']][:equip_defs] = equip_power_per_area
       end
+
       # gather people
       # unlike lights and equipment, there are multiple people objects in the space to inspect
       space_people_attributes = {}
       element.elements.each('PeopleHeatGain') do |people_heat_gain|
-        # todo - add code for different unit types, for now assuming value is w/ft^2
-        #unit = people_heat_gain.attributes['unit']
+        unit = people_heat_gain.attributes['unit']
         heat_gain_type = people_heat_gain.attributes['heatGainType']
-        space_people_attributes["people_heat_gain_#{heat_gain_type.downcase}"] = people_heat_gain.text.to_f
+        heat_gain = unit == "BtuPerHourPerson" ? people_heat_gain.text.to_f : OpenStudio.convert(people_heat_gain.text.to_f, "W", "Btu/h").get
+        space_people_attributes["people_heat_gain_#{heat_gain_type.downcase}"] = heat_gain
       end
-      if ! element.elements['PeopleNumber'].nil?
+      unless element.elements['PeopleNumber'].nil?
         space_people_attributes[:people_number] = element.elements['PeopleNumber'].text.to_f
       end
-      if ! advanced_inputs[:people_defs].has_key?(space_people_attributes) && space_people_attributes.size > 0
+      unless advanced_inputs[:people_defs].has_key?(space_people_attributes) && space_people_attributes.size > 0
         advanced_inputs[:people_defs][space_people_attributes] = "adv_import_people_#{advanced_inputs[:people_defs].size}"
       end
       if space_people_attributes.size > 0
         advanced_inputs[:spaces][element.attributes['id']][:people_defs] = space_people_attributes
       end
 
-      # Noah: Adding hard coding of volume to spaces
-      # Todo: check units of the gbXML file
+      # gather infiltration
+      infiltration_def = { infiltration_flow_per_space: nil,                 # cfm
+                           infiltration_flow_per_space_area: nil,            # cfm/ft2
+                           infiltration_flow_per_exterior_surface_area: nil, # cfm/ft2
+                           infiltration_flow_per_exterior_wall_area: nil,    # cfm/ft2
+                           infiltration_flow_air_changes_per_hour: nil }     # 1/h
+      if !element.elements['InfiltrationFlowPerArea'].nil?
+        infiltration_element = element.elements['InfiltrationFlowPerArea']
+        infiltration = infiltration_element.text.to_f
+        infiltration = OpenStudio.convert(infiltration, "L/s*m^2", "cfm/ft^2").get if infiltration_element.attributes['unit'] == "LPerSecPerSquareM"
+        infiltration_def[:infiltration_flow_per_exterior_wall_area] = infiltration
+      end
+
+      advanced_inputs[:spaces][element.attributes['id']][:infiltration_def] = infiltration_def
+
+      # gather ventilation
+      ventilation_def = { ventilation_flow_per_person: 0.0,            # cfm
+                          ventilation_flow_per_area: 0.0,              # cfm/ft2
+                          ventilation_flow_per_space: 0.0,             # cfm
+                          ventilation_flow_air_changes_per_hour: 0.0 } # 1/h
+      unless element.attributes['outdoorAirflowMethod'].nil?
+        ventilation_def[:outdoor_airflow_method] = element.attributes['outdoorAirflowMethod']
+      end
+      if !element.elements['OAFlowPerPerson'].nil?
+        ventilation_element = element.elements['OAFlowPerPerson']
+        ventilation = ventilation_element.text.to_f
+        ventilation = OpenStudio.convert(ventilation, "L/s", "cfm").get if ventilation_element.attributes['unit'] == "LPerSec"
+        ventilation_def[:ventilation_flow_per_person] = ventilation
+      end
+      if !element.elements['OAFlowPerArea'].nil?
+        ventilation_element = element.elements['OAFlowPerArea']
+        ventilation = ventilation_element.text.to_f
+        ventilation = OpenStudio.convert(ventilation, "L/s*m^2", "cfm/ft^2").get if ventilation_element.attributes['unit'] == "LPerSecPerSquareM"
+        ventilation_def[:ventilation_flow_per_area] = ventilation
+      end
+      if !element.elements['OAFlowPerSpace'].nil?
+        ventilation_element = element.elements['OAFlowPerSpace']
+        ventilation = ventilation_element.text.to_f
+        ventilation = OpenStudio.convert(ventilation, "L/s", "cfm").get if ventilation_element.attributes['unit'] == "LPerSec"
+        ventilation_def[:ventilation_flow_per_space] = ventilation
+      end
+      if !element.elements['AirChangesPerHour'].nil?
+        ventilation_def[:ventilation_flow_air_changes_per_hour] = element.elements['AirChangesPerHour'].text.to_f
+      end
+      advanced_inputs[:spaces][element.attributes['id']][:ventilation_def] = ventilation_def
+
+    # Hard code space volumes as geometry may not be clean enough to compute all the time.
       id_element = element.elements['CADObjectId']
       id = id_element ? id_element.text : false
 
       model.getSpaces().each do |space|
 
-        # puts space.additionalProperties
         optional_id = space.additionalProperties.getFeatureAsString('CADObjectId')
 
         if optional_id.is_initialized && id
@@ -202,7 +282,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
 
               # check units and adjust if needed
               volume_unit = gbxml_doc.elements['gbXML'].attributes['volumeUnit']
-              volume = OpenStudio.convert(volume, "ft^3", "m^3") if volume_unit == "CubicFeet"
+              volume = OpenStudio.convert(volume, "ft^3", "m^3").get if volume_unit == "CubicFeet"
 
               thermal_zone = space.thermalZone.get
               original_volume = thermal_zone.volume
@@ -214,24 +294,16 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
               else
                 thermal_zone.setVolume(volume)
               end
-
             end
           end
         end
       end
     end
 
-    puts "**Looping through schedules"
     # note, schedules and schedule sets will be generated as used when looping through spaces
     gbxml_doc.elements.each('gbXML/Schedule') do |element|
       name = element.elements['Name']
-      if ! name.nil?
-        puts name.text
-      else
-        puts "Schedule #{element.attributes['id']} does not have a name"
-      end
       # add schedules to hash with array of week schedules
-      # todo - get sample with multiple WeekScheduleId objects and support that in schedule generation
       sch_week = element.elements['YearSchedule/WeekScheduleId'].attributes['weekScheduleIdRef']
       advanced_inputs[:schedules][element.attributes['id']] = {'name' => name.text, 'sch_week' => sch_week}
     end
@@ -241,33 +313,22 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     model.getScheduleWeeks.each { |week| week.remove }
     model.getScheduleDays.each { |day| day.remove }
 
-    puts "**Looping through week schedules"
     # note, schedules and schedule sets will be generated as used when looping through spaces
     gbxml_doc.elements.each('gbXML/WeekSchedule') do |element|
       name = element.elements['Name']
-      if ! name.nil?
-        puts name.text
-      else
-        puts "WeekSchedule #{element.attributes['id']} does not have a name"
-      end
       # add schedules to hash with array of week schedules
       day_types = {}
       element.elements.each do |day_type|
-        next if !day_type.attributes.has_key?('dayType')
+        next unless day_type.attributes.has_key?('dayType')
         day_types[day_type.attributes['dayType']] = day_type.attributes['dayScheduleIdRef']
       end
       advanced_inputs[:week_schedules][element.attributes['id']] = day_types
     end
 
-    puts "**Looping through day schedules"
     # note, schedules and schedule sets will be generated as used when looping through spaces
     gbxml_doc.elements.each('gbXML/DaySchedule') do |element|
       name = element.elements['Name']
-      if ! name.nil?
-        puts name.text
-      else
-        puts "DaySchedule #{element.attributes['id']} does not have a name"
-      end
+
       # add schedules to hash with array of week schedules
       hourly_values = []
       element.elements.each('ScheduleValue') do |hour|
@@ -276,73 +337,47 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       advanced_inputs[:day_schedules][element.attributes['id']] = hourly_values
     end
 
-    puts "**Looping through zones"
     gbxml_doc.elements.each('gbXML/Zone') do |element|
       name = element.elements['Name']
-      if ! name.nil?
-        puts name.text
-      else
-        puts "Zone #{element.attributes['id']} does not have a name"
+
+      # create hash entry for space with attributes
+      advanced_inputs[:zones][element.attributes['id']] = {}
+      unless element.elements['Name'].nil?
+        advanced_inputs[:zones][element.attributes['id']][:name] = element.elements['Name'].text
       end
-    end
 
-    puts "**Looping through ZoneHVACEquipment"
-    gbxml_doc.elements.each('gbXML/ZoneHVACEquipment') do |element|
-      name = element.elements['Name']
-      if ! name.nil?
-        puts name.text
-      else
-        puts "ZoneHVACEquipment #{element.attributes['id']} does not have a name"
+      # store DesignHeatT and DesignCoolT
+      unless element.elements['DesignHeatT'].nil?
+        design_heat_t_element = element.elements['DesignHeatT']
+        design_heat_t = design_heat_t_element.text.to_f
+        design_heat_t = OpenStudio.convert(design_heat_t, "C", "F").get if design_heat_t_element.attributes['unit'] == "C"
+        advanced_inputs[:zones][element.attributes['id']][:design_heat_t] = design_heat_t
       end
-    end
-
-    puts "**Looping through AirSystem"
-    gbxml_doc.elements.each('gbXML/AirSystem') do |element|
-      name = element.elements['Name']
-      if ! name.nil?
-        puts name.text
-      else
-        puts "ZoneHVACEquipment #{element.attributes['id']} does not have a name"
+      unless element.elements['DesignCoolT'].nil?
+        design_cool_t_element = element.elements['DesignCoolT']
+        design_cool_t = design_cool_t_element.text.to_f
+        design_cool_t = OpenStudio.convert(design_cool_t, "C", "F").get if design_cool_t_element.attributes['unit'] == "C"
+        advanced_inputs[:zones][element.attributes['id']][:design_cool_t] = design_cool_t
       end
-    end
 
-    puts "**Looping through HydronicLoop"
-    gbxml_doc.elements.each('gbXML/HydronicLoop') do |element|
-      name = element.elements['Name']
-      if ! name.nil?
-        puts name.text
-      else
-        puts "ZoneHVACEquipment #{element.attributes['id']} does not have a name"
+      unless element.elements['DesignHeatRH'].nil?
+        design_heat_rh_element = element.elements['DesignHeatRH']
+        design_heat_rh = design_heat_rh_element.text.to_f
+        advanced_inputs[:zones][element.attributes['id']][:design_heat_rh] = design_heat_rh
       end
+      unless element.elements['DesignCoolRH'].nil?
+        design_cool_rh_element = element.elements['DesignCoolRH']
+        design_cool_rh = design_cool_rh_element.text.to_f
+        advanced_inputs[:zones][element.attributes['id']][:design_cool_rh] = design_cool_rh
+      end
+
     end
-
-=begin
-    # todo - remove temp code to inspect hash
-    puts "** inspecting space hash"
-    puts advanced_inputs[:spaces]
-    puts "** inspecting schedule set hash"
-    puts advanced_inputs[:schedule_sets]
-    puts "** inspecting schedule hash"
-    puts advanced_inputs[:schedules]
-    puts "** inspecting week schedule hash"
-    puts advanced_inputs[:week_schedules]
-    puts "** inspecting day schedule hash"
-    puts advanced_inputs[:day_schedules]
-    puts "** inspecting lights"
-    puts advanced_inputs[:light_defs]
-    puts "** inspecting elec equip"
-    puts advanced_inputs[:equip_defs]
-    puts "** inspecting people"
-    puts advanced_inputs[:people_defs]
-=end
-
-
 
     # create model objects from hash
-    OsLib_AdvImport.add_objects_from_adv_import_hash(runner,model,advanced_inputs)
+    OsLib_AdvImport.add_objects_from_adv_import_hash(runner, model, advanced_inputs)
 
     # cleanup fenestration that may be too large (need to confirm how doors and glass doors are addressed)
-    OsLib_AdvImport.assure_fenestration_inset(runner,model)
+    OsLib_AdvImport.assure_fenestration_inset(runner, model)
 
     # report final condition of model
     runner.registerFinalCondition("The building finished with #{model.objects.size} model objects.")

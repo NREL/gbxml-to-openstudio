@@ -1,0 +1,83 @@
+{
+  "language": "ru-RU",
+  "units": [
+    {
+      "type": "HVAC_Heating_Load",
+      "forge_schema_spec": "autodesk.spec.aec.hvac:heatingLoad-1.0.0",
+      "forge_schema_unit": "autodesk.unit.unit:watts-1.0.1",
+      "display": "WATTS"
+    },
+    {
+      "type": "HVAC_Temperature",
+      "forge_schema_spec": "autodesk.spec.aec.hvac:temperature-1.0.0",
+      "forge_schema_unit": "autodesk.unit.unit:fahrenheit-1.0.1",
+      "display": "CELSIUS"
+    },
+    {
+      "type": "HVAC_TemperatureDifference",
+      "forge_schema_spec": "autodesk.spec.aec.hvac:temperatureDifference-1.0.0",
+      "forge_schema_unit": "autodesk.unit.unit:celsiusInterval-1.0.1",
+      "display": "CELSIUS_DIFFERENCE"
+    },
+    {
+      "type": "Mass",
+      "forge_schema_spec": "autodesk.spec.aec.structural:mass-1.0.0",
+      "forge_schema_unit": "autodesk.unit.unit:kilograms-1.0.0",
+      "display": "KILOGRAMS_MASS"
+    },
+    {
+      "type": "HVAC_Airflow",
+      "forge_schema_spec": "autodesk.spec.aec.hvac:airFlow-1.0.1",
+      "forge_schema_unit": "autodesk.unit.unit:cubicMetersPerSecond-1.0.1",
+      "display": "CUBIC_METERS_PER_SECOND"
+    },
+    {
+      "type": "HVAC_SpecificHeat",
+      "forge_schema_spec": "autodesk.spec.aec.energy:specificHeat-1.0.0",
+      "forge_schema_unit": "autodesk.unit.unit:joulesPerKilogramDegreeCelsius-1.0.1",
+      "display": "JOULES_PER_KILOGRAM_CELSIUS"
+    },
+    {
+      "type": "HVAC_Density",
+      "forge_schema_spec": "autodesk.spec.aec.hvac:density-1.0.0",
+      "forge_schema_unit": "autodesk.unit.unit:kilogramsPerCubicMeter-1.0.1",
+      "display": "KILOGRAMS_PER_CUBIC_METER"
+    },
+    {
+      "type": "HVAC_Factor",
+      "forge_schema_spec": "autodesk.spec.aec.hvac:factor-1.0.0",
+      "forge_schema_unit": "autodesk.unit.unit:percentage-1.0.1",
+      "display": "PERCENTAGE"
+    },
+    {
+      "type": "HVAC_Heating_Load_Divided_By_Area",
+      "forge_schema_spec": "autodesk.spec.aec.hvac:heatingLoadDividedByArea-1.0.0",
+      "forge_schema_unit": "autodesk.unit.unit:wattsPerSquareMeter-1.0.1",
+      "display": "WATTS_PER_SQUARE_METER"
+    },
+    {
+      "type": "HVAC_Area_Divided_By_Heating_Load",
+      "forge_schema_spec": "autodesk.spec.aec.hvac:areaDividedByHeatingLoad-1.0.1",
+      "forge_schema_unit": "autodesk.unit.unit:squareMetersPerKilowatt-1.0.1",
+      "display": "SQUARE_METERS_PER_KILOWATTS"
+    },
+    {
+      "type": "HVAC_Airflow_Density",
+      "forge_schema_spec": "autodesk.spec.aec.hvac:airFlowDensity-1.0.0",
+      "forge_schema_unit": "autodesk.unit.unit:litersPerSecondSquareMeter-1.0.1",
+      "display": "LITERS_PER_SECOND_SQUARE_METER"
+    },
+    {
+      "type": "HVAC_Airflow_Divided_By_Cooling_Load",
+      "forge_schema_spec": "autodesk.spec.aec.hvac:airFlowDividedByCoolingLoad-1.0.0",
+      "forge_schema_unit": "autodesk.unit.unit:litersPerSecondSquareMeter-1.0.1",
+      "display": "LITERS_PER_SECOND_SQUARE_METER"
+    },
+    {
+      "type": "Area",
+      "forge_schema_spec": "autodesk.spec.aec:area-1.0.0",
+      "forge_schema_unit": "autodesk.unit.unit:squareMeters-1.0.1",
+      "display": "SQUARE_METERS"
+    }
+  ]
+}

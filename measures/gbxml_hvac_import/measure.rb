@@ -1,19 +1,7 @@
-# insert your copyright here
-
-# see the URL below for information on how to write OpenStudio measures
-# http://nrel.github.io/OpenStudio-user-documentation/reference/measure_writing_guide/
-
-require 'rexml/document'
-require 'rexml/xpath'
-require_relative 'resources/model_manager/model_manager'
-
-# require all .rb files in resources folder
-Dir[File.dirname(__FILE__) + '/resources/*/*.rb'].each { |file| require file }
+require_relative 'gbxml_hvac_import'
 
 # start the measure
 class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
-  require 'openstudio-standards'
-
   # human readable name
   def name
     # Measure name should be the title case of the class name.
@@ -62,7 +50,7 @@ class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
       runner.registerError("Empty gbXML filename was entered.")
       return false
     end
-    
+
     # find the gbXML file
     path = runner.workflow.findFile(gbxml_file_name)
     if path.empty?
@@ -74,43 +62,13 @@ class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
     # report initial condition of model
     runner.registerInitialCondition("The building started with #{model.objects.size} model objects.")
 
-    # read in and parse xml using using rexml
-    # xml_string = File.read(path.to_s)
-    # gbxml_doc = REXML::Document.new(xml_string)
     model_manager = ModelManager.new(model, path)
     model_manager.load_gbxml
+    model_manager.resolve_references
     model_manager.resolve_read_relationships
     model_manager.build
-
-    # test looking for building area
-    # gbxml_area = gbxml_doc.elements["/gbXML/Campus/Building/Area"]
-    # runner.registerInfo("the gbXML has an area of #{gbxml_area.text.to_f}.")
-
-    # std = Standard.build('90.1-2013')
-    #
-    # gbxml_doc.elements.each("gbXML/HydronicLoop[@loopType='CondenserWater']") do |element|
-    #   CondenserLoop.create_cw_loop_from_xml(model, std, element)
-    # end
-    #
-    # gbxml_doc.elements.each("gbXML/HydronicLoop[@loopType='PrimaryChilledWater']") do |element|
-    #   ChilledWaterLoop.create_chw_loop_from_xml(model, std, element)
-    # end
-    #
-    # gbxml_doc.elements.each("gbXML/HydronicLoop[@loopType='HotWater']") do |element|
-    #   HotWaterLoop.create_hw_loop_from_xml(model, std, element)
-    # end
-    #
-    # gbxml_doc.elements.each("gbXML/AirSystem") do |element|
-    #   AirSystem.create_air_system_from_xml(model, std, element)
-    # end
-    #
-    # gbxml_doc.elements.each("gbXML/ZoneHVACEquipment") do |element|
-    #   ZoneHVACEquipment.equipment_type_mapping(model, std, element)
-    # end
-    #
-    # gbxml_doc.elements.each("gbXML/Zone") do |element|
-    #   Zone.map_to_zone_hvac_equipment(model, element)
-    # end
+    model_manager.connect
+    model_manager.post_build
 
     Helpers.clean_up_model(model)
 
