@@ -23,12 +23,14 @@ require_relative 'systems_analysis_report/mappers/time_delay_correction_peak_loa
 require_relative 'systems_analysis_report/mappers/sizing_factor_correction_peak_load_mapper'
 require_relative 'systems_analysis_report/mappers/zone_load_summary_mapper'
 require_relative 'systems_analysis_report/mappers/zone_estimated_peak_load_component_table_mapper'
-
+require_relative 'systems_analysis_report/mappers/design_psychrometric_summary_mapper'
 require_relative 'systems_analysis_report/mappers/design_psychrometric_mapper'
 
 require_relative 'systems_analysis_report/models/model'
 require_relative 'systems_analysis_report/models/cooling_and_heating'
 require_relative 'systems_analysis_report/models/design_psychrometric'
+require_relative 'systems_analysis_report/models/air_state_point'
+require_relative 'systems_analysis_report/models/design_psychrometric_summary'
 require_relative 'systems_analysis_report/models/peak_load_component'
 require_relative 'systems_analysis_report/models/system_peak_load_component_table'
 require_relative 'systems_analysis_report/models/report'

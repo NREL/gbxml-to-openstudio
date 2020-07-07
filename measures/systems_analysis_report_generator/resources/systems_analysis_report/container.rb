@@ -3,7 +3,7 @@ module SystemsAnalysisReport
     container = Canister.new
 
     container.register(:eplusout) { EPlusOut.container(sql_file) }
-    container.register(:design_psychrometric_repo) { |c| Repositories::DesignPsychrometricRepo.new(c.eplusout.coil_sizing_details) }
+    container.register(:design_psychrometric_repo) { |c| Repositories::DesignPsychrometricRepo.new(c.eplusout.coil_sizing_details, c.eplusout.locations) }
     container.register(:zone_load_summary_repo) do |c|
       Repositories::ZoneLoadSummaryRepo.new(
           c.eplusout.cooling_peak_conditions,

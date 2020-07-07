@@ -10,6 +10,7 @@ module EPlusOut
     container.register(:engineering_check_for_heatings) { |c| Relations::EngineeringCheckForHeatings.new(c.sql_gateway) }
     container.register(:estimated_cooling_peak_load_component_tables) { |c| Relations::EstimatedCoolingPeakLoadComponentTables.new(c.sql_gateway) }
     container.register(:estimated_heating_peak_load_component_tables) { |c| Relations::EstimatedHeatingPeakLoadComponentTables.new(c.sql_gateway) }
+    container.register(:locations) { |c| Relations::Locations.new(c.sql_gateway) }
 
     container
   end

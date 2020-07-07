@@ -11,7 +11,7 @@
       "type": "HVAC_Temperature",
       "forge_schema_spec": "autodesk.spec.aec.hvac:temperature-1.0.0",
       "forge_schema_unit": "autodesk.unit.unit:fahrenheit-1.0.1",
-      "display": "CELSIUS"
+      "display": "FAHRENHEIT"
     },
     {
       "type": "HVAC_TemperatureDifference",
