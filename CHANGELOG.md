@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.1.18] - 2020-07-08
+## [0.1.19] - 2020-07-08
 ### Added
  - Updated the Design Psychometrics to show the state point of air in the table
  - Added a psychrometric chart as a visualization for Design Psychrometrics
