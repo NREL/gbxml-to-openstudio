@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.18] - 2020-07-08
+### Added
+ - Updated the Design Psychometrics to show the state point of air in the table
+ - Added a psychrometric chart as a visualization for Design Psychrometrics
+ - Added localization to the labels
+ - Added client-side printing although issues with localization still need to be addressed
+
 ## [0.2.0] - 2019-10-31
 ### Fixed
  - Performance issues related to the annual and weekly schedules being inferred from the Building Type
