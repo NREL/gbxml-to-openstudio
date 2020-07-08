@@ -31,7 +31,13 @@ module EPlusOut
       end
 
       def all
+        load if @instances.nil?
         @instances
+      end
+
+      def first
+        load if @instances.nil?
+        @instances.values()[0]
       end
 
       private
