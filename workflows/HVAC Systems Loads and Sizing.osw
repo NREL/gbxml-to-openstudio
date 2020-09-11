@@ -105,7 +105,7 @@
       "measure_dir_name": "systems_analysis_report_generator",
       "name": "Systems Analysis Report",
       "arguments" : {
-        "debug": true
+        "debug": false
       }
     }
   ]
