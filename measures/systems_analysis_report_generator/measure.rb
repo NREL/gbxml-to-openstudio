@@ -21,6 +21,10 @@ class SystemsAnalysisReportGenerator < OpenStudio::Measure::ReportingMeasure
   def arguments
     args = OpenStudio::Measure::OSArgumentVector.new
 
+    debug = OpenStudio::Measure::OSArgument.makeBoolArgument("debug", false)
+    debug.setDisplayName("Debug")
+    debug.setDefaultValue(false)
+    args << debug
     # this measure does not require any user arguments, return an empty list
 
     return args
@@ -46,17 +50,20 @@ class SystemsAnalysisReportGenerator < OpenStudio::Measure::ReportingMeasure
   # define what happens when the measure is run
   def run(runner, user_arguments)
     super(runner, user_arguments)
-
     model, sql_file = SystemsAnalysisReportGenerator.get_model_and_sql_file(runner)
     container = SystemsAnalysisReport.container(model, sql_file)
+
+    bundle_input_dir = "#{File.dirname(__FILE__)}/resources/build"
+    web_config = SystemsAnalysisReport::Config.new({file_path:self.class.get_config_path(runner)})
     data = container.json_generator.generate.to_json
-    input_dir = "#{File.dirname(__FILE__)}/resources/build"
-    config_path = "#{File.dirname(__FILE__)}/resources/build/reportConfig.json" # check this
-    config = SystemsAnalysisReport::Config.new({file_path:config_path})
-    SystemsAnalysisReport::Strategies::HtmlInjector.(input_dir, data, config)
+
+    SystemsAnalysisReport::Strategies::WebAppWriter.(bundle_input_dir, data, web_config)
+
+    debug = runner.getBoolArgumentValue("debug", user_arguments)
+    File.write('./report_data.json', data) if debug
 
     sql_file.close
-
+    
     return true
   end
 
@@ -73,6 +80,21 @@ class SystemsAnalysisReportGenerator < OpenStudio::Measure::ReportingMeasure
     end
 
     return model.get, sql_file.get
+  end
+
+  def self.get_config_path(runner)
+    file_path = runner.workflow.findFile('reportConfig.json')
+    unless file_path.empty?
+      file_path = file_path.get if file_path.is_initialized
+      return file_path.to_s if File.exists? file_path.to_s
+    else
+      runner.registerWarning("Could not find reportConfig.json in root. Using default configuration instead")
+    end
+
+    file_path = "#{File.dirname(__FILE__)}/resources/build/reportConfig.json"
+    return file_path if File.exist? file_path
+
+    raise LoadError('No configuration file can be found')
   end
 end
 

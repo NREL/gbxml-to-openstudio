@@ -28,4 +28,7 @@ require_relative 'eplusout/relations/estimated_cooling_peak_load_component_table
 require_relative 'eplusout/relations/estimated_heating_peak_load_component_tables'
 require_relative 'eplusout/relations/locations'
 
+require_relative 'eplusout/utilities/converter'
+require_relative 'eplusout/utilities/si_unit_system'
+
 require_relative 'eplusout/container'

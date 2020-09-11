@@ -18,8 +18,13 @@ module SystemsAnalysisReport
       def call(coil_sizing_detail, location)
         result = super(coil_sizing_detail)
 
-        fan_temp_diff = coil_sizing_detail.supply_fan_air_heat_gain_at_ideal_loads_peak / (coil_sizing_detail.supply_fan_maximum_air_mass_flow_rate *
+        fan_temp_diff = 0.0
+
+        if coil_sizing_detail.supply_fan_maximum_air_mass_flow_rate > 0 and coil_sizing_detail.moist_air_heat_capacity > 0
+          fan_temp_diff = coil_sizing_detail.supply_fan_air_heat_gain_at_ideal_loads_peak / (coil_sizing_detail.supply_fan_maximum_air_mass_flow_rate *
             coil_sizing_detail.moist_air_heat_capacity)
+        end
+
         result.supply_fan_temperature_difference = fan_temp_diff
 
         result.atmospheric_pressure = location.standard_pressure_at_elevation

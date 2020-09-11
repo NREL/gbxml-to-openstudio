@@ -18,11 +18,11 @@ module EPlusOut
 
         if data
           param_map.each do |param|
-            result.send("#{param[:name]}=", cast_type(data[param[:index]], param[:type]))
+            result.send("#{param[:name]}=", data[param[:index]])
           end
         end
 
-        return result
+        result
       end
 
       def size
@@ -36,14 +36,6 @@ module EPlusOut
 
       def param_map
         PARAM_MAP
-      end
-
-      def cast_type(value, type)
-        return nil if value.nil? || value.empty?
-
-        return value.to_f if type=="double"
-
-        value
       end
     end
   end

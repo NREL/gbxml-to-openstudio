@@ -5,7 +5,6 @@ require_relative 'canister'
 
 require_relative 'systems_analysis_report/container'
 require_relative 'systems_analysis_report/config/config'
-require_relative 'systems_analysis_report/config/json_writer'
 
 require_relative 'systems_analysis_report/mappers/mapper'
 require_relative 'systems_analysis_report/mappers/lighting_return_peak_load_air_mapper'
@@ -52,4 +51,4 @@ require_relative 'systems_analysis_report/services/design_psychrometric_service'
 require_relative 'systems_analysis_report/strategies/zone_name_getter'
 require_relative 'systems_analysis_report/strategies/cooling_coil_name_getter'
 require_relative 'systems_analysis_report/strategies/system_name_getter'
-require_relative 'systems_analysis_report/strategies/html_injector'
+require_relative 'systems_analysis_report/strategies/web_app_writer'
