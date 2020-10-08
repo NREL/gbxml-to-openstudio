@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.0] - 2020-10-08
+### Fixed
+ - Various unit conversions including temperature and power
+ - Eplusout now covers edge cases where E+ stores % incorrectly.
+
 ## [0.1.20] - 2020-09-11
 ### Added
  - Conversion layer to work with E+ simulations run in IP or SI
