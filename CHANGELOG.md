@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.0] - 2020-12-15
+### Changed
+ - The HTML view design has been updated to the specification
+ - The locale button has been removed
+ - The print button has been removed
+ - Units button now states "units" after the unit system.
+ 
+### Fixed
+ - A fix for E+ reporting OA as a decimal has been implemented
+ - Localization for some additional words have been added.
+ 
 ## [1.0.0] - 2020-10-08
 ### Fixed
  - Various unit conversions including temperature and power
