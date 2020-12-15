@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.0] - 2020-12-15
+## [1.0.1] - 2020-12-15
 ### Changed
  - The HTML view design has been updated to the specification
  - The locale button has been removed
