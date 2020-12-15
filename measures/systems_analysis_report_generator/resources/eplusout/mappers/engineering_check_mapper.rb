@@ -11,6 +11,22 @@
           {:index => 5, :name => :total_capacity_per_floor_area, :type => 'double'}
       ]
 
+      def call(data)
+        result = klass.new
+
+        if data
+          param_map.each do |param|
+            if param[:name] == :outside_air_percent
+              result.send("#{param[:name]}=", data[param[:index]] * 100)
+            else
+              result.send("#{param[:name]}=", data[param[:index]])
+            end
+          end
+        end
+
+        result
+      end
+
       private
       def klass
         EPlusOut::Models::EngineeringCheck
