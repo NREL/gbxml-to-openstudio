@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.2] - 2021-01-21
+### Changed
+ - Updated the report PDF view for the tables. Charts don't render yet.
+ - Removed on hover tooltip from the dropdown selector
+ - Reintroduced the print button
+ 
+### Fixed
+ - Various localization fixes
+   - When no zones/systems/coils found
+   - Acronyms are now translated
+   - Unit system dropdown is now localized
+   - Styling that caused the left side of the report to be cut off when using a narrow window
+   - Pie chart labels fixed to support 6 sig. fig.
+
 ## [1.0.1] - 2020-12-15
 ### Changed
  - The HTML view design has been updated to the specification
