@@ -1,6 +1,15 @@
 # Changelog
 
 ## [1.0.2] - 2021-01-21
+### Added
+ - Charts for the zone and system load summary PDF
+ - Updated Design Psychrometrics PDF
+ 
+### Fixed
+ - Alignment for long words in the summary content
+ - Issue preventing the PDF from opening in Adobe
+
+## [1.0.2] - 2021-01-21
 ### Changed
  - Updated the report PDF view for the tables. Charts don't render yet.
  - Removed on hover tooltip from the dropdown selector
