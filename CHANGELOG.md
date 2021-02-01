@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.2] - 2021-01-21
+## [1.0.3] - 2021-02-01
 ### Added
  - Charts for the zone and system load summary PDF
  - Updated Design Psychrometrics PDF
