@@ -36,7 +36,7 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
   def run(model, runner, user_arguments)
     super(model, runner, user_arguments)
     # save benchmark stdout to file...
-    # $stdout = File.new('../benchmark.log', 'w')
+    # $stdout = File.new('../../benchmark.log', 'w')
     # $stdout.sync = true
     Benchmark.bm(label_width=120) do |bm|
     # use the built-in error checking

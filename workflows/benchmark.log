@@ -1,0 +1,27 @@
+                                                                                                                               user     system      total        real
+import_gbxml                                                                                                              11.238882   0.030022  11.268904 ( 11.268966)
+                                                                                                                               user     system      total        real
+advanced_import_gbxml - constructions                                                                                      0.003156   0.000019   0.003175 (  0.003173)
+advanced_import_gbxml - spaces                                                                                             1.850057   0.019997   1.870054 (  1.870071)
+advanced_import_gbxml - schedules                                                                                          0.005128   0.000000   0.005128 (  0.005128)
+advanced_import_gbxml - zones                                                                                              0.186639   0.000012   0.186651 (  0.186653)
+                                                                                                                               user     system      total        real
+advanced_import_gbxml - OsLib_AdvImport.add_objects_from_adv_import_hash - OsLib_Schedules.addScheduleTypeLimits           0.001238   0.000008   0.001246 (  0.001247)
+advanced_import_gbxml - OsLib_AdvImport.add_objects_from_adv_import_hash - OsLib_AdvImport.import_schs                     0.014610   0.000000   0.014610 (  0.014613)
+advanced_import_gbxml - OsLib_AdvImport.add_objects_from_adv_import_hash - OsLib_AdvImport.schedule_sets                   0.005424   0.000001   0.005425 (  0.005427)
+advanced_import_gbxml - OsLib_AdvImport.add_objects_from_adv_import_hash - OsLib_AdvImport.import_lights                   0.000271   0.000001   0.000272 (  0.000272)
+advanced_import_gbxml - OsLib_AdvImport.add_objects_from_adv_import_hash - OsLib_AdvImport.import_elec_equipment           0.000212   0.000001   0.000213 (  0.000214)
+advanced_import_gbxml - OsLib_AdvImport.add_objects_from_adv_import_hash - OsLib_AdvImport.import_people                   0.000200   0.000002   0.000202 (  0.000202)
+advanced_import_gbxml - OsLib_AdvImport.add_objects_from_adv_import_hash - OsLib_AdvImport.assign_space_attributes         0.759011   0.000000   0.759011 (  0.759019)
+advanced_import_gbxml - OsLib_AdvImport.add_objects_from_adv_import_hash - OsLib_AdvImport.assign_zone_attributes         87.854195   0.060007  87.914202 ( 87.914802)
+advanced_import_gbxml - OsLib_AdvImport.assure_fenestration_inset                                                          0.433486   0.000007   0.433493 (  0.433495)
+                                                                                                                               user     system      total        real
+gbxml_hvac_import                                                                                                          6.047285   0.000016   6.047301 (  6.047355)
+                                                                                                                               user     system      total        real
+gbxml_to_openstudio_cleanup                                                                                                0.004448   0.000000   0.004448 (  0.004447)
+                                                                                                                               user     system      total        real
+add_xml_output_control_style                                                                                               0.000083   0.000000   0.000083 (  0.000080)
+                                                                                                                               user     system      total        real
+openstudio_results                                                                                                        83.425677  11.610449  95.036126 ( 95.092367)
+                                                                                                                               user     system      total        real
+systems_analysis_report_generator                                                                                          1.771380   0.049871   1.821251 (  1.821260)
