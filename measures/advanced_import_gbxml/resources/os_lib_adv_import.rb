@@ -816,10 +816,19 @@ class AreaReducer
     @desired_area = desired_area
     @new_vertices = vertices
 
-    @zero = BigDecimal::new('0.0')
-    @one = BigDecimal::new('1.0')
-    @two = BigDecimal::new('2.0')
-    @ten = BigDecimal::new('10.0')
+    # BigDecimal instantiation changed in Ruby 2.4.0
+    # https://ruby-doc.org/stdlib-2.4.0/libdoc/bigdecimal/rdoc/BigDecimal.html
+    if OpenStudio::VersionString.new(OpenStudio.openStudioVersion) < OpenStudio::VersionString.new('3.0.0') # Ruby < 2.2.4
+      @zero = BigDecimal::new('0.0')
+      @one = BigDecimal::new('1.0')
+      @two = BigDecimal::new('2.0')
+      @ten = BigDecimal::new('10.0')
+    elsif OpenStudio::VersionString.new(OpenStudio.openStudioVersion) >= OpenStudio::VersionString.new('3.0.0') # Ruby >= 2.5.5
+      @zero = BigDecimal('0.0')
+      @one = BigDecimal('1.0')
+      @two = BigDecimal('2.0')
+      @ten = BigDecimal('10.0')
+    end
     @eps = eps #BigDecimal::new(eps)
   end
 
