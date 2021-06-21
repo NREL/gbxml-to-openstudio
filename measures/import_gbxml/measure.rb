@@ -1,6 +1,6 @@
 # see the URL below for information on how to write OpenStudio measures
 # http://nrel.github.io/OpenStudio-user-documentation/reference/measure_writing_guide/
-
+require 'benchmark'
 # start the measure
 class ImportGbxml < OpenStudio::Measure::ModelMeasure
 
@@ -35,7 +35,10 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
   # define what happens when the measure is run
   def run(model, runner, user_arguments)
     super(model, runner, user_arguments)
-
+    # save benchmark stdout to file...
+    # $stdout = File.new('../benchmark.log', 'w')
+    # $stdout.sync = true
+    Benchmark.bm(label_width=120) do |bm|
     # use the built-in error checking
     if !runner.validateUserArguments(arguments(model), user_arguments)
       return false
@@ -56,7 +59,7 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
       runner.registerError("Could not find gbXML filename '#{gbxml_file_name}'.")
       return false
     end
-    
+    bm.report('import_gbxml') do
     # translate gbXML to model
     translator = OpenStudio::GbXML::GbXMLReverseTranslator.new
     new_model = translator.loadModel(path.get)
@@ -65,7 +68,7 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
       return false
     end
     new_model = new_model.get
-    
+
     # temporarily remove space types from gbxml
     new_model.getSpaceTypes.each do |space_type|
       space_type.remove
@@ -125,7 +128,8 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
     model.addObjects( new_model.toIdfFile.objects )
 
     model.setCalendarYear(1997)
-
+  end
+  end
     return true
 
   end

@@ -35,6 +35,7 @@
 
 # while methods initially setup for import from gbXML it can be used with import from any file such as csv, json, idf, etc
 # regardless of import format data is passed into these methods as hashes.
+require 'benchmark'
 require 'bigdecimal/newton'
 require 'openstudio-standards'
 
@@ -240,27 +241,30 @@ module OsLib_AdvImport
 
   # primary method that calls other methods to add objects
   def self.add_objects_from_adv_import_hash(runner, model, advanced_inputs)
-
+    Benchmark.bm(label_width=120) do |bm|
     # add schedule type limits
-    OsLib_Schedules.addScheduleTypeLimits(model)
-
+    bm.report('advanced_import_gbxml - OsLib_AdvImport.add_objects_from_adv_import_hash - OsLib_Schedules.addScheduleTypeLimits') { OsLib_Schedules.addScheduleTypeLimits(model) 
+    }
     # make schedules
-    schedules = import_schs(runner, model, advanced_inputs[:building_type], advanced_inputs[:schedules], advanced_inputs[:week_schedules], advanced_inputs[:day_schedules])
-
+    bm.report('advanced_import_gbxml - OsLib_AdvImport.add_objects_from_adv_import_hash - OsLib_AdvImport.import_schs') { @schedules = import_schs(runner, model, advanced_inputs[:building_type], advanced_inputs[:schedules], advanced_inputs[:week_schedules], advanced_inputs[:day_schedules])
+    }
     # make schedules sets
-    schedule_sets = import_sch_set(runner, model, advanced_inputs[:schedule_sets], schedules)
-
+    bm.report('advanced_import_gbxml - OsLib_AdvImport.add_objects_from_adv_import_hash - OsLib_AdvImport.schedule_sets') { @schedule_sets = import_sch_set(runner, model, advanced_inputs[:schedule_sets], @schedules)
+    }
     # make load defs
-    lights = import_lights(runner, model, advanced_inputs[:light_defs])
-    elec_equipment = import_elec_equipment(runner, model, advanced_inputs[:equip_defs])
-    people = import_people(runner, model, advanced_inputs[:people_defs])
-
+    bm.report('advanced_import_gbxml - OsLib_AdvImport.add_objects_from_adv_import_hash - OsLib_AdvImport.import_lights') { @lights = import_lights(runner, model, advanced_inputs[:light_defs])
+    }
+    bm.report('advanced_import_gbxml - OsLib_AdvImport.add_objects_from_adv_import_hash - OsLib_AdvImport.import_elec_equipment') { @elec_equipment = import_elec_equipment(runner, model, advanced_inputs[:equip_defs])
+    }
+    bm.report('advanced_import_gbxml - OsLib_AdvImport.add_objects_from_adv_import_hash - OsLib_AdvImport.import_people') { @people = import_people(runner, model, advanced_inputs[:people_defs])
+    }
     # make space load instances and assign schedule sets to spaces
-    modified_spaces = assign_space_attributes(runner, model, advanced_inputs[:spaces], schedule_sets, lights, elec_equipment, people)
-
+    bm.report('advanced_import_gbxml - OsLib_AdvImport.add_objects_from_adv_import_hash - OsLib_AdvImport.assign_space_attributes') { @modified_spaces = assign_space_attributes(runner, model, advanced_inputs[:spaces], @schedule_sets, @lights, @elec_equipment, @people)
+    }
     # add thermostats
-    modified_zones = assign_zone_attributes(runner, model, advanced_inputs[:zones])
-
+    bm.report('advanced_import_gbxml - OsLib_AdvImport.add_objects_from_adv_import_hash - OsLib_AdvImport.assign_zone_attributes') { @modified_zones = assign_zone_attributes(runner, model, advanced_inputs[:zones])
+    }
+    end
     return true
   end
 
