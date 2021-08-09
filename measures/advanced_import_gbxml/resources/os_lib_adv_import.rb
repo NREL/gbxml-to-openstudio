@@ -284,15 +284,15 @@ module OsLib_AdvImport
 
     zones.each do |id, zone_hash|
 
-      name = zone_hash[:name]
-      
-      # get thermal zone from model
-      if !name.nil?
-        thermal_zone_name = name
+      # get thermal zone
+      if zone_hash.has_key?(:name) && model.getThermalZoneByName(zone_hash[:name]).is_initialized
+        thermal_zone = model.getThermalZoneByName(zone_hash[:name]).get
+      elsif model.getThermalZoneByName(id).is_initialized
+        thermal_zone = model.getThermalZoneByName(id).get
       else
-        thermal_zone_name = id
+        puts("Did not find zone in model assciated with #{id}. Not connecting objects related to this zone.") #TODO runner.registerWarning
+        next
       end
-      thermal_zone = model.getThermalZoneByName(thermal_zone_name).get
       
       # hash of {design_heat_t: [zones]}
       heating_setpoint = zone_hash[:design_heat_t]
