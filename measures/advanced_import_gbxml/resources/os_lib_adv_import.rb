@@ -296,7 +296,7 @@ module OsLib_AdvImport
       
       # hash of {design_heat_t: [zones]}
       heating_setpoint = zone_hash[:design_heat_t]
-      if !heating_setpoint.nil?
+      unless heating_setpoint.nil?
         if heating_setpoints_thermal_zones_hash[heating_setpoint].nil?
           heating_setpoints_thermal_zones_hash[heating_setpoint] = [thermal_zone]
         else
@@ -306,7 +306,7 @@ module OsLib_AdvImport
 
       # hash of {design_cool_t: [ThermalZone1,...]}
       cooling_setpoint = zone_hash[:design_cool_t]
-      if !cooling_setpoint.nil?
+      unless cooling_setpoint.nil?
         if cooling_setpoints_thermal_zones_hash[cooling_setpoint].nil?
           cooling_setpoints_thermal_zones_hash[cooling_setpoint] = [thermal_zone]
         else
@@ -316,7 +316,7 @@ module OsLib_AdvImport
 
       # hash of {design_heat_rh: }
       humid_setpoint = zone_hash[:design_heat_rh]
-      if !humid_setpoint.nil?
+      unless humid_setpoint.nil?
         if humid_setpoints_thermal_zones_hash[humid_setpoint].nil?
           humid_setpoints_thermal_zones_hash[humid_setpoint] = [thermal_zone]
         else
@@ -326,7 +326,7 @@ module OsLib_AdvImport
 
       # hash of {}
       dehum_setpoint = zone_hash[:design_cool_rh]
-      if !dehum_setpoint.nil?
+      unless dehum_setpoint.nil?
         if dehum_setpoints_thermal_zones_hash[dehum_setpoint].nil?
           dehum_setpoints_thermal_zones_hash[dehum_setpoint] = [thermal_zone]
         else
@@ -373,13 +373,14 @@ module OsLib_AdvImport
             thermostat = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(model)
             thermal_zone.setThermostatSetpointDualSetpoint(thermostat)
           end
-          thermostat.setHeatingSetpointTemperatureSchedule(htg_sch)
 
-          next if thermal_zone_people_schedule_hash[thermal_zone].nil?
-          zone_occ_sch = thermal_zone_people_schedule_hash[thermal_zone]
-          htg_setback_degC = htg_setpoint_degC - OpenStudio.convert(5.0, 'R', 'K').get
-          htg_sch = OsLib_Schedules.merge_schedule_rulesets(htg_sch, zone_occ_sch) #bm.report('OsLib_Schedules.merge_schedule_rulesets') { }
-          htg_sch = OsLib_Schedules.schedule_ruleset_edit(htg_sch, new_value_map: [[0.0, htg_setback_degC], [1.0, htg_setpoint_degC]], start_time_diff: 90)
+          unless thermal_zone_people_schedule_hash[thermal_zone].nil?
+            zone_occ_sch = thermal_zone_people_schedule_hash[thermal_zone]
+            htg_setback_degC = htg_setpoint_degC - OpenStudio.convert(5.0, 'R', 'K').get
+            htg_sch = OsLib_Schedules.merge_schedule_rulesets(htg_sch, zone_occ_sch) #bm.report('OsLib_Schedules.merge_schedule_rulesets') { }
+            htg_sch = OsLib_Schedules.schedule_ruleset_edit(htg_sch, new_value_map: [[0.0, htg_setback_degC], [1.0, htg_setpoint_degC]], start_time_diff: 90)
+          end
+          thermostat.setHeatingSetpointTemperatureSchedule(htg_sch)
 
         end
 
@@ -407,13 +408,14 @@ module OsLib_AdvImport
             thermostat = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(model)
             thermal_zone.setThermostatSetpointDualSetpoint(thermostat)
           end
-          thermostat.setCoolingSetpointTemperatureSchedule(clg_sch)
 
-          next if thermal_zone_people_schedule_hash[thermal_zone].nil?
-          zone_occ_sch = thermal_zone_people_schedule_hash[thermal_zone]
-          clg_setback_degC = clg_setpoint_degC + OpenStudio.convert(5.0, 'R', 'K').get
-          clg_sch = OsLib_Schedules.merge_schedule_rulesets(clg_sch, zone_occ_sch)
-          clg_sch = OsLib_Schedules.schedule_ruleset_edit(clg_sch, new_value_map: [[0.0, clg_setback_degC], [1.0, clg_setpoint_degC]], start_time_diff: 90)
+          unless thermal_zone_people_schedule_hash[thermal_zone].nil?
+            zone_occ_sch = thermal_zone_people_schedule_hash[thermal_zone]
+            clg_setback_degC = clg_setpoint_degC + OpenStudio.convert(5.0, 'R', 'K').get
+            clg_sch = OsLib_Schedules.merge_schedule_rulesets(clg_sch, zone_occ_sch)
+            clg_sch = OsLib_Schedules.schedule_ruleset_edit(clg_sch, new_value_map: [[0.0, clg_setback_degC], [1.0, clg_setpoint_degC]], start_time_diff: 90)
+          end
+          thermostat.setCoolingSetpointTemperatureSchedule(clg_sch)
         
         end
 
@@ -442,14 +444,15 @@ module OsLib_AdvImport
             humidistat = OpenStudio::Model::ZoneControlHumidistat.new(model)
             thermal_zone.setZoneControlHumidistat(humidistat)
           end
-          humidistat.setHumidifyingRelativeHumiditySetpointSchedule(humid_sch)
 
-          next if thermal_zone_people_schedule_hash[thermal_zone].nil?
-          zone_occ_sch = thermal_zone_people_schedule_hash[thermal_zone]
-          humid_setback = 0.0
-          humid_sch = OsLib_Schedules.merge_schedule_rulesets(humid_sch, zone_occ_sch)
-          humid_sch = OsLib_Schedules.schedule_ruleset_edit(humid_sch, new_value_map: [[0.0, humid_setback], [1.0, humid_setpoint]], start_time_diff: 90)
-          
+          unless thermal_zone_people_schedule_hash[thermal_zone].nil?
+            zone_occ_sch = thermal_zone_people_schedule_hash[thermal_zone]
+            humid_setback = 0.0
+            humid_sch = OsLib_Schedules.merge_schedule_rulesets(humid_sch, zone_occ_sch)
+            humid_sch = OsLib_Schedules.schedule_ruleset_edit(humid_sch, new_value_map: [[0.0, humid_setback], [1.0, humid_setpoint]], start_time_diff: 90)
+          end
+          humidistat.setHumidifyingRelativeHumiditySetpointSchedule(humid_sch)
+            
         end
       
       end
@@ -473,14 +476,15 @@ module OsLib_AdvImport
             humidistat = OpenStudio::Model::ZoneControlHumidistat.new(model)
             thermal_zone.setZoneControlHumidistat(humidistat)
           end
-          humidistat.setDehumidifyingRelativeHumiditySetpointSchedule(dehumid_sch)
 
-          next if thermal_zone_people_schedule_hash[thermal_zone].nil?
-          zone_occ_sch = thermal_zone_people_schedule_hash[thermal_zone]
-          dehumid_setback = 100.0
-          dehumid_sch = OsLib_Schedules.merge_schedule_rulesets(dehumid_sch, zone_occ_sch)
-          dehumid_sch = OsLib_Schedules.schedule_ruleset_edit(dehumid_sch, new_value_map: [[0.0, dehumid_setback], [1.0, dehumid_setpoint]], start_time_diff: 90)
-          
+          unless thermal_zone_people_schedule_hash[thermal_zone].nil?
+            zone_occ_sch = thermal_zone_people_schedule_hash[thermal_zone]
+            dehumid_setback = 100.0
+            dehumid_sch = OsLib_Schedules.merge_schedule_rulesets(dehumid_sch, zone_occ_sch)
+            dehumid_sch = OsLib_Schedules.schedule_ruleset_edit(dehumid_sch, new_value_map: [[0.0, dehumid_setback], [1.0, dehumid_setpoint]], start_time_diff: 90)
+          end
+          humidistat.setDehumidifyingRelativeHumiditySetpointSchedule(dehumid_sch)
+            
         end
       
       end
