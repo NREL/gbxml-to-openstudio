@@ -267,24 +267,37 @@ module OsLib_AdvImport
     return thermal_zone_people_schedule_hash #sch_ruleset
   end
 
-  # returns a hash of arrays of hashes...
-  # {setpoint_type: [ {setpoint_value => [ThermalZone1, ...]} ] }
+  # returns a hash of arrays of hashes...of arrays
   def self.setpoints_thermal_zones_hash(model, zones)
 
+    # {setpoint_type: [{setpoint_value => [ThermalZone1, ...]}, ...], ...}
     setpoints_thermal_zones_hash = {}
+
+    # setpoint types
+    # {setpoint_type: [setpoint_thermal_zones_hash, see below]}
     setpoints_thermal_zones_hash[:design_heat_t] = []
     setpoints_thermal_zones_hash[:design_cool_t] = []
     setpoints_thermal_zones_hash[:design_heat_rh] = []
     setpoints_thermal_zones_hash[:design_cool_rh] = []
+    setpoints_thermal_zones_hash[:design_heat_t_occ] = []
+    setpoints_thermal_zones_hash[:design_cool_t_occ] = []
+    setpoints_thermal_zones_hash[:design_heat_rh_occ] = []
+    setpoints_thermal_zones_hash[:design_cool_rh_occ] = []
 
+    # setpoints
+    # {setpoint => [array, of, thermal, zones], ...}
     heating_setpoints_thermal_zones_hash = {} 
     cooling_setpoints_thermal_zones_hash = {} 
     humid_setpoints_thermal_zones_hash = {} 
     dehum_setpoints_thermal_zones_hash = {} 
+    occ_heating_setpoints_thermal_zones_hash = {} 
+    occ_cooling_setpoints_thermal_zones_hash = {} 
+    occ_humid_setpoints_thermal_zones_hash = {} 
+    occ_dehum_setpoints_thermal_zones_hash = {} 
 
     zones.each do |id, zone_hash|
 
-      # get thermal zone
+      # get thermal zone and occupancy
       if zone_hash.has_key?(:name) && model.getThermalZoneByName(zone_hash[:name]).is_initialized
         thermal_zone = model.getThermalZoneByName(zone_hash[:name]).get
       elsif model.getThermalZoneByName(id).is_initialized
@@ -293,44 +306,65 @@ module OsLib_AdvImport
         puts("Did not find zone in model assciated with #{id}. Not connecting objects related to this zone.") #TODO runner.registerWarning
         next
       end
-      
-      # hash of {design_heat_t: [zones]}
+      occupied = thermal_zone.numberOfPeople.zero? ? false : true
+
+      # heating setpoint
       heating_setpoint = zone_hash[:design_heat_t]
       unless heating_setpoint.nil?
-        if heating_setpoints_thermal_zones_hash[heating_setpoint].nil?
-          heating_setpoints_thermal_zones_hash[heating_setpoint] = [thermal_zone]
+        hash = 
+          case occupied
+          when false then heating_setpoints_thermal_zones_hash
+          when true then occ_heating_setpoints_thermal_zones_hash
+          end
+        if hash[heating_setpoint].nil?
+          hash[heating_setpoint] = [thermal_zone]
         else
-          heating_setpoints_thermal_zones_hash[heating_setpoint] << thermal_zone
+          hash[heating_setpoint] << thermal_zone
         end
       end
 
-      # hash of {design_cool_t: [ThermalZone1,...]}
+      # cooling setpoint
       cooling_setpoint = zone_hash[:design_cool_t]
-      unless cooling_setpoint.nil?
-        if cooling_setpoints_thermal_zones_hash[cooling_setpoint].nil?
-          cooling_setpoints_thermal_zones_hash[cooling_setpoint] = [thermal_zone]
+      unless cooling_setpoint.nil?        
+        hash = 
+          case occupied
+          when false then cooling_setpoints_thermal_zones_hash
+          when true then occ_cooling_setpoints_thermal_zones_hash
+          end
+        if hash[cooling_setpoint].nil?
+          hash[cooling_setpoint] = [thermal_zone]
         else
-          cooling_setpoints_thermal_zones_hash[cooling_setpoint] << thermal_zone
+          hash[cooling_setpoint] << thermal_zone
         end
       end
 
-      # hash of {design_heat_rh: }
+      # humidifying setpoint
       humid_setpoint = zone_hash[:design_heat_rh]
       unless humid_setpoint.nil?
-        if humid_setpoints_thermal_zones_hash[humid_setpoint].nil?
-          humid_setpoints_thermal_zones_hash[humid_setpoint] = [thermal_zone]
+        hash = 
+          case occupied
+          when false then humid_setpoints_thermal_zones_hash
+          when true then occ_humid_setpoints_thermal_zones_hash
+          end        
+        if hash[humid_setpoint].nil?
+          hash[humid_setpoint] = [thermal_zone]
         else
-          humid_setpoints_thermal_zones_hash[humid_setpoint] << thermal_zone
+          hash[humid_setpoint] << thermal_zone
         end
       end
 
-      # hash of {}
+      # dehumidifying setpoint
       dehum_setpoint = zone_hash[:design_cool_rh]
       unless dehum_setpoint.nil?
-        if dehum_setpoints_thermal_zones_hash[dehum_setpoint].nil?
-          dehum_setpoints_thermal_zones_hash[dehum_setpoint] = [thermal_zone]
+        hash = 
+          case occupied
+          when false then dehum_setpoints_thermal_zones_hash
+          when true then occ_dehum_setpoints_thermal_zones_hash
+          end        
+        if hash[dehum_setpoint].nil?
+          hash[dehum_setpoint] = [thermal_zone]
         else
-          dehum_setpoints_thermal_zones_hash[dehum_setpoint] << thermal_zone
+          hash[dehum_setpoint] << thermal_zone
         end
       end
         
@@ -341,82 +375,84 @@ module OsLib_AdvImport
     setpoints_thermal_zones_hash[:design_cool_t] << cooling_setpoints_thermal_zones_hash
     setpoints_thermal_zones_hash[:design_heat_rh] << humid_setpoints_thermal_zones_hash
     setpoints_thermal_zones_hash[:design_cool_rh] << dehum_setpoints_thermal_zones_hash
+    setpoints_thermal_zones_hash[:design_heat_t_occ] << occ_heating_setpoints_thermal_zones_hash
+    setpoints_thermal_zones_hash[:design_cool_t_occ] << occ_cooling_setpoints_thermal_zones_hash
+    setpoints_thermal_zones_hash[:design_heat_rh_occ] << occ_humid_setpoints_thermal_zones_hash
+    setpoints_thermal_zones_hash[:design_cool_rh_occ] << occ_dehum_setpoints_thermal_zones_hash
     return setpoints_thermal_zones_hash
 
   end
 
-  # add zone thermostats and humidistats to model, ...
+  # adds setpoint schedules and thermostats to model
   def self.make_thermal_zone_thermostats(model, setpoints_thermal_zones_hash, thermal_zone_people_schedule_hash)
 
-    # create and assign heating and cooling setpoint schedules
-    # apply 5F temperature setback for occupied zones
-    # setbacks enable when zone occupancy is below 0.05, and disable 1.5 hours before zone occupancy exceeds 0.05
+    setpoint_type = 'temperature'
 
-    setpoints_thermal_zones_hash[:design_heat_t].each do |array_of_hashes|
-      array_of_hashes.each do |htg_setpoint_degF, thermal_zones_array|
-        puts htg_setpoint_degF, thermal_zones_array.size
+    # heating
+    setpoints_thermal_zones_hash[:design_heat_t].each do |setpoint_thermal_zones|
+      setpoint_thermal_zones.each do |htg_setpoint_degF, thermal_zones_array|
+        puts '', htg_setpoint_degF, thermal_zones_array.size
         htg_setpoint_degC = OpenStudio.convert(htg_setpoint_degF, 'F', 'C').get
-        options = { 'name' => 'Heating Setpoint Schedule', #"htg_#{zone.name.to_s}",
-                    'default_day' => ['Heating Setpoint Default Day Schedule', [24.0, htg_setpoint_degC]],
-                    'winter_design_day' => [[24.0, htg_setpoint_degC]],
-                    'summer_design_day' => [[24.0, htg_setpoint_degC]] }
-        htg_sch = OsLib_Schedules.createComplexSchedule(model, options) #bm.report('OsLib_Schedules.createComplexSchedule') { }
-        if model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').is_initialized
-          htg_sch.setScheduleTypeLimits(model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').get)
-        end
+        
+        # schedule
+        htg_sch = make_setpoint_schedule(model, setpoint: htg_setpoint_degC, type: setpoint_type, subtype: 'Heating')
 
+        # thermostat
         thermal_zones_array.each do |thermal_zone|
-          
-          if thermal_zone.thermostatSetpointDualSetpoint.is_initialized
-            thermostat = thermal_zone.thermostatSetpointDualSetpoint.get
-          else
-            thermostat = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(model)
-            thermal_zone.setThermostatSetpointDualSetpoint(thermostat)
-          end
-
-          unless thermal_zone_people_schedule_hash[thermal_zone].nil?
-            zone_occ_sch = thermal_zone_people_schedule_hash[thermal_zone]
-            htg_setback_degC = htg_setpoint_degC - OpenStudio.convert(5.0, 'R', 'K').get
-            htg_sch = OsLib_Schedules.merge_schedule_rulesets(htg_sch, zone_occ_sch) #bm.report('OsLib_Schedules.merge_schedule_rulesets') { }
-            htg_sch = OsLib_Schedules.schedule_ruleset_edit(htg_sch, new_value_map: [[0.0, htg_setback_degC], [1.0, htg_setpoint_degC]], start_time_diff: 90)
-          end
-          thermostat.setHeatingSetpointTemperatureSchedule(htg_sch)
-
+          make_thermostat(thermal_zone, htg_sch, setpoint: htg_setpoint_degC, subtype: 'Heating')
         end
 
       end
     end
 
-    setpoints_thermal_zones_hash[:design_cool_t].each do |array_of_hashes| 
-      array_of_hashes.each do |clg_setpoint_degF, thermal_zones_array|
-        puts clg_setpoint_degF, thermal_zones_array.size
-        clg_setpoint_degC = OpenStudio.convert(clg_setpoint_degF, 'F', 'C').get
-        options = { 'name' => 'Cooling Setpoint Schedule',
-                    'default_day' => ['Cooling Setpoint Default Day Schedule', [24.0, clg_setpoint_degC]],
-                    'winter_design_day' => [[24.0, clg_setpoint_degC]],
-                    'summer_design_day' => [[24.0, clg_setpoint_degC]] }
-        clg_sch = OsLib_Schedules.createComplexSchedule(model, options)
-        if model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').is_initialized
-          clg_sch.setScheduleTypeLimits(model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').get)
+    # heating, occupied
+    setpoints_thermal_zones_hash[:design_heat_t_occ].each do |setpoint_thermal_zones|
+      setpoint_thermal_zones.each do |htg_setpoint_degF, thermal_zones_array|
+        puts '', htg_setpoint_degF, thermal_zones_array.size
+        htg_setpoint_degC = OpenStudio.convert(htg_setpoint_degF, 'F', 'C').get
+        
+        # schedule
+        htg_sch = make_setpoint_schedule(model, setpoint: htg_setpoint_degC, type: setpoint_type, subtype: 'Heating')
+
+        # thermostat
+        thermal_zones_array.each do |thermal_zone|
+          people_schedule = thermal_zone_people_schedule_hash[thermal_zone]
+          make_thermostat(thermal_zone, htg_sch, setpoint: htg_setpoint_degC, subtype: 'Heating', people_schedule: people_schedule)
         end
 
-        thermal_zones_array.each do |thermal_zone|
-          
-          if thermal_zone.thermostatSetpointDualSetpoint.is_initialized
-            thermostat = thermal_zone.thermostatSetpointDualSetpoint.get
-          else
-            thermostat = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(model)
-            thermal_zone.setThermostatSetpointDualSetpoint(thermostat)
-          end
+      end
+    end
 
-          unless thermal_zone_people_schedule_hash[thermal_zone].nil?
-            zone_occ_sch = thermal_zone_people_schedule_hash[thermal_zone]
-            clg_setback_degC = clg_setpoint_degC + OpenStudio.convert(5.0, 'R', 'K').get
-            clg_sch = OsLib_Schedules.merge_schedule_rulesets(clg_sch, zone_occ_sch)
-            clg_sch = OsLib_Schedules.schedule_ruleset_edit(clg_sch, new_value_map: [[0.0, clg_setback_degC], [1.0, clg_setpoint_degC]], start_time_diff: 90)
-          end
-          thermostat.setCoolingSetpointTemperatureSchedule(clg_sch)
+    # cooling
+    setpoints_thermal_zones_hash[:design_cool_t].each do |setpoint_thermal_zones| 
+      setpoint_thermal_zones.each do |clg_setpoint_degF, thermal_zones_array|
+        puts '', clg_setpoint_degF, thermal_zones_array.size
+        clg_setpoint_degC = OpenStudio.convert(clg_setpoint_degF, 'F', 'C').get
+
+        # schedule
+        clg_sch = make_setpoint_schedule(model, setpoint: clg_setpoint_degC, type: setpoint_type, subtype: 'Cooling')
         
+        # thermostat
+        thermal_zones_array.each do |thermal_zone|
+          make_thermostat(thermal_zone, clg_sch, setpoint: clg_setpoint_degC, subtype: 'Cooling')
+        end
+
+      end
+    end
+
+    # cooling, occupied
+    setpoints_thermal_zones_hash[:design_cool_t_occ].each do |setpoint_thermal_zones| 
+      setpoint_thermal_zones.each do |clg_setpoint_degF, thermal_zones_array|
+        puts '', clg_setpoint_degF, thermal_zones_array.size
+        clg_setpoint_degC = OpenStudio.convert(clg_setpoint_degF, 'F', 'C').get
+        
+        # schedule
+        clg_sch = make_setpoint_schedule(model, setpoint: clg_setpoint_degC, type: setpoint_type, subtype: 'Cooling')
+
+        # thermostat
+        thermal_zones_array.each do |thermal_zone|
+          people_schedule = thermal_zone_people_schedule_hash[thermal_zone]
+          make_thermostat(thermal_zone, clg_sch, setpoint: clg_setpoint_degC, subtype: 'Cooling', people_schedule: people_schedule)
         end
 
       end
@@ -424,71 +460,153 @@ module OsLib_AdvImport
 
   end
 
+  # adds a thermostat to model and adjusts the setpoint schedule if occupied
+  # assumes a 5F temperature setback for occupied zones
+  # setbacks are enabled when zone occupancy is below 0.05, and disabled 1.5 hours before zone occupancy exceeds 0.05
+  def self.make_thermostat(thermal_zone, setpoint_schedule, setpoint:, subtype:, people_schedule: false)
+
+    if thermal_zone.thermostatSetpointDualSetpoint.is_initialized
+      thermostat = thermal_zone.thermostatSetpointDualSetpoint.get
+    else
+      thermostat = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(thermal_zone.model)
+      thermal_zone.setThermostatSetpointDualSetpoint(thermostat)
+    end
+    # puts "#{thermal_zone.name} = #{htg_sch.name}" 
+
+    if people_schedule
+      # zone_occ_sch = thermal_zone_people_schedule_hash[thermal_zone]
+      setback = 
+        case subtype
+        when 'Heating' then setpoint - OpenStudio.convert(5.0, 'R', 'K').get
+        when 'Cooling' then setpoint + OpenStudio.convert(5.0, 'R', 'K').get
+        end
+      setpoint_schedule = OsLib_Schedules.merge_schedule_rulesets(setpoint_schedule, people_schedule) #bm.report('OsLib_Schedules.merge_schedule_rulesets') { }
+      setpoint_schedule = OsLib_Schedules.schedule_ruleset_edit(setpoint_schedule, new_value_map: [[0.0, setback], [1.0, setpoint]], start_time_diff: 90)
+      # puts "#{thermal_zone.name} = #{zone_occ_sch.name}"
+    end
+
+    thermostat.send("set#{subtype}SetpointTemperatureSchedule", setpoint_schedule)
+
+  end
+
+  # adds a setpoint schedule to model
+  def self.make_setpoint_schedule(model, setpoint:, type:, subtype:)
+      
+    options = { 'name' => "#{subtype} Setpoint Schedule",
+                'default_day' => ["#{subtype} Setpoint Default Day Schedule", [24.0, setpoint]],
+                'winter_design_day' => [[24.0, setpoint]],
+                'summer_design_day' => [[24.0, setpoint]] }
+    schedule = OsLib_Schedules.createComplexSchedule(model, options)
+    
+    unless type == 'relative_humidity'
+      if model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').is_initialized
+        schedule.setScheduleTypeLimits(model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').get)
+      end
+    end
+
+    return schedule
+
+  end
+
+  # adds setpoint schedules and humidistats to model
   def self.make_thermal_zone_humidistats(model, setpoints_thermal_zones_hash, thermal_zone_people_schedule_hash)
   
-    setpoints_thermal_zones_hash[:design_heat_rh].each do |array_of_hashes|
-      array_of_hashes.each do |humid_setpoint_pct, thermal_zones_array|
+    setpoint_type = 'relative_humidity'
+
+    # humidifying
+    setpoints_thermal_zones_hash[:design_heat_rh].each do |setpoints_thermal_zones|
+      setpoints_thermal_zones.each do |humid_setpoint_pct, thermal_zones_array|
         puts humid_setpoint_pct, thermal_zones_array.size
         humid_setpoint = humid_setpoint_pct * 100
-        options = { 'name' => 'Humidifying Setpoint Schedule',
-                    'default_day' => ['Humidifying Setpoint Default Day Schedule', [24.0, humid_setpoint]],
-                    'winter_design_day' => [[24.0, humid_setpoint]],
-                    'summer_design_day' => [[24.0, humid_setpoint]] }
-        humid_sch = OsLib_Schedules.createComplexSchedule(model, options)
 
+        # schedule
+        setpoint_schedule = make_setpoint_schedule(model, setpoint: humid_setpoint, type: setpoint_type, subtype: 'Humidifying')
+
+        # humidistat
         thermal_zones_array.each do |thermal_zone|
-
-          if thermal_zone.zoneControlHumidistat.is_initialized
-            humidistat = thermal_zone.zoneControlHumidistat.get
-          else
-            humidistat = OpenStudio::Model::ZoneControlHumidistat.new(model)
-            thermal_zone.setZoneControlHumidistat(humidistat)
-          end
-
-          unless thermal_zone_people_schedule_hash[thermal_zone].nil?
-            zone_occ_sch = thermal_zone_people_schedule_hash[thermal_zone]
-            humid_setback = 0.0
-            humid_sch = OsLib_Schedules.merge_schedule_rulesets(humid_sch, zone_occ_sch)
-            humid_sch = OsLib_Schedules.schedule_ruleset_edit(humid_sch, new_value_map: [[0.0, humid_setback], [1.0, humid_setpoint]], start_time_diff: 90)
-          end
-          humidistat.setHumidifyingRelativeHumiditySetpointSchedule(humid_sch)
-            
+          make_humidstat(thermal_zone, setpoint_schedule, setpoint: humid_setpoint, subtype: 'Humidifying')
         end
       
       end
     end
 
-    setpoints_thermal_zones_hash[:design_cool_rh].each do |array_of_hashes|
-      array_of_hashes.each do |dehumid_setpoint_pct, thermal_zones_array|
+    # humidifying, occupied
+    setpoints_thermal_zones_hash[:design_heat_rh_occ].each do |setpoints_thermal_zones|
+      setpoints_thermal_zones.each do |humid_setpoint_pct, thermal_zones_array|
+        puts humid_setpoint_pct, thermal_zones_array.size
+        setpoint = humid_setpoint_pct * 100
+
+        # schedule
+        setpoint_schedule = make_setpoint_schedule(model, setpoint: setpoint, type: setpoint_type, subtype: 'Humidifying')
+
+        # humidistat
+        thermal_zones_array.each do |thermal_zone|
+          people_schedule = thermal_zone_people_schedule_hash[thermal_zone]
+          make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying', people_schedule: people_schedule)            
+        end
+      
+      end
+    end
+
+    # dehumidifying
+    setpoints_thermal_zones_hash[:design_cool_rh].each do |setpoints_thermal_zones|
+      setpoints_thermal_zones.each do |dehumid_setpoint_pct, thermal_zones_array|
         puts dehumid_setpoint_pct, thermal_zones_array.size
-        dehumid_setpoint = dehumid_setpoint_pct * 100
-        options = { 'name' => 'Dehumidifying Setpoint Schedule',
-                    'default_day' => ['Dehumidifying Setpoint Default Day Schedule', [24.0, dehumid_setpoint]],
-                    'winter_design_day' => [[24.0, dehumid_setpoint]],
-                    'summer_design_day' => [[24.0, dehumid_setpoint]] }
-        dehumid_sch = OsLib_Schedules.createComplexSchedule(model, options)
+        setpoint = dehumid_setpoint_pct * 100
 
+        # schedule
+        setpoint_schedule = make_setpoint_schedule(model, setpoint: setpoint, type: setpoint_type, subtype: 'Dehumidifying')
+
+        # humidistat
         thermal_zones_array.each do |thermal_zone|
-
-          if thermal_zone.zoneControlHumidistat.is_initialized
-            humidistat = thermal_zone.zoneControlHumidistat.get
-          else
-            humidistat = OpenStudio::Model::ZoneControlHumidistat.new(model)
-            thermal_zone.setZoneControlHumidistat(humidistat)
-          end
-
-          unless thermal_zone_people_schedule_hash[thermal_zone].nil?
-            zone_occ_sch = thermal_zone_people_schedule_hash[thermal_zone]
-            dehumid_setback = 100.0
-            dehumid_sch = OsLib_Schedules.merge_schedule_rulesets(dehumid_sch, zone_occ_sch)
-            dehumid_sch = OsLib_Schedules.schedule_ruleset_edit(dehumid_sch, new_value_map: [[0.0, dehumid_setback], [1.0, dehumid_setpoint]], start_time_diff: 90)
-          end
-          humidistat.setDehumidifyingRelativeHumiditySetpointSchedule(dehumid_sch)
-            
+          make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying')
         end
       
       end
     end
+
+    # dehumidifying, occupied
+    setpoints_thermal_zones_hash[:design_cool_rh_occ].each do |setpoints_thermal_zones|
+      setpoints_thermal_zones.each do |dehumid_setpoint_pct, thermal_zones_array|
+        puts dehumid_setpoint_pct, thermal_zones_array.size
+        setpoint = dehumid_setpoint_pct * 100
+
+        # schedule
+        setpoint_schedule = make_setpoint_schedule(model, setpoint: setpoint, type: setpoint_type, subtype: 'Dehumidifying')
+
+        # humidistat
+        thermal_zones_array.each do |thermal_zone|
+          people_schedule = thermal_zone_people_schedule_hash[thermal_zone]
+          make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying', people_schedule: people_schedule)            
+        end
+      
+      end
+    end
+
+  end
+
+  # adds a humidistat to model and adjusts the setpoint schedule if occupied
+  # assumes a setback of 0.0 when humidifying and 100.0 when dehumidifying
+  # setbacks are enabled when zone occupancy is below 0.05, and disabled 1.5 hours before zone occupancy exceeds 0.05
+  def self.make_humidstat(thermal_zone, setpoint_schedule, setpoint:, subtype:, people_schedule: false)
+
+    if thermal_zone.zoneControlHumidistat.is_initialized
+      humidistat = thermal_zone.zoneControlHumidistat.get
+    else
+      humidistat = OpenStudio::Model::ZoneControlHumidistat.new(thermal_zone.model)
+      thermal_zone.setZoneControlHumidistat(humidistat)
+    end
+
+    if people_schedule
+      setback = 
+        case subtype
+        when 'Humidifying' then 0.0
+        when 'Dehumidifying' then 100.0
+        end
+      setpoint_schedule = OsLib_Schedules.merge_schedule_rulesets(setpoint_schedule, people_schedule)
+      setpoint_schedule = OsLib_Schedules.schedule_ruleset_edit(setpoint_schedule, new_value_map: [[0.0, setback], [1.0, setpoint]], start_time_diff: 90)
+    end
+    humidistat.send("set#{subtype}RelativeHumiditySetpointSchedule", setpoint_schedule)
 
   end
 
