@@ -43,7 +43,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
   # define what happens when the measure is run
   def run(model, runner, user_arguments)
     super(model, runner, user_arguments)
-    Benchmark.bm(label_width=120) do |bm|
+Benchmark.bm(label_width=120) do |bm|
     # use the built-in error checking
     unless runner.validateUserArguments(arguments(model), user_arguments)
       return false
