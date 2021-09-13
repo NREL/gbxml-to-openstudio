@@ -378,7 +378,7 @@ bm.report('advanced_import_gbxml') do
 
     # cleanup fenestration that may be too large (need to confirm how doors and glass doors are addressed)
     OsLib_AdvImport.assure_fenestration_inset(runner, model)
-end # benchmark report
+end #benchmark report
     # report final condition of model
     runner.registerFinalCondition("The building finished with #{model.objects.size} model objects.")
 end #benchmark
