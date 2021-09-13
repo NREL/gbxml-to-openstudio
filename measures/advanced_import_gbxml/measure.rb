@@ -68,7 +68,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
 
     # report initial condition of model
     runner.registerInitialCondition("The building started with #{model.objects.size} model objects.")
-
+bm.report('advanced_import_gbxml') do
     # read in and parse xml using using rexml
     xml_string = File.read(path.to_s)
     gbxml_doc = REXML::Document.new(xml_string)
@@ -98,7 +98,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       elevation = OpenStudio.convert(elevation, "ft", "m").get if length_unit == "Feet"
       site.setElevation(elevation)
     end
-    bm.report('advanced_import_gbxml - constructions') do
+
     # Assign construction absorptance
     materials_set = Set.new
     gbxml_doc.elements.each('gbXML/Construction') do |construction|
@@ -123,7 +123,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       outer_material.to_OpaqueMaterial.get.setSolarAbsorptance(absorptance)
       materials_set.add(outer_material)
     end
-    end
+
     # create hash used for importing
     advanced_inputs = {}
     advanced_inputs[:building_type] = building_type
@@ -137,7 +137,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     advanced_inputs[:people_defs] = {}
     advanced_inputs[:light_defs] = {}
     advanced_inputs[:equip_defs] = {}
-    bm.report('advanced_import_gbxml - spaces') do
+
     gbxml_doc.elements.each('gbXML/Campus/Building/Space') do |element|
       name = element.elements['Name']
 
@@ -299,8 +299,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         end
       end
     end
-    end
-    bm.report('advanced_import_gbxml - schedules') do
+
     # note, schedules and schedule sets will be generated as used when looping through spaces
     gbxml_doc.elements.each('gbXML/Schedule') do |element|
       name = element.elements['Name']
@@ -337,8 +336,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       end
       advanced_inputs[:day_schedules][element.attributes['id']] = hourly_values
     end
-    end
-    bm.report('advanced_import_gbxml - zones') do
+
     gbxml_doc.elements.each('gbXML/Zone') do |element|
       name = element.elements['Name']
 
@@ -374,18 +372,16 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
       end
 
     end
-    end
-    # bm.report('advanced_import_gbxml-OsLib_AdvImport.add_objects_from_adv_import_hash') do
+
     # create model objects from hash
     OsLib_AdvImport.add_objects_from_adv_import_hash(runner, model, advanced_inputs)
-    # end
-    bm.report('advanced_import_gbxml - OsLib_AdvImport.assure_fenestration_inset') do
+
     # cleanup fenestration that may be too large (need to confirm how doors and glass doors are addressed)
     OsLib_AdvImport.assure_fenestration_inset(runner, model)
-    end
+
     # report final condition of model
     runner.registerFinalCondition("The building finished with #{model.objects.size} model objects.")
-
+end
     return true
     end
   end
