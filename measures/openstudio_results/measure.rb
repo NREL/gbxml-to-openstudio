@@ -32,7 +32,7 @@
 # STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # *******************************************************************************
-
+require 'benchmark'
 require 'erb'
 require 'json'
 
@@ -217,7 +217,8 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
   # define what happens when the measure is run
   def run(runner, user_arguments)
     super(runner, user_arguments)
-
+    Benchmark.bm(label_width=120) do |bm|
+    bm.report('openstudio_results') do
     # get sql, model, and web assets
     setup = OsLib_Reporting.setup(runner)
     unless setup
@@ -368,7 +369,8 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
 
     # reporting final condition
     runner.registerFinalCondition("Generated report with #{sections_made} sections to #{html_out_path}.")
-
+    end
+    end
     true
   end
 end

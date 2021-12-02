@@ -1,3 +1,4 @@
+require 'benchmark'
 require_relative 'gbxml_hvac_import'
 
 # start the measure
@@ -35,8 +36,8 @@ class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
   # define what happens when the measure is run
   def run(model, runner, user_arguments)
     super(model, runner, user_arguments)
-
-    puts '*** Starting the HVAC Measure ***'
+    Benchmark.bm(label_width=120) do |bm|
+    # puts '*** Starting the HVAC Measure ***'
     # use the built-in error checking
     if !runner.validateUserArguments(arguments(model), user_arguments)
       return false
@@ -61,7 +62,7 @@ class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
 
     # report initial condition of model
     runner.registerInitialCondition("The building started with #{model.objects.size} model objects.")
-
+    bm.report('gbxml_hvac_import') do 
     model_manager = ModelManager.new(model, path)
     model_manager.load_gbxml
     model_manager.resolve_references
@@ -71,7 +72,8 @@ class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
     model_manager.post_build
 
     Helpers.clean_up_model(model)
-
+    end
+    end
     return true
   end
 end

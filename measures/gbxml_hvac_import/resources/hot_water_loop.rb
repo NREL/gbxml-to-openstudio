@@ -70,7 +70,11 @@ class HotWaterLoop < HVACObject
     boiler.setName("#{self.name} Boiler")
     boiler.setEfficiencyCurveTemperatureEvaluationVariable('LeavingBoiler')
     boiler.setFuelType('NaturalGas')
-    boiler.setDesignWaterOutletTemperature(self.design_loop_exit_temp)
+    # setDesignWaterOutletTemperature was deprecated in 3.0.0
+    # https://github.com/NREL/OpenStudio/pull/3846/files#diff-38aa0007ea5d7e93911e6a920c66a1ae
+    if OpenStudio::VersionString.new(OpenStudio.openStudioVersion) < OpenStudio::VersionString.new('3.0.0')
+      boiler.setDesignWaterOutletTemperature(self.design_loop_exit_temp)
+    end
     boiler.setNominalThermalEfficiency(0.92)
     boiler.setMaximumPartLoadRatio(1.2)
     boiler.setWaterOutletUpperTemperatureLimit(95)
