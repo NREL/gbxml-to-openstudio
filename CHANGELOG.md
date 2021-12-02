@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.4] - 2021-12-01
+### Changed
+ - gbXML import performance improvements
+ - Minor changes to support OpenStudio v3.0.0
+
 ## [1.0.3] - 2021-02-01
 ### Added
  - Charts for the zone and system load summary PDF
