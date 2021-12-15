@@ -394,7 +394,7 @@ module OsLib_AdvImport
     # heating
     setpoints_thermal_zones_hash[:design_heat_t].each do |setpoint_thermal_zones|
       setpoint_thermal_zones.each do |htg_setpoint_degF, thermal_zones_array|
-        puts '', htg_setpoint_degF, thermal_zones_array.size
+        # puts '', htg_setpoint_degF, thermal_zones_array.size
         htg_setpoint_degC = OpenStudio.convert(htg_setpoint_degF, 'F', 'C').get
         
         # schedule
@@ -411,7 +411,7 @@ module OsLib_AdvImport
     # heating, occupied
     setpoints_thermal_zones_hash[:design_heat_t_occ].each do |setpoint_thermal_zones|
       setpoint_thermal_zones.each do |htg_setpoint_degF, thermal_zones_array|
-        puts '', htg_setpoint_degF, thermal_zones_array.size
+        # puts '', htg_setpoint_degF, thermal_zones_array.size
         htg_setpoint_degC = OpenStudio.convert(htg_setpoint_degF, 'F', 'C').get
         
         # schedule
@@ -429,7 +429,7 @@ module OsLib_AdvImport
     # cooling
     setpoints_thermal_zones_hash[:design_cool_t].each do |setpoint_thermal_zones| 
       setpoint_thermal_zones.each do |clg_setpoint_degF, thermal_zones_array|
-        puts '', clg_setpoint_degF, thermal_zones_array.size
+        # puts '', clg_setpoint_degF, thermal_zones_array.size
         clg_setpoint_degC = OpenStudio.convert(clg_setpoint_degF, 'F', 'C').get
 
         # schedule
@@ -446,7 +446,7 @@ module OsLib_AdvImport
     # cooling, occupied
     setpoints_thermal_zones_hash[:design_cool_t_occ].each do |setpoint_thermal_zones| 
       setpoint_thermal_zones.each do |clg_setpoint_degF, thermal_zones_array|
-        puts '', clg_setpoint_degF, thermal_zones_array.size
+        # puts '', clg_setpoint_degF, thermal_zones_array.size
         clg_setpoint_degC = OpenStudio.convert(clg_setpoint_degF, 'F', 'C').get
         
         # schedule
@@ -520,7 +520,7 @@ module OsLib_AdvImport
     # humidifying
     setpoints_thermal_zones_hash[:design_heat_rh].each do |setpoints_thermal_zones|
       setpoints_thermal_zones.each do |humid_setpoint_pct, thermal_zones_array|
-        puts humid_setpoint_pct, thermal_zones_array.size
+        # puts humid_setpoint_pct, thermal_zones_array.size
         humid_setpoint = humid_setpoint_pct * 100
 
         # schedule
@@ -537,7 +537,7 @@ module OsLib_AdvImport
     # humidifying, occupied
     setpoints_thermal_zones_hash[:design_heat_rh_occ].each do |setpoints_thermal_zones|
       setpoints_thermal_zones.each do |humid_setpoint_pct, thermal_zones_array|
-        puts humid_setpoint_pct, thermal_zones_array.size
+        # puts humid_setpoint_pct, thermal_zones_array.size
         setpoint = humid_setpoint_pct * 100
 
         # schedule
@@ -555,7 +555,7 @@ module OsLib_AdvImport
     # dehumidifying
     setpoints_thermal_zones_hash[:design_cool_rh].each do |setpoints_thermal_zones|
       setpoints_thermal_zones.each do |dehumid_setpoint_pct, thermal_zones_array|
-        puts dehumid_setpoint_pct, thermal_zones_array.size
+        # puts dehumid_setpoint_pct, thermal_zones_array.size
         setpoint = dehumid_setpoint_pct * 100
 
         # schedule
@@ -572,7 +572,7 @@ module OsLib_AdvImport
     # dehumidifying, occupied
     setpoints_thermal_zones_hash[:design_cool_rh_occ].each do |setpoints_thermal_zones|
       setpoints_thermal_zones.each do |dehumid_setpoint_pct, thermal_zones_array|
-        puts dehumid_setpoint_pct, thermal_zones_array.size
+        # puts dehumid_setpoint_pct, thermal_zones_array.size
         setpoint = dehumid_setpoint_pct * 100
 
         # schedule
