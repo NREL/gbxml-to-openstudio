@@ -38,6 +38,10 @@
 require 'bigdecimal/newton'
 require 'openstudio-standards'
 
+# constants for thermostat and humidistat schedules
+STANDARD = Standard.build('90.1-2013')
+FIVE_PCT = 0.05
+
 module OsLib_AdvImport
 
   def self.get_occ_schedules_and_occupancy(model)
@@ -473,7 +477,8 @@ module OsLib_AdvImport
     # puts "#{thermal_zone.name} = #{htg_sch.name}" 
 
     if people_schedule
-      # zone_occ_sch = thermal_zone_people_schedule_hash[thermal_zone]
+      #FIX https://github.com/NREL/gbxml-to-openstudio/issues/98
+      people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT) #thermal_zone_people_schedule_hash[thermal_zone]
       setback = 
         case subtype
         when 'Heating' then setpoint - OpenStudio.convert(5.0, 'R', 'K').get
@@ -597,6 +602,8 @@ module OsLib_AdvImport
     end
 
     if people_schedule
+      #FIX https://github.com/NREL/gbxml-to-openstudio/issues/98
+      people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
       setback = 
         case subtype
         when 'Humidifying' then 0.0
