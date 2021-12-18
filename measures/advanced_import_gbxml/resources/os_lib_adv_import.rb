@@ -387,7 +387,7 @@ module OsLib_AdvImport
   end
 
   # adds setpoint schedules and thermostats to model
-  def self.make_thermal_zone_thermostats(model, setpoints_thermal_zones_hash, thermal_zone_people_schedule_hash)
+  def self.make_thermal_zone_thermostats(model, setpoints_thermal_zones_hash)
 
     setpoint_type = 'temperature'
 
@@ -419,7 +419,7 @@ module OsLib_AdvImport
 
         # thermostat
         thermal_zones_array.each do |thermal_zone|
-          people_schedule = thermal_zone_people_schedule_hash[thermal_zone]
+          people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           make_thermostat(thermal_zone, htg_sch, setpoint: htg_setpoint_degC, subtype: 'Heating', people_schedule: people_schedule)
         end
 
@@ -454,7 +454,7 @@ module OsLib_AdvImport
 
         # thermostat
         thermal_zones_array.each do |thermal_zone|
-          people_schedule = thermal_zone_people_schedule_hash[thermal_zone]
+          people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           make_thermostat(thermal_zone, clg_sch, setpoint: clg_setpoint_degC, subtype: 'Cooling', people_schedule: people_schedule)
         end
 
@@ -477,8 +477,6 @@ module OsLib_AdvImport
     # puts "#{thermal_zone.name} = #{htg_sch.name}" 
 
     if people_schedule
-      #FIX https://github.com/NREL/gbxml-to-openstudio/issues/98
-      people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT) #thermal_zone_people_schedule_hash[thermal_zone]
       setback = 
         case subtype
         when 'Heating' then setpoint - OpenStudio.convert(5.0, 'R', 'K').get
@@ -513,7 +511,7 @@ module OsLib_AdvImport
   end
 
   # adds setpoint schedules and humidistats to model
-  def self.make_thermal_zone_humidistats(model, setpoints_thermal_zones_hash, thermal_zone_people_schedule_hash)
+  def self.make_thermal_zone_humidistats(model, setpoints_thermal_zones_hash)
   
     setpoint_type = 'relative_humidity'
 
@@ -545,7 +543,7 @@ module OsLib_AdvImport
 
         # humidistat
         thermal_zones_array.each do |thermal_zone|
-          people_schedule = thermal_zone_people_schedule_hash[thermal_zone]
+          people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying', people_schedule: people_schedule)            
         end
       
@@ -580,7 +578,7 @@ module OsLib_AdvImport
 
         # humidistat
         thermal_zones_array.each do |thermal_zone|
-          people_schedule = thermal_zone_people_schedule_hash[thermal_zone]
+          people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying', people_schedule: people_schedule)            
         end
       
@@ -602,8 +600,6 @@ module OsLib_AdvImport
     end
 
     if people_schedule
-      #FIX https://github.com/NREL/gbxml-to-openstudio/issues/98
-      people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
       setback = 
         case subtype
         when 'Humidifying' then 0.0
@@ -812,11 +808,10 @@ module OsLib_AdvImport
   # assign newly made space objects to existing spaces
   def self.assign_zone_attributes(runner, model, zones)
 
-    thermal_zone_people_schedule_hash = thermal_zone_get_occupancy_schedule(model)
     setpoints_thermal_zones_hash = setpoints_thermal_zones_hash(model, zones)
     
-    make_thermal_zone_thermostats(model, setpoints_thermal_zones_hash, thermal_zone_people_schedule_hash)
-    make_thermal_zone_humidistats(model, setpoints_thermal_zones_hash, thermal_zone_people_schedule_hash)
+    make_thermal_zone_thermostats(model, setpoints_thermal_zones_hash)
+    make_thermal_zone_humidistats(model, setpoints_thermal_zones_hash)
     
     # modified_zones = {}
     # zones.each do |id, zone_data|
