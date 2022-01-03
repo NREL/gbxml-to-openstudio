@@ -5,14 +5,8 @@ gbxmls/Cases/
 measures/*/output_models/
 measures/*/tests/output
 /node_modules/
-/OpenStudio CLI For Revit 2020-cache/
-/OpenStudio CLI For Revit 2020-SetupFiles/
-/OpenStudio CLI For Revit 2021-cache/
-/OpenStudio CLI For Revit 2021-SetupFiles/
-/OpenStudio CLI For Revit 2022-cache/
-/OpenStudio CLI For Revit 2022-SetupFiles/
-/OpenStudio CLI For Revit 2023-cache/
-/OpenStudio CLI For Revit 2023-SetupFiles/
+/OpenStudio CLI For Revit 202?-cache/
+/OpenStudio CLI For Revit 202?-SetupFiles/
 test/*/*.osm
 test/gbxml_hvac_import/output_models/*/in.osw
 test/gbxml_hvac_import/output_models/*/out.osw
