@@ -1,0 +1,16 @@
+{
+  "name": "regression-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "Start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "execa": "^6.1.0",
+    "p-queue": "^7.2.0"
+  }
+}
