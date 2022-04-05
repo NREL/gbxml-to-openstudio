@@ -19,14 +19,6 @@ ReportingMeasure
 ## Arguments
 
 
-### Which Unit System do you want to use?
-
-**Name:** units,
-**Type:** Choice,
-**Units:** ,
-**Required:** true,
-**Model Dependent:** false
-
 ### Model Summary
 
 **Name:** building_summary_section,
