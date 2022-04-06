@@ -1,0 +1,122 @@
+{
+  "seed_file": "seed_empty.osm",
+  "weather_file": "USA_CO_Denver.Intl.AP.725650_TMY3.epw",
+  "measure_paths": [
+    "../measures/"
+  ],
+  "file_paths": [
+    "../weather",
+    "../seeds",
+    "../gbxmls/RegressionTesting"
+  ],
+  "run_directory": "./run",
+  "steps": [
+    {
+      "measure_dir_name": "ChangeBuildingLocation",
+      "name": "Change Building Location",
+      "arguments": {
+        "weather_file_name": "USA_CO_Denver.Intl.AP.725650_TMY3.epw"
+      }
+    },
+    {
+      "measure_dir_name": "import_gbxml",
+      "name": "ImportGbxml",
+      "arguments": {
+        "gbxml_file_name": "House.xml"
+      }
+    },
+    {
+      "measure_dir_name": "advanced_import_gbxml",
+      "name": "Advanced Import Gbxml",
+      "arguments": {
+        "__SKIP__": false,
+        "gbxml_file_name": "House.xml"
+      }
+    },
+    {
+      "measure_dir_name": "gbxml_hvac_import",
+      "name": "GBXML HVAC Import",
+      "arguments": {
+        "__SKIP__": false,
+        "gbxml_file_name": "House.xml"
+      }
+    },
+    {
+      "arguments": {
+        "cooling_sizing_factor": 1.0,
+        "do_plant_sizing": true,
+        "do_system_sizing": true,
+        "do_zone_sizing": true,
+        "end_date": "12/31",
+        "heating_sizing_factor": 1.0,
+        "loads_convergence_tolerance": 0.1,
+        "max_warmup_days": 25,
+        "min_warmup_days": 6,
+        "sim_for_run_period": true,
+        "sim_for_sizing": true,
+        "solar_distribution": "FullExterior",
+        "start_date": "01/01",
+        "temp_convergence_tolerance": 0.5,
+        "timesteps_per_hour": 4,
+        "max_hvac_iterations": 8
+      },
+      "description": "The measures sets simulation control, timestep and convergence parameters.",
+      "measure_dir_name": "set_simulation_control",
+      "modeler_description": "",
+      "name": "Set Simulation Control"
+    },
+    {
+      "measure_dir_name": "gbxml_to_openstudio_cleanup",
+      "name": "gbxml_to_openstudio_cleanup",
+      "arguments": {
+        "__SKIP__": false
+      }
+    },
+    {
+      "measure_dir_name": "add_xml_output_control_style",
+      "name": "Add XML Output Control Style",
+      "arguments": {
+        "__SKIP__": false
+      }
+    },
+    {
+     "arguments" : {
+        "__SKIP__": true,
+        "air_loops_detail_section": true,
+        "annual_overview_section": true,
+        "building_summary_section": true,
+        "cost_summary_section": true,
+        "envelope_section_section": true,
+        "exterior_light_section": true,
+        "hvac_load_profile": true,
+        "interior_lighting_section": true,
+        "monthly_overview_section": true,
+        "outdoor_air_section": true,
+        "plant_loops_detail_section": true,
+        "plug_loads_section": true,
+        "reg_monthly_details": true,
+        "schedules_overview_section": true,
+        "source_energy_section": true,
+        "space_type_breakdown_section": true,
+        "space_type_details_section": true,
+        "utility_bills_rates_section": true,
+        "water_use_section": true,
+        "zone_condition_section": true,
+        "zone_equipment_detail_section": true,
+        "zone_summary_section": true
+     },
+     "description": "This measure creates high level tables and charts pulling both from model inputs and EnergyPlus results. It has building level information as well as detail on space types, thermal zones, HVAC systems, envelope characteristics, and economics. Click the heading above a chart to view a table of the chart data.",
+     "measure_dir_name": "nrel_openstudio_results",
+     "modeler_description": "For the most part consumption data comes from the tabular EnergyPlus results, however there are a few requests added for time series results. Space type and loop details come from the OpenStudio model. The code for this is modular, making it easy to use as a template for your own custom reports. The structure of the report uses bootstrap, and the graphs use dimple js.",
+     "name": "OpenStudio Results"
+    },
+    {
+      "measure_dir_name": "systems_analysis_report_generator",
+      "name": "Systems Analysis Report",
+      "arguments" : {
+        "__SKIP__": false,
+        "debug": false
+      }
+    }
+  ]
+}
