@@ -3,8 +3,8 @@
   <schema_version>3.0</schema_version>
   <name>add_xml_output_control_style</name>
   <uid>5669b7f3-8d3f-4298-9477-0db9e8d6ce92</uid>
-  <version_id>e1cf48b9-e9ba-400f-9a95-de40e3ae8031</version_id>
-  <version_modified>20220401T101418Z</version_modified>
+  <version_id>e4591f12-d308-44f0-9550-405ea30cee9f</version_id>
+  <version_modified>20220413T203544Z</version_modified>
   <xml_checksum>84EE5CB0</xml_checksum>
   <class_name>AddXMLOutputControlStyle</class_name>
   <display_name>Add XML Output Control Style</display_name>
@@ -67,7 +67,7 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>FB02A5A5</checksum>
+      <checksum>15116B65</checksum>
     </file>
   </files>
 </measure>
