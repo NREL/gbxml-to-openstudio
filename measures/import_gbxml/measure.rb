@@ -110,6 +110,9 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
     model.getClimateZones.clone(new_model)
     runner.registerInfo("Replacing alternate model's ASHRAE Climate Zone.")
 
+    # report initial condition of model
+    runner.registerInitialCondition("The building started with #{model.getSpaces.size} spaces.")
+
     # swap underlying data in model with underlying data in new_model
     # model = new_model DOES NOT work
     # model.swap(new_model) IS NOT reliable
@@ -125,6 +128,8 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
     model.addObjects( new_model.toIdfFile.objects )
 
     model.setCalendarYear(1997)
+
+    runner.registerFinalCondition("The building finished with #{model.getSpaces.size} spaces.")
 
     return true
 

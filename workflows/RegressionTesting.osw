@@ -22,7 +22,7 @@
       "measure_dir_name": "import_gbxml",
       "name": "ImportGbxml",
       "arguments": {
-        "gbxml_file_name": "House.xml"
+        "gbxml_file_name": "11 Jay St.xml"
       }
     },
     {
@@ -30,7 +30,7 @@
       "name": "Advanced Import Gbxml",
       "arguments": {
         "__SKIP__": false,
-        "gbxml_file_name": "House.xml"
+        "gbxml_file_name": "11 Jay St.xml"
       }
     },
     {
@@ -38,7 +38,7 @@
       "name": "GBXML HVAC Import",
       "arguments": {
         "__SKIP__": false,
-        "gbxml_file_name": "House.xml"
+        "gbxml_file_name": "11 Jay St.xml"
       }
     },
     {
