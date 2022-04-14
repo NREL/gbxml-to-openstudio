@@ -13,7 +13,7 @@ Dir[File.dirname(__FILE__) + '/resources/*.rb'].each { |file| require file }
 require 'openstudio-extension'
 require 'openstudio/extension/core/os_lib_helper_methods'
 require 'openstudio/extension/core/os_lib_lighting_and_equipment'
-#require 'openstudio/extension/core/os_lib_schedules'
+require 'openstudio/extension/core/os_lib_schedules'
 
 # start the measure
 class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure

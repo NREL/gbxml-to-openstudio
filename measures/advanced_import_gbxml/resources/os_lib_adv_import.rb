@@ -334,7 +334,7 @@ module OsLib_AdvImport
         when 'Heating' then setpoint - OpenStudio.convert(5.0, 'R', 'K').get
         when 'Cooling' then setpoint + OpenStudio.convert(5.0, 'R', 'K').get
         end
-      setpoint_schedule = AuLib_Schedules.merge_schedule_rulesets(setpoint_schedule, people_schedule) #bm.report('AuLib_Schedules.merge_schedule_rulesets') { }
+      setpoint_schedule = AuLib_Schedules.merge_schedule_rulesets(setpoint_schedule, people_schedule) #bm.report('OsLib_Schedules.merge_schedule_rulesets') { }
       setpoint_schedule = AuLib_Schedules.schedule_ruleset_edit(setpoint_schedule, new_value_map: [[0.0, setback], [1.0, setpoint]], start_time_diff: 90)
       # puts "#{thermal_zone.name} = #{zone_occ_sch.name}"
     end
@@ -350,7 +350,7 @@ module OsLib_AdvImport
                 'default_day' => ["#{subtype} Setpoint Default Day Schedule", [24.0, setpoint]],
                 'winter_design_day' => [[24.0, setpoint]],
                 'summer_design_day' => [[24.0, setpoint]] }
-    schedule = AuLib_Schedules.createComplexSchedule(model, options)
+    schedule = OsLib_Schedules.createComplexSchedule(model, options)
     
     unless type == 'relative_humidity'
       if model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').is_initialized
@@ -468,7 +468,7 @@ module OsLib_AdvImport
   def self.add_objects_from_adv_import_hash(runner, model, advanced_inputs)
 
     # add schedule type limits
-    AuLib_Schedules.addScheduleTypeLimits(model)
+    OsLib_Schedules.addScheduleTypeLimits(model)
 
     # make schedules
     schedules = import_schs(runner, model, advanced_inputs[:building_type], advanced_inputs[:schedules], advanced_inputs[:week_schedules], advanced_inputs[:day_schedules])
@@ -560,7 +560,7 @@ module OsLib_AdvImport
                        'winterTimeValuePairs' => { 24.0 => 0 },
                        'summerTimeValuePairs' => { 24.0 => activity_w }
             }
-            sch_ruleset = AuLib_Schedules.createSimpleSchedule(model, options)
+            sch_ruleset = OsLib_Schedules.createSimpleSchedule(model, options)
           end
         else
           # create default activity level if one doesn't exist
@@ -570,7 +570,7 @@ module OsLib_AdvImport
                      'winterTimeValuePairs' => { 24.0 => 0 },
                      'summerTimeValuePairs' => { 24.0 => default_activity }
           }
-          sch_ruleset = AuLib_Schedules.createSimpleSchedule(model, options)
+          sch_ruleset = OsLib_Schedules.createSimpleSchedule(model, options)
           runner.registerWarning("Did not find data for acitivty schedule, adding default of #{default_activity} W.")
         end
         load_inst.setActivityLevelSchedule(sch_ruleset)
@@ -707,16 +707,16 @@ module OsLib_AdvImport
         #               'default_day' => ["htg_#{zone.name.to_s}_default", [24.0, htg_setpoint_degC]],
         #               'winter_design_day' => [[24.0, htg_setpoint_degC]],
         #               'summer_design_day' => [[24.0, htg_setpoint_degC]] }
-        #   @htg_sch = AuLib_Schedules.createComplexSchedule(model, options) #bm.report('AuLib_Schedules.createComplexSchedule') { }
+        #   @htg_sch = OsLib_Schedules.createComplexSchedule(model, options) #bm.report('OsLib_Schedules.createComplexSchedule') { }
         #   if model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').is_initialized
         #     @htg_sch.setScheduleTypeLimits(model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').get)
         #   end
         #   @htg_sch.setName("#{zone.name} Htg Setpoint Schedule")
         #   if @zone_occupied
         #     htg_setback_degC = htg_setpoint_degC - OpenStudio.convert(5.0, 'R', 'K').get
-        #     @htg_sch = AuLib_Schedules.merge_schedule_rulesets(@htg_sch, @zone_occ_sch) #bm.report('AuLib_Schedules.merge_schedule_rulesets') { }
-        #     @htg_sch = AuLib_Schedules.schedule_ruleset_edit(@htg_sch, new_value_map: [[0.0, htg_setback_degC], [1.0, htg_setpoint_degC]], start_time_diff: 90)
-        #     # bm.report('AuLib_Schedules.schedule_ruleset_edit') { }
+        #     @htg_sch = OsLib_Schedules.merge_schedule_rulesets(@htg_sch, @zone_occ_sch) #bm.report('OsLib_Schedules.merge_schedule_rulesets') { }
+        #     @htg_sch = OsLib_Schedules.schedule_ruleset_edit(@htg_sch, new_value_map: [[0.0, htg_setback_degC], [1.0, htg_setpoint_degC]], start_time_diff: 90)
+        #     # bm.report('OsLib_Schedules.schedule_ruleset_edit') { }
         #     @htg_sch.setName("#{zone.name} Htg Setpoint Schedule with Setback")
         #   end
         #   thermostatSetpointDualSetpoint.setHeatingSetpointTemperatureSchedule(@htg_sch)
@@ -730,15 +730,15 @@ module OsLib_AdvImport
         #               'default_day' => ["clg_#{zone.name.to_s}_default", [24.0, clg_setpoint_degC]],
         #               'winter_design_day' => [[24.0, clg_setpoint_degC]],
         #               'summer_design_day' => [[24.0, clg_setpoint_degC]] }
-        #   clg_sch = AuLib_Schedules.createComplexSchedule(model, options)
+        #   clg_sch = OsLib_Schedules.createComplexSchedule(model, options)
         #   if model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').is_initialized
         #     clg_sch.setScheduleTypeLimits(model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').get)
         #   end
         #   clg_sch.setName("#{zone.name} Clg Setpoint Schedule")
         #   if @zone_occupied
         #     clg_setback_degC = clg_setpoint_degC + OpenStudio.convert(5.0, 'R', 'K').get
-        #     clg_sch = AuLib_Schedules.merge_schedule_rulesets(clg_sch, @zone_occ_sch)
-        #     clg_sch = AuLib_Schedules.schedule_ruleset_edit(clg_sch, new_value_map: [[0.0, clg_setback_degC], [1.0, clg_setpoint_degC]], start_time_diff: 90)
+        #     clg_sch = OsLib_Schedules.merge_schedule_rulesets(clg_sch, @zone_occ_sch)
+        #     clg_sch = OsLib_Schedules.schedule_ruleset_edit(clg_sch, new_value_map: [[0.0, clg_setback_degC], [1.0, clg_setpoint_degC]], start_time_diff: 90)
         #     clg_sch.setName("#{zone.name} Clg Setpoint Schedule with Setback")
         #   end
         #   thermostatSetpointDualSetpoint.setCoolingSetpointTemperatureSchedule(clg_sch)
@@ -767,15 +767,15 @@ module OsLib_AdvImport
       #                 'default_day' => ["humid#{zone.name.to_s}_default", [24.0, humid_setpoint]],
       #                 'winter_design_day' => [[24.0, humid_setpoint]],
       #                 'summer_design_day' => [[24.0, humid_setpoint]] }
-      #     humid_sch = AuLib_Schedules.createComplexSchedule(model, options)
+      #     humid_sch = OsLib_Schedules.createComplexSchedule(model, options)
       #     # if model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').is_initialized
       #     #   humid_sch.setScheduleTypeLimits(model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').get)
       #     # end
       #     humid_sch.setName("#{zone.name} Humdification Setpoint Schedule")
       #     if @zone_occupied
       #       humid_setback = 0.0
-      #       humid_sch = AuLib_Schedules.merge_schedule_rulesets(humid_sch, @zone_occ_sch)
-      #       humid_sch = AuLib_Schedules.schedule_ruleset_edit(humid_sch, new_value_map: [[0.0, humid_setback], [1.0, humid_setpoint]], start_time_diff: 90)
+      #       humid_sch = OsLib_Schedules.merge_schedule_rulesets(humid_sch, @zone_occ_sch)
+      #       humid_sch = OsLib_Schedules.schedule_ruleset_edit(humid_sch, new_value_map: [[0.0, humid_setback], [1.0, humid_setpoint]], start_time_diff: 90)
       #     end
       #     zone_control_humidistat.setHumidifyingRelativeHumiditySetpointSchedule(humid_sch)
       #     runner.registerInfo("Set humidification setpoint schedule '#{humid_sch.name}' for thermal zone '#{zone.name}'.")
@@ -786,15 +786,15 @@ module OsLib_AdvImport
       #                 'default_day' => ["dehumid_#{zone.name.to_s}_default", [24.0, dehumid_setpoint]],
       #                 'winter_design_day' => [[24.0, dehumid_setpoint]],
       #                 'summer_design_day' => [[24.0, dehumid_setpoint]] }
-      #     dehumid_sch = AuLib_Schedules.createComplexSchedule(model, options)
+      #     dehumid_sch = OsLib_Schedules.createComplexSchedule(model, options)
       #     # if model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').is_initialized
       #     #   clg_sch.setScheduleTypeLimits(model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').get)
       #     # end
       #     dehumid_sch.setName("#{zone.name} Dehumidification Setpoint Schedule")
       #     if @zone_occupied
       #       dehumid_setback = 100.0
-      #       dehumid_sch = AuLib_Schedules.merge_schedule_rulesets(dehumid_sch, @zone_occ_sch)
-      #       dehumid_sch = AuLib_Schedules.schedule_ruleset_edit(dehumid_sch, new_value_map: [[0.0, dehumid_setback], [1.0, dehumid_setpoint]], start_time_diff: 90)
+      #       dehumid_sch = OsLib_Schedules.merge_schedule_rulesets(dehumid_sch, @zone_occ_sch)
+      #       dehumid_sch = OsLib_Schedules.schedule_ruleset_edit(dehumid_sch, new_value_map: [[0.0, dehumid_setback], [1.0, dehumid_setpoint]], start_time_diff: 90)
       #     end
       #     zone_control_humidistat.setDehumidifyingRelativeHumiditySetpointSchedule(dehumid_sch)
       #     runner.registerInfo("Set dehumidification setpoint schedule '#{dehumid_sch.name}' for thermal zone '#{zone.name}'.")
@@ -899,13 +899,13 @@ module OsLib_AdvImport
       end
 
       # populate schedule using schedule_data to update default profile and add rules to complex schedule
-      options = { 'name' => ruleset_name,
+      options = { 'name' => ruleset_name.to_s,
                   # 'winter_design_day' => winter_design_day,
                   # 'summer_design_day' => summer_design_day,
-                  'default_day' => default_day,
+                  #'default_day' => default_day,
                   'rules' => rules }
 
-      sch_ruleset = AuLib_Schedules.createComplexSchedule(model, options)
+      sch_ruleset = OsLib_Schedules.createComplexSchedule(model, options)
       new_schedules[id] = sch_ruleset
     end
     runner.registerInfo("Created #{new_schedules.size} new ScheduleRuleset objects (not including activity schedules).")
@@ -919,7 +919,7 @@ module OsLib_AdvImport
     # create whole building infiltration schedule
     # todo - update schedule to be non-constant
     options = {'name' => "infil_bldg", 'default_day' => ["infil_bldg_default", [24.0, 1.0]]}
-    infil_bldg_sch = AuLib_Schedules.createComplexSchedule(model, options)
+    infil_bldg_sch = OsLib_Schedules.createComplexSchedule(model, options)
 
     # loop through and add schedule sets
     new_schedule_sets = {}
