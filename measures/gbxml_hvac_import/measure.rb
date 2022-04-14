@@ -1,5 +1,9 @@
 require_relative 'gbxml_hvac_import'
 
+# load OpenStudio measure libraries from openstudio-extension gem
+require 'openstudio-extension'
+require 'openstudio/extension/core/os_lib_helper_methods'
+
 # start the measure
 class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
   # human readable name
@@ -37,13 +41,20 @@ class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
     super(model, runner, user_arguments)
 
     puts '*** Starting the HVAC Measure ***'
-    # use the built-in error checking
-    if !runner.validateUserArguments(arguments(model), user_arguments)
-      return false
-    end
+    # assign the user inputs to variables
+    args = OsLib_HelperMethods.createRunVariables(runner, model, user_arguments, arguments(model))
+    if !args then return false end
 
     # assign the user inputs to variables
-    gbxml_file_name = runner.getStringArgumentValue("gbxml_file_name", user_arguments)
+    arg = 'gbxml_file_name'
+    value_from_osw = OsLib_HelperMethods.check_upstream_measure_for_arg(runner, arg)
+    if !value_from_osw.empty?
+      runner.registerInfo("Replacing argument named #{arg} from current measure with a value of #{value_from_osw[:value]} from #{value_from_osw[:measure_name]}.")
+      gbxml_file_name = value_from_osw[:value]
+    else
+      # upstream instance not found use argument value for this measure
+      gbxml_file_name = runner.getStringArgumentValue("gbxml_file_name", user_arguments)
+    end
 
     # check the space_name for reasonableness
     if gbxml_file_name.empty?

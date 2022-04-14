@@ -9,6 +9,12 @@ require 'rexml/xpath'
 # require all .rb files in resources folder
 Dir[File.dirname(__FILE__) + '/resources/*.rb'].each { |file| require file }
 
+# load OpenStudio measure libraries from openstudio-extension gem
+require 'openstudio-extension'
+require 'openstudio/extension/core/os_lib_helper_methods'
+#require 'openstudio/extension/core/os_lib_schedules'
+#require 'openstudio/extension/core/os_lib_lighting_and_equipment'
+
 # start the measure
 class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
   # human readable name
@@ -44,13 +50,20 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
   def run(model, runner, user_arguments)
     super(model, runner, user_arguments)
 
-    # use the built-in error checking
-    unless runner.validateUserArguments(arguments(model), user_arguments)
-      return false
-    end
+    # assign the user inputs to variables
+    args = OsLib_HelperMethods.createRunVariables(runner, model, user_arguments, arguments(model))
+    if !args then return false end
 
     # assign the user inputs to variables
-    gbxml_file_name = runner.getStringArgumentValue("gbxml_file_name", user_arguments)
+    arg = 'gbxml_file_name'
+    value_from_osw = OsLib_HelperMethods.check_upstream_measure_for_arg(runner, arg)
+    if !value_from_osw.empty?
+      runner.registerInfo("Replacing argument named #{arg} from current measure with a value of #{value_from_osw[:value]} from #{value_from_osw[:measure_name]}.")
+      gbxml_file_name = value_from_osw[:value]
+    else
+      # upstream instance not found use argument value for this measure
+      gbxml_file_name = runner.getStringArgumentValue("gbxml_file_name", user_arguments)
+    end
 
     # check the space_name for reasonableness
     if gbxml_file_name.empty?

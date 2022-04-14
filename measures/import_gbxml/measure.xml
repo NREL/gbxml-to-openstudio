@@ -3,8 +3,8 @@
   <schema_version>3.0</schema_version>
   <name>import_gbxml</name>
   <uid>a335136f-bad3-451d-a585-9ea31249e38b</uid>
-  <version_id>0be5874a-0d02-4f5d-bd0d-c4e376a4abfb</version_id>
-  <version_modified>20220413T202303Z</version_modified>
+  <version_id>70276d4a-26e5-4a31-8f5a-5b3b31b1f865</version_id>
+  <version_modified>20220414T001257Z</version_modified>
   <xml_checksum>DA3B952E</xml_checksum>
   <class_name>ImportGbxml</class_name>
   <display_name>ImportGbxml</display_name>
@@ -89,7 +89,7 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>95C7D469</checksum>
+      <checksum>4F5306E4</checksum>
     </file>
   </files>
 </measure>

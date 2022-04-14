@@ -30,7 +30,7 @@
       "name": "Advanced Import Gbxml",
       "arguments": {
         "__SKIP__": false,
-        "gbxml_file_name": "11 Jay St.xml"
+        "gbxml_file_name": "upstream_value_will_be_used"
       }
     },
     {
@@ -38,7 +38,7 @@
       "name": "GBXML HVAC Import",
       "arguments": {
         "__SKIP__": false,
-        "gbxml_file_name": "11 Jay St.xml"
+        "gbxml_file_name": "upstream_value_will_be_used"
       }
     },
     {
