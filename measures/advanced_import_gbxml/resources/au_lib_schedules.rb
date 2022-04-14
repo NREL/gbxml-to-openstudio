@@ -33,7 +33,7 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # *******************************************************************************
 
-module OsLib_Schedules
+module AuLib_Schedules
   # create a ruleset schedule with a basic profile
   def self.createSimpleSchedule(model, options = {})
     defaults = {
