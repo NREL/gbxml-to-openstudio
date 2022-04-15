@@ -22,7 +22,7 @@
       "measure_dir_name": "import_gbxml",
       "name": "ImportGbxml",
       "arguments": {
-        "gbxml_file_name": "11 Jay St.xml"
+        "gbxml_file_name": "House.xml"
       }
     },
     {

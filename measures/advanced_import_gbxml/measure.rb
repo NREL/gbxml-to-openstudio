@@ -116,7 +116,11 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     materials_set = Set.new
     gbxml_doc.elements.each('gbXML/Construction') do |construction|
       absorptance = construction.elements['Absorptance'].text.to_f unless construction.elements['Absorptance'].nil?
-      construction_name = construction.elements['Name'].text unless construction.elements['Name'].nil?
+      if OpenStudio::VersionString.new(OpenStudio.openStudioVersion) < OpenStudio::VersionString.new('3.4.0') # Ruby < 2.2.4
+        construction_name = construction.elements['Name'].text unless construction.elements['Name'].nil?
+      else
+        construction_name = construction['id'] unless construction['id'].nil?
+      end
 
       next unless absorptance and construction_name
 
@@ -133,6 +137,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         os_construction.setLayer(0, outer_material)
       end
 
+      runner.registerInfo("Adding Solar Absorptance Value defined in construction of gbXML to material named #{outer_material.name}in the OpenStudio model.")
       outer_material.to_OpaqueMaterial.get.setSolarAbsorptance(absorptance)
       materials_set.add(outer_material)
     end
