@@ -49,12 +49,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>OpenStudio Results</title>
-  <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<%= File.join(resources_path, "bootstrap.min.css") %>" rel="stylesheet">
 
-  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-  <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.8/d3.min.js"></script>
-  <script type="text/javascript" src="http://dimplejs.org/dist/dimple.v2.1.2.min.js"></script>
+  <script type="text/javascript" src="<%= File.join(resources_path, "jquery.min.js") %>"></script>
+  <script type="text/javascript" src="<%= File.join(resources_path, "bootstrap.min.js") %>"></script>
+  <script type="text/javascript" src="<%= File.join(resources_path, "d3.min.js") %>"></script>
+  <script type="text/javascript" src="<%= File.join(resources_path, "dimple.v2.1.2.min.js") %>"></script>
   <style>
       body {
           position: relative;

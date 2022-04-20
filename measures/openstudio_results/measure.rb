@@ -349,6 +349,7 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
     end
 
     # configure template with variable values
+    resources_path = File.join(runner.workflow.findMeasure('openstudio_results').get.to_s, 'resources/')
     renderer = ERB.new(html_in)
     html_out = renderer.result(binding)
 

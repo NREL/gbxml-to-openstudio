@@ -3,8 +3,8 @@
   <schema_version>3.0</schema_version>
   <name>openstudio_results</name>
   <uid>a25386cd-60e4-46bc-8b11-c755f379d916</uid>
-  <version_id>da737820-833d-4734-8131-f962d58ea8e2</version_id>
-  <version_modified>20210423T144543Z</version_modified>
+  <version_id>d249451a-3138-44c8-96b0-380bb31306ee</version_id>
+  <version_modified>20220420T063707Z</version_modified>
   <xml_checksum>557BF06F</xml_checksum>
   <class_name>OpenStudioResults</class_name>
   <display_name>OpenStudio Results</display_name>
@@ -1479,6 +1479,42 @@
       <checksum>42709140</checksum>
     </file>
     <file>
+      <filename>bootstrap.min.css</filename>
+      <filetype>css</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>2C33597B</checksum>
+    </file>
+    <file>
+      <filename>bootstrap.min.js</filename>
+      <filetype>js</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>3BFC4183</checksum>
+    </file>
+    <file>
+      <filename>d3.min.js</filename>
+      <filetype>js</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>EB90CCAC</checksum>
+    </file>
+    <file>
+      <filename>dimple.v2.1.2.min.js</filename>
+      <filetype>js</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>0F69C1CF</checksum>
+    </file>
+    <file>
+      <filename>jquery.min.js</filename>
+      <filetype>js</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>574D0600</checksum>
+    </file>
+    <file>
+      <filename>report.html.erb</filename>
+      <filetype>erb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>9BD8455A</checksum>
+    </file>
+    <file>
       <version>
         <software_program>OpenStudio</software_program>
         <identifier>2.0.0</identifier>
@@ -1487,13 +1523,7 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>9C1DCE2E</checksum>
-    </file>
-    <file>
-      <filename>report.html.erb</filename>
-      <filetype>erb</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>FB09FEFB</checksum>
+      <checksum>F17FCB07</checksum>
     </file>
   </files>
 </measure>
