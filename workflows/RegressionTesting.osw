@@ -47,6 +47,7 @@
       "description": "The measures sets simulation control, timestep and convergence parameters.",
       "modeler_description": "",
       "arguments": {
+        "__SKIP__": false,
         "cooling_sizing_factor": 1.0,
         "do_plant_sizing": true,
         "do_system_sizing": true,
@@ -67,11 +68,17 @@
     },
     {
       "measure_dir_name": "gbxml_to_openstudio_cleanup",
-      "name": "gbxml_to_openstudio_cleanup"
+      "name": "gbxml_to_openstudio_cleanup",
+      "arguments": {
+        "__SKIP__": false
+      }
     },
     {
       "measure_dir_name": "add_xml_output_control_style",
-      "name": "Add XML Output Control Style"
+      "name": "Add XML Output Control Style",
+      "arguments": {
+        "__SKIP__": false
+      }
     },
     {
       "measure_dir_name": "openstudio_results",
