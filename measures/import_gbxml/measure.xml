@@ -1,9 +1,10 @@
+<?xml version="1.0"?>
 <measure>
   <schema_version>3.0</schema_version>
   <name>import_gbxml</name>
   <uid>a335136f-bad3-451d-a585-9ea31249e38b</uid>
-  <version_id>179fe369-690d-4ff4-af55-dfb9a622e4b3</version_id>
-  <version_modified>20180213T204250Z</version_modified>
+  <version_id>ad35b7c9-cf23-404d-9fcc-96bd8f87c5f6</version_id>
+  <version_modified>20220420T154900Z</version_modified>
   <xml_checksum>DA3B952E</xml_checksum>
   <class_name>ImportGbxml</class_name>
   <display_name>ImportGbxml</display_name>
@@ -19,8 +20,8 @@
       <model_dependent>false</model_dependent>
     </argument>
   </arguments>
-  <outputs/>
-  <provenances/>
+  <outputs />
+  <provenances />
   <tags>
     <tag>Envelope.Form</tag>
   </tags>
@@ -68,17 +69,6 @@
   </attributes>
   <files>
     <file>
-      <version>
-        <software_program>OpenStudio</software_program>
-        <identifier>2.4.0</identifier>
-        <min_compatible>2.4.0</min_compatible>
-      </version>
-      <filename>measure.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>script</usage_type>
-      <checksum>D001DC29</checksum>
-    </file>
-    <file>
       <filename>import_gbxml_test.rb</filename>
       <filetype>rb</filetype>
       <usage_type>test</usage_type>
@@ -89,6 +79,17 @@
       <filetype>xml</filetype>
       <usage_type>test</usage_type>
       <checksum>D39FE3DA</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>2.4.0</identifier>
+        <min_compatible>2.4.0</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>CCBBDF6D</checksum>
     </file>
   </files>
 </measure>

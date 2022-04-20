@@ -19,14 +19,8 @@ ModelMeasure
 ## Arguments
 
 
-### New space name
-This name will be used as the name of the new space.
-**Name:** space_name,
-**Type:** String,
-**Units:** ,
-**Required:** true,
-**Model Dependent:** false
 
 
+This measure does not have any user arguments
 
 
