@@ -1,12 +1,12 @@
-import 'dotenv/config'
-import fs from 'fs';
-import path from 'path';
+import 'dotenv/config';
 import { execa } from 'execa';
-import PQueue from 'p-queue';
+import fs from 'fs';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import os from 'os';
+import PQueue from 'p-queue';
+import path from 'path';
 
-const threads = os.cpus().length - 1;
+const threads = Math.max(1, os.cpus().length - 3);
 const osVersion = process.env.OS_VERSION;
 
 const unsortedFiles = fs.readdirSync('../../gbxmls/RegressionTesting', 'utf8');

@@ -1,10 +1,10 @@
-import 'dotenv/config'
+import 'dotenv/config';
+import { XMLParser } from 'fast-xml-parser';
 import fs from 'fs';
-import path from 'path';
-import Papa from 'papaparse';
 import { readFile, writeFile } from 'fs/promises';
 import { DateTime } from 'luxon';
-import { XMLParser } from 'fast-xml-parser';
+import Papa from 'papaparse';
+import path from 'path';
 
 const parser = new XMLParser();
 const osVersion = process.env.OS_VERSION;
@@ -69,6 +69,22 @@ for (const gbxml of gbxmls) {
   results.push(result);
 }
 
-const csv = Papa.unparse(results);
+const csv = Papa.unparse(results, {
+  columns: [
+    'Name',
+    'Change Building Location',
+    'ImportGbxml',
+    'Advanced Import Gbxml',
+    'GBXML HVAC Import',
+    'Set Simulation Control',
+    'gbxml_to_openstudio_cleanup',
+    'Add XML Output Control Style',
+    'EnergyPlus',
+    'Total Time',
+    'Status',
+    'TotalSiteEnergy',
+    'TotalSourceEnergy'
+  ]
+});
 // console.log(csv);
 await writeFile(`stats-${osVersion}.csv`, csv);
