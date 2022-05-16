@@ -40,8 +40,8 @@ class VRFCondenser < HVACObject
 
   def post_build
     if self.condenser_loop
-      self.condenser.setString(28, 'DryBulbTemperature') # fix regression test of Calculation Model.xml and openstudio 2.8 -> 3.x 
-      self.condenser.setDouble(33, 0.5) # fix regression test of Calculation Model.xml
+      self.condenser.setString(28, 'DryBulbTemperature') # fix for openstudio 2.8 -> 3.x 
+      self.condenser.setDouble(33, 0.5) # fix for regression test of Calculation Model.xml
       self.condenser.setString(56, 'WaterCooled')
       self.condenser_loop.plant_loop.addDemandBranchForComponent(self.condenser) if self.condenser_loop
     end
