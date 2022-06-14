@@ -1,9 +1,10 @@
+<?xml version="1.0"?>
 <measure>
   <schema_version>3.0</schema_version>
   <name>change_building_location</name>
   <uid>d4db4971-f5ba-11e3-a3ac-0800200c9a66</uid>
-  <version_id>66b54583-a1b9-4600-bb23-18ad376634ff</version_id>
-  <version_modified>20180710T213332Z</version_modified>
+  <version_id>cf2b2e93-90c1-4e8f-ab73-9938a84d9555</version_id>
+  <version_modified>20220420T154859Z</version_modified>
   <xml_checksum>057E8D9D</xml_checksum>
   <class_name>ChangeBuildingLocation</class_name>
   <display_name>ChangeBuildingLocation</display_name>
@@ -18,110 +19,9 @@
       <required>true</required>
       <model_dependent>false</model_dependent>
     </argument>
-    <argument>
-      <name>climate_zone</name>
-      <display_name>Climate Zone.</display_name>
-      <type>Choice</type>
-      <required>true</required>
-      <model_dependent>false</model_dependent>
-      <default_value>Lookup From Stat File</default_value>
-      <choices>
-        <choice>
-          <value>1A</value>
-          <display_name>1A</display_name>
-        </choice>
-        <choice>
-          <value>1B</value>
-          <display_name>1B</display_name>
-        </choice>
-        <choice>
-          <value>2A</value>
-          <display_name>2A</display_name>
-        </choice>
-        <choice>
-          <value>2B</value>
-          <display_name>2B</display_name>
-        </choice>
-        <choice>
-          <value>3A</value>
-          <display_name>3A</display_name>
-        </choice>
-        <choice>
-          <value>3B</value>
-          <display_name>3B</display_name>
-        </choice>
-        <choice>
-          <value>3C</value>
-          <display_name>3C</display_name>
-        </choice>
-        <choice>
-          <value>4A</value>
-          <display_name>4A</display_name>
-        </choice>
-        <choice>
-          <value>4B</value>
-          <display_name>4B</display_name>
-        </choice>
-        <choice>
-          <value>4C</value>
-          <display_name>4C</display_name>
-        </choice>
-        <choice>
-          <value>5A</value>
-          <display_name>5A</display_name>
-        </choice>
-        <choice>
-          <value>5B</value>
-          <display_name>5B</display_name>
-        </choice>
-        <choice>
-          <value>5C</value>
-          <display_name>5C</display_name>
-        </choice>
-        <choice>
-          <value>6A</value>
-          <display_name>6A</display_name>
-        </choice>
-        <choice>
-          <value>6B</value>
-          <display_name>6B</display_name>
-        </choice>
-        <choice>
-          <value>7</value>
-          <display_name>7</display_name>
-        </choice>
-        <choice>
-          <value>8</value>
-          <display_name>8</display_name>
-        </choice>
-        <choice>
-          <value>Lookup From Stat File</value>
-          <display_name>Lookup From Stat File</display_name>
-        </choice>
-      </choices>
-    </argument>
-    <argument>
-      <name>use_upstream_args</name>
-      <display_name>Use Upstream Argument Values</display_name>
-      <description>When true this will look for arguments or registerValues in upstream measures that match arguments from this measure, and will use the value from the upstream measure in place of what is entered for this measure.</description>
-      <type>Boolean</type>
-      <required>true</required>
-      <model_dependent>false</model_dependent>
-      <default_value>true</default_value>
-      <choices>
-        <choice>
-          <value>true</value>
-          <display_name>true</display_name>
-        </choice>
-        <choice>
-          <value>false</value>
-          <display_name>false</display_name>
-        </choice>
-      </choices>
-    </argument>
   </arguments>
-  <outputs/>
-  <provenances/>
+  <outputs />
+  <provenances />
   <tags>
     <tag>Whole Building.Space Types</tag>
   </tags>
@@ -235,23 +135,6 @@
       <checksum>75D1E203</checksum>
     </file>
     <file>
-      <filename>os_lib_helper_methods.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>9CFC43FB</checksum>
-    </file>
-    <file>
-      <version>
-        <software_program>OpenStudio</software_program>
-        <identifier>2.0.0</identifier>
-        <min_compatible>2.0.0</min_compatible>
-      </version>
-      <filename>measure.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>script</usage_type>
-      <checksum>299383EA</checksum>
-    </file>
-    <file>
       <filename>LICENSE.md</filename>
       <filetype>md</filetype>
       <usage_type>license</usage_type>
@@ -264,16 +147,27 @@
       <checksum>703C9964</checksum>
     </file>
     <file>
-      <filename>README.md</filename>
-      <filetype>md</filetype>
-      <usage_type>readme</usage_type>
-      <checksum>7936A624</checksum>
-    </file>
-    <file>
       <filename>change_building_location_test.rb</filename>
       <filetype>rb</filetype>
       <usage_type>test</usage_type>
       <checksum>AE167642</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>2.0.0</identifier>
+        <min_compatible>2.0.0</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>0CC47986</checksum>
+    </file>
+    <file>
+      <filename>README.md</filename>
+      <filetype>md</filetype>
+      <usage_type>readme</usage_type>
+      <checksum>C5F12607</checksum>
     </file>
   </files>
 </measure>

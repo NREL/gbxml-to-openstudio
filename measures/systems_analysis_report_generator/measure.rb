@@ -18,7 +18,7 @@ class SystemsAnalysisReportGenerator < OpenStudio::Measure::ReportingMeasure
   end
 
   # define the arguments that the user will input
-  def arguments
+  def arguments(model)
     args = OpenStudio::Measure::OSArgumentVector.new
 
     debug = OpenStudio::Measure::OSArgument.makeBoolArgument("debug", false)
@@ -29,7 +29,7 @@ class SystemsAnalysisReportGenerator < OpenStudio::Measure::ReportingMeasure
 
     return args
   end
-  
+
   # define the outputs that the measure will create
   def outputs
     outs = OpenStudio::Measure::OSOutputVector.new
@@ -38,7 +38,7 @@ class SystemsAnalysisReportGenerator < OpenStudio::Measure::ReportingMeasure
 
     return outs
   end
-  
+
   # return a vector of IdfObject's to request EnergyPlus objects needed by the run method
   # Warning: Do not change the name of this method to be snake_case. The method must be lowerCamelCase.
   def energyPlusOutputRequests(runner, user_arguments)
@@ -63,7 +63,7 @@ class SystemsAnalysisReportGenerator < OpenStudio::Measure::ReportingMeasure
     File.write('./report_data.json', data) if debug
 
     sql_file.close
-    
+
     return true
   end
 

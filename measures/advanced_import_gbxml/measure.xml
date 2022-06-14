@@ -1,9 +1,10 @@
+<?xml version="1.0"?>
 <measure>
   <schema_version>3.0</schema_version>
   <name>advanced_import_gbxml</name>
   <uid>f82940f7-8046-4fd1-9dbb-df6411e86de2</uid>
-  <version_id>091274bd-a4c6-42aa-b8e4-b9ab296704eb</version_id>
-  <version_modified>20190405T153629Z</version_modified>
+  <version_id>5bd42b97-9eac-42b7-b84d-015ddcb0d0ae</version_id>
+  <version_modified>20220420T154858Z</version_modified>
   <xml_checksum>D8922A73</xml_checksum>
   <class_name>AdvancedImportGbxml</class_name>
   <display_name>Advanced Import Gbxml</display_name>
@@ -19,8 +20,8 @@
       <model_dependent>false</model_dependent>
     </argument>
   </arguments>
-  <outputs/>
-  <provenances/>
+  <outputs />
+  <provenances />
   <tags>
     <tag>Whole Building.Space Types</tag>
   </tags>
@@ -105,19 +106,19 @@
       <filename>os_lib_schedules.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>9BD8C545</checksum>
+      <checksum>BB445760</checksum>
     </file>
     <file>
       <filename>advanced_import_gbxml_test.rb</filename>
       <filetype>rb</filetype>
       <usage_type>test</usage_type>
-      <checksum>AD881522</checksum>
+      <checksum>F468277A</checksum>
     </file>
     <file>
       <filename>os_lib_adv_import.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>D3F52147</checksum>
+      <checksum>24E56A45</checksum>
     </file>
     <file>
       <version>
@@ -128,7 +129,37 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>3C03B966</checksum>
+      <checksum>DD0E31F0</checksum>
+    </file>
+    <file>
+      <filename>200_SpacesOneZE.xml</filename>
+      <filetype>xml</filetype>
+      <usage_type>test</usage_type>
+      <checksum>C4359438</checksum>
+    </file>
+    <file>
+      <filename>25_SpacesOneZE.xml</filename>
+      <filetype>xml</filetype>
+      <usage_type>test</usage_type>
+      <checksum>44A2B39C</checksum>
+    </file>
+    <file>
+      <filename>adhoc_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>33699363</checksum>
+    </file>
+    <file>
+      <filename>AirSystemAllVariations.xml</filename>
+      <filetype>xml</filetype>
+      <usage_type>test</usage_type>
+      <checksum>F50404FF</checksum>
+    </file>
+    <file>
+      <filename>building_type_helper.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>A8B4E116</checksum>
     </file>
   </files>
 </measure>

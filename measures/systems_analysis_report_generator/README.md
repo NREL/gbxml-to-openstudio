@@ -2,7 +2,7 @@
 
 ###### (Automatically generated documentation)
 
-# Systems Analysis Report
+# Systems Analysis Report Generator
 
 ## Description
 
@@ -19,8 +19,14 @@ ReportingMeasure
 ## Arguments
 
 
+### Debug
+
+**Name:** debug,
+**Type:** Boolean,
+**Units:** ,
+**Required:** false,
+**Model Dependent:** false
 
 
-This measure does not have any user arguments
 
 
