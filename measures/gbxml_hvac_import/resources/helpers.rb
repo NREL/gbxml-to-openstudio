@@ -45,7 +45,7 @@ class Helpers
 
     model.getDesignDays.each do |design_day|
       max_temp = design_day.maximumDryBulbTemperature
-      puts max_temp
+      # puts max_temp
       min_temp = max_temp if max_temp < min_temp
     end
 

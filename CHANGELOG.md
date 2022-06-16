@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.0] - 2022-06-15
+### Changed
+- OpenStudio updated to v3.4.0
+- EnergyPlus updated to v22.1.0
+- Measures updated for compatibility
+
 ## [1.0.5] - 2022-01-04
 ### Changed
 - [Beta Build]

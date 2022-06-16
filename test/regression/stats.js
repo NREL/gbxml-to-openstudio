@@ -30,6 +30,7 @@ for (const gbxml of gbxmls) {
 
   data.steps.forEach(step => {
     if (['OpenStudio Results', 'Systems Analysis Report'].includes(step.name)) {
+      result[step.name] = step.result.step_result
       return;
     }
     const start = DateTime.fromISO(step.result.started_at).valueOf() / 1000;
@@ -83,7 +84,9 @@ const csv = Papa.unparse(results, {
     'Total Time',
     'Status',
     'TotalSiteEnergy',
-    'TotalSourceEnergy'
+    'TotalSourceEnergy',
+    'OpenStudio Results',
+    'Systems Analysis Report'
   ]
 });
 // console.log(csv);

@@ -64,6 +64,7 @@ module SystemsAnalysisReport
         wattsPerSquareMeter: "W/m2",
         britishThermalUnitsPerHourSquareFoot: "btu/hr/ft2",
         cubicFeetPerMinuteSquareFoot: "ft3/min/ft2",
+        cubicMetersPerHourSquareMeter: "m3/hr/m2",
         litersPerSecondSquareMeter: "l/s/m2",
         cubicFeetPerMinuteTonOfRefrigeration: "ft3/min/ton_r",
         litersPerSecondKilowatt: "l/s/kW",

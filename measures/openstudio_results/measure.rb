@@ -247,7 +247,10 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
     unless args
       return false
     end
-    units = args['units']
+    # START Autodesk Change
+    # units = args['units']
+    units = runner.unitsPreference
+    # END Autodesk Change
     if units == 'IP'
       is_ip_units = true
     else
@@ -352,6 +355,15 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
     resources_path = File.join(runner.workflow.findMeasure('openstudio_results').get.to_s, 'resources/')
     renderer = ERB.new(html_in)
     html_out = renderer.result(binding)
+
+    # START Autodesk Change
+    eplustbl_html_path = File.join(runner.workflow.absoluteRunDir.to_s, 'eplustbl.htm')
+
+    html_to_insert = File.read(eplustbl_html_path).match(/<body>(.*)<\/body>/m)[1]
+    html_to_insert = html_to_insert.gsub(/<table/, "<table class=\"table table-striped table-bordered table-condensed\"")
+    html_out = html_out.gsub(/Measure Warnings<\/a><\/li>/, "Measure Warnings</a></li>\r\n<li><a href=\"#Detailed_Report\">Detailed Report</a></li>")
+    html_out = html_out.gsub(/<\/body>/, "<div class=\"col-md-9 col-md-offset-3\" role=\"main\"><h2 id=\"Detailed_Report\">Detailed Report</h2><br>#{html_to_insert}</div>\\0")
+    # END Autodesk Change
 
     # write html file
     html_out_path = './report.html'
