@@ -36,7 +36,7 @@ class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
   def run(model, runner, user_arguments)
     super(model, runner, user_arguments)
 
-    puts '*** Starting the HVAC Measure ***'
+    # puts '*** Starting the HVAC Measure ***'
     # use the built-in error checking
     if !runner.validateUserArguments(arguments(model), user_arguments)
       return false
