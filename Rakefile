@@ -25,7 +25,7 @@ task :build_installer do
 
   root_dir = File.join(File.dirname(__FILE__))
   staging_dir = File.join(root_dir, 'installer_staging')
-  os_install_dir = 'C:\openstudio-3.3.0'
+  os_install_dir = 'C:\openstudio-3.4.0'
   openstudio_cli = File.join(os_install_dir, 'bin', 'openstudio.exe')
   energyplus_dir = File.join(os_install_dir, 'EnergyPlus')
 
@@ -53,6 +53,7 @@ task :build_installer do
   FileUtils.cp_r(File.join(root_dir, 'seeds'), File.join(staging_dir, 'seeds'))
   FileUtils.cp_r(File.join(root_dir, 'weather'), File.join(staging_dir, 'weather'))
   FileUtils.cp_r(File.join(root_dir, 'workflows'), File.join(staging_dir, 'workflows'))
+  FileUtils.rm(File.join(staging_dir, 'workflows', 'RegressionTesting.osw'))
 
   # TODO: update copyright on measures, see openstudio-measures repo for example
   # TODO: need to add a license and copyright to this repo, install those as well
