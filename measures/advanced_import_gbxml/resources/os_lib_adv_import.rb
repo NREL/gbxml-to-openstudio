@@ -38,6 +38,10 @@
 require 'bigdecimal/newton'
 require 'openstudio-standards'
 
+# constants for thermostat and humidistat schedules
+STANDARD = Standard.build('90.1-2013')
+FIVE_PCT = 0.05
+
 module OsLib_AdvImport
 
   def self.get_occ_schedules_and_occupancy(model)
@@ -116,154 +120,6 @@ module OsLib_AdvImport
     end
 
     return daily_occ_sch_num_ppl
-  end
-
-  def self.thermal_zone_get_occupancy_schedule(model, occupied_percentage_threshold = 0.05)
-    
-    # {ThermalZone: ScheduleRuleset}
-    thermal_zone_people_schedule_hash = {}
-
-    people_schedule_thermal_zones_hash, max_occ_on_thermal_zone = get_occ_schedules_and_occupancy(model)
-    people_schedule_thermal_zones_hash.each do |people_schedule_number_people_hash, thermal_zones_array|
-    
-      # occ_schedules_num_occ, max_occ_on_thermal_zone = get_occ_schedules_and_occupancy(thermal_zone)
-      year = model.getYearDescription
-      daily_occ_sch_num_ppl = get_day_schedules(people_schedule_number_people_hash, year)
-
-      time_value_pairs = {}
-      yearly_data = []
-      yearly_times = OpenStudio::DateTimeVector.new
-      yearly_values = []
-      (1..365).each do |i|
-        times_on_this_day = []
-        os_date = year.makeDate(i)
-        day_of_week = os_date.dayOfWeek.valueName
-
-        # Get the unique time indices and corresponding day schedules
-        occ_schedules_day_schs = {}
-        day_sch_num_occ = {}
-        daily_occ_sch_num_ppl.each do |occ_sch, num_occ|
-          # Get the day schedules for this day
-          # (there should only be one)
-          day_schs = occ_sch[i - 1]
-          day_schs.times.each do |time|
-            times_on_this_day << time.toString
-          end
-          day_sch_num_occ[day_schs] = num_occ
-        end
-
-        # Determine the total fraction for the airloop at each time
-        daily_times = []
-        daily_os_times = []
-        daily_values = []
-        daily_occs = []
-        times_on_this_day.uniq.sort.each do |time|
-          os_time = OpenStudio::Time.new(time)
-          os_date_time = OpenStudio::DateTime.new(os_date, os_time)
-          # Total number of people at each time
-          tot_occ_at_time = 0
-          day_sch_num_occ.each do |day_sch, num_occ|
-            occ_frac = day_sch.getValue(os_time)
-            tot_occ_at_time += occ_frac * num_occ
-          end
-
-          # Total fraction for the airloop at each time
-          max_occ = people_schedule_number_people_hash.values[0] #TODO check that this is always = max_occ_on_thermal_zone
-          thermal_zone_occ_frac = tot_occ_at_time / max_occ
-          occ_status = 0 # unoccupied
-          if thermal_zone_occ_frac >= occupied_percentage_threshold
-            occ_status = 1
-          end
-
-          # Add this data to the daily arrays
-          daily_times << time
-          daily_os_times << os_time
-          daily_values << occ_status
-          daily_occs << thermal_zone_occ_frac.round(2)
-        end
-
-        # Simplify the daily times to eliminate intermediate
-        # points with the same value as the following point.
-        simple_daily_times = []
-        simple_daily_os_times = []
-        simple_daily_values = []
-        simple_daily_occs = []
-        daily_values.each_with_index do |value, j|
-          next if value == daily_values[j + 1]
-          simple_daily_times << daily_times[j]
-          simple_daily_os_times << daily_os_times[j]
-          simple_daily_values << daily_values[j]
-          simple_daily_occs << daily_occs[j]
-        end
-
-        # Store the daily values
-
-        if time_value_pairs[[simple_daily_times, simple_daily_values]].nil?
-          time_value_pairs[[simple_daily_times, simple_daily_values]] = [os_date]
-        else
-          time_value_pairs[[simple_daily_times, simple_daily_values]] << os_date
-        end
-        #MAS this doesn't appear to be used
-        yearly_data << { 'date' => os_date, 'day_of_week' => day_of_week, 'times' => simple_daily_times, 'values' => simple_daily_values, 'daily_os_times' => simple_daily_os_times, 'daily_occs' => simple_daily_occs }
-      end
-
-      # Create a TimeSeries from the data
-      # time_series = OpenStudio::TimeSeries.new(times, values, 'unitless')
-
-      # Make a schedule ruleset
-      # sch_name = "#{thermal_zone.name} Occ Sch"
-      sch_ruleset = OpenStudio::Model::ScheduleRuleset.new(model)
-      # sch_ruleset.setName(sch_name.to_s)
-
-      # Default - All Occupied
-      day_sch = sch_ruleset.defaultDaySchedule
-      # day_sch.setName("#{sch_name} Default")
-      day_sch.addValue(OpenStudio::Time.new(0, 24, 0, 0), 1)
-
-      # Winter Design Day - All Occupied
-      day_sch = OpenStudio::Model::ScheduleDay.new(model)
-      sch_ruleset.setWinterDesignDaySchedule(day_sch)
-      day_sch = sch_ruleset.winterDesignDaySchedule
-      # day_sch.setName("#{sch_name} Winter Design Day")
-      day_sch.addValue(OpenStudio::Time.new(0, 24, 0, 0), 1)
-
-      # Summer Design Day - All Occupied
-      day_sch = OpenStudio::Model::ScheduleDay.new(model)
-      sch_ruleset.setSummerDesignDaySchedule(day_sch)
-      day_sch = sch_ruleset.summerDesignDaySchedule
-      # day_sch.setName("#{sch_name} Summer Design Day")
-      day_sch.addValue(OpenStudio::Time.new(0, 24, 0, 0), 1)
-
-      ## New schedule creation
-
-      time_value_pairs.each do |key, dates|
-        times, values = key[0], key[1]
-        sch_rule = OpenStudio::Model::ScheduleRule.new(sch_ruleset)
-        sch_rule.setApplyMonday(true)
-        sch_rule.setApplyTuesday(true)
-        sch_rule.setApplyWednesday(true)
-        sch_rule.setApplyThursday(true)
-        sch_rule.setApplyFriday(true)
-        sch_rule.setApplySaturday(true)
-        sch_rule.setApplySunday(true)
-        # sch_rule.setName("#{sch_name} Rule")
-
-        dates.map { |date| sch_rule.addSpecificDate(date) }
-        day_sch = sch_rule.daySchedule
-
-        times.each_with_index { |time, j|
-          value = values[j]
-          next if value == values[j + 1] # Don't add breaks if same value
-          day_sch.addValue(OpenStudio::Time.new(time), value)
-        }
-      end
-
-      # {ThermalZone => people schedule, ...
-      thermal_zones_array.each { |thermal_zone| thermal_zone_people_schedule_hash[thermal_zone] = sch_ruleset }
-
-    end
-
-    return thermal_zone_people_schedule_hash #sch_ruleset
   end
 
   # returns a hash of arrays of hashes...of arrays
@@ -383,14 +239,14 @@ module OsLib_AdvImport
   end
 
   # adds setpoint schedules and thermostats to model
-  def self.make_thermal_zone_thermostats(model, setpoints_thermal_zones_hash, thermal_zone_people_schedule_hash)
+  def self.make_thermal_zone_thermostats(model, setpoints_thermal_zones_hash)
 
     setpoint_type = 'temperature'
 
     # heating
     setpoints_thermal_zones_hash[:design_heat_t].each do |setpoint_thermal_zones|
       setpoint_thermal_zones.each do |htg_setpoint_degF, thermal_zones_array|
-        puts '', htg_setpoint_degF, thermal_zones_array.size
+        # puts '', htg_setpoint_degF, thermal_zones_array.size
         htg_setpoint_degC = OpenStudio.convert(htg_setpoint_degF, 'F', 'C').get
         
         # schedule
@@ -407,7 +263,7 @@ module OsLib_AdvImport
     # heating, occupied
     setpoints_thermal_zones_hash[:design_heat_t_occ].each do |setpoint_thermal_zones|
       setpoint_thermal_zones.each do |htg_setpoint_degF, thermal_zones_array|
-        puts '', htg_setpoint_degF, thermal_zones_array.size
+        # puts '', htg_setpoint_degF, thermal_zones_array.size
         htg_setpoint_degC = OpenStudio.convert(htg_setpoint_degF, 'F', 'C').get
         
         # schedule
@@ -415,7 +271,7 @@ module OsLib_AdvImport
 
         # thermostat
         thermal_zones_array.each do |thermal_zone|
-          people_schedule = thermal_zone_people_schedule_hash[thermal_zone]
+          people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           make_thermostat(thermal_zone, htg_sch, setpoint: htg_setpoint_degC, subtype: 'Heating', people_schedule: people_schedule)
         end
 
@@ -425,7 +281,7 @@ module OsLib_AdvImport
     # cooling
     setpoints_thermal_zones_hash[:design_cool_t].each do |setpoint_thermal_zones| 
       setpoint_thermal_zones.each do |clg_setpoint_degF, thermal_zones_array|
-        puts '', clg_setpoint_degF, thermal_zones_array.size
+        # puts '', clg_setpoint_degF, thermal_zones_array.size
         clg_setpoint_degC = OpenStudio.convert(clg_setpoint_degF, 'F', 'C').get
 
         # schedule
@@ -442,7 +298,7 @@ module OsLib_AdvImport
     # cooling, occupied
     setpoints_thermal_zones_hash[:design_cool_t_occ].each do |setpoint_thermal_zones| 
       setpoint_thermal_zones.each do |clg_setpoint_degF, thermal_zones_array|
-        puts '', clg_setpoint_degF, thermal_zones_array.size
+        # puts '', clg_setpoint_degF, thermal_zones_array.size
         clg_setpoint_degC = OpenStudio.convert(clg_setpoint_degF, 'F', 'C').get
         
         # schedule
@@ -450,7 +306,7 @@ module OsLib_AdvImport
 
         # thermostat
         thermal_zones_array.each do |thermal_zone|
-          people_schedule = thermal_zone_people_schedule_hash[thermal_zone]
+          people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           make_thermostat(thermal_zone, clg_sch, setpoint: clg_setpoint_degC, subtype: 'Cooling', people_schedule: people_schedule)
         end
 
@@ -473,7 +329,6 @@ module OsLib_AdvImport
     # puts "#{thermal_zone.name} = #{htg_sch.name}" 
 
     if people_schedule
-      # zone_occ_sch = thermal_zone_people_schedule_hash[thermal_zone]
       setback = 
         case subtype
         when 'Heating' then setpoint - OpenStudio.convert(5.0, 'R', 'K').get
@@ -508,14 +363,14 @@ module OsLib_AdvImport
   end
 
   # adds setpoint schedules and humidistats to model
-  def self.make_thermal_zone_humidistats(model, setpoints_thermal_zones_hash, thermal_zone_people_schedule_hash)
+  def self.make_thermal_zone_humidistats(model, setpoints_thermal_zones_hash)
   
     setpoint_type = 'relative_humidity'
 
     # humidifying
     setpoints_thermal_zones_hash[:design_heat_rh].each do |setpoints_thermal_zones|
       setpoints_thermal_zones.each do |humid_setpoint_pct, thermal_zones_array|
-        puts humid_setpoint_pct, thermal_zones_array.size
+        # puts humid_setpoint_pct, thermal_zones_array.size
         humid_setpoint = humid_setpoint_pct * 100
 
         # schedule
@@ -532,7 +387,7 @@ module OsLib_AdvImport
     # humidifying, occupied
     setpoints_thermal_zones_hash[:design_heat_rh_occ].each do |setpoints_thermal_zones|
       setpoints_thermal_zones.each do |humid_setpoint_pct, thermal_zones_array|
-        puts humid_setpoint_pct, thermal_zones_array.size
+        # puts humid_setpoint_pct, thermal_zones_array.size
         setpoint = humid_setpoint_pct * 100
 
         # schedule
@@ -540,7 +395,7 @@ module OsLib_AdvImport
 
         # humidistat
         thermal_zones_array.each do |thermal_zone|
-          people_schedule = thermal_zone_people_schedule_hash[thermal_zone]
+          people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying', people_schedule: people_schedule)            
         end
       
@@ -550,7 +405,7 @@ module OsLib_AdvImport
     # dehumidifying
     setpoints_thermal_zones_hash[:design_cool_rh].each do |setpoints_thermal_zones|
       setpoints_thermal_zones.each do |dehumid_setpoint_pct, thermal_zones_array|
-        puts dehumid_setpoint_pct, thermal_zones_array.size
+        # puts dehumid_setpoint_pct, thermal_zones_array.size
         setpoint = dehumid_setpoint_pct * 100
 
         # schedule
@@ -567,7 +422,7 @@ module OsLib_AdvImport
     # dehumidifying, occupied
     setpoints_thermal_zones_hash[:design_cool_rh_occ].each do |setpoints_thermal_zones|
       setpoints_thermal_zones.each do |dehumid_setpoint_pct, thermal_zones_array|
-        puts dehumid_setpoint_pct, thermal_zones_array.size
+        # puts dehumid_setpoint_pct, thermal_zones_array.size
         setpoint = dehumid_setpoint_pct * 100
 
         # schedule
@@ -575,7 +430,7 @@ module OsLib_AdvImport
 
         # humidistat
         thermal_zones_array.each do |thermal_zone|
-          people_schedule = thermal_zone_people_schedule_hash[thermal_zone]
+          people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying', people_schedule: people_schedule)            
         end
       
@@ -805,11 +660,10 @@ module OsLib_AdvImport
   # assign newly made space objects to existing spaces
   def self.assign_zone_attributes(runner, model, zones)
 
-    thermal_zone_people_schedule_hash = thermal_zone_get_occupancy_schedule(model)
     setpoints_thermal_zones_hash = setpoints_thermal_zones_hash(model, zones)
     
-    make_thermal_zone_thermostats(model, setpoints_thermal_zones_hash, thermal_zone_people_schedule_hash)
-    make_thermal_zone_humidistats(model, setpoints_thermal_zones_hash, thermal_zone_people_schedule_hash)
+    make_thermal_zone_thermostats(model, setpoints_thermal_zones_hash)
+    make_thermal_zone_humidistats(model, setpoints_thermal_zones_hash)
     
     # modified_zones = {}
     # zones.each do |id, zone_data|

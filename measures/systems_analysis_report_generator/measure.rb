@@ -18,7 +18,7 @@ class SystemsAnalysisReportGenerator < OpenStudio::Measure::ReportingMeasure
   end
 
   # define the arguments that the user will input
-  def arguments
+  def arguments(model)
     args = OpenStudio::Measure::OSArgumentVector.new
 
     debug = OpenStudio::Measure::OSArgument.makeBoolArgument("debug", false)

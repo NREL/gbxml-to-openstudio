@@ -1,17 +1,18 @@
+<?xml version="1.0"?>
 <measure>
   <schema_version>3.0</schema_version>
   <name>add_xml_output_control_style</name>
   <uid>5669b7f3-8d3f-4298-9477-0db9e8d6ce92</uid>
-  <version_id>aad17d89-4a46-46e6-81ee-93f82605147a</version_id>
-  <version_modified>20181005T211222Z</version_modified>
+  <version_id>7ffce04f-e24f-435c-9710-cb97785a4625</version_id>
+  <version_modified>20220420T060332Z</version_modified>
   <xml_checksum>84EE5CB0</xml_checksum>
   <class_name>AddXMLOutputControlStyle</class_name>
   <display_name>Add XML Output Control Style</display_name>
   <description>Add OutputControl:Table:Style to output an XML output</description>
   <modeler_description></modeler_description>
-  <arguments/>
-  <outputs/>
-  <provenances/>
+  <arguments />
+  <outputs />
+  <provenances />
   <tags>
     <tag>Reporting.QAQC</tag>
   </tags>
@@ -66,7 +67,7 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>1DF490A9</checksum>
+      <checksum>AF20D14C</checksum>
     </file>
   </files>
 </measure>

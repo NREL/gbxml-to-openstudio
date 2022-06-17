@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.0] - 2022-06-15
+### Changed
+- OpenStudio updated to v3.4.0
+- EnergyPlus updated to v22.1.0
+- Measures updated for compatibility
+
+## [1.0.5] - 2022-01-04
+### Changed
+- [Beta Build]
+- OpenStudio updated to v3.3.0
+- EnergyPlus updated to v9.6.0
+- Ruby updated to v2.7.2
+
 ## [1.0.4] - 2021-12-01
 ### Changed
  - gbXML import performance improvements

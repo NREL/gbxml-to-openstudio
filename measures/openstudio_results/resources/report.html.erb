@@ -1,6 +1,6 @@
 <%
   # *******************************************************************************
-  # OpenStudio(R), Copyright (c) 2008-2018, Alliance for Sustainable Energy, LLC.
+  # OpenStudio(R), Copyright (c) 2008-2021, Alliance for Sustainable Energy, LLC.
   # All rights reserved.
   # Redistribution and use in source and binary forms, with or without
   # modification, are permitted provided that the following conditions are met:
@@ -35,13 +35,20 @@
   # *******************************************************************************
 %>
 
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Annual Simulation Report</title>
+  <title>OpenStudio Results</title>
   <link href="<%= File.join(resources_path, "bootstrap.min.css") %>" rel="stylesheet">
 
   <script type="text/javascript" src="<%= File.join(resources_path, "jquery.min.js") %>"></script>
@@ -56,14 +63,6 @@
 
       div.col-md-3 {
           padding-left: 0;
-      }
-
-      th {
-        text-align: right;
-      }
-
-      table {
-        text-align: right;
       }
 
       #tocItems {
@@ -149,7 +148,18 @@
 <body data-spy="scroll" data-target="#tocItems">
 <div id="content" class="container-fluid">
   <div class="row">
+    <div class="col-md-3">
+      <div id="tocItems" class="bs-docs-sidebar hidden-print well affix" role="complementary">
+        <ul class="nav nav-pills nav-stacked" role="navigation">
+          <% @sections.each do |section| %>
+              <% next if not section %>
+              <li><a href="#<%= section[:title].gsub(' ', '_').gsub('/', '_') %>"><%= section[:title] %></a></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
     <div class="col-md-9" role="main">
+      <h1>OpenStudio Results</h1>
       <% chart_index = table_index = 0 %>
       <% @sections.each do |section| %>
 

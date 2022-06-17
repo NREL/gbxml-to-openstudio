@@ -25,11 +25,11 @@ task :build_installer do
 
   root_dir = File.join(File.dirname(__FILE__))
   staging_dir = File.join(root_dir, 'installer_staging')
-  os_install_dir = 'C:\openstudio-2.8.1'
+  os_install_dir = 'C:\openstudio-3.4.0'
   openstudio_cli = File.join(os_install_dir, 'bin', 'openstudio.exe')
   energyplus_dir = File.join(os_install_dir, 'EnergyPlus')
 
-  if !File.exists?(os_install_dir)
+  unless File.exists?(os_install_dir)
     puts "#{os_install_dir} does not exist"
     exit 1
   end
@@ -39,10 +39,13 @@ task :build_installer do
   FileUtils.cp(File.join(root_dir, 'CHANGELOG.md'), File.join(staging_dir, 'CHANGELOG.md'))
   FileUtils.mkdir_p(File.join(staging_dir, 'bin'))
   FileUtils.cp(openstudio_cli, File.join(staging_dir, 'bin', 'openstudio.exe'))
-  FileUtils.cp(File.join(os_install_dir, 'bin', 'libeay32.dll'), File.join(staging_dir, 'bin', 'libeay32.dll'))
-  FileUtils.cp(File.join(os_install_dir, 'bin', 'msvcp120.dll'), File.join(staging_dir, 'bin', 'msvcp120.dll'))
-  FileUtils.cp(File.join(os_install_dir, 'bin', 'msvcr120.dll'), File.join(staging_dir, 'bin', 'msvcr120.dll'))
-  FileUtils.cp(File.join(os_install_dir, 'bin', 'ssleay32.dll'), File.join(staging_dir, 'bin', 'ssleay32.dll'))
+  FileUtils.cp(File.join(os_install_dir, 'bin', 'concrt140.dll'), File.join(staging_dir, 'bin', 'concrt140.dll'))
+  FileUtils.cp(File.join(os_install_dir, 'bin', 'msvcp140.dll'), File.join(staging_dir, 'bin', 'msvcp140.dll'))
+  FileUtils.cp(File.join(os_install_dir, 'bin', 'msvcp140_1.dll'), File.join(staging_dir, 'bin', 'msvcp140_1.dll'))
+  FileUtils.cp(File.join(os_install_dir, 'bin', 'msvcp140_2.dll'), File.join(staging_dir, 'bin', 'msvcp140_2.dll'))
+  FileUtils.cp(File.join(os_install_dir, 'bin', 'msvcp140_codecvt_ids.dll'), File.join(staging_dir, 'bin', 'msvcp140_codecvt_ids.dll'))
+  FileUtils.cp(File.join(os_install_dir, 'bin', 'vcruntime140.dll'), File.join(staging_dir, 'bin', 'vcruntime140.dll'))
+  FileUtils.cp(File.join(os_install_dir, 'bin', 'vcruntime140_1.dll'), File.join(staging_dir, 'bin', 'vcruntime140_1.dll'))
 
   FileUtils.cp_r(energyplus_dir, File.join(staging_dir, 'EnergyPlus'))
   FileUtils.rm(File.join(staging_dir, 'EnergyPlus', 'energyplusapi.lib'))
@@ -50,6 +53,7 @@ task :build_installer do
   FileUtils.cp_r(File.join(root_dir, 'seeds'), File.join(staging_dir, 'seeds'))
   FileUtils.cp_r(File.join(root_dir, 'weather'), File.join(staging_dir, 'weather'))
   FileUtils.cp_r(File.join(root_dir, 'workflows'), File.join(staging_dir, 'workflows'))
+  FileUtils.rm(File.join(staging_dir, 'workflows', 'RegressionTesting.osw'))
 
   # TODO: update copyright on measures, see openstudio-measures repo for example
   # TODO: need to add a license and copyright to this repo, install those as well
@@ -57,7 +61,7 @@ task :build_installer do
   # TODO: sign and version MSI
 end
 
-desc 'Upate measure.xml files in measure directory'
+desc 'Update measure.xml files in measure directory'
 task :update_measure_xmls do
   require 'fileutils'
   require 'openstudio'

@@ -376,6 +376,15 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     # create model objects from hash
     OsLib_AdvImport.add_objects_from_adv_import_hash(runner, model, advanced_inputs)
 
+    # remove objects added by OpenStudio Standards
+    model.getAdditionalPropertiess.each do |additional_properties|
+      next unless additional_properties.hasFeature('max_occ_in_spaces')
+      additional_properties.remove
+    end
+
+    # remove unused objects (e.g. the schedules that referenced the AdditionalProperties above)
+    model.purgeUnusedResourceObjects
+
     # cleanup fenestration that may be too large (need to confirm how doors and glass doors are addressed)
     OsLib_AdvImport.assure_fenestration_inset(runner, model)
 

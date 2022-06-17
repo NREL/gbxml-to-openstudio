@@ -38,9 +38,10 @@ class AddXMLOutputControlStyle < OpenStudio::Measure::EnergyPlusMeasure
       return false
     end
 
-    workspace.getObjectsByType('OutputControl:Table:Style'.to_IddObjectType)[0].setString(0, 'All')
-    workspace.getObjectsByType('OutputControl:Table:Style'.to_IddObjectType)[0].setString(1, 'InchPound') if runner.unitsPreference == "IP"
-    workspace.getObjectsByType('Output:Table:SummaryReports'.to_IddObjectType)[0].setString(0, 'AllSummaryAndSizingPeriod')
+    workspace.getObjectsByType('Output:SQLite'.to_IddObjectType)[0].setString(1, 'None') # Unit Conversion for Tabular Data
+    workspace.getObjectsByType('Output:Table:SummaryReports'.to_IddObjectType)[0].setString(0, 'AllSummaryAndSizingPeriod') # Report 1 Name
+    workspace.getObjectsByType('OutputControl:Table:Style'.to_IddObjectType)[0].setString(0, 'XMLandHTML') # Column Separator
+    workspace.getObjectsByType('OutputControl:Table:Style'.to_IddObjectType)[0].setString(1, 'InchPound') if runner.unitsPreference == 'IP' # Unit Conversion
 
     return true
   end
