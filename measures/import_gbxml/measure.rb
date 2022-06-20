@@ -126,14 +126,26 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
 
     model.setCalendarYear(1997)
 
-    # set zone name to gbXML element id for cases where zones share the same name
-    # workaround for https://github.com/NREL/gbxml-to-openstudio/issues/100
-    model.getThermalZones.each do |thermal_zone|
-      feature_name = 'gbXMLId'
-      next unless thermal_zone.additionalProperties.hasFeature(feature_name)
+    # set zone and building name to Display Name element id for each zone
+    # workaround for https://github.com/NREL/gbxml-to-openstudio/issues/108
+    
+    #check if the thermal zone names are unique
+    thermal_zones = model.getThermalZones
+    thermal_zones_names = []
+    feature_name = 'displayName'
+
+    thermal_zones.each do |thermal_zone|
+      thermal_zones_names << thermal_zone.additionalProperties.getFeatureAsString(feature_name).get
+    end
+        
+    thermal_zones.each do |thermal_zone|
+      next if thermal_zones_names.count(thermal_zone.additionalProperties.getFeatureAsString(feature_name).get) > 1
       feature_value = thermal_zone.additionalProperties.getFeatureAsString(feature_name).get
       thermal_zone.setName(feature_value)
     end
+
+    # set building name to Display Name feature
+    model.getBuilding.setName(model.getBuilding.additionalProperties.getFeatureAsString(feature_name).get)
 
     return true
 
