@@ -1,13 +1,15 @@
 import 'dotenv/config';
-import { execa } from 'execa';
+import {execa} from 'execa';
 import fs from 'fs';
-import { mkdir, readFile, writeFile } from 'fs/promises';
+import {mkdir, readFile, writeFile} from 'fs/promises';
 import os from 'os';
 import PQueue from 'p-queue';
 import path from 'path';
 
-const threads = Math.max(1, os.cpus().length - 3);
+const threads = process.env.THREADS || Math.max(1, os.cpus().length - 3);
 const osVersion = process.env.OS_VERSION;
+
+if (!osVersion) throw 'OS_VERSION missing from .env file'
 
 const unsortedFiles = fs.readdirSync('../../gbxmls/RegressionTesting', 'utf8');
 const files = [];
@@ -35,8 +37,17 @@ workflows.forEach(workflow => {
     await queue.add(() => {
       start = Date.now();
       console.log(`Start: ${file}`);
-      return execa(`C:\\openstudio-${osVersion}\\bin\\openstudio.exe`, ['run', '-w', workflow]).catch(() => {
-      });
+      if (process.platform === 'win32') {
+        return execa(`C:\\openstudio-${osVersion}\\bin\\openstudio.exe`, ['run', '-w', workflow]).catch(() => {
+          console.error(`Error running ${workflow}`);
+        });
+      } else if (process.platform === 'darwin') {
+        return execa(`/Applications/OpenStudio-${osVersion}/bin/openstudio`, ['run', '-w', workflow]).catch(() => {
+          console.error(`Error running ${workflow}`);
+        });
+      } else {
+        throw 'Unsupported OS';
+      }
     });
     const stop = Date.now();
     console.log(`Done: ${file} (${Math.round((stop - start) / 1000)}s)`);
