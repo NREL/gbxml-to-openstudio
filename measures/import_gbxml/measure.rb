@@ -29,6 +29,12 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
     gbxml_file_name.setDescription("Filename or full path to gbXML file.")
     args << gbxml_file_name
 
+    # the boolean argument to determine whether to rename the building and thermal zones
+    rename_objects = OpenStudio::Measure::OSArgument.makeBoolArgument("rename_objects", false)
+    rename_objects.setDisplayName("Rename thermal zones and building?")
+    rename_objects.setDefaultValue(true)
+    args << rename_objects
+
     return args
   end
 
@@ -43,6 +49,8 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
 
     # assign the user inputs to variables
     gbxml_file_name = runner.getStringArgumentValue("gbxml_file_name", user_arguments)
+
+    rename_objects = runner.getBoolArgumentValue("rename_objects", user_arguments)
 
     # check the space_name for reasonableness
     if gbxml_file_name.empty?
@@ -126,28 +134,49 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
 
     model.setCalendarYear(1997)
 
-    # set zone and building name to Display Name element id for each zone
-    # workaround for https://github.com/NREL/gbxml-to-openstudio/issues/108
-    
-    #check if the thermal zone names are unique
-    thermal_zones = model.getThermalZones
-    thermal_zones_names = []
-    feature_name = 'displayName'
+    # set building name to Display Name instead of gbXMLId and set thermal zone name to Display Name if all thermal zone names are unique.
+    # otherwise, set the name equal to display_name (gbxml_id). Workaround for https://github.com/NREL/gbxml-to-openstudio/issues/108
+    if rename_objects
 
-    thermal_zones.each do |thermal_zone|
-      thermal_zones_names << thermal_zone.additionalProperties.getFeatureAsString(feature_name).get
+      display_name = 'displayName'
+      gbxml_id = 'gbXMLId'
+
+      # set building name to Display Name feature
+      model.getBuilding.setName(model.getBuilding.additionalProperties.getFeatureAsString(display_name).get)
+
+      # check gbxml zone names for uniqueness here, then issue warnings
+      thermal_zones = model.getThermalZones
+      thermal_zones_names = []
+      thermal_zones.each do |thermal_zone|
+        thermal_zones_names << thermal_zone.additionalProperties.getFeatureAsString(display_name).get
+      end
+
+      if thermal_zones_names.count() == thermal_zones_names.uniq.count()
+        gbxml_zone_names_uniq = true
+      else
+        gbxml_zone_names_uniq = false
+      end
+
+      if gbxml_zone_names_uniq
+        runner.registerWarning("gbXML Zone names are unique, renaming with Name.")
+      else
+        runner.registerWarning("gbXML Zone names are not unique, renaming with Name and ID.")
+      end
+
+      # rename thermal zones
+      thermal_zones.each do |thermal_zone|
+        case gbxml_zone_names_uniq
+        when true
+          new_name = thermal_zone.additionalProperties.getFeatureAsString(display_name).get
+        when false
+          new_name = thermal_zone.additionalProperties.getFeatureAsString(display_name).get + " (" + thermal_zone.additionalProperties.getFeatureAsString(gbxml_id).get + ")"
+        end
+        thermal_zone.setName(new_name)
+      end
+
+
     end
-        
-    thermal_zones.each do |thermal_zone|
-      next if thermal_zones_names.count(thermal_zone.additionalProperties.getFeatureAsString(feature_name).get) > 1
-      feature_value = thermal_zone.additionalProperties.getFeatureAsString(feature_name).get
-      thermal_zone.setName(feature_value)
-    end
-
-    # set building name to Display Name feature
-    model.getBuilding.setName(model.getBuilding.additionalProperties.getFeatureAsString(feature_name).get)
-
-    return true
+  return true
 
   end
   
