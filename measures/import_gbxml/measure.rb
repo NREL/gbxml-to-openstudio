@@ -30,8 +30,8 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
     args << gbxml_file_name
 
     # the boolean argument to determine whether to rename the building and thermal zones
-    rename_objects = OpenStudio::Measure::OSArgument.makeBoolArgument("rename_objects", false)
-    rename_objects.setDisplayName("Rename thermal zones and building?")
+    rename_objects = OpenStudio::Measure::OSArgument.makeBoolArgument('rename_objects', false)
+    rename_objects.setDisplayName('Rename Building and Thermal Zone objects with gbXML Names?')
     rename_objects.setDefaultValue(true)
     args << rename_objects
 
@@ -49,8 +49,7 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
 
     # assign the user inputs to variables
     gbxml_file_name = runner.getStringArgumentValue("gbxml_file_name", user_arguments)
-
-    rename_objects = runner.getBoolArgumentValue("rename_objects", user_arguments)
+    rename_objects = runner.getBoolArgumentValue('rename_objects', user_arguments)
 
     # check the space_name for reasonableness
     if gbxml_file_name.empty?
@@ -139,10 +138,11 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
     if rename_objects
 
       display_name = 'displayName'
-      gbxml_id = 'gbXMLId'
 
       # set building name to Display Name feature
-      model.getBuilding.setName(model.getBuilding.additionalProperties.getFeatureAsString(display_name).get)
+      building_name = model.getBuilding.additionalProperties.getFeatureAsString(display_name).get
+      runner.registerWarning("renaming Building object with gbXML Building Name = #{building_name}")
+      model.getBuilding.setName(building_name)
 
       # check gbxml zone names for uniqueness here, then issue warnings
       thermal_zones = model.getThermalZones
@@ -151,31 +151,28 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
         thermal_zones_names << thermal_zone.additionalProperties.getFeatureAsString(display_name).get
       end
 
-      if thermal_zones_names.count() == thermal_zones_names.uniq.count()
+      if thermal_zones_names.count == thermal_zones_names.uniq.count
         gbxml_zone_names_uniq = true
+        runner.registerWarning('gbXML Zone Names are unique, renaming Thermal Zone objects with gbXML Zone Names.')
       else
         gbxml_zone_names_uniq = false
-      end
-
-      if gbxml_zone_names_uniq
-        runner.registerWarning("gbXML Zone names are unique, renaming with Name.")
-      else
-        runner.registerWarning("gbXML Zone names are not unique, renaming with Name and ID.")
+        runner.registerWarning('gbXML Zone Names are not unique, renaming Thermal Zone objects with gbXML Zone Names and IDs.')
       end
 
       # rename thermal zones
       thermal_zones.each do |thermal_zone|
+        gbxml_name = thermal_zone.additionalProperties.getFeatureAsString(display_name).get
         case gbxml_zone_names_uniq
         when true
-          new_name = thermal_zone.additionalProperties.getFeatureAsString(display_name).get
+          new_name = gbxml_name
         when false
-          new_name = thermal_zone.additionalProperties.getFeatureAsString(display_name).get + " (" + thermal_zone.additionalProperties.getFeatureAsString(gbxml_id).get + ")"
+          new_name = "#{gbxml_name} (#{thermal_zone.additionalProperties.getFeatureAsString('gbXMLId').get})"
         end
         thermal_zone.setName(new_name)
       end
 
-
     end
+
   return true
 
   end
