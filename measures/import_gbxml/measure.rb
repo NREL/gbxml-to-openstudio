@@ -29,7 +29,8 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
     gbxml_file_name.setDescription("Filename or full path to gbXML file.")
     args << gbxml_file_name
 
-    # the boolean argument to determine whether to rename the building and thermal zones
+    # boolean argument to use gbxml names instead of ids
+    # added in 3.4.0 https://github.com/NREL/OpenStudio/issues/4457
     rename_objects = OpenStudio::Measure::OSArgument.makeBoolArgument('rename_objects', false)
     rename_objects.setDisplayName('Rename Building and Thermal Zone objects with gbXML Names?')
     rename_objects.setDefaultValue(true)
@@ -133,24 +134,25 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
 
     model.setCalendarYear(1997)
 
-    # set building name to Display Name instead of gbXMLId and set thermal zone name to Display Name if all thermal zone names are unique.
-    # otherwise, set the name equal to display_name (gbxml_id). Workaround for https://github.com/NREL/gbxml-to-openstudio/issues/108
+    # rename building and thermal zone objects with gbxml names instead of ids
+    # https://github.com/NREL/gbxml-to-openstudio/issues/108
     if rename_objects
 
       display_name = 'displayName'
 
-      # set building name to Display Name feature
+      # rename building
       building_name = model.getBuilding.additionalProperties.getFeatureAsString(display_name).get
       runner.registerWarning("renaming Building object with gbXML Building Name = #{building_name}")
       model.getBuilding.setName(building_name)
 
-      # check gbxml zone names for uniqueness here, then issue warnings
+      # get gbxml zone names from thermal zones
       thermal_zones = model.getThermalZones
       thermal_zones_names = []
       thermal_zones.each do |thermal_zone|
         thermal_zones_names << thermal_zone.additionalProperties.getFeatureAsString(display_name).get
       end
 
+      # check gbxml zone names for uniqueness
       if thermal_zones_names.count == thermal_zones_names.uniq.count
         gbxml_zone_names_uniq = true
         runner.registerWarning('gbXML Zone Names are unique, renaming Thermal Zone objects with gbXML Zone Names.')
