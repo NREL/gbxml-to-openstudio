@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.1] - 2022-07-08
+### Changed
+- Reporting improvements
+- gbXML import improvements
+
 ## [1.1.0] - 2022-06-15
 ### Changed
 - OpenStudio updated to v3.4.0
