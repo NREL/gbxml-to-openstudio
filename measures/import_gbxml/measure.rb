@@ -57,14 +57,14 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
       runner.registerError("Empty gbXML filename was entered.")
       return false
     end
-    
+
     # find the gbXML file
     path = runner.workflow.findFile(gbxml_file_name)
     if path.empty?
       runner.registerError("Could not find gbXML filename '#{gbxml_file_name}'.")
       return false
     end
-    
+
     # translate gbXML to model
     translator = OpenStudio::GbXML::GbXMLReverseTranslator.new
     new_model = translator.loadModel(path.get)
@@ -73,7 +73,7 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
       return false
     end
     new_model = new_model.get
-    
+
     # temporarily remove space types from gbxml
     new_model.getSpaceTypes.each do |space_type|
       space_type.remove
@@ -121,7 +121,7 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
     # swap underlying data in model with underlying data in new_model
     # model = new_model DOES NOT work
     # model.swap(new_model) IS NOT reliable
-    
+
     # alternative swap
     # remove existing objects from model
     handles = OpenStudio::UUIDVector.new
@@ -140,10 +140,12 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
 
       display_name = 'displayName'
 
-      # rename building
-      building_name = model.getBuilding.additionalProperties.getFeatureAsString(display_name).get
-      runner.registerWarning("renaming Building object with gbXML Building Name = #{building_name}")
-      model.getBuilding.setName(building_name)
+      # rename building if it has a name
+      if model.getBuilding.additionalProperties.getFeatureAsString(display_name).is_initialized
+        building_name = model.getBuilding.additionalProperties.getFeatureAsString(display_name).get
+        runner.registerInfo("renaming Building object with gbXML Building Name = #{building_name}")
+        model.getBuilding.setName(building_name)
+      end
 
       # get gbxml zone names from thermal zones
       thermal_zones = model.getThermalZones
@@ -155,7 +157,7 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
       # check gbxml zone names for uniqueness
       if thermal_zones_names.count == thermal_zones_names.uniq.count
         gbxml_zone_names_uniq = true
-        runner.registerWarning('gbXML Zone Names are unique, renaming Thermal Zone objects with gbXML Zone Names.')
+        runner.registerInfo('gbXML Zone Names are unique, renaming Thermal Zone objects with gbXML Zone Names.')
       else
         gbxml_zone_names_uniq = false
         runner.registerWarning('gbXML Zone Names are not unique, renaming Thermal Zone objects with gbXML Zone Names and IDs.')
@@ -178,7 +180,7 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
   return true
 
   end
-  
+
 end
 
 # register the measure to be used by the application
