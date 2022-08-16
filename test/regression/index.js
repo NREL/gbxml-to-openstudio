@@ -6,7 +6,7 @@ import os from 'os';
 import PQueue from 'p-queue';
 import path from 'path';
 
-const threads = process.env.THREADS || Math.max(1, os.cpus().length - 3);
+const threads = Number(process.env.THREADS || Math.max(1, os.cpus().length - 3));
 const osVersion = process.env.OS_VERSION;
 
 if (!osVersion) throw 'OS_VERSION missing from .env file'

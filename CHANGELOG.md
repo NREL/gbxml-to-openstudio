@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.3] - 2022-08-16
+### Changed
+- Fixed simulations for nameless buildings
+
+## [1.1.2] - 2022-08-08
+### Changed
+- Reporting improvements
+
 ## [1.1.1] - 2022-07-08
 ### Changed
 - Reporting improvements
