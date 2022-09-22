@@ -19,6 +19,11 @@
 - EnergyPlus updated to v22.1.0
 - Measures updated for compatibility
 
+## [1.0.6] - 2022-09-22
+### Changed
+- Updated from v1.0.4 base
+- Truncated unused OpenSSL dlls
+
 ## [1.0.5] - 2022-01-04
 ### Changed
 - [Beta Build]
