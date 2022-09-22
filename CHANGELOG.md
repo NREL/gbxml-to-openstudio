@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.6] - 2022-09-22
+### Changed
+- Updated from v1.0.4 base
+- Truncated unused OpenSSL dlls
+
+## [1.0.5] - 2022-01-04
+### Changed
+- [Beta Build]
+- OpenStudio updated to v3.3.0
+- EnergyPlus updated to v9.6.0
+- Ruby updated to v2.7.2
+
 ## [1.0.4] - 2021-12-01
 ### Changed
  - gbXML import performance improvements
