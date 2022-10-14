@@ -30,6 +30,11 @@ function getOpenStudioCLI(osVersion) {
 }
 
 const cliPath = getOpenStudioCLI(osVersion);
+if (fs.existsSync(cliPath)) {
+  console.log(`Found OpenStudio CLI at ${cliPath}`);
+} else {
+  throw `Cannot locate CLI for version ${osVersion}, tried ${cliPath}`
+}
 
 const unsortedFiles = fs.readdirSync('../../gbxmls/RegressionTesting', 'utf8');
 const files = [];
