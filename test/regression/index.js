@@ -9,7 +9,32 @@ import path from 'path';
 const threads = Number(process.env.THREADS || Math.max(1, os.cpus().length - 3));
 const osVersion = process.env.OS_VERSION;
 
-if (!osVersion) throw 'OS_VERSION missing from .env file'
+if (!osVersion) {
+  throw 'OS_VERSION missing from .env file';
+}
+
+function getOpenStudioCLI(osVersion) {
+  if (process.env.OS_CLI) {
+    return process.env.OS_CLI;
+  }
+
+  if (process.platform === 'win32') {
+    return `C:\\openstudio-${osVersion}\\bin\\openstudio.exe`;
+  } else if (process.platform === 'darwin') {
+    return `/Applications/OpenStudio-${osVersion}/bin/openstudio`;
+  } else if (process.platform === 'linux') {
+    return `/usr/local/openstudio-${osVersion}/bin/openstudio`;
+  }
+
+  throw 'Unsupported OS';
+}
+
+const cliPath = getOpenStudioCLI(osVersion);
+if (fs.existsSync(cliPath)) {
+  console.log(`Found OpenStudio CLI at ${cliPath}`);
+} else {
+  throw `Cannot locate CLI for version ${osVersion}, tried ${cliPath}`
+}
 
 const unsortedFiles = fs.readdirSync('../../gbxmls/RegressionTesting', 'utf8');
 const files = [];
@@ -37,17 +62,9 @@ workflows.forEach(workflow => {
     await queue.add(() => {
       start = Date.now();
       console.log(`Start: ${file}`);
-      if (process.platform === 'win32') {
-        return execa(`C:\\openstudio-${osVersion}\\bin\\openstudio.exe`, ['run', '-w', workflow]).catch(() => {
-          console.error(`Error running ${workflow}`);
-        });
-      } else if (process.platform === 'darwin') {
-        return execa(`/Applications/OpenStudio-${osVersion}/bin/openstudio`, ['run', '-w', workflow]).catch(() => {
-          console.error(`Error running ${workflow}`);
-        });
-      } else {
-        throw 'Unsupported OS';
-      }
+      return execa(cliPath, ['run', '-w', workflow]).catch(() => {
+        console.error(`Error running ${workflow} with CLI at ${cliPath}`);
+      });
     });
     const stop = Date.now();
     console.log(`Done: ${file} (${Math.round((stop - start) / 1000)}s)`);
