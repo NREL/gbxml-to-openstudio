@@ -197,7 +197,7 @@ class AirSystem < HVACObject
       air_loop_sizing.setZoneMaximumOutdoorAirFraction(1.0)
     else
       air_loop_sizing.setTypeofLoadtoSizeOn('Sensible')
-      air_loop_sizing.setMinimumSystemAirFlowRatio(0.3)
+      air_loop_sizing.setCentralHeatingMaximumSystemAirFlowRatio(0.3)
       air_loop_sizing.setAllOutdoorAirinCooling(false)
       air_loop_sizing.setAllOutdoorAirinHeating(false)
     end
