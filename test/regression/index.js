@@ -1,13 +1,37 @@
 import 'dotenv/config';
-import {execa} from 'execa';
+import { execa } from 'execa';
 import fs from 'fs';
-import {mkdir, readFile, writeFile} from 'fs/promises';
+import { mkdir, readFile, writeFile } from 'fs/promises';
 import os from 'os';
 import PQueue from 'p-queue';
 import path from 'path';
 
 const threads = Number(process.env.THREADS || Math.max(1, os.cpus().length - 3));
 const osVersion = process.env.OS_VERSION;
+const args = process.argv;
+
+// test only a subset of the xml files. Used for faster feedback on CI.
+// default false
+let subset = false;
+if (args.length > 2 && args[2] === 'subset') {
+  console.log('Subset set to true. Only a subset of test files will be ran');
+  subset = true;
+}
+
+// List of tests that run < 60 seconds
+const subsetTestFiles = [
+  '11 Jay St.xml',
+  '34 Emerson.xml',
+  '3Nordea.xml',
+  'Clerestory.xml',
+  'ExteriorWindowRatioCW.xml',
+  'ExteriorWindowRatioWindow.xml',
+  'House.xml',
+  'Residential.xml',
+  'Roofs.xml',
+  'Villa Spaces.xml',
+  'Villa.xml'
+];
 
 if (!osVersion) {
   throw 'OS_VERSION missing from .env file';
@@ -23,7 +47,7 @@ function getOpenStudioCLI(osVersion) {
   } else if (process.platform === 'darwin') {
     return `/Applications/OpenStudio-${osVersion}/bin/openstudio`;
   } else if (process.platform === 'linux') {
-    return `/usr/local/openstudio-${osVersion}/bin/openstudio`;
+    return `/usr/local/bin/openstudio-${osVersion}`;
   }
 
   throw 'Unsupported OS';
@@ -33,7 +57,7 @@ const cliPath = getOpenStudioCLI(osVersion);
 if (fs.existsSync(cliPath)) {
   console.log(`Found OpenStudio CLI at ${cliPath}`);
 } else {
-  throw `Cannot locate CLI for version ${osVersion}, tried ${cliPath}`
+  throw `Cannot locate CLI for version ${osVersion}, tried ${cliPath}`;
 }
 
 const unsortedFiles = fs.readdirSync('../../gbxmls/RegressionTesting', 'utf8');
@@ -51,8 +75,13 @@ const workflows = [];
 for (const {file} of files) {
   await mkdir(`../../workflows/regression-tests/${osVersion}/${file}/`, {recursive: true});
   const workflow = `../../workflows/regression-tests/${osVersion}/${file}/${file.replace(/\.xml/, '')}.osw`;
-  workflows.push(workflow);
+  if (subset && subsetTestFiles.includes(file)) {
+    workflows.push(workflow);
+  } else if (!subset) {
+    workflows.push(workflow);
+  }
   await writeFile(workflow, osw.replace(/GBXML_INPUT\.xml/g, file));
+
 }
 
 workflows.forEach(workflow => {
