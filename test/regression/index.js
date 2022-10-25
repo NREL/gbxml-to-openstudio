@@ -13,7 +13,7 @@ const args = process.argv;
 // test only a subset of the xml files. Used for faster feedback on CI.
 // default false
 let subset = false;
-if (args.length > 2 && args[2] === 'subset') {
+if (args[2] === 'subset') {
   console.log('Subset set to true. Only a subset of test files will be ran');
   subset = true;
 }
@@ -81,7 +81,6 @@ for (const {file} of files) {
     workflows.push(workflow);
   }
   await writeFile(workflow, osw.replace(/GBXML_INPUT\.xml/g, file));
-
 }
 
 workflows.forEach(workflow => {

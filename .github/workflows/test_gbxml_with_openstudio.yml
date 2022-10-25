@@ -1,44 +1,49 @@
 # This is a basic workflow to help you get started with Actions
 name: test_gbxml_with_openstudio
 
-# trigger action on all branches, pull requests and tags 
+# trigger action on all branches, pull requests and tags
 on:
   pull_request:
     branches:
-      -  '*'
+      - '*'
   push:
     branches:
-      -  '*'
+      - '*'
     tags:
-      - '*' 
+      - '*'
 
 jobs:
   test:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     container:
-      image:  nrel/openstudio:3.4.0
+      image: nrel/openstudio:3.4.0
 
     steps:
-    - uses: actions/checkout@v2
-    - name: install node and test
-      shell: bash 
-      run: |
+      - uses: actions/checkout@v2
+      - name: install node and test
+        shell: bash
+        run: |
           echo "installing node v16"
           curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
           apt update && apt install -y nodejs
           node -v
           npm -v
-    - name: install npm dependencies and run tests
-      shell: bash 
-      run: |
+      - name: install npm dependencies
+        shell: bash
+        run: |
+          cd test/regression
           echo "install dependencies"
-          cd test/regression && npm install 
+          npm install
+      - name: run tests
+        shell: bash
+        run: |
+          cd test/regression
           echo "run quick tests" 
           npm run start_subset
-    - name: run stats, display and check for failures
-      shell: bash 
-      run: |
+      - name: run stats, display and check for failures
+        shell: bash
+        run: |
           cd test/regression
           echo "run stats"
           npm run stats
