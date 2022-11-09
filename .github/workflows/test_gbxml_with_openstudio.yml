@@ -17,7 +17,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     container:
-      image: nrel/openstudio:3.4.0
+      image: nrel/openstudio:3.5.0-rc2
 
     steps:
       - uses: actions/checkout@v2
