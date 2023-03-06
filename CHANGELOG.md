@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.4] - 2023-03-06
+### Changed
+- Updated Systems Analysis Reports French translations
+
 ## [1.1.3] - 2022-08-16
 ### Changed
 - Fixed simulations for nameless buildings
