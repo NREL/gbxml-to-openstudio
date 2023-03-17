@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.5] - 2023-03-16
+### Changed
+- Switched EnergyPlus to build with `LINK_WITH_PYTHON` off to avoid including Python stdlib
+
 ## [1.1.4] - 2023-03-06
 ### Changed
 - Updated Systems Analysis Reports French translations

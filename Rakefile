@@ -27,7 +27,7 @@ task :build_installer do
   staging_dir = File.join(root_dir, 'installer_staging')
   os_install_dir = 'C:\openstudio-3.4.0'
   openstudio_cli = File.join(os_install_dir, 'bin', 'openstudio.exe')
-  energyplus_dir = File.join(os_install_dir, 'EnergyPlus')
+  energyplus_dir = 'C:\EnergyPlusV22-1-0-python'
 
   unless File.exists?(os_install_dir)
     puts "#{os_install_dir} does not exist"
@@ -47,8 +47,16 @@ task :build_installer do
   FileUtils.cp(File.join(os_install_dir, 'bin', 'vcruntime140.dll'), File.join(staging_dir, 'bin', 'vcruntime140.dll'))
   FileUtils.cp(File.join(os_install_dir, 'bin', 'vcruntime140_1.dll'), File.join(staging_dir, 'bin', 'vcruntime140_1.dll'))
 
-  FileUtils.cp_r(energyplus_dir, File.join(staging_dir, 'EnergyPlus'))
-  FileUtils.rm(File.join(staging_dir, 'EnergyPlus', 'energyplusapi.lib'))
+  FileUtils.mkdir_p(File.join(staging_dir, 'EnergyPlus'))
+  (%w[Energy+.idd Energy+.schema.epJSON energyplus.exe energyplusapi.dll ExpandObjects.exe] +
+    Dir.glob('api-ms*.dll', base: energyplus_dir) +
+    Dir.glob('msvc*.dll', base: energyplus_dir) +
+    Dir.glob('ucrt*.dll', base: energyplus_dir) +
+    Dir.glob('vcomp*.dll', base: energyplus_dir) +
+    Dir.glob('vcruntime*.dll', base: energyplus_dir)
+  ).each { |f| FileUtils.cp(File.join(energyplus_dir, f), File.join(staging_dir, 'EnergyPlus', f)) }
+  FileUtils.cp_r(File.join(energyplus_dir, 'pyenergyplus'), File.join(staging_dir, 'EnergyPlus', 'pyenergyplus'))
+
   FileUtils.cp_r(File.join(root_dir, 'measures'), File.join(staging_dir, 'measures'))
   FileUtils.cp_r(File.join(root_dir, 'seeds'), File.join(staging_dir, 'seeds'))
   FileUtils.cp_r(File.join(root_dir, 'weather'), File.join(staging_dir, 'weather'))
