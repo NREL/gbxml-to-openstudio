@@ -27,7 +27,7 @@ task :build_installer do
   staging_dir = File.join(root_dir, 'installer_staging')
   os_install_dir = 'C:\openstudio-3.4.0'
   openstudio_cli = File.join(os_install_dir, 'bin', 'openstudio.exe')
-  energyplus_dir = 'C:\EnergyPlusV22-1-0-python'
+  energyplus_dir = 'C:\EnergyPlusV22-1-0-no-python'
 
   unless File.exists?(os_install_dir)
     puts "#{os_install_dir} does not exist"
