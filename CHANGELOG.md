@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.5] - 2023-03-16
+### Changed
+- Switched EnergyPlus to build with `LINK_WITH_PYTHON` off to avoid including Python stdlib
+
+## [1.1.4] - 2023-03-06
+### Changed
+- Updated Systems Analysis Reports French translations
+
 ## [1.1.3] - 2022-08-16
 ### Changed
 - Fixed simulations for nameless buildings
@@ -18,6 +26,11 @@
 - OpenStudio updated to v3.4.0
 - EnergyPlus updated to v22.1.0
 - Measures updated for compatibility
+
+## [1.0.6] - 2022-09-22
+### Changed
+- Updated from v1.0.4 base
+- Truncated unused OpenSSL dlls
 
 ## [1.0.5] - 2022-01-04
 ### Changed

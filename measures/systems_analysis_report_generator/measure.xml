@@ -3,8 +3,8 @@
   <schema_version>3.0</schema_version>
   <name>systems_analysis_report_generator</name>
   <uid>1384e1c3-118f-40a1-9071-643edf5ba9b8</uid>
-  <version_id>f3aca146-9137-4b5f-bd6d-e72fdb3d3950</version_id>
-  <version_modified>20220420T154901Z</version_modified>
+  <version_id>de725cd4-fff0-4e59-9439-0df507312d32</version_id>
+  <version_modified>20230306T154020Z</version_modified>
   <xml_checksum>9BF1E6AC</xml_checksum>
   <class_name>SystemsAnalysisReportGenerator</class_name>
   <display_name>Systems Analysis Report Generator</display_name>
@@ -74,25 +74,31 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>C55BDF41</checksum>
+      <checksum>CA128A47</checksum>
+    </file>
+    <file>
+      <filename>README.md</filename>
+      <filetype>md</filetype>
+      <usage_type>readme</usage_type>
+      <checksum>A03A9D03</checksum>
     </file>
     <file>
       <filename>build/bundle.js</filename>
       <filetype>js</filetype>
       <usage_type>resource</usage_type>
-      <checksum>895EC2E4</checksum>
+      <checksum>0FED9421</checksum>
     </file>
     <file>
       <filename>build/index.html</filename>
       <filetype>html</filetype>
       <usage_type>resource</usage_type>
-      <checksum>14266F46</checksum>
+      <checksum>727138FA</checksum>
     </file>
     <file>
       <filename>build/reportConfig.json</filename>
       <filetype>json</filetype>
       <usage_type>resource</usage_type>
-      <checksum>DA2429CE</checksum>
+      <checksum>4BFB6E47</checksum>
     </file>
     <file>
       <filename>canister/canister.rb</filename>
@@ -122,7 +128,7 @@
       <filename>eplusout/mappers/coil_sizing_detail_mapper.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>6EB0E8C1</checksum>
+      <checksum>646D328B</checksum>
     </file>
     <file>
       <filename>eplusout/mappers/engineering_check_mapper.rb</filename>
@@ -164,7 +170,7 @@
       <filename>eplusout/models/coil_sizing_detail.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>A7591577</checksum>
+      <checksum>3CF7FD63</checksum>
     </file>
     <file>
       <filename>eplusout/models/engineering_check.rb</filename>
@@ -278,7 +284,7 @@
       <filename>systems_analysis_report/config/config.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>12CD920B</checksum>
+      <checksum>533EB102</checksum>
     </file>
     <file>
       <filename>systems_analysis_report/container.rb</filename>
@@ -549,12 +555,6 @@
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
       <checksum>EA74CA9F</checksum>
-    </file>
-    <file>
-      <filename>README.md</filename>
-      <filetype>md</filetype>
-      <usage_type>readme</usage_type>
-      <checksum>A03A9D03</checksum>
     </file>
   </files>
 </measure>

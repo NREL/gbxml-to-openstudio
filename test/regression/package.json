@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "start_subset": "node index.js subset",
     "stats":  "node stats.js"
   },
   "license": "ISC",
