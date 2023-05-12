@@ -4,6 +4,7 @@ import platform
 import sys
 
 from dotenv import load_dotenv
+from pyenergyplus.api import EnergyPlusAPI
 
 load_dotenv()
 os_version = os.getenv('OS_VERSION')
@@ -17,7 +18,6 @@ else:
     sys.exit(1)
 
 sys.path.insert(0, str(energyplus_dir))
-from pyenergyplus.api import EnergyPlusAPI
 
 api = EnergyPlusAPI()
 state = api.state_manager.new_state()
