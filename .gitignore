@@ -19,4 +19,4 @@ workflows/out.osw
 workflows/regression-tests
 workflows/reports
 workflows/run
-.vscode/launch.json
+.vscode/
