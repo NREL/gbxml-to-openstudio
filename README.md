@@ -11,9 +11,10 @@ This repository is intended to develop code that uses one or more advanced gbXML
 - `workflows` - OSW workflow files that using the OpenStudio CLI run the gbXML to OSM translation workflow measures, forward translate OSM to IDF, and run EnergyPlus
 
 ## Configure Development Environment
-1. Install the custom [EnergyPlus v22.1.0 build](https://openstudio-cli-4r.s3.amazonaws.com/EnergyPlus/EnergyPlus-22.1.0-ed759b17ee-Windows-x86_64.exe) that was compiled with `LINK_WITH_PYTHON` disabled, so no Python binary blobs or Python stdlib files are included
-   1. Change the default install location so that it can be installed alongside the official v22.1.0 release if necessary (e.g. `C:\EnergyPlusV22-1-0-no-python`)
-2. Install [OpenStudio v3.4.0](https://github.com/NREL/OpenStudio/releases/download/v3.4.0/OpenStudio-3.4.0+4bd816f785-Windows.exe)
+1. Install the desired version of OpenStudio (Revit currently uses [OpenStudio v3.4.0](https://github.com/NREL/OpenStudio/releases/download/v3.4.0/OpenStudio-3.4.0+4bd816f785-Windows.exe))
+2. Install the *custom* version of EnergyPlus corresponding to the OpenStudio version (currently [EnergyPlus 22.1.0 For Revit](https://github.com/NREL/openstudio-revit-releases/releases/tag/v22.1.0)
+   1. If the version of EnergyPlus hasn't been built yet, create a new release with a tag for the desired EnergyPlus version in the [openstudio-revit-releases](https://github.com/NREL/openstudio-revit-releases/releases) repo, which will build and upload the EnergyPlus EXE to the repo using a GitHub Action for download and installation (e.g. `v22.1.0` for OpenStudio v3.4.0). These versions of EnergyPlus are compiled with `LINK_WITH_PYTHON` disabled, so no Python binary blobs or Python stdlib files are included.
+   2. Change the default install location so that it can be installed alongside the official release if necessary (e.g. `C:\EnergyPlusV22-1-0-revit`)
 3. Install [Ruby v2.7 for Windows](https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-2.7.8-1/rubyinstaller-2.7.8-1-x64.exe) (devkit shouldn't be necessary)
    1. Open a command prompt in the `gbxml-to-openstudio` directory
    2. Run `gem install bundler`
@@ -25,10 +26,14 @@ This repository is intended to develop code that uses one or more advanced gbXML
 1. Pull the latest code
 2. Update `CHANGELOG.md` to reflect changes included in the new release
 3. If a previous `installer_staging` directory exists move it to `installer_stating.old`
-4. Run `rake build_installer` (`bundler install` may be necessary as well if the gem dependencies have changed)
+4. Run `rake build_installer`, which copies files to the `installer_staging` directory (`bundler install` may be necessary as well if the gem dependencies have changed). Ensure that any untracked files in the following directories are removed prior to running.
+   - `measures`
+   - `seeds`
+   - `weather`
+   - `workflows`
 5. Zip the `installer_staging` directory using 7-Zip, and drag the resulting zip file to the `code-signing-client.exe` executable. 7-Zip is necessary because Windows is unable to compress files with unicode names
 6. Once `installer_staging.signed.zip` has finished downloading simply extract the contents back into the `installer_staging` directory, replacing the original files
-7. Diff the `installer_stating.old` and `installer_staging` directories
+7. Diff the `installer_staging.old` and `installer_staging` directories
     1. If any files were *added* they must be manually dragged into the Advanced Installer file tree
     2. If any files were _removed_ they must be manually deleted from the Advanced Installer file tree
 8. In _Advanced Installer_, with the `Product Details` tab active, increment the patch version (e.g. `1.1.5` -> `1.1.6`) and hit _Save_
