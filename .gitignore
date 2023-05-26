@@ -1,7 +1,7 @@
 *.DS_Store
 .idea
 gbxmls/Cases/
-/installer_staging/
+/installer_staging*
 measures/*/output_models/
 measures/*/tests/output
 node_modules/
