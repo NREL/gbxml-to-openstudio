@@ -12,8 +12,8 @@ This repository is intended to develop code that uses one or more advanced gbXML
 
 ## Configure Development Environment
 1. Install the desired version of OpenStudio (Revit currently uses [OpenStudio v3.4.0](https://github.com/NREL/OpenStudio/releases/download/v3.4.0/OpenStudio-3.4.0+4bd816f785-Windows.exe))
-2. Install the *custom* version of EnergyPlus corresponding to the OpenStudio version (currently [EnergyPlus 22.1.0 For Revit](https://github.com/NREL/openstudio-revit-releases/releases/tag/v22.1.0)
-   1. If the version of EnergyPlus hasn't been built yet, create a new release with a tag for the desired EnergyPlus version in the [openstudio-revit-releases](https://github.com/NREL/openstudio-revit-releases/releases) repo, which will build and upload the EnergyPlus EXE to the repo using a GitHub Action for download and installation (e.g. `v22.1.0` for OpenStudio v3.4.0). These versions of EnergyPlus are compiled with `LINK_WITH_PYTHON` disabled, so no Python binary blobs or Python stdlib files are included.
+2. Install the *custom* version of EnergyPlus corresponding to the OpenStudio version (currently [EnergyPlus 22.1.0 For Revit](https://github.com/NREL/openstudio-revit-releases/releases/tag/v22.1.0))
+   1. If the version of EnergyPlus hasn't been built yet, follow the instructions in the [openstudio-revit-releases](https://github.com/NREL/openstudio-revit-releases/) repo to build one
    2. Change the default install location so that it can be installed alongside the official release if necessary (e.g. `C:\EnergyPlusV22-1-0-revit`)
 3. Install [Ruby v2.7 for Windows](https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-2.7.8-1/rubyinstaller-2.7.8-1-x64.exe) (devkit shouldn't be necessary)
    1. Open a command prompt in the `gbxml-to-openstudio` directory
