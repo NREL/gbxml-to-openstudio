@@ -4,10 +4,7 @@ import platform
 import sys
 
 
-from pyenergyplus.api import EnergyPlusAPI
-
-
-os_version = os.getenv('OS_VERSION')
+os_version = '3.6.0'
 
 if platform.system() == 'Windows':
     energyplus_dir = f'C:\\openstudio-{os_version}\\EnergyPlus'
@@ -19,6 +16,7 @@ else:
 
 sys.path.insert(0, str(energyplus_dir))
 
+from pyenergyplus.api import EnergyPlusAPI
 api = EnergyPlusAPI()
 state = api.state_manager.new_state()
 
@@ -50,7 +48,7 @@ def error_handler(severity: int, message: bytes) -> None:
 
 api.functional.callback_error(state, error_handler)
 
-root = os.path.join(os.path.dirname(__file__), '../..')
+root = os.path.join(os.path.dirname(__file__), '../')
 return_value = api.runtime.run_energyplus(
     state, [
         '-d', os.path.join(root, 'workflows/regression-tests', os_version, 'Office.xml/run'),
