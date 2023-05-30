@@ -3,10 +3,10 @@ import os
 import platform
 import sys
 
-from dotenv import load_dotenv
+
 from pyenergyplus.api import EnergyPlusAPI
 
-load_dotenv()
+
 os_version = os.getenv('OS_VERSION')
 
 if platform.system() == 'Windows':
