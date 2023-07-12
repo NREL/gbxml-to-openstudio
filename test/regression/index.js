@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { execa } from 'execa';
 import fs from 'fs';
-import { mkdir, readFile, writeFile } from 'fs/promises';
+import { mkdir, rm, readFile, writeFile } from 'fs/promises';
 import os from 'os';
 import PQueue from 'p-queue';
 import path from 'path';
@@ -69,7 +69,11 @@ for (let file of unsortedFiles) {
 files.sort((a, b) => a.size - b.size);
 
 const queue = new PQueue({concurrency: threads});
-const osw = await readFile('../../workflows/RegressionTesting.osw', 'utf8');
+const osw = await readFile('../../workflows/RegressionTestingGPU.osw', 'utf8');
+
+// TODO remove existing dirs and only make all or subset
+console.log(`removing directory: workflows/regression-tests/`)
+rm(`../../workflows/regression-tests/*`, {recursive: true, force: true});
 
 const workflows = [];
 for (const {file} of files) {
@@ -90,7 +94,7 @@ workflows.forEach(workflow => {
     await queue.add(() => {
       start = Date.now();
       console.log(`Start: ${file}`);
-      return execa(cliPath, ['run', '-w', workflow]).catch(() => {
+      return execa(cliPath, ['run', '-w', workflow, '--show-stdout', '--style-stdout']).catch(() => {
         console.error(`Error running ${workflow} with CLI at ${cliPath}`);
       });
     });
