@@ -40,8 +40,8 @@ class VRFCondenser < HVACObject
 
   def post_build
     if self.condenser_loop
-      self.condenser.setString(28, 'DryBulbTemperature')
-      self.condenser.setString(56, 'WaterCooled')
+      self.condenser.setHeatingPerformanceCurveOutdoorTemperatureType('DryBulbTemperature')
+      self.condenser.setCondenserType('WaterCooled')
       self.condenser_loop.plant_loop.addDemandBranchForComponent(self.condenser) if self.condenser_loop
     end
   end
