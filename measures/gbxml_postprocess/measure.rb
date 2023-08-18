@@ -8,7 +8,7 @@ class GbxmlPostprocess < OpenStudio::Measure::ModelMeasure
   # human readable name
   def name
     # Measure name should be the title case of the class name.
-    return 'gbxml postprocess'
+    return 'gbXML Postprocess'
   end
 
   # human readable description
@@ -44,12 +44,17 @@ class GbxmlPostprocess < OpenStudio::Measure::ModelMeasure
     window_simple.setVisibleTransmittance(0.9)
     window_construction = OpenStudio::Model::Construction.new(model)
     window_construction.insertLayer(0, window_simple)
-
     model.getSubSurfaces.each do |sub_surface|
       if sub_surface.isAirWall
         sub_surface.setConstruction(window_construction)
       end
     end
+
+    # set output objects
+    model.getOutputSQLite.setUnitConversionforTabularData('None')
+    model.getOutputTableSummaryReports.setString(1, 'AllSummaryAndSizingPeriod')
+    model.getOutputControlTableStyle.setColumnSeparator('XMLandHTML')
+    model.getOutputControlTableStyle.setUnitConversion('InchPound') if runner.unitsPreference == 'IP'
 
     return true
   end
