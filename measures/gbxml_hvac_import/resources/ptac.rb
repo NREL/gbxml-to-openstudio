@@ -18,7 +18,7 @@ class PTAC < ZoneHVACEquipment
     equipment.set_name(xml.elements['Name'].text) unless name.nil?
     equipment.set_id(xml.attributes['id']) unless xml.attributes['id'].nil?
     equipment.set_cad_object_id(xml.elements['CADObjectId'].text) unless xml.elements['CADObjectId'].nil?
-    equipment.draw_ventilation = xml.attributes['DrawVentilation'] == "True" ? true : false
+    equipment.draw_ventilation = xml.attributes['drawVentilation'] == "True" ? true : false
 
     unless xml.attributes['heatingCoilType'].nil? or xml.attributes['heatingCoilType'] == "None"
       equipment.heating_coil_type = xml.attributes['heatingCoilType']
