@@ -29,7 +29,7 @@ class AirSystem < HVACObject
     air_loop.set_cad_object_id(xml.elements['CADObjectId'].text) unless xml.elements['CADObjectId'].nil?
 
     supply_fan = xml.elements['Fan']
-    air_loop.supply_fan_type = supply_fan.attributes['FanType'] unless supply_fan.nil?
+    air_loop.supply_fan_type = supply_fan.attributes['fanType'] unless supply_fan.nil?
 
     unless xml.attributes['heatingCoilType'].nil? or xml.attributes['heatingCoilType'] == "None"
       air_loop.heating_coil_type = xml.attributes['heatingCoilType']
