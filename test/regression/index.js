@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { execa } from 'execa';
 import fs from 'fs';
-import { mkdir, readFile, writeFile } from 'fs/promises';
+import { mkdir, rm, readFile, writeFile } from 'fs/promises';
 import os from 'os';
 import PQueue from 'p-queue';
 import path from 'path';
@@ -18,19 +18,21 @@ if (args[2] === 'subset') {
   subset = true;
 }
 
-// List of tests that run < 60 seconds
+// List of tests that are < 1000 KB
 const subsetTestFiles = [
-  '11 Jay St.xml',
-  '34 Emerson.xml',
-  '3Nordea.xml',
-  'Clerestory.xml',
+  'A00.xml',
+  'Bank.xml',
   'ExteriorWindowRatioCW.xml',
-  'ExteriorWindowRatioWindow.xml',
-  'House.xml',
-  'Residential.xml',
-  'Roofs.xml',
+  'Villa.xml',
   'Villa Spaces.xml',
-  'Villa.xml'
+  'Clerestory.xml',
+  'House.xml',
+  'ExteriorWindowRatioWindow.xml',
+  'Roofs.xml',
+  'Residential.xml',
+  'Glass Tower Shade.xml',
+  'Emerson.xml',
+  '11 Jay St.xml'
 ];
 
 if (!osVersion) {
@@ -60,7 +62,12 @@ if (fs.existsSync(cliPath)) {
   throw `Cannot locate CLI for version ${osVersion}, tried ${cliPath}`;
 }
 
-const unsortedFiles = fs.readdirSync('../../gbxmls/RegressionTesting', 'utf8');
+if (subset) {
+  var unsortedFiles = subsetTestFiles;
+} else {
+  var unsortedFiles = fs.readdirSync('../../gbxmls/RegressionTesting', 'utf8');
+}
+
 const files = [];
 for (let file of unsortedFiles) {
   const size = fs.statSync(`../../gbxmls/RegressionTesting/${file}`).size;
@@ -70,6 +77,10 @@ files.sort((a, b) => a.size - b.size);
 
 const queue = new PQueue({concurrency: threads});
 const osw = await readFile('../../workflows/RegressionTesting.osw', 'utf8');
+
+// TODO remove existing dirs and only make all or subset
+console.log(`removing directory: workflows/regression-tests/`)
+rm(`../../workflows/regression-tests/*`, {recursive: true, force: true});
 
 const workflows = [];
 for (const {file} of files) {

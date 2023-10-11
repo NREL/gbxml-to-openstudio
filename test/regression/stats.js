@@ -19,7 +19,9 @@ const gbxmls = fs.readdirSync(dir, 'utf8').sort((new Intl.Collator(undefined, {
 for (const gbxml of gbxmls) {
   const result = {Name: gbxml};
   const oswPath = path.join(dir, gbxml, 'out.osw');
-  if (!fs.existsSync(oswPath)) {
+  if (fs.existsSync(oswPath)) {
+    console.log(`${gbxml}`);
+  } else {
     console.error(`${gbxml} out.osw does not exist`);
     results.push(result);
     continue;
@@ -27,6 +29,11 @@ for (const gbxml of gbxmls) {
 
   const file = await readFile(oswPath, 'utf-8');
   const data = JSON.parse(file);
+
+  // continue if completed_status = Fail
+  if (data.completed_status == "Fail") {
+    continue;
+  }
 
   data.steps.forEach(step => {
     if (['OpenStudio Results', 'Systems Analysis Report'].includes(step.name)) {
@@ -90,4 +97,4 @@ const csv = Papa.unparse(results, {
   ]
 });
 // console.log(csv);
-await writeFile(`stats-${osVersion}.csv`, csv);
+await writeFile(`stats-${osVersion}-sub-gpu.csv`, csv);
