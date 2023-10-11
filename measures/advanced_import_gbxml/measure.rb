@@ -214,53 +214,71 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         advanced_inputs[:spaces][element.attributes['id']][:people_defs] = space_people_attributes
       end
 
-      # gather infiltration
-      infiltration_def = { infiltration_flow_per_space: nil,                 # cfm
-                           infiltration_flow_per_space_area: nil,            # cfm/ft2
-                           infiltration_flow_per_exterior_surface_area: nil, # cfm/ft2
-                           infiltration_flow_per_exterior_wall_area: nil,    # cfm/ft2
-                           infiltration_flow_air_changes_per_hour: nil }     # 1/h
-      if !element.elements['InfiltrationFlowPerArea'].nil?
-        infiltration_element = element.elements['InfiltrationFlowPerArea']
-        infiltration = infiltration_element.text.to_f
-        infiltration = OpenStudio.convert(infiltration, "L/s*m^2", "cfm/ft^2").get if infiltration_element.attributes['unit'] == "LPerSecPerSquareM"
-        infiltration_def[:infiltration_flow_per_exterior_wall_area] = infiltration
-      end
-
-      advanced_inputs[:spaces][element.attributes['id']][:infiltration_def] = infiltration_def
-
-      # gather ventilation
-      ventilation_def = { ventilation_flow_per_person: 0.0,            # cfm
-                          ventilation_flow_per_area: 0.0,              # cfm/ft2
-                          ventilation_flow_per_space: 0.0,             # cfm
-                          ventilation_flow_air_changes_per_hour: 0.0 } # 1/h
-      unless element.attributes['outdoorAirflowMethod'].nil?
-        ventilation_def[:outdoor_airflow_method] = element.attributes['outdoorAirflowMethod']
-      end
-      if !element.elements['OAFlowPerPerson'].nil?
-        ventilation_element = element.elements['OAFlowPerPerson']
-        ventilation = ventilation_element.text.to_f
-        ventilation = OpenStudio.convert(ventilation, "L/s", "cfm").get if ventilation_element.attributes['unit'] == "LPerSec"
-        ventilation_def[:ventilation_flow_per_person] = ventilation
-      end
-      if !element.elements['OAFlowPerArea'].nil?
-        ventilation_element = element.elements['OAFlowPerArea']
-        ventilation = ventilation_element.text.to_f
-        ventilation = OpenStudio.convert(ventilation, "L/s*m^2", "cfm/ft^2").get if ventilation_element.attributes['unit'] == "LPerSecPerSquareM"
-        ventilation_def[:ventilation_flow_per_area] = ventilation
-      end
-      if !element.elements['OAFlowPerSpace'].nil?
-        ventilation_element = element.elements['OAFlowPerSpace']
-        ventilation = ventilation_element.text.to_f
-        ventilation = OpenStudio.convert(ventilation, "L/s", "cfm").get if ventilation_element.attributes['unit'] == "LPerSec"
-        ventilation_def[:ventilation_flow_per_space] = ventilation
+      # infiltration and ventilation data is in gbXML v7.03 AnalysisParameter element(s)
+      infiltration_def = {
+        infiltration_flow_per_space: nil,                 # cfm
+        infiltration_flow_per_space_area: nil,            # cfm/ft2
+        infiltration_flow_per_exterior_surface_area: nil, # cfm/ft2
+        infiltration_flow_per_exterior_wall_area: nil,    # cfm/ft2
+        infiltration_flow_air_changes_per_hour: nil       # 1/h
+      }
+      ventilation_def = {
+        ventilation_flow_per_person: 0.0,            # cfm
+        ventilation_flow_per_area: 0.0,              # cfm/ft2
+        ventilation_flow_per_space: 0.0,             # cfm
+        ventilation_flow_air_changes_per_hour: 0.0   # 1/h
+      }
+      if element.elements['AnalysisParameter'].size > 0
+        element.elements.each('AnalysisParameter') do |analysis_parameter|
+          next if analysis_parameter.elements['Name'].nil? && analysis_parameter.elements['ParameterValue'].nil?
+          name = analysis_parameter.elements['Name'].text
+          parameter_value = analysis_parameter.elements['ParameterValue'].text
+          unit = analysis_parameter.attributes['unit']
+          case name
+          when 'InfiltrationFlowPerArea'
+            case unit
+            when 'LPerSecPerSquareM'
+              infiltration = OpenStudio.convert(parameter_value.to_f, "L/s*m^2", "cfm/ft^2").get
+            else
+              infiltration = parameter_value.to_f
+            end
+            infiltration_def[:infiltration_flow_per_exterior_wall_area] = infiltration
+          when 'OAFlowMethod'
+            ventilation_def[:outdoor_airflow_method] = parameter_value
+          when 'OAFlowPerArea'
+            case unit
+            when 'LPerSecPerSquareM'
+              ventilation = OpenStudio.convert(parameter_value.to_f, "L/s*m^2", "cfm/ft^2").get
+            else
+              ventilation = parameter_value.to_f
+            end
+            ventilation_def[:ventilation_flow_per_area] = ventilation
+          when 'OAFlowPerPerson'
+            case unit
+            when 'LPerSec'
+              ventilation = OpenStudio.convert(parameter_value.to_f, "L/s", "cfm").get
+            else
+              ventilation = parameter_value.to_f
+            end
+            ventilation_def[:ventilation_flow_per_person] = ventilation
+          when 'OAFlowPerSpace'
+            case unit
+            when 'LPerSec'
+              ventilation = OpenStudio.convert(parameter_value.to_f, "L/s", "cfm").get
+            else
+              ventilation = parameter_value.to_f
+            end
+            ventilation_def[:ventilation_flow_per_space] = parameter_value.to_f
+          end
+        end
       end
       if !element.elements['AirChangesPerHour'].nil?
         ventilation_def[:ventilation_flow_air_changes_per_hour] = element.elements['AirChangesPerHour'].text.to_f
       end
+      advanced_inputs[:spaces][element.attributes['id']][:infiltration_def] = infiltration_def
       advanced_inputs[:spaces][element.attributes['id']][:ventilation_def] = ventilation_def
 
-    # Hard code space volumes as geometry may not be clean enough to compute all the time.
+      # Hard code space volumes as geometry may not be clean enough to compute all the time.
       id_element = element.elements['CADObjectId']
       id = id_element ? id_element.text : false
 
