@@ -228,7 +228,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
         ventilation_flow_per_space: 0.0,             # cfm
         ventilation_flow_air_changes_per_hour: 0.0   # 1/h
       }
-      if element.elements['AnalysisParameter'].size > 0
+      if !element.elements['AnalysisParameter'].nil? && element.elements['AnalysisParameter'].size > 0
         element.elements.each('AnalysisParameter') do |analysis_parameter|
           next if analysis_parameter.elements['Name'].nil? && analysis_parameter.elements['ParameterValue'].nil?
           name = analysis_parameter.elements['Name'].text
