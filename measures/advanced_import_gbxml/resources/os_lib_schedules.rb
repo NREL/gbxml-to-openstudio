@@ -999,7 +999,7 @@ module OsLib_Schedules
       sch_values = sch2_day.values
 
       # make new schedule rule for schedule1
-      sch1_rule = create_schedule_rule(sch1) #OpenStudio::Model::ScheduleRule.new(sch1)
+      sch1_rule = OpenStudio::Model::ScheduleRule.new(sch1)
       sch1_rule.setName("#{sch1.name} Schedule Rule")
       sch1_sch_rule_day = sch1_rule.daySchedule
       sch1_sch_rule_day.clearValues
@@ -1023,8 +1023,4 @@ module OsLib_Schedules
     return sch1
   end
 
-  def self.create_schedule_rule(schedule_ruleset)
-    OpenStudio::Model::ScheduleRule.new(schedule_ruleset)
-  end
-
-  end
+end
