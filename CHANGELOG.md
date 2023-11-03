@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.7] - 2023-10-27
+- OpenStudio v3.6.0
+- EnergyPlus v23.1.0
+- Measure fixes
+
+## [1.1.6] - 2023-08-01
+### Changed
+- OpenStudio updated to v3.6.0
+- EnergyPlus updated to v23.1.0
+
 ## [1.1.5] - 2023-03-16
 ### Changed
 - Switched EnergyPlus to build with `LINK_WITH_PYTHON` off to avoid including Python stdlib
@@ -48,7 +58,7 @@
 ### Added
  - Charts for the zone and system load summary PDF
  - Updated Design Psychrometrics PDF
- 
+
 ### Fixed
  - Alignment for long words in the summary content
  - Issue preventing the PDF from opening in Adobe
@@ -58,7 +68,7 @@
  - Updated the report PDF view for the tables. Charts don't render yet.
  - Removed on hover tooltip from the dropdown selector
  - Reintroduced the print button
- 
+
 ### Fixed
  - Various localization fixes
    - When no zones/systems/coils found
@@ -73,11 +83,11 @@
  - The locale button has been removed
  - The print button has been removed
  - Units button now states "units" after the unit system.
- 
+
 ### Fixed
  - A fix for E+ reporting OA as a decimal has been implemented
  - Localization for some additional words have been added.
- 
+
 ## [1.0.0] - 2020-10-08
 ### Fixed
  - Various unit conversions including temperature and power
@@ -106,18 +116,18 @@
 ## [0.1.9] - 2019-10-31
 ### Fixed
  - Activity Schedules regression
- 
+
 ## [0.1.8] - 2019-09-13
 ### Added
  - Inference of annual and weekly schedules from the Building Type
- 
+
 ### Changed
  - Improved absorptance property import to prevent issue related to material present on more than one construction outer layer.
 
 ## [0.1.6] - 2019-06-07
 ### Added
  - Merged OpenStudio Results and eplustbl.htm report
- 
+
 ### Changed
  - Both sizing and annual reports write to openstudio_results_report.html
 
@@ -138,7 +148,7 @@
  - IP units electricity consumption issue on the openstudio_results html report.
 ### Removed
  - Redundant code
- 
+
 ## [0.1.2] - 2019-05-22
 ### Added
  - Setpoint Manager at 4C on the preheat coil to temper the incoming outdoor air stream
