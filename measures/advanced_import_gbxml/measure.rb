@@ -321,9 +321,18 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
     # note, schedules and schedule sets will be generated as used when looping through spaces
     gbxml_doc.elements.each('gbXML/Schedule') do |element|
       name = element.elements['Name']
-      # add schedules to hash with array of week schedules
-      sch_week = element.elements['YearSchedule/WeekScheduleId'].attributes['weekScheduleIdRef']
-      advanced_inputs[:schedules][element.attributes['id']] = {'name' => name.text, 'sch_week' => sch_week}
+      type = element.attributes['type']
+
+      # get Year Schedule info (multiple per Schedule)
+      year_schedules = {}
+      element.elements.each('YearSchedule') do |year|
+        id = year.attributes['id']
+        sch_week = year.elements['WeekScheduleId'].attributes['weekScheduleIdRef']
+        begin_date = year.elements['BeginDate'].text
+        end_date = year.elements['EndDate'].text
+        year_schedules[id] = {'sch_week' => sch_week, 'begin_date' => begin_date, 'end_date' => end_date}
+      end
+      advanced_inputs[:schedules][element.attributes['id']] = {'name' => name.text, 'year_schedules' => year_schedules}
     end
 
     runner.registerInfo("removing ScheduleYear, ScheduleWeek, and ScheduleDay, objects. That data will be re-imported as ScheduleRuleset")
