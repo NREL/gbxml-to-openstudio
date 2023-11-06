@@ -37,6 +37,7 @@
 # regardless of import format data is passed into these methods as hashes.
 require 'bigdecimal/newton'
 require 'openstudio-standards'
+require 'date'
 
 # constants for thermostat and humidistat schedules
 STANDARD = Standard.build('90.1-2013')
@@ -819,92 +820,94 @@ module OsLib_AdvImport
     # loop through and add schedules
     new_schedules = {}
 
+    puts "Schedule data: #{schedules}"
+    puts "Week Schedule data: #{week_schedules}"
+    puts "Day Schedule data: #{day_schedules}"
+
     # process schedule data
     schedules.each do |id, schedule_data|
-
+  
       # get schedule name
       if schedule_data['name'].nil?
         ruleset_name = id
       else
         ruleset_name = schedule_data['name']
       end
-      date_range = '1/1-12/31'
-      # winter_design_day = nil
-      # summer_design_day = nil
+      # date_range = '1/1-12/31'
+      winter_design_day = nil
+      summer_design_day = nil
       default_day = nil
+      holiday_day = nil
       rules = []
 
-      # get WeekSchedule
-      week_schs = week_schedules[schedule_data['sch_week']]
+      schedule_data['year_schedules'].each do |year_id, year_data|
+        # get week schedule
+        week_schs = week_schedules[year_data['sch_week']]
+ 
+        # get begin/end days as MM/DD
+        begin_date = DateTime.parse(year_data['begin_date']).strftime("%m/%d")
+        end_date = DateTime.parse(year_data['end_date']).strftime("%m/%d")
 
-      # loop through dayTypes
-      week_schs.each do |day_type,day_obj|
+        date_range = [begin_date, end_date].join('-')
 
-        # get associated dayType items
-        time_value_array_raw = []
-        day_schedules[day_obj].each_with_index do  |value,i|
-          time_value_array_raw << [i+1,value]
-        end
+        # loop through dayTypes
+        week_schs.each do |day_type,day_obj|
 
-        # clean up excess values
-        time_value_array = []
-        last_val = nil
-        time_value_array_raw.reverse.each do |time_val|
-          if last_val.nil?
-            time_value_array << time_val
-          elsif last_val != time_val[1]
-            time_value_array << time_val
+          # get associated dayType items
+          time_value_array_raw = []
+          day_schedules[day_obj].each_with_index do  |value,i|
+            time_value_array_raw << [i+1,value]
           end
-          last_val = time_val[1]
+
+          # clean up excess values
+          time_value_array = []
+          last_val = nil
+          time_value_array_raw.reverse.each do |time_val|
+            if last_val.nil?
+              time_value_array << time_val
+            elsif last_val != time_val[1]
+              time_value_array << time_val
+            end
+            last_val = time_val[1]
+          end
+          time_value_array = time_value_array.reverse
+
+          # parse dayType attribute
+          case day_type
+          when 'HeatingDesignDay'
+            option['winter_design_day'].nil? ? options['winter_design_day'] = time_value_array : runner.registerWarning("Winter design day already defined for Schedule #{ruleset_name}")
+            # days = "HDD"
+          when 'CoolingDesignDay'
+            option['cooling_design_day'].nil? ? options['summer_design_day'] = time_value_array : runner.registerWarning("Summer design day already defined for Schedule #{ruleset_name}")
+            days = "CDD"
+          when 'Holiday'
+            options['holiday_day'].nil? ? options['holiday_day'] = time_value_array : runner.registerWarning("Holiday day already defined for Schedule #{ruleset_name}")
+          when 'Weekday'
+            days = 'Mon/Tue/Wed/Thu/Fri'
+          when 'Weekend'
+            days = 'Sat/Sun'
+          when 'WeekendOrHoliday'
+            days = 'Sat/Sun/Hol'
+          when 'Custom'
+            days = 'Custom' # TODO
+          when 'All' 
+            days = 'Mon/Tue/Wed/Thu/Fri/Sat/Sun'
+          else
+            days = day_type
+          end
+
+          rules << [year_data['sch_week'], date_range, days] + time_value_array
         end
-        time_value_array = time_value_array.reverse
-
-        # create default profile, rule, or design day #
-        days = BuildingTypeHelper.create_prefix_day_array(building_type)
-
-        prefix_array = [day_type, date_range, days]
-        rules << prefix_array + time_value_array
-      end
-
-      if BuildingTypeHelper.is_on_6_days(building_type)
-        prefix_array = ["Sun", "1/1-12/31", "Sun"]
-        time_value_array = [[7, 0.0], [9, 0.1], [13, 0.2], [16, 0.1], [24, 0.0]]
-        rules << prefix_array + time_value_array
-      elsif BuildingTypeHelper.is_on_5_days(building_type)
-        prefix_array = ["Sun", "1/1-12/31", "Sun"]
-        time_value_array = [[24, 0.0]]
-        rules << prefix_array + time_value_array
-
-        prefix_array = ["Sat", "1/1-12/31", "Sat"]
-        time_value_array = [[7, 0.0], [9, 0.1], [13, 0.2], [16, 0.1], [24, 0.0]]
-        rules << prefix_array + time_value_array
-      end
-
-      if building_type == "SchoolOrUniversity"
-        prefix_array = ["January Break", "1/1-1/5", "Sun/Mon/Tue/Wed/Thu/Fri/Sat"]
-        time_value_array = [[24, 0.0]]
-        rules << prefix_array + time_value_array
-
-        prefix_array = ["Spring Break", "4/4-4/13", "Sun/Mon/Tue/Wed/Thu/Fri/Sat"]
-        time_value_array = [[24, 0.0]]
-        rules << prefix_array + time_value_array
-
-        prefix_array = ["Summer Break", "6/9-8/24", "Sun/Mon/Tue/Wed/Thu/Fri/Sat"]
-        time_value_array = [[24, 0.0]]
-        rules << prefix_array + time_value_array
-
-        prefix_array = ["Winter Break", "12/16-12/31", "Sun/Mon/Tue/Wed/Thu/Fri/Sat"]
-        time_value_array = [[24, 0.0]]
-        rules << prefix_array + time_value_array
       end
 
       # populate schedule using schedule_data to update default profile and add rules to complex schedule
       options = { 'name' => ruleset_name,
-                  # 'winter_design_day' => winter_design_day,
-                  # 'summer_design_day' => summer_design_day,
+                  'winter_design_day' => winter_design_day,
+                  'summer_design_day' => summer_design_day,
+                  'holiday_day' => holiday_day,
                   'default_day' => default_day,
                   'rules' => rules }
-
+                  
       sch_ruleset = OsLib_Schedules.createComplexSchedule(model, options)
       new_schedules[id] = sch_ruleset
     end
