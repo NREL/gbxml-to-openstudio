@@ -1,12 +1,17 @@
-*.DS_Store
-.idea
-gbxmls/Cases/
-/installer_staging*
+https://github.com/github/gitignore/blob/main/Ruby.gitignore
+
+.vscode
+
+build*
+
+issues/
+
 measures/*/output_models/
 measures/*/tests/output
-node_modules/
-/OpenStudio CLI For Revit 202?-cache/
-/OpenStudio CLI For Revit 202?-SetupFiles/
+
+OpenStudio CLI For Revit 202?-cache/
+OpenStudio CLI For Revit 202?-SetupFiles/
+
 test/*/*.osm
 test/gbxml_hvac_import/output_models/*/in.osw
 test/gbxml_hvac_import/output_models/*/out.osw
@@ -15,8 +20,8 @@ test/gbxml_hvac_import/output_models/*/run
 test/gbxml_hvac_import/output_models/manual/
 test/gbxml_hvac_import/resources/revit_test_models/*.0*.rvt
 test/regression/stats-*.csv
+
 workflows/out.osw
 workflows/regression-tests
 workflows/reports
 workflows/run
-.vscode/
