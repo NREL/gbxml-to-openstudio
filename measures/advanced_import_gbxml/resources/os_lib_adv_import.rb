@@ -820,38 +820,38 @@ module OsLib_AdvImport
     # loop through and add schedules
     new_schedules = {}
 
-    puts "Schedule data: #{schedules}"
-    puts "Week Schedule data: #{week_schedules}"
-    puts "Day Schedule data: #{day_schedules}"
+    # puts "Schedule data: #{schedules}"
+    # puts "Week Schedule data: #{week_schedules}"
+    # puts "Day Schedule data: #{day_schedules}"
 
     # process schedule data
     schedules.each do |id, schedule_data|
-  
+
       # get schedule name
-      if schedule_data['name'].nil?
+      if schedule_data[:name].nil?
         ruleset_name = id
       else
-        ruleset_name = schedule_data['name']
+        ruleset_name = schedule_data[:name]
       end
-      # date_range = '1/1-12/31'
+
       winter_design_day = nil
       summer_design_day = nil
       default_day = nil
       holiday_day = nil
       rules = []
 
-      schedule_data['year_schedules'].each do |year_id, year_data|
+      schedule_data[:year_schedules].each do |year_id, year_data|
         # get week schedule
-        week_schs = week_schedules[year_data['sch_week']]
- 
-        # get begin/end days as MM/DD
-        begin_date = DateTime.parse(year_data['begin_date']).strftime("%m/%d")
-        end_date = DateTime.parse(year_data['end_date']).strftime("%m/%d")
+        week_schedule = week_schedules[year_data[:week_schedule_id_ref]]
 
-        date_range = [begin_date, end_date].join('-')
+        # get begin/end days as MM/DD
+        beg_date = DateTime.parse(year_data[:beg_date]).strftime("%m/%d")
+        end_date = DateTime.parse(year_data[:end_date]).strftime("%m/%d")
+
+        date_range = [beg_date, end_date].join('-')
 
         # loop through dayTypes
-        week_schs.each do |day_type,day_obj|
+        week_schedule.each do |day_type, day_obj|
 
           # get associated dayType items
           time_value_array_raw = []
@@ -890,13 +890,13 @@ module OsLib_AdvImport
             days = 'Sat/Sun/Hol'
           when 'Custom'
             days = 'Custom' # TODO
-          when 'All' 
+          when 'All'
             days = 'Mon/Tue/Wed/Thu/Fri/Sat/Sun'
           else
             days = day_type
           end
 
-          rules << [year_data['sch_week'], date_range, days] + time_value_array
+          rules << [year_data[:week_schedule_id_ref], date_range, days] + time_value_array
         end
       end
 
@@ -907,7 +907,7 @@ module OsLib_AdvImport
                   'holiday_day' => holiday_day,
                   'default_day' => default_day,
                   'rules' => rules }
-                  
+
       sch_ruleset = OsLib_Schedules.createComplexSchedule(model, options)
       new_schedules[id] = sch_ruleset
     end
