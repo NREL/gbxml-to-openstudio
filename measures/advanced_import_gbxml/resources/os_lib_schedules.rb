@@ -539,17 +539,36 @@ module OsLib_Schedules
     end
 
     # Default Day
-    # default_day = sch_ruleset.defaultDaySchedule
-    # default_day.setName("#{sch_ruleset.name} #{options['default_day'][0]}")
-    # default_data_array = options['default_day']
-    # default_data_array.delete_at(0)
-    # default_data_array.each do |data_pair|
-    #   hour = data_pair[0].truncate
-    #   min = ((data_pair[0] - hour) * 60).to_i
-    #   default_day.addValue(OpenStudio::Time.new(0, hour, min, 0), data_pair[1])
-    # end
+    unless options['default_day'].nil?
+      default_day = sch_ruleset.defaultDaySchedule
+      default_day.setName("#{sch_ruleset.name} #{options['default_day'][0]}")
+      default_data_array = options['default_day']
+      default_data_array.delete_at(0)
+      default_data_array.each do |data_pair|
+        hour = data_pair[0].truncate
+        min = ((data_pair[0] - hour) * 60).to_i
+        default_day.addValue(OpenStudio::Time.new(0, hour, min, 0), data_pair[1])
+      end
+    end
+ 
+    # holiday day
+    unless options['holiday_day'].nil? 
+      holiday_day = OpenStudio::Model::ScheduleDay.new(model)
+      sch_ruleset.setHolidaySchedule(holiday_day)
+      holiday_day = sch_ruleset.holidaySchedule
+      holiday_day.setName("#{sch_ruleset.name} Holiday Day")
+      options['holiday_day'].each do |data_pair|
+        hour = data_pair[0].truncate
+        min = ((data_pair[0] - hour) * 60).to_i
+        holiday_day.addValue(OpenStudio::Time.new(0, hour, min, 0), data_pair[1])
+      end
+    end
 
-    # Rules
+    # Rules array 
+    # rule name
+    # date range (MM/DD - MM/DD)
+    # day type string
+    # array of hour - value pairs
     unless options['rules'].nil?
       options['rules'].each do |data_array|
         rule = OpenStudio::Model::ScheduleRule.new(sch_ruleset)
@@ -999,7 +1018,7 @@ module OsLib_Schedules
       sch_values = sch2_day.values
 
       # make new schedule rule for schedule1
-      sch1_rule = create_schedule_rule(sch1) #OpenStudio::Model::ScheduleRule.new(sch1)
+      sch1_rule = OpenStudio::Model::ScheduleRule.new(sch1)
       sch1_rule.setName("#{sch1.name} Schedule Rule")
       sch1_sch_rule_day = sch1_rule.daySchedule
       sch1_sch_rule_day.clearValues
@@ -1023,8 +1042,4 @@ module OsLib_Schedules
     return sch1
   end
 
-  def self.create_schedule_rule(schedule_ruleset)
-    OpenStudio::Model::ScheduleRule.new(schedule_ruleset)
-  end
-
-  end
+end

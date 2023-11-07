@@ -37,6 +37,7 @@
 # regardless of import format data is passed into these methods as hashes.
 require 'bigdecimal/newton'
 require 'openstudio-standards'
+require 'date'
 
 # constants for thermostat and humidistat schedules
 STANDARD = Standard.build('90.1-2013')
@@ -48,7 +49,7 @@ module OsLib_AdvImport
 
     # { {ScheduleRuleset : number of people} : [ThermalZone1, ...] }
     people_schedule_thermal_zones_hash = {}
-    
+
     # {ThermalZone1: number of people, ...}
     max_occ_on_thermal_zone = {}
 
@@ -141,14 +142,14 @@ module OsLib_AdvImport
 
     # setpoints
     # {setpoint => [array, of, thermal, zones], ...}
-    heating_setpoints_thermal_zones_hash = {} 
-    cooling_setpoints_thermal_zones_hash = {} 
-    humid_setpoints_thermal_zones_hash = {} 
-    dehum_setpoints_thermal_zones_hash = {} 
-    occ_heating_setpoints_thermal_zones_hash = {} 
-    occ_cooling_setpoints_thermal_zones_hash = {} 
-    occ_humid_setpoints_thermal_zones_hash = {} 
-    occ_dehum_setpoints_thermal_zones_hash = {} 
+    heating_setpoints_thermal_zones_hash = {}
+    cooling_setpoints_thermal_zones_hash = {}
+    humid_setpoints_thermal_zones_hash = {}
+    dehum_setpoints_thermal_zones_hash = {}
+    occ_heating_setpoints_thermal_zones_hash = {}
+    occ_cooling_setpoints_thermal_zones_hash = {}
+    occ_humid_setpoints_thermal_zones_hash = {}
+    occ_dehum_setpoints_thermal_zones_hash = {}
 
     zones.each do |id, zone_hash|
 
@@ -166,7 +167,7 @@ module OsLib_AdvImport
       # heating setpoint
       heating_setpoint = zone_hash[:design_heat_t]
       unless heating_setpoint.nil?
-        hash = 
+        hash =
           case occupied
           when false then heating_setpoints_thermal_zones_hash
           when true then occ_heating_setpoints_thermal_zones_hash
@@ -180,8 +181,8 @@ module OsLib_AdvImport
 
       # cooling setpoint
       cooling_setpoint = zone_hash[:design_cool_t]
-      unless cooling_setpoint.nil?        
-        hash = 
+      unless cooling_setpoint.nil?
+        hash =
           case occupied
           when false then cooling_setpoints_thermal_zones_hash
           when true then occ_cooling_setpoints_thermal_zones_hash
@@ -196,11 +197,11 @@ module OsLib_AdvImport
       # humidifying setpoint
       humid_setpoint = zone_hash[:design_heat_rh]
       unless humid_setpoint.nil?
-        hash = 
+        hash =
           case occupied
           when false then humid_setpoints_thermal_zones_hash
           when true then occ_humid_setpoints_thermal_zones_hash
-          end        
+          end
         if hash[humid_setpoint].nil?
           hash[humid_setpoint] = [thermal_zone]
         else
@@ -211,18 +212,18 @@ module OsLib_AdvImport
       # dehumidifying setpoint
       dehum_setpoint = zone_hash[:design_cool_rh]
       unless dehum_setpoint.nil?
-        hash = 
+        hash =
           case occupied
           when false then dehum_setpoints_thermal_zones_hash
           when true then occ_dehum_setpoints_thermal_zones_hash
-          end        
+          end
         if hash[dehum_setpoint].nil?
           hash[dehum_setpoint] = [thermal_zone]
         else
           hash[dehum_setpoint] << thermal_zone
         end
       end
-        
+
     end
 
     # add hashes to hash
@@ -248,7 +249,7 @@ module OsLib_AdvImport
       setpoint_thermal_zones.each do |htg_setpoint_degF, thermal_zones_array|
         # puts '', htg_setpoint_degF, thermal_zones_array.size
         htg_setpoint_degC = OpenStudio.convert(htg_setpoint_degF, 'F', 'C').get
-        
+
         # schedule
         htg_sch = make_setpoint_schedule(model, setpoint: htg_setpoint_degC, type: setpoint_type, subtype: 'Heating')
 
@@ -265,7 +266,7 @@ module OsLib_AdvImport
       setpoint_thermal_zones.each do |htg_setpoint_degF, thermal_zones_array|
         # puts '', htg_setpoint_degF, thermal_zones_array.size
         htg_setpoint_degC = OpenStudio.convert(htg_setpoint_degF, 'F', 'C').get
-        
+
         # schedule
         htg_sch = make_setpoint_schedule(model, setpoint: htg_setpoint_degC, type: setpoint_type, subtype: 'Heating')
 
@@ -279,14 +280,14 @@ module OsLib_AdvImport
     end
 
     # cooling
-    setpoints_thermal_zones_hash[:design_cool_t].each do |setpoint_thermal_zones| 
+    setpoints_thermal_zones_hash[:design_cool_t].each do |setpoint_thermal_zones|
       setpoint_thermal_zones.each do |clg_setpoint_degF, thermal_zones_array|
         # puts '', clg_setpoint_degF, thermal_zones_array.size
         clg_setpoint_degC = OpenStudio.convert(clg_setpoint_degF, 'F', 'C').get
 
         # schedule
         clg_sch = make_setpoint_schedule(model, setpoint: clg_setpoint_degC, type: setpoint_type, subtype: 'Cooling')
-        
+
         # thermostat
         thermal_zones_array.each do |thermal_zone|
           make_thermostat(thermal_zone, clg_sch, setpoint: clg_setpoint_degC, subtype: 'Cooling')
@@ -296,11 +297,11 @@ module OsLib_AdvImport
     end
 
     # cooling, occupied
-    setpoints_thermal_zones_hash[:design_cool_t_occ].each do |setpoint_thermal_zones| 
+    setpoints_thermal_zones_hash[:design_cool_t_occ].each do |setpoint_thermal_zones|
       setpoint_thermal_zones.each do |clg_setpoint_degF, thermal_zones_array|
         # puts '', clg_setpoint_degF, thermal_zones_array.size
         clg_setpoint_degC = OpenStudio.convert(clg_setpoint_degF, 'F', 'C').get
-        
+
         # schedule
         clg_sch = make_setpoint_schedule(model, setpoint: clg_setpoint_degC, type: setpoint_type, subtype: 'Cooling')
 
@@ -326,10 +327,10 @@ module OsLib_AdvImport
       thermostat = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(thermal_zone.model)
       thermal_zone.setThermostatSetpointDualSetpoint(thermostat)
     end
-    # puts "#{thermal_zone.name} = #{htg_sch.name}" 
+    # puts "#{thermal_zone.name} = #{htg_sch.name}"
 
     if people_schedule
-      setback = 
+      setback =
         case subtype
         when 'Heating' then setpoint - OpenStudio.convert(5.0, 'R', 'K').get
         when 'Cooling' then setpoint + OpenStudio.convert(5.0, 'R', 'K').get
@@ -345,13 +346,13 @@ module OsLib_AdvImport
 
   # adds a setpoint schedule to model
   def self.make_setpoint_schedule(model, setpoint:, type:, subtype:)
-      
+
     options = { 'name' => "#{subtype} Setpoint Schedule",
                 'default_day' => ["#{subtype} Setpoint Default Day Schedule", [24.0, setpoint]],
                 'winter_design_day' => [[24.0, setpoint]],
                 'summer_design_day' => [[24.0, setpoint]] }
     schedule = OsLib_Schedules.createComplexSchedule(model, options)
-    
+
     unless type == 'relative_humidity'
       if model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').is_initialized
         schedule.setScheduleTypeLimits(model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').get)
@@ -364,7 +365,7 @@ module OsLib_AdvImport
 
   # adds setpoint schedules and humidistats to model
   def self.make_thermal_zone_humidistats(model, setpoints_thermal_zones_hash)
-  
+
     setpoint_type = 'relative_humidity'
 
     # humidifying
@@ -380,7 +381,7 @@ module OsLib_AdvImport
         thermal_zones_array.each do |thermal_zone|
           make_humidstat(thermal_zone, setpoint_schedule, setpoint: humid_setpoint, subtype: 'Humidifying')
         end
-      
+
       end
     end
 
@@ -396,9 +397,9 @@ module OsLib_AdvImport
         # humidistat
         thermal_zones_array.each do |thermal_zone|
           people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
-          make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying', people_schedule: people_schedule)            
+          make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying', people_schedule: people_schedule)
         end
-      
+
       end
     end
 
@@ -415,7 +416,7 @@ module OsLib_AdvImport
         thermal_zones_array.each do |thermal_zone|
           make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying')
         end
-      
+
       end
     end
 
@@ -431,9 +432,9 @@ module OsLib_AdvImport
         # humidistat
         thermal_zones_array.each do |thermal_zone|
           people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
-          make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying', people_schedule: people_schedule)            
+          make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying', people_schedule: people_schedule)
         end
-      
+
       end
     end
 
@@ -452,7 +453,7 @@ module OsLib_AdvImport
     end
 
     if people_schedule
-      setback = 
+      setback =
         case subtype
         when 'Humidifying' then 0.0
         when 'Dehumidifying' then 100.0
@@ -661,10 +662,10 @@ module OsLib_AdvImport
   def self.assign_zone_attributes(runner, model, zones)
 
     setpoints_thermal_zones_hash = setpoints_thermal_zones_hash(model, zones)
-    
+
     make_thermal_zone_thermostats(model, setpoints_thermal_zones_hash)
     make_thermal_zone_humidistats(model, setpoints_thermal_zones_hash)
-    
+
     # modified_zones = {}
     # zones.each do |id, zone_data|
 
@@ -819,89 +820,91 @@ module OsLib_AdvImport
     # loop through and add schedules
     new_schedules = {}
 
+    # puts "Schedule data: #{schedules}"
+    # puts "Week Schedule data: #{week_schedules}"
+    # puts "Day Schedule data: #{day_schedules}"
+
     # process schedule data
     schedules.each do |id, schedule_data|
 
       # get schedule name
-      if schedule_data['name'].nil?
+      if schedule_data[:name].nil?
         ruleset_name = id
       else
-        ruleset_name = schedule_data['name']
+        ruleset_name = schedule_data[:name]
       end
-      date_range = '1/1-12/31'
-      # winter_design_day = nil
-      # summer_design_day = nil
+
+      winter_design_day = nil
+      summer_design_day = nil
       default_day = nil
+      holiday_day = nil
       rules = []
 
-      # get WeekSchedule
-      week_schs = week_schedules[schedule_data['sch_week']]
+      schedule_data[:year_schedules].each do |year_id, year_data|
+        # get week schedule
+        week_schedule = week_schedules[year_data[:week_schedule_id_ref]]
 
-      # loop through dayTypes
-      week_schs.each do |day_type,day_obj|
+        # get begin/end days as MM/DD
+        beg_date = DateTime.parse(year_data[:beg_date]).strftime("%m/%d")
+        end_date = DateTime.parse(year_data[:end_date]).strftime("%m/%d")
 
-        # get associated dayType items
-        time_value_array_raw = []
-        day_schedules[day_obj].each_with_index do  |value,i|
-          time_value_array_raw << [i+1,value]
-        end
+        date_range = [beg_date, end_date].join('-')
 
-        # clean up excess values
-        time_value_array = []
-        last_val = nil
-        time_value_array_raw.reverse.each do |time_val|
-          if last_val.nil?
-            time_value_array << time_val
-          elsif last_val != time_val[1]
-            time_value_array << time_val
+        # loop through dayTypes
+        week_schedule.each do |day_type, day_obj|
+
+          # get associated dayType items
+          time_value_array_raw = []
+          day_schedules[day_obj].each_with_index do  |value,i|
+            time_value_array_raw << [i+1,value]
           end
-          last_val = time_val[1]
+
+          # clean up excess values
+          time_value_array = []
+          last_val = nil
+          time_value_array_raw.reverse.each do |time_val|
+            if last_val.nil?
+              time_value_array << time_val
+            elsif last_val != time_val[1]
+              time_value_array << time_val
+            end
+            last_val = time_val[1]
+          end
+          time_value_array = time_value_array.reverse
+
+          # parse dayType attribute
+          case day_type
+          when 'HeatingDesignDay'
+            option['winter_design_day'].nil? ? options['winter_design_day'] = time_value_array : runner.registerWarning("Winter design day already defined for Schedule #{ruleset_name}")
+            # days = "HDD"
+          when 'CoolingDesignDay'
+            option['cooling_design_day'].nil? ? options['summer_design_day'] = time_value_array : runner.registerWarning("Summer design day already defined for Schedule #{ruleset_name}")
+            days = "CDD"
+          when 'Holiday'
+            options['holiday_day'].nil? ? options['holiday_day'] = time_value_array : runner.registerWarning("Holiday day already defined for Schedule #{ruleset_name}")
+          when 'Weekday'
+            days = 'Mon/Tue/Wed/Thu/Fri'
+          when 'Weekend'
+            days = 'Sat/Sun'
+          when 'WeekendOrHoliday'
+            days = 'Sat/Sun/Hol'
+          when 'Custom'
+            days = 'Custom' # TODO
+          when 'All'
+            days = 'Mon/Tue/Wed/Thu/Fri/Sat/Sun'
+          else
+            days = day_type
+          end
+
+          rules << [year_data[:week_schedule_id_ref], date_range, days] + time_value_array
         end
-        time_value_array = time_value_array.reverse
-
-        # create default profile, rule, or design day #
-        days = BuildingTypeHelper.create_prefix_day_array(building_type)
-
-        prefix_array = [day_type, date_range, days]
-        rules << prefix_array + time_value_array
-      end
-
-      if BuildingTypeHelper.is_on_6_days(building_type)
-        prefix_array = ["Sun", "1/1-12/31", "Sun"]
-        time_value_array = [[7, 0.0], [9, 0.1], [13, 0.2], [16, 0.1], [24, 0.0]]
-        rules << prefix_array + time_value_array
-      elsif BuildingTypeHelper.is_on_5_days(building_type)
-        prefix_array = ["Sun", "1/1-12/31", "Sun"]
-        time_value_array = [[24, 0.0]]
-        rules << prefix_array + time_value_array
-
-        prefix_array = ["Sat", "1/1-12/31", "Sat"]
-        time_value_array = [[7, 0.0], [9, 0.1], [13, 0.2], [16, 0.1], [24, 0.0]]
-        rules << prefix_array + time_value_array
-      end
-
-      if building_type == "SchoolOrUniversity"
-        prefix_array = ["January Break", "1/1-1/5", "Sun/Mon/Tue/Wed/Thu/Fri/Sat"]
-        time_value_array = [[24, 0.0]]
-        rules << prefix_array + time_value_array
-
-        prefix_array = ["Spring Break", "4/4-4/13", "Sun/Mon/Tue/Wed/Thu/Fri/Sat"]
-        time_value_array = [[24, 0.0]]
-        rules << prefix_array + time_value_array
-
-        prefix_array = ["Summer Break", "6/9-8/24", "Sun/Mon/Tue/Wed/Thu/Fri/Sat"]
-        time_value_array = [[24, 0.0]]
-        rules << prefix_array + time_value_array
-
-        prefix_array = ["Winter Break", "12/16-12/31", "Sun/Mon/Tue/Wed/Thu/Fri/Sat"]
-        time_value_array = [[24, 0.0]]
-        rules << prefix_array + time_value_array
       end
 
       # populate schedule using schedule_data to update default profile and add rules to complex schedule
       options = { 'name' => ruleset_name,
-                  # 'winter_design_day' => winter_design_day,
-                  # 'summer_design_day' => summer_design_day,
+                  'winter_design_day' => winter_design_day,
+                  'summer_design_day' => summer_design_day,
+                  'holiday_day' => holiday_day,
                   'default_day' => default_day,
                   'rules' => rules }
 

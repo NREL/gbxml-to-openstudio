@@ -322,6 +322,62 @@ class AdvancedImportGbxml_Test < Minitest::Test
     assert(data_fields_equal?(cooling_day, cooling_default_day))
   end
 
+  def test_annual_schedule
+    # create instance of measure
+    measure = AdvancedImportGbxml.new
+
+    # create runner with empty OSW
+    osw = OpenStudio::WorkflowJSON.new
+    runner = OpenStudio::Measure::OSRunner.new(osw)
+
+    # locate the gbxml
+    path = OpenStudio::Path.new(File.dirname(__FILE__) + '/gbxml - on -peoplehalftime.xml')
+
+    # use model from gbXML instead of empty model
+    translator = OpenStudio::GbXML::GbXMLReverseTranslator.new
+    model = translator.loadModel(path).get
+
+    # get arguments
+    arguments = measure.arguments(model)
+    argument_map = OpenStudio::Measure.convertOSArgumentVectorToMap(arguments)
+
+    # create hash of argument values
+    # If the argument has a default that you want to use, you don't need it in the hash
+    args_hash = {}
+    args_hash['gbxml_file_name'] = path.to_s
+    
+    # populate argument with specified hash value if specified
+    arguments.each do |arg|
+      temp_arg_var = arg.clone
+      if args_hash.has_key?(arg.name)
+        assert(temp_arg_var.setValue(args_hash[arg.name]))
+      end
+      argument_map[arg.name] = temp_arg_var
+    end
+
+    puts argument_map
+    # run the measure
+    measure.run(model, runner, argument_map)
+    result = runner.result
+
+    # show the output
+    show_output(result)
+
+    # assert that it ran correctly
+    assert_equal('Success', result.value.valueName)
+
+    # save the model to test output directory
+    output_file_path = OpenStudio::Path.new(File.dirname(__FILE__) + '/output/test_annual_schedule.osm')
+    model.save(output_file_path, true)
+
+    sch = model.getScheduleRulesetByName("halftimeschedule").get
+    puts sch
+    puts sch.defaultDaySchedule
+    puts sch.summerDesignDaySchedule
+    puts sch.winterDesignDaySchedule
+    sch.scheduleRules.each { |rule| puts rule}  
+  end
+
   def data_fields_equal?(obj1, obj2)
     if obj1.iddObjectType.valueName != obj2.iddObjectType.valueName
       return false
