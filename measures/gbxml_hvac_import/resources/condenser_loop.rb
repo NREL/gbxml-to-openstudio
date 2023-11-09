@@ -15,6 +15,12 @@ class CondenserLoop < HVACObject
     plant_loop.set_id(xml.attributes['id']) unless xml.attributes['id'].nil?
     plant_loop.set_cad_object_id(xml.elements['CADObjectId'].text) unless xml.elements['CADObjectId'].nil?
 
+    # add heating for vrf loop
+    vrf_loop_refs = plant_loop.model_manager.gbxml_parser.gbxml.get_elements("HydronicLoopId[@hydronicLoopIdRef='#{plant_loop.id}']")
+    unless vrf_loop_refs.nil?
+      plant_loop.set_has_heating(true)
+    end
+
     plant_loop
   end
 
