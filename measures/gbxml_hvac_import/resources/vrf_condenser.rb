@@ -45,31 +45,31 @@ class VRFCondenser < HVACObject
       self.condenser.setCondenserType('WaterCooled')
       self.condenser_loop.plant_loop.addDemandBranchForComponent(self.condenser) if self.condenser_loop
 
-      # # comment this out to test with AC curves
-      # self.condenser.setCoolingCapacityRatioModifierFunctionofLowTemperatureCurve(wc_clg_cap_f_temp_low)
-      # self.condenser.setCoolingCapacityRatioBoundaryCurve(wc_clg_cap_boundary)
-      # self.condenser.setCoolingCapacityRatioModifierFunctionofHighTemperatureCurve(wc_clg_cap_f_temp_high)
-      # self.condenser.setCoolingEnergyInputRatioModifierFunctionofLowTemperatureCurve(wc_clg_eir_f_temp_low)
-      # self.condenser.setCoolingEnergyInputRatioBoundaryCurve(wc_clg_eir_boundary)
-      # self.condenser.setCoolingEnergyInputRatioModifierFunctionofHighTemperatureCurve(wc_clg_eir_f_temp_high)
-      # self.condenser.setCoolingEnergyInputRatioModifierFunctionofLowPartLoadRatioCurve(wc_clg_eir_f_plr_low)
-      # self.condenser.setCoolingEnergyInputRatioModifierFunctionofHighPartLoadRatioCurve(wc_clg_eir_f_plr_high)
-      # self.condenser.setCoolingCombinationRatioCorrectionFactorCurve(wc_clg_comb_ratio_corr)
-      # self.condenser.setCoolingPartLoadFractionCorrelationCurve(wc_clg_plf_corr)
-      # self.condenser.setMinimumHeatPumpPartLoadRatio(0.2)
-      # self.condenser.setPipingCorrectionFactorforLengthinCoolingModeCurve(wc_clg_piping_length_corr)
-      # self.condenser.setHeatingCapacityRatioModifierFunctionofLowTemperatureCurve(wc_htg_cap_f_temp_low)
-      # self.condenser.setHeatingCapacityRatioBoundaryCurve(wc_htg_cap_boundary)
-      # self.condenser.setHeatingCapacityRatioModifierFunctionofHighTemperatureCurve(wc_htg_cap_f_temp_high)
-      # self.condenser.setHeatingEnergyInputRatioModifierFunctionofLowTemperatureCurve(wc_htg_eir_f_temp_low)
-      # self.condenser.setHeatingEnergyInputRatioBoundaryCurve(wc_htg_eir_boundary)
-      # self.condenser.setHeatingEnergyInputRatioModifierFunctionofHighTemperatureCurve(wc_htg_eir_f_temp_high)
-      # self.condenser.setHeatingEnergyInputRatioModifierFunctionofLowPartLoadRatioCurve(wc_htg_eir_f_plr_low)
-      # self.condenser.setHeatingEnergyInputRatioModifierFunctionofHighPartLoadRatioCurve(wc_htg_eir_f_plr_high)
-      # self.condenser.setHeatingCombinationRatioCorrectionFactorCurve(wc_htg_comb_ratio_corr)
-      # self.condenser.setHeatingPartLoadFractionCorrelationCurve(wc_htg_plf_corr)
-      # self.condenser.setDefrostEnergyInputRatioModifierFunctionofTemperatureCurve(wc_htg_defrost)
-      # self.condenser.setPipingCorrectionFactorforLengthinHeatingModeCurve(wc_htg_piping_length_corr)
+      # comment this out to test with AC curves
+      self.condenser.setCoolingCapacityRatioModifierFunctionofLowTemperatureCurve(wc_clg_cap_f_temp_low)
+      self.condenser.setCoolingCapacityRatioBoundaryCurve(wc_clg_cap_boundary)
+      self.condenser.setCoolingCapacityRatioModifierFunctionofHighTemperatureCurve(wc_clg_cap_f_temp_high)
+      self.condenser.setCoolingEnergyInputRatioModifierFunctionofLowTemperatureCurve(wc_clg_eir_f_temp_low)
+      self.condenser.setCoolingEnergyInputRatioBoundaryCurve(wc_clg_eir_boundary)
+      self.condenser.setCoolingEnergyInputRatioModifierFunctionofHighTemperatureCurve(wc_clg_eir_f_temp_high)
+      self.condenser.setCoolingEnergyInputRatioModifierFunctionofLowPartLoadRatioCurve(wc_clg_eir_f_plr_low)
+      self.condenser.setCoolingEnergyInputRatioModifierFunctionofHighPartLoadRatioCurve(wc_clg_eir_f_plr_high)
+      self.condenser.setCoolingCombinationRatioCorrectionFactorCurve(wc_clg_comb_ratio_corr)
+      self.condenser.setCoolingPartLoadFractionCorrelationCurve(wc_clg_plf_corr)
+      self.condenser.setMinimumHeatPumpPartLoadRatio(0.2)
+      self.condenser.setPipingCorrectionFactorforLengthinCoolingModeCurve(wc_clg_piping_length_corr)
+      self.condenser.setHeatingCapacityRatioModifierFunctionofLowTemperatureCurve(wc_htg_cap_f_temp_low)
+      self.condenser.setHeatingCapacityRatioBoundaryCurve(wc_htg_cap_boundary)
+      self.condenser.setHeatingCapacityRatioModifierFunctionofHighTemperatureCurve(wc_htg_cap_f_temp_high)
+      self.condenser.setHeatingEnergyInputRatioModifierFunctionofLowTemperatureCurve(wc_htg_eir_f_temp_low)
+      self.condenser.setHeatingEnergyInputRatioBoundaryCurve(wc_htg_eir_boundary)
+      self.condenser.setHeatingEnergyInputRatioModifierFunctionofHighTemperatureCurve(wc_htg_eir_f_temp_high)
+      self.condenser.setHeatingEnergyInputRatioModifierFunctionofLowPartLoadRatioCurve(wc_htg_eir_f_plr_low)
+      self.condenser.setHeatingEnergyInputRatioModifierFunctionofHighPartLoadRatioCurve(wc_htg_eir_f_plr_high)
+      self.condenser.setHeatingCombinationRatioCorrectionFactorCurve(wc_htg_comb_ratio_corr)
+      self.condenser.setHeatingPartLoadFractionCorrelationCurve(wc_htg_plf_corr)
+      self.condenser.setDefrostEnergyInputRatioModifierFunctionofTemperatureCurve(wc_htg_defrost)
+      self.condenser.setPipingCorrectionFactorforLengthinHeatingModeCurve(wc_htg_piping_length_corr)
 
       # uncomment to test with AC curves
       self.condenser.coolingEnergyInputRatioModifierFunctionofLowPartLoadRatioCurve.get.to_CurveCubic.get.setMinimumValueofx(self.condenser.minimumHeatPumpPartLoadRatio)
@@ -110,7 +110,7 @@ class VRFCondenser < HVACObject
     min_y_f = 50.0
     max_y_f = 85.0
 
-    return Curves.create_curve_biquadratic(self.model,
+    return Curves.make_curve_biquadratic(self.model,
                                            coeffs_si,
                                            "WSVRF_ClgCapFTempLow",
                                            OpenStudio.convert(min_x_f,'F','C').get,
@@ -136,7 +136,7 @@ class VRFCondenser < HVACObject
     min_y_f = 90.0
     max_y_f = 110.0
 
-    return Curves.create_curve_biquadratic(self.model,
+    return Curves.make_curve_biquadratic(self.model,
                                            coeffs_si,
                                            "WSVRF_ClgCapFTempHigh",
                                            OpenStudio.convert(min_x_f,'F','C').get,
@@ -155,7 +155,7 @@ class VRFCondenser < HVACObject
     min_x_f = 59
     max_x_f = 75
 
-    return Curves.create_curve_cubic(self.model,
+    return Curves.make_curve_cubic(self.model,
                                      coeffs_si,
                                      "WSVRF_ClgCapBoundary",
                                      OpenStudio.convert(min_x_f,'F','C').get,
@@ -179,7 +179,7 @@ class VRFCondenser < HVACObject
     min_y_f = 50.0
     max_y_f = 85.0
 
-    return Curves.create_curve_biquadratic(self.model,
+    return Curves.make_curve_biquadratic(self.model,
                                            coeffs_si,
                                            "WSVRF_ClgEIRFTempLow",
                                            OpenStudio.convert(min_x_f,'F','C').get,
@@ -205,7 +205,7 @@ class VRFCondenser < HVACObject
     min_y_f = 90.0
     max_y_f = 110.0
 
-    return Curves.create_curve_biquadratic(self.model,
+    return Curves.make_curve_biquadratic(self.model,
                                            coeffs_si,
                                            "WSVRF_ClgEIRFTempHigh",
                                            OpenStudio.convert(min_x_f,'F','C').get,
@@ -224,7 +224,7 @@ class VRFCondenser < HVACObject
     min_x_f = 59
     max_x_f = 75
 
-    return Curves.create_curve_cubic(self.model,
+    return Curves.make_curve_cubic(self.model,
                                      coeffs_si,
                                      "WSVRF_ClgEIRBoundary",
                                      OpenStudio.convert(min_x_f,'F','C').get,
@@ -242,7 +242,7 @@ class VRFCondenser < HVACObject
     min_x = 0.2
     max_x = 1.0
 
-    return Curves.create_curve_cubic(self.model,
+    return Curves.make_curve_cubic(self.model,
                                            coeffs,
                                            "WSVRF_ClgEIRFPLRLow",
                                            min_x,
@@ -257,7 +257,7 @@ class VRFCondenser < HVACObject
     min_x = 1.0
     max_x = 1.5
 
-    return Curves.create_curve_cubic(self.model,
+    return Curves.make_curve_cubic(self.model,
                                            coeffs,
                                            "WSVRF_ClgEIRFPLRHigh",
                                            min_x,
@@ -269,7 +269,7 @@ class VRFCondenser < HVACObject
       1,0
     ]
 
-    return Curves.create_curve_linear(self.model, coeffs, "WSVRF_ClgCombRatioCorrection",100,150)
+    return Curves.make_curve_linear(self.model, coeffs, "WSVRF_ClgCombRatioCorrection",100,150)
   end
 
   def wc_clg_plf_corr
@@ -277,7 +277,7 @@ class VRFCondenser < HVACObject
       0.85, 0.15, 0
     ]
 
-    return Curves.create_curve_quadratic(self.model, coeffs, "WSVRF_ClgPLFCorrection")
+    return Curves.make_curve_quadratic(self.model, coeffs, "WSVRF_ClgPLFCorrection")
   end
 
   def wc_clg_piping_length_corr
@@ -292,7 +292,7 @@ class VRFCondenser < HVACObject
     min_y = 0
     max_y = 100
 
-    return Curves.create_curve_biquadratic(self.model,
+    return Curves.make_curve_biquadratic(self.model,
                                            coeffs_si,
                                            "WCVRF_ClgPipingCorrection",
                                            OpenStudio.convert(min_x_ft,"ft","m").get,
@@ -318,7 +318,7 @@ class VRFCondenser < HVACObject
     min_y_f = 50.0
     max_y_f = 60.0
 
-    return Curves.create_curve_biquadratic(self.model,
+    return Curves.make_curve_biquadratic(self.model,
                                            coeffs_si,
                                            "WSVRF_HtgCapFTempLow",
                                            OpenStudio.convert(min_x_f,'F','C').get,
@@ -344,7 +344,7 @@ class VRFCondenser < HVACObject
     min_y_f = 65.0
     max_y_f = 110.0
 
-    return Curves.create_curve_biquadratic(self.model,
+    return Curves.make_curve_biquadratic(self.model,
                                            coeffs_si,
                                            "WSVRF_HtgCapFTempHigh",
                                            OpenStudio.convert(min_x_f,'F','C').get,
@@ -363,7 +363,7 @@ class VRFCondenser < HVACObject
     min_x_f = 59
     max_x_f = 79
 
-    return Curves.create_curve_cubic(self.model,
+    return Curves.make_curve_cubic(self.model,
                                      coeffs_si,
                                      "WSVRF_HtgCapBoundary",
                                      OpenStudio.convert(min_x_f,'F','C').get,
@@ -387,7 +387,7 @@ class VRFCondenser < HVACObject
     min_y_f = 50.0
     max_y_f = 60.0
 
-    return Curves.create_curve_biquadratic(self.model,
+    return Curves.make_curve_biquadratic(self.model,
                                            coeffs_si,
                                            "WSVRF_HtgEIRFTempLow",
                                            OpenStudio.convert(min_x_f,'F','C').get,
@@ -413,7 +413,7 @@ class VRFCondenser < HVACObject
     min_y_f = 65.0
     max_y_f = 110.0
 
-    return Curves.create_curve_biquadratic(self.model,
+    return Curves.make_curve_biquadratic(self.model,
                                            coeffs_si,
                                            "WSVRF_HtgEIRFTempHigh",
                                            OpenStudio.convert(min_x_f,'F','C').get,
@@ -432,7 +432,7 @@ class VRFCondenser < HVACObject
     min_x_f = 59
     max_x_f = 75
 
-    return Curves.create_curve_cubic(self.model,
+    return Curves.make_curve_cubic(self.model,
                                      coeffs_si,
                                      "WSVRF_HtgEIRBoundary",
                                      OpenStudio.convert(min_x_f,'F','C').get,
@@ -450,7 +450,7 @@ class VRFCondenser < HVACObject
     min_x = 0.2
     max_x = 1.0
 
-    return Curves.create_curve_cubic(self.model,
+    return Curves.make_curve_cubic(self.model,
                                            coeffs,
                                            "WSVRF_HtgEIRFPLRLow",
                                            min_x,
@@ -465,7 +465,7 @@ class VRFCondenser < HVACObject
     min_x = 1.0
     max_x = 1.5
 
-    return Curves.create_curve_cubic(self.model,
+    return Curves.make_curve_cubic(self.model,
                                            coeffs,
                                            "WSVRF_HtgEIRFPLRHigh",
                                            min_x,
@@ -477,7 +477,7 @@ class VRFCondenser < HVACObject
       1,0,0,0
     ]
 
-    return Curves.create_curve_cubic(self.model, coeffs, "WSVRF_HtgCombRatioCorrection",0,100)
+    return Curves.make_curve_cubic(self.model, coeffs, "WSVRF_HtgCombRatioCorrection",0,100)
   end
 
   def wc_htg_plf_corr
@@ -485,7 +485,7 @@ class VRFCondenser < HVACObject
       0.85, 0.15, 0
     ]
 
-    return Curves.create_curve_quadratic(self.model, coeffs, "WSVRF_HtgPLFCorrection")
+    return Curves.make_curve_quadratic(self.model, coeffs, "WSVRF_HtgPLFCorrection")
   end
 
   def wc_htg_piping_length_corr
@@ -498,7 +498,7 @@ class VRFCondenser < HVACObject
     min_x_ft = 0
     max_x_ft = 600
 
-    return Curves.create_curve_cubic(self.model,
+    return Curves.make_curve_cubic(self.model,
                                      coeffs_si,
                                      "WCVRF_HtgPipingCorrection",
                                      OpenStudio.convert(min_x_ft,"ft","m").get,
@@ -516,7 +516,7 @@ class VRFCondenser < HVACObject
     min_y_f = 64.0
     max_y_f = 104.0
 
-    return Curves.create_curve_biquadratic(self.model,
+    return Curves.make_curve_biquadratic(self.model,
                                            coeffs_si,
                                            "WSVRF_HtgDefrostEIRfTemp",
                                            OpenStudio.convert(min_x_f,'F','C').get,
