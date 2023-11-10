@@ -72,8 +72,8 @@ class VRFCondenser < HVACObject
       self.condenser.setPipingCorrectionFactorforLengthinHeatingModeCurve(wc_htg_piping_length_corr)
 
       # uncomment to test with AC curves
-      self.condenser.coolingEnergyInputRatioModifierFunctionofLowPartLoadRatioCurve.get.to_CurveCubic.get.setMinimumValueofx(self.condenser.minimumHeatPumpPartLoadRatio)
-      self.condenser.heatingEnergyInputRatioModifierFunctionofLowPartLoadRatioCurve.get.to_CurveCubic.get.setMinimumValueofx(self.condenser.minimumHeatPumpPartLoadRatio)
+      # self.condenser.coolingEnergyInputRatioModifierFunctionofLowPartLoadRatioCurve.get.to_CurveCubic.get.setMinimumValueofx(self.condenser.minimumHeatPumpPartLoadRatio)
+      # self.condenser.heatingEnergyInputRatioModifierFunctionofLowPartLoadRatioCurve.get.to_CurveCubic.get.setMinimumValueofx(self.condenser.minimumHeatPumpPartLoadRatio)
     else
       # air-cooled vrf
       # align EIRfPLR curve with heat pump min PLR
