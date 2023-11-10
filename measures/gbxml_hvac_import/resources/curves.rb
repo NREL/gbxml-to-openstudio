@@ -1,7 +1,7 @@
 # Helper module for curve creation
 module Curves
 
-  def self.create_curve_linear(model, coeffs, name, min_x, max_x, min_out=nil, max_out=nil)
+  def self.make_curve_linear(model, coeffs, name, min_x, max_x, min_out=nil, max_out=nil)
     curve = OpenStudio::Model::CurveLinear.new(model)
     curve.setName(name)
     curve.setCoefficient1Constant(coeffs[0])
@@ -13,7 +13,7 @@ module Curves
     return curve
   end
 
-  def self.create_curve_quad_linear(model, coeffs, name, min_w, max_w, min_x, max_x, min_y, max_y, min_z, max_z)
+  def self.make_curve_quad_linear(model, coeffs, name, min_w, max_w, min_x, max_x, min_y, max_y, min_z, max_z)
     curve = OpenStudio::Model::CurveQuadLinear.new(model)
     curve.setName(name)
     curve.setCoefficient1Constant(coeffs[0])
@@ -32,7 +32,7 @@ module Curves
     return curve
   end
 
-  def self.create_curve_quint_linear(model, coeffs, name, min_v, max_v, min_w, max_w, min_x, max_x, min_y, max_y, min_z, max_z)
+  def self.make_curve_quint_linear(model, coeffs, name, min_v, max_v, min_w, max_w, min_x, max_x, min_y, max_y, min_z, max_z)
     curve = OpenStudio::Model::CurveQuintLinear.new(model)
     curve.setName(name)
     curve.setCoefficient1Constant(coeffs[0])
@@ -54,7 +54,7 @@ module Curves
     return curve
   end
 
-  def self.create_curve_cubic(model, coeffs, name, min_x, max_x, min_out=nil, max_out=nil)
+  def self.make_curve_cubic(model, coeffs, name, min_x, max_x, min_out=nil, max_out=nil)
     curve = OpenStudio::Model::CurveCubic.new(model)
     curve.setName(name)
     curve.setCoefficient1Constant(coeffs[0])
@@ -68,7 +68,7 @@ module Curves
     return curve
   end
 
-  def self.create_curve_biquadratic(model, coeffs, name, min_x, max_x, min_y=nil, max_y=nil, min_out=nil, max_out=nil)
+  def self.make_curve_biquadratic(model, coeffs, name, min_x, max_x, min_y=nil, max_y=nil, min_out=nil, max_out=nil)
     curve = OpenStudio::Model::CurveBiquadratic.new(model)
     curve.setName(name)
     curve.setCoefficient1Constant(coeffs[0])
@@ -86,7 +86,7 @@ module Curves
     return curve
   end
 
-  def self.create_curve_quadratic(model, coeffs, name, min_x=nil, max_x=nil, min_out=nil, max_out=nil)
+  def self.make_curve_quadratic(model, coeffs, name, min_x=nil, max_x=nil, min_out=nil, max_out=nil)
     curve = OpenStudio::Model::CurveQuadratic.new(model)
     curve.setName(name)
     curve.setCoefficient1Constant(coeffs[0])
@@ -100,7 +100,7 @@ module Curves
   end
 
 
-  # converts a set of biquadratic curve coefficients where the independent variables are 
+  # converts a set of biquadratic curve coefficients where the independent variables are
   # temperatures in F to coefficients where the independent variables are temperatures in C.
   def self.convert_biquadratic_temp_coeffs_ip_to_si(coeffs)
     coeffs_si = []
@@ -114,7 +114,7 @@ module Curves
     coeffs_si[1] = (coeffs[1] * 45 +
                     coeffs[2] * 2880 +
                     coeffs[5] * 1440)/25
-  
+
     coeffs_si[2] = (coeffs[2] * 81)/25
 
     coeffs_si[3] = (coeffs[3] * 45 +
@@ -128,7 +128,7 @@ module Curves
     return coeffs_si
   end
 
-  # converts a set of biquadratic curve coefficients where the independent variables are 
+  # converts a set of biquadratic curve coefficients where the independent variables are
   # temperatures in C to coefficients where the independent variables are temperatures in F.
   def self.convert_biquadratic_temp_coeffs_si_to_ip(coeffs)
     coeffs_ip = []
@@ -142,13 +142,13 @@ module Curves
     coeffs_ip[1] = (coeffs[1] * 45 +
                     coeffs[2] * 1600 +
                     coeffs[5] * 800)/81
-                  
+
     coeffs_ip[2] = (coeffs[2] * 25)/81
 
     coeffs_ip[3] = (coeffs[3] * 45 +
                     coeffs[4] * 1600 +
                     coeffs[5] * 800)/81
-      
+
     coeffs_ip[4] = (coeffs[4] * 25)/81
 
     coeffs_ip[5] = (coeffs[5] * 25)/81
