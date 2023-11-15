@@ -4,8 +4,7 @@ class TestVRFCondenser < Minitest::Test
   attr_accessor :model, :model_manager, :gbxml_path
 
   def before_setup
-    # self.gbxml_path = Config::GBXML_FILES + '/VRFAllVariations.xml'
-    self.gbxml_path = Config::GBXML_FILES + '/VRFAllVariations703.xml'
+    self.gbxml_path = Config::GBXML_FILES + '/VRFAllVariations.xml'
     translator = OpenStudio::GbXML::GbXMLReverseTranslator.new
     self.model = translator.loadModel(self.gbxml_path).get
     self.model_manager = ModelManager.new(self.model, self.gbxml_path)
@@ -30,12 +29,12 @@ class TestVRFCondenser < Minitest::Test
     self.model_manager.build
     self.model_manager.post_build
     ac_vrf = self.model_manager.vrf_loops.values[0].condenser
-    
+
     assert(ac_vrf.is_a?(OpenStudio::Model::AirConditionerVariableRefrigerantFlow))
     assert(ac_vrf.condenserType == "AirCooled")
     assert(ac_vrf.additionalProperties.getFeatureAsString('id').get == 'aim0956')
     assert(ac_vrf.additionalProperties.getFeatureAsString('CADObjectId').get == '280225')
-    
+
     wc_vrf = self.model_manager.vrf_loops.values[1].condenser
     puts wc_vrf
     cw_loop = self.model_manager.vrf_loops.values[1].condenser_loop
@@ -50,7 +49,7 @@ class TestVRFCondenser < Minitest::Test
   def create_osw
     # osw = create_test_sizing_osw
     osw = create_test_annual_osw
-    osw = adjust_gbxml_paths(osw, 'VRFAllVariations703.xml')
+    osw = adjust_gbxml_paths(osw, 'VRFAllVariations.xml')
     osw_in_path = Config::TEST_OUTPUT_PATH + '/vrf_condenser/in.osw'
     osw.saveAs(osw_in_path)
   end
