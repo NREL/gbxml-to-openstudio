@@ -23,7 +23,9 @@ jobs:
 
       - name: copy files from NREL/openstudio-common-measures-gem
         shell: bash
-        run: cp -r common/lib/measures measures && ls measures
+        run: |
+          cp -r common/lib/measures/ChangeBuildingLocation/* measures/ChangeBuildingLocation/
+          cp -r common/lib/measures/openstudio_results/* measures/openstudio_results/
 
       - name: upload files
         uses: actions/upload-artifact@v3
