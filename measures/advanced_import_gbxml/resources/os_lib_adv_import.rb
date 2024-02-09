@@ -834,6 +834,7 @@ module OsLib_AdvImport
         ruleset_name = schedule_data[:name]
       end
 
+      # initialized values for options hash
       winter_design_day = nil
       summer_design_day = nil
       default_day = nil
@@ -875,13 +876,16 @@ module OsLib_AdvImport
           # parse dayType attribute
           case day_type
           when 'HeatingDesignDay'
-            option['winter_design_day'].nil? ? options['winter_design_day'] = time_value_array : runner.registerWarning("Winter design day already defined for Schedule #{ruleset_name}")
-            # days = "HDD"
+            winter_design_day = time_value_array
+            runner.registerWarning("WinterDesignDaySchedule will be set to gbXML #{day_type} for ScheduleRuleset #{ruleset_name}")
+            days = "HDD"
           when 'CoolingDesignDay'
-            option['cooling_design_day'].nil? ? options['summer_design_day'] = time_value_array : runner.registerWarning("Summer design day already defined for Schedule #{ruleset_name}")
+            summer_design_day = time_value_array
+            runner.registerWarning("SummerDesignDaySchedule will be set to gbXML #{day_type} for ScheduleRuleset #{ruleset_name}")
             days = "CDD"
           when 'Holiday'
-            options['holiday_day'].nil? ? options['holiday_day'] = time_value_array : runner.registerWarning("Holiday day already defined for Schedule #{ruleset_name}")
+            holiday_day = time_value_array
+            runner.registerWarning("HolidaySchedule will be set to gbXML #{day_type} for ScheduleRuleset #{ruleset_name}")
           when 'Weekday'
             days = 'Mon/Tue/Wed/Thu/Fri'
           when 'Weekend'
@@ -899,6 +903,10 @@ module OsLib_AdvImport
           rules << [year_data[:week_schedule_id_ref], date_range, days] + time_value_array
         end
       end
+
+      # set design days if nil, which are needed for sizing
+      winter_design_day = [[24.0, 0.0]] if winter_design_day.nil?
+      summer_design_day = [[24.0, 1.0]] if summer_design_day.nil?
 
       # populate schedule using schedule_data to update default profile and add rules to complex schedule
       options = { 'name' => ruleset_name,
@@ -921,7 +929,13 @@ module OsLib_AdvImport
 
     # create whole building infiltration schedule
     # todo - update schedule to be non-constant
-    options = {'name' => "infil_bldg", 'default_day' => ["infil_bldg_default", [24.0, 1.0]]}
+    # the design days are set here to match old behavior. TODO remove and use openstudio-standards
+    options = {
+      'name' => "infil_bldg",
+      'default_day' => ["infil_bldg_default", [24.0, 1.0]],
+      'winter_design_day' => [[24.0, 0.0]],
+      'summer_design_day' => [[24.0, 1.0]]
+    }
     infil_bldg_sch = OsLib_Schedules.createComplexSchedule(model, options)
 
     # loop through and add schedule sets
