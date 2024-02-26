@@ -67,8 +67,15 @@
       }
     },
     {
-      "measure_dir_name": "gbxml_postprocess",
-      "name": "gbXML Postprocess",
+      "measure_dir_name": "gbxml_to_openstudio_cleanup",
+      "name": "gbxml_to_openstudio_cleanup",
+      "arguments": {
+        "__SKIP__": false
+      }
+    },
+    {
+      "measure_dir_name": "add_xml_output_control_style",
+      "name": "Add XML Output Control Style",
       "arguments": {
         "__SKIP__": false
       }
