@@ -9,7 +9,7 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPPRODUCTICON" Value="os.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="NREL"/>
-    <ROW Property="ProductCode" Value="1033:{367B68B9-19E7-4678-A09E-D01CFFD15295} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{DBEEEEA4-9166-44D9-B886-595FEEF4A3F9} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="OpenStudio CLI For Revit 2023"/>
     <ROW Property="ProductVersion" Value="1.1.8"/>
@@ -23,8 +23,6 @@
     <ROW Property="WindowsTypeNT50Display" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT5X" MultiBuildValue="DefaultBuild:Windows XP/2003" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT5XDisplay" MultiBuildValue="DefaultBuild:Windows XP/2003" ValueLocId="-"/>
-    <ROW Property="WindowsTypeNT60" MultiBuildValue="DefaultBuild:Windows Vista/Server 2008" ValueLocId="-"/>
-    <ROW Property="WindowsTypeNT60Display" MultiBuildValue="DefaultBuild:Windows Vista/Server 2008" ValueLocId="-"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
     <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
@@ -34,18 +32,20 @@
     <ROW Directory="_openstudio_results_1_Dir" Directory_Parent="run_6_Dir" DefaultDir="000_OP~1|000_openstudio_results"/>
     <ROW Directory="_openstudio_results_2_Dir" Directory_Parent="run_8_Dir" DefaultDir="000_OP~1|000_openstudio_results"/>
     <ROW Directory="_openstudio_results_Dir" Directory_Parent="run_3_Dir" DefaultDir="001_OP~1|001_openstudio_results"/>
+    <ROW Directory="add_xml_output_control_style_Dir" Directory_Parent="measures_Dir" DefaultDir="ADD_XM~1|add_xml_output_control_style"/>
     <ROW Directory="advanced_import_gbxml_Dir" Directory_Parent="measures_Dir" DefaultDir="ADVANC~1|advanced_import_gbxml"/>
     <ROW Directory="bin_Dir" Directory_Parent="APPDIR" DefaultDir="bin"/>
     <ROW Directory="build_Dir" Directory_Parent="resources_4_Dir" DefaultDir="build"/>
     <ROW Directory="canister_Dir" Directory_Parent="resources_4_Dir" DefaultDir="canister"/>
     <ROW Directory="config_Dir" Directory_Parent="systems_analysis_report_Dir" DefaultDir="config"/>
     <ROW Directory="docs_1_Dir" Directory_Parent="gbxml_hvac_import_Dir" DefaultDir="docs"/>
+    <ROW Directory="docs_2_Dir" Directory_Parent="gbxml_to_openstudio_cleanup_Dir" DefaultDir="docs"/>
     <ROW Directory="docs_3_Dir" Directory_Parent="set_simulation_control_Dir" DefaultDir="docs"/>
     <ROW Directory="docs_Dir" Directory_Parent="advanced_import_gbxml_Dir" DefaultDir="docs"/>
     <ROW Directory="eplusout_Dir" Directory_Parent="resources_4_Dir" DefaultDir="eplusout"/>
     <ROW Directory="gateways_Dir" Directory_Parent="eplusout_Dir" DefaultDir="gateways"/>
     <ROW Directory="gbxml_hvac_import_Dir" Directory_Parent="measures_Dir" DefaultDir="GBXML_~1|gbxml_hvac_import"/>
-    <ROW Directory="gbxml_postprocess_Dir" Directory_Parent="measures_Dir" DefaultDir="GBXML_~2|gbxml_postprocess"/>
+    <ROW Directory="gbxml_to_openstudio_cleanup_Dir" Directory_Parent="measures_Dir" DefaultDir="GBXML_~2|gbxml_to_openstudio_cleanup"/>
     <ROW Directory="gbxmls_Dir" Directory_Parent="APPDIR" DefaultDir="gbxmls"/>
     <ROW Directory="import_gbxml_Dir" Directory_Parent="measures_Dir" DefaultDir="IMPORT~1|import_gbxml"/>
     <ROW Directory="mappers_1_Dir" Directory_Parent="systems_analysis_report_Dir" DefaultDir="mappers"/>
@@ -96,9 +96,10 @@
     <ROW Directory="test_heating_only_Dir" Directory_Parent="output_Dir" DefaultDir="TEST_H~1|test_heating_only"/>
     <ROW Directory="tests_1_Dir" Directory_Parent="advanced_import_gbxml_Dir" DefaultDir="tests"/>
     <ROW Directory="tests_2_Dir" Directory_Parent="ChangeBuildingLocation_Dir" DefaultDir="tests"/>
+    <ROW Directory="tests_3_Dir" Directory_Parent="gbxml_to_openstudio_cleanup_Dir" DefaultDir="tests"/>
     <ROW Directory="tests_4_Dir" Directory_Parent="import_gbxml_Dir" DefaultDir="tests"/>
     <ROW Directory="tests_5_Dir" Directory_Parent="openstudio_results_Dir" DefaultDir="tests"/>
-    <ROW Directory="tests_Dir" Directory_Parent="gbxml_postprocess_Dir" DefaultDir="tests"/>
+    <ROW Directory="tests_Dir" Directory_Parent="add_xml_output_control_style_Dir" DefaultDir="tests"/>
     <ROW Directory="utilities_Dir" Directory_Parent="eplusout_Dir" DefaultDir="UTILIT~1|utilities"/>
     <ROW Directory="weather_Dir" Directory_Parent="APPDIR" DefaultDir="weather"/>
     <ROW Directory="workflows_Dir" Directory_Parent="APPDIR" DefaultDir="WORKFL~1|workflows"/>
@@ -109,8 +110,10 @@
     <ROW Component="CHANGELOG.md" ComponentId="{FAA52120-E712-4FB5-941D-5C31C57D0423}" Directory_="APPDIR" Attributes="0" KeyPath="CHANGELOG.md" Type="0"/>
     <ROW Component="Energy.idd" ComponentId="{58622122-BA85-428C-8B76-D87C9EA74E6B}" Directory_="EnergyPlus_Dir" Attributes="0" KeyPath="Energy.idd" Type="0"/>
     <ROW Component="ExpandObjects.exe" ComponentId="{10AE83EC-5C5D-4280-9B9B-4FB2C4411645}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="ExpandObjects.exe"/>
+    <ROW Component="LICENSE.md" ComponentId="{957B5F3C-535C-40E4-A0F7-6E1DAE82EC9C}" Directory_="add_xml_output_control_style_Dir" Attributes="0" KeyPath="LICENSE.md" Type="0"/>
     <ROW Component="LICENSE.md_1" ComponentId="{C139CF3D-AB00-4FDE-9303-AE2AE9D6D48C}" Directory_="advanced_import_gbxml_Dir" Attributes="0" KeyPath="LICENSE.md_1" Type="0"/>
     <ROW Component="LICENSE.md_2" ComponentId="{E16C6BBA-A7FF-4C3A-B97B-BBCE362EC28F}" Directory_="ChangeBuildingLocation_Dir" Attributes="0" KeyPath="LICENSE.md_2" Type="0"/>
+    <ROW Component="LICENSE.md_3" ComponentId="{44035C38-89AC-49D6-B239-6E1963C6C518}" Directory_="gbxml_to_openstudio_cleanup_Dir" Attributes="0" KeyPath="LICENSE.md_4" Type="0"/>
     <ROW Component="LICENSE.md_4" ComponentId="{668E9379-921A-4108-B06B-7F58C5FA0DB8}" Directory_="openstudio_results_Dir" Attributes="0" KeyPath="LICENSE.md_5" Type="0"/>
     <ROW Component="LICENSE.md_5" ComponentId="{3F62440D-C955-4DB0-9EA8-342EFDEBDB4F}" Directory_="set_simulation_control_Dir" Attributes="0" KeyPath="LICENSE.md_6" Type="0"/>
     <ROW Component="LICENSE.md_6" ComponentId="{64E73C54-73D8-4F8F-BDB9-0739B00B2DFA}" Directory_="systems_analysis_report_generat_Dir" Attributes="0" KeyPath="LICENSE.md_7" Type="0"/>
@@ -119,6 +122,7 @@
     <ROW Component="_SmallHotel_a.osm" ComponentId="{E7EB9F94-4F70-424D-BB1B-E6D083A9D3D5}" Directory_="tests_5_Dir" Attributes="0" KeyPath="_SmallHotel_a.osm" Type="0"/>
     <ROW Component="_SpacesOneZE.xml" ComponentId="{97E9BBA1-D15B-4841-87CE-48CCD3A9B295}" Directory_="tests_1_Dir" Attributes="0" KeyPath="_SpacesOneZE.xml" Type="0"/>
     <ROW Component="acb.rb" ComponentId="{5C372683-AB33-4031-A98D-451F7C4D2F03}" Directory_="resources_2_Dir" Attributes="0" KeyPath="acb.rb" Type="0"/>
+    <ROW Component="add_xml_output_control_style_test.rb" ComponentId="{F1ACC88C-D2D6-424D-BBC1-80FBB2059967}" Directory_="tests_Dir" Attributes="0" KeyPath="add_xml_output_control_style_test.rb" Type="0"/>
     <ROW Component="air_state_point.rb" ComponentId="{C0EC176D-FB12-4ABA-9413-A1DABB756264}" Directory_="models_1_Dir" Attributes="0" KeyPath="air_state_point.rb" Type="0"/>
     <ROW Component="air_state_point_mapper.rb" ComponentId="{4FF306CB-81CB-4E09-85FD-BA97E37D2F15}" Directory_="mappers_1_Dir" Attributes="0" KeyPath="air_state_point_mapper.rb" Type="0"/>
     <ROW Component="analysis.xml" ComponentId="{5FB643D2-9696-4CC9-9C20-F7673E7D1981}" Directory_="gbxmls_Dir" Attributes="0" KeyPath="analysis.xml" Type="0"/>
@@ -201,11 +205,12 @@
     <ROW Component="eplustbl.html_4" ComponentId="{B6FD79C4-580A-4F3A-BF75-6EC25F4D5B95}" Directory_="reports_4_Dir" Attributes="0" KeyPath="eplustbl.html_4" Type="0"/>
     <ROW Component="eplustbl.html_5" ComponentId="{0C11C3F0-828E-4940-AA83-F0D94BA7EEF3}" Directory_="reports_5_Dir" Attributes="0" KeyPath="eplustbl.html_5" Type="0"/>
     <ROW Component="epw.rb" ComponentId="{DF43344B-293D-41F3-91DC-875948E34C5E}" Directory_="resources_1_Dir" Attributes="0" KeyPath="epw.rb" Type="0"/>
+    <ROW Component="example_model.osm" ComponentId="{2B2D81D5-4F1A-4657-A8B2-B3FB9A86FD01}" Directory_="tests_3_Dir" Attributes="0" KeyPath="example_model.osm" Type="0"/>
     <ROW Component="gbXMLStandardTestModel2016.xml" ComponentId="{C056E21B-625B-4918-8B14-3E9E9E67C7A6}" Directory_="tests_4_Dir" Attributes="0" KeyPath="gbXMLStandardTestModel2016.xml_1" Type="0"/>
     <ROW Component="gbxml_hvac_import.rb" ComponentId="{A0D1C4F6-2BC6-4051-BD44-179E49F00299}" Directory_="gbxml_hvac_import_Dir" Attributes="0" KeyPath="gbxml_hvac_import.rb" Type="0"/>
-    <ROW Component="gbxml_postprocess_test.rb" ComponentId="{C7BBB8C7-B6A7-4A35-8059-713CE320F552}" Directory_="tests_Dir" Attributes="0" KeyPath="gbxml_postprocess_test.rb" Type="0"/>
     <ROW Component="gitkeep" ComponentId="{E736EAC1-DDC7-40A8-8FEF-F6825F49D7A3}" Directory_="docs_Dir" Attributes="0" KeyPath="gitkeep" Type="0"/>
     <ROW Component="gitkeep_1" ComponentId="{A865D810-47F5-4DEC-81A2-CF1F1F2732A5}" Directory_="docs_1_Dir" Attributes="0" KeyPath="gitkeep_1" Type="0"/>
+    <ROW Component="gitkeep_2" ComponentId="{4968A1DC-F0F9-41D2-BF43-927759E1D464}" Directory_="docs_2_Dir" Attributes="0" KeyPath="gitkeep_2" Type="0"/>
     <ROW Component="gitkeep_3" ComponentId="{243FC7EF-E328-4FF2-82D4-6200BFC4D3B3}" Directory_="docs_3_Dir" Attributes="0" KeyPath="gitkeep_3" Type="0"/>
     <ROW Component="in.osw" ComponentId="{50E9A54E-3FF3-4C77-8B95-41AB3A74A8AC}" Directory_="no_run_period_Dir" Attributes="0" KeyPath="in.osw" Type="0"/>
     <ROW Component="in.osw_1" ComponentId="{D2936890-675A-4DFD-A27E-8812D139B5A4}" Directory_="period_in_const_name_Dir" Attributes="0" KeyPath="in.osw_1" Type="0"/>
@@ -218,7 +223,6 @@
     <ROW Component="in.osw_8" ComponentId="{DE972992-FC83-4C32-A703-326814295F50}" Directory_="test_heating_only_Dir" Attributes="0" KeyPath="in.osw_8" Type="0"/>
     <ROW Component="json_generator.rb" ComponentId="{805B68A2-8F8A-43EE-ADAE-41E58EEBAFF6}" Directory_="report_generators_Dir" Attributes="0" KeyPath="json_generator.rb" Type="0"/>
     <ROW Component="measure.rb" ComponentId="{22E0868F-0125-47D1-B287-5660E3E69DD7}" Directory_="import_gbxml_Dir" Attributes="0" KeyPath="measure.rb_5" Type="0"/>
-    <ROW Component="measure.rb_2" ComponentId="{CE9B62E4-E81A-4B84-B035-F73219E143EE}" Directory_="gbxml_postprocess_Dir" Attributes="0" KeyPath="measure.rb" Type="0"/>
     <ROW Component="msvcp140.dll" ComponentId="{24DB6C30-2EDE-4099-8C1D-71AA58922CEF}" Directory_="bin_Dir" Attributes="256" KeyPath="msvcp140.dll"/>
     <ROW Component="msvcp140.dll_1" ComponentId="{AD71803B-45FE-4A93-BE2F-DCC326D7A026}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="msvcp140.dll_1"/>
     <ROW Component="msvcp140_1.dll" ComponentId="{15C6C118-93E8-4A8B-99B9-4119CA34D917}" Directory_="bin_Dir" Attributes="256" KeyPath="msvcp140_1.dll"/>
@@ -331,6 +335,12 @@
     <ROW File="vcruntime140.dll_1" Component_="vcruntime140.dll_1" FileName="VCRUNT~1.DLL|vcruntime140.dll" Attributes="0" SourcePath="build.signed\build\EnergyPlus\vcruntime140.dll" SelfReg="false"/>
     <ROW File="vcruntime140_1.dll_1" Component_="vcruntime140_1.dll_1" FileName="VCRUNT~2.DLL|vcruntime140_1.dll" Attributes="0" SourcePath="build.signed\build\EnergyPlus\vcruntime140_1.dll" SelfReg="false"/>
     <ROW File="analysis.xml" Component_="analysis.xml" FileName="analysis.xml" Attributes="0" SourcePath="build.signed\build\gbxmls\analysis.xml" SelfReg="false"/>
+    <ROW File="LICENSE.md" Component_="LICENSE.md" FileName="LICENSE.md" Attributes="0" SourcePath="build.signed\build\measures\add_xml_output_control_style\LICENSE.md" SelfReg="false"/>
+    <ROW File="measure.rb" Component_="LICENSE.md" FileName="measure.rb" Attributes="0" SourcePath="build.signed\build\measures\add_xml_output_control_style\measure.rb" SelfReg="false"/>
+    <ROW File="measure.xml" Component_="LICENSE.md" FileName="measure.xml" Attributes="0" SourcePath="build.signed\build\measures\add_xml_output_control_style\measure.xml" SelfReg="false"/>
+    <ROW File="README.md" Component_="LICENSE.md" FileName="README.md" Attributes="0" SourcePath="build.signed\build\measures\add_xml_output_control_style\README.md" SelfReg="false"/>
+    <ROW File="README.md.erb" Component_="LICENSE.md" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="build.signed\build\measures\add_xml_output_control_style\README.md.erb" SelfReg="false"/>
+    <ROW File="add_xml_output_control_style_test.rb" Component_="add_xml_output_control_style_test.rb" FileName="ADD_XM~1.RB|add_xml_output_control_style_test.rb" Attributes="0" SourcePath="build.signed\build\measures\add_xml_output_control_style\tests\add_xml_output_control_style_test.rb" SelfReg="false"/>
     <ROW File="gitkeep" Component_="gitkeep" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="build.signed\build\measures\advanced_import_gbxml\docs\.gitkeep" SelfReg="false"/>
     <ROW File="LICENSE.md_1" Component_="LICENSE.md_1" FileName="LICENSE.md" Attributes="0" SourcePath="build.signed\build\measures\advanced_import_gbxml\LICENSE.md" SelfReg="false"/>
     <ROW File="measure.rb_1" Component_="LICENSE.md_1" FileName="measure.rb" Attributes="0" SourcePath="build.signed\build\measures\advanced_import_gbxml\measure.rb" SelfReg="false"/>
@@ -406,6 +416,14 @@
     <ROW File="wshp.rb" Component_="acb.rb" FileName="wshp.rb" Attributes="0" SourcePath="build.signed\build\measures\gbxml_hvac_import\resources\wshp.rb" SelfReg="false"/>
     <ROW File="zone.rb" Component_="acb.rb" FileName="zone.rb" Attributes="0" SourcePath="build.signed\build\measures\gbxml_hvac_import\resources\zone.rb" SelfReg="false"/>
     <ROW File="zone_hvac_equipment.rb" Component_="acb.rb" FileName="ZONE_H~1.RB|zone_hvac_equipment.rb" Attributes="0" SourcePath="build.signed\build\measures\gbxml_hvac_import\resources\zone_hvac_equipment.rb" SelfReg="false"/>
+    <ROW File="gitkeep_2" Component_="gitkeep_2" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="build.signed\build\measures\gbxml_to_openstudio_cleanup\docs\.gitkeep" SelfReg="false"/>
+    <ROW File="LICENSE.md_4" Component_="LICENSE.md_3" FileName="LICENSE.md" Attributes="0" SourcePath="build.signed\build\measures\gbxml_to_openstudio_cleanup\LICENSE.md" SelfReg="false"/>
+    <ROW File="measure.rb_4" Component_="LICENSE.md_3" FileName="measure.rb" Attributes="0" SourcePath="build.signed\build\measures\gbxml_to_openstudio_cleanup\measure.rb" SelfReg="false"/>
+    <ROW File="measure.xml_4" Component_="LICENSE.md_3" FileName="measure.xml" Attributes="0" SourcePath="build.signed\build\measures\gbxml_to_openstudio_cleanup\measure.xml" SelfReg="false"/>
+    <ROW File="README.md_4" Component_="LICENSE.md_3" FileName="README.md" Attributes="0" SourcePath="build.signed\build\measures\gbxml_to_openstudio_cleanup\README.md" SelfReg="false"/>
+    <ROW File="README.md.erb_4" Component_="LICENSE.md_3" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="build.signed\build\measures\gbxml_to_openstudio_cleanup\README.md.erb" SelfReg="false"/>
+    <ROW File="example_model.osm" Component_="example_model.osm" FileName="EXAMPL~1.OSM|example_model.osm" Attributes="0" SourcePath="build.signed\build\measures\gbxml_to_openstudio_cleanup\tests\example_model.osm" SelfReg="false"/>
+    <ROW File="gbxml_to_openstudio_cleanup_test.rb" Component_="example_model.osm" FileName="GBXML_~1.RB|gbxml_to_openstudio_cleanup_test.rb" Attributes="0" SourcePath="build.signed\build\measures\gbxml_to_openstudio_cleanup\tests\gbxml_to_openstudio_cleanup_test.rb" SelfReg="false"/>
     <ROW File="measure.rb_5" Component_="measure.rb" FileName="measure.rb" Attributes="0" SourcePath="build.signed\build\measures\import_gbxml\measure.rb" SelfReg="false"/>
     <ROW File="measure.xml_5" Component_="measure.rb" FileName="measure.xml" Attributes="0" SourcePath="build.signed\build\measures\import_gbxml\measure.xml" SelfReg="false"/>
     <ROW File="gbXMLStandardTestModel2016.xml_1" Component_="gbXMLStandardTestModel2016.xml" FileName="GBXMLS~1.XML|gbXMLStandard Test Model 2016.xml" Attributes="0" SourcePath="build.signed\build\measures\import_gbxml\tests\gbXMLStandard Test Model 2016.xml" SelfReg="false"/>
@@ -938,18 +956,9 @@
     <ROW File="HVACSystemsLoadsandSizing.osw" Component_="AnnualBuildingEnergySimulation.osw" FileName="HVACSY~1.OSW|HVAC Systems Loads and Sizing.osw" Attributes="0" SourcePath="build.signed\build\workflows\HVAC Systems Loads and Sizing.osw" SelfReg="false"/>
     <ROW File="CHANGELOG.md" Component_="CHANGELOG.md" FileName="CHANGE~1.MD|CHANGELOG.md" Attributes="0" SourcePath="build.signed\build\CHANGELOG.md" SelfReg="false"/>
     <ROW File="curves.rb" Component_="acb.rb" FileName="curves.rb" Attributes="0" SourcePath="measures\gbxml_hvac_import\resources\curves.rb" SelfReg="false"/>
-    <ROW File="measure.rb" Component_="measure.rb_2" FileName="measure.rb" Attributes="0" SourcePath="build.signed\build\measures\gbxml_postprocess\measure.rb" SelfReg="false"/>
-    <ROW File="measure.xml" Component_="measure.rb_2" FileName="measure.xml" Attributes="0" SourcePath="build.signed\build\measures\gbxml_postprocess\measure.xml" SelfReg="false"/>
-    <ROW File="README.md" Component_="measure.rb_2" FileName="README.md" Attributes="0" SourcePath="build.signed\build\measures\gbxml_postprocess\README.md" SelfReg="false"/>
-    <ROW File="README.md.erb" Component_="measure.rb_2" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="build.signed\build\measures\gbxml_postprocess\README.md.erb" SelfReg="false"/>
-    <ROW File="gbxml_postprocess_test.rb" Component_="gbxml_postprocess_test.rb" FileName="GBXML_~1.RB|gbxml_postprocess_test.rb" Attributes="0" SourcePath="build.signed\build\measures\gbxml_postprocess\tests\gbxml_postprocess_test.rb" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
-  </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.BootstrapperUISequenceComponent">
-    <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Sequence="249"/>
-    <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Condition="AI_SETUPEXEPATH_ORIGINAL" Sequence="251"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
     <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFileName="[|ProductName] v[|ProductVersion]" Languages="en" InstallationType="4" UseLargeSchema="true" MsiPackageType="x64"/>
@@ -973,14 +982,8 @@
     <ROW Fragment="VerifyRepairDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRepairDlg.aip"/>
     <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\WelcomeDlg.aip"/>
   </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.MsiActionTextComponent">
-    <ROW Action="AI_DeleteLzma" Description="Deleting files extracted from archive" DescriptionLocId="ActionText.Description.AI_DeleteLzma" TemplateLocId="-"/>
-    <ROW Action="AI_DeleteRLzma" Description="Deleting files extracted from archive" DescriptionLocId="ActionText.Description.AI_DeleteLzma" TemplateLocId="-"/>
-    <ROW Action="AI_ExtractLzma" Description="Extracting files from archive" DescriptionLocId="ActionText.Description.AI_ExtractLzma" TemplateLocId="-"/>
-  </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
     <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
-    <ROW Name="lzmaextractor.dll" SourcePath="&lt;AI_CUSTACTS&gt;lzmaextractor.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
     <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
@@ -1010,21 +1013,12 @@
     <ROW Directory_="APPDIR" Component_="APPDIR" ManualDelete="true"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
-    <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH_ORIGINAL" Target="[AI_SETUPEXEPATH]"/>
     <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
-    <ROW Action="AI_DeleteCadLzma" Type="51" Source="AI_DeleteLzma" Target="[AI_SETUPEXEPATH]"/>
-    <ROW Action="AI_DeleteLzma" Type="1025" Source="lzmaextractor.dll" Target="DeleteLZMAFiles"/>
-    <ROW Action="AI_DeleteRCadLzma" Type="51" Source="AI_DeleteRLzma" Target="[AI_SETUPEXEPATH]"/>
-    <ROW Action="AI_DeleteRLzma" Type="1281" Source="lzmaextractor.dll" Target="DeleteLZMAFiles"/>
     <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
     <ROW Action="AI_EnableDebugLog" Type="321" Source="aicustact.dll" Target="EnableDebugLog"/>
-    <ROW Action="AI_ExtractCadLzma" Type="51" Source="AI_ExtractLzma" Target="[AI_SETUPEXEPATH]"/>
-    <ROW Action="AI_ExtractLzma" Type="1025" Source="lzmaextractor.dll" Target="ExtractLZMAFiles"/>
-    <ROW Action="AI_FindExeLzma" Type="1" Source="lzmaextractor.dll" Target="FindEXE"/>
     <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
     <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
     <ROW Action="AI_PRESERVE_INSTALL_TYPE" Type="65" Source="aicustact.dll" Target="PreserveInstallType"/>
-    <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH" Target="[AI_SETUPEXEPATH_ORIGINAL]"/>
     <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
     <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
     <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
@@ -1105,6 +1099,8 @@
     <ROW Feature_="MainFeature" Component_="vcruntime140.dll_1"/>
     <ROW Feature_="MainFeature" Component_="vcruntime140_1.dll_1"/>
     <ROW Feature_="MainFeature" Component_="analysis.xml"/>
+    <ROW Feature_="MainFeature" Component_="LICENSE.md"/>
+    <ROW Feature_="MainFeature" Component_="add_xml_output_control_style_test.rb"/>
     <ROW Feature_="MainFeature" Component_="gitkeep"/>
     <ROW Feature_="MainFeature" Component_="LICENSE.md_1"/>
     <ROW Feature_="MainFeature" Component_="building_type_helper.rb"/>
@@ -1115,6 +1111,9 @@
     <ROW Feature_="MainFeature" Component_="gitkeep_1"/>
     <ROW Feature_="MainFeature" Component_="gbxml_hvac_import.rb"/>
     <ROW Feature_="MainFeature" Component_="acb.rb"/>
+    <ROW Feature_="MainFeature" Component_="gitkeep_2"/>
+    <ROW Feature_="MainFeature" Component_="LICENSE.md_3"/>
+    <ROW Feature_="MainFeature" Component_="example_model.osm"/>
     <ROW Feature_="MainFeature" Component_="measure.rb"/>
     <ROW Feature_="MainFeature" Component_="gbXMLStandardTestModel2016.xml"/>
     <ROW Feature_="MainFeature" Component_="LICENSE.md_4"/>
@@ -1172,8 +1171,6 @@
     <ROW Feature_="MainFeature" Component_="USA_CO_Denver.Intl.AP.725650_TMY3.ddy"/>
     <ROW Feature_="MainFeature" Component_="AnnualBuildingEnergySimulation.osw"/>
     <ROW Feature_="MainFeature" Component_="CHANGELOG.md"/>
-    <ROW Feature_="MainFeature" Component_="measure.rb_2"/>
-    <ROW Feature_="MainFeature" Component_="gbxml_postprocess_test.rb"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="os.exe" SourcePath="os.ico" Index="0"/>
@@ -1186,29 +1183,17 @@
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="201"/>
     <ROW Action="AI_DETECT_MODERNWIN" Condition="(VersionNT &gt;= 603)" Sequence="54" MsiKey="AI_DETECT_MODERNWIN"/>
     <ROW Action="AI_DETECT_WINTHEME" Condition="(VersionNT &gt;= 603)" Sequence="55" MsiKey="AI_DETECT_WINTHEME"/>
-    <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Sequence="99" Builds="DefaultBuild"/>
-    <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Condition="AI_SETUPEXEPATH_ORIGINAL" Sequence="101" Builds="DefaultBuild"/>
-    <ROW Action="AI_DeleteCadLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="199" Builds="DefaultBuild"/>
-    <ROW Action="AI_DeleteRCadLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="198" Builds="DefaultBuild"/>
-    <ROW Action="AI_ExtractCadLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="197" Builds="DefaultBuild"/>
-    <ROW Action="AI_FindExeLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="196" Builds="DefaultBuild"/>
-    <ROW Action="AI_ExtractLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="1549" Builds="DefaultBuild"/>
-    <ROW Action="AI_DeleteRLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="1548" Builds="DefaultBuild"/>
-    <ROW Action="AI_DeleteLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="6599" Builds="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
     <ROW Action="AI_ResolveKnownFolders" Sequence="53"/>
     <ROW Action="AI_DpiContentScale" Sequence="52"/>
     <ROW Action="AI_EnableDebugLog" Sequence="51"/>
     <ROW Action="AI_PRESERVE_INSTALL_TYPE" Sequence="199"/>
-    <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Sequence="99"/>
-    <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Condition="AI_SETUPEXEPATH_ORIGINAL" Sequence="101"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
     <ROW Condition="((VersionNT &lt;&gt; 501) AND (VersionNT &lt;&gt; 502))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on [WindowsTypeNT40Display]." DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="(VersionNT &lt;&gt; 500)" Description="[ProductName] cannot be installed on [WindowsTypeNT50Display]." DescriptionLocId="AI.LaunchCondition.NoNT50" IsPredefined="true" Builds="DefaultBuild"/>
-    <ROW Condition="(VersionNT &lt;&gt; 600)" Description="[ProductName] cannot be installed on [WindowsTypeNT60Display]." DescriptionLocId="AI.LaunchCondition.NoNT60" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiRegsComponent">

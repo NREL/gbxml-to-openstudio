@@ -1,11 +1,5 @@
 # Changelog
 
-## [1.2.0] - 2024-01-30
-- OpenStudio v3.7.0
-- EnergyPlus v23.2.0
-- Measure updates:
-  - replace `add_xml_output_control_style` and `gbxml_to_openstudio_cleanup` with `gbxml_postprocess`
-
 ## [1.1.8] - 2023-11-13
 - OpenStudio v3.6.0
 - EnergyPlus v23.1.0
