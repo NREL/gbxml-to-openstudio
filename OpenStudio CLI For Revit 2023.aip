@@ -29,9 +29,6 @@
     <ROW Directory="ChangeBuildingLocation_Dir" Directory_Parent="measures_Dir" DefaultDir="CHANGE~1|ChangeBuildingLocation"/>
     <ROW Directory="EnergyPlus_Dir" Directory_Parent="APPDIR" DefaultDir="ENERGY~1|EnergyPlus"/>
     <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
-    <ROW Directory="_openstudio_results_1_Dir" Directory_Parent="run_6_Dir" DefaultDir="000_OP~1|000_openstudio_results"/>
-    <ROW Directory="_openstudio_results_2_Dir" Directory_Parent="run_8_Dir" DefaultDir="000_OP~1|000_openstudio_results"/>
-    <ROW Directory="_openstudio_results_Dir" Directory_Parent="run_3_Dir" DefaultDir="001_OP~1|001_openstudio_results"/>
     <ROW Directory="add_xml_output_control_style_Dir" Directory_Parent="measures_Dir" DefaultDir="ADD_XM~1|add_xml_output_control_style"/>
     <ROW Directory="advanced_import_gbxml_Dir" Directory_Parent="measures_Dir" DefaultDir="ADVANC~1|advanced_import_gbxml"/>
     <ROW Directory="bin_Dir" Directory_Parent="APPDIR" DefaultDir="bin"/>
@@ -53,47 +50,22 @@
     <ROW Directory="measures_Dir" Directory_Parent="APPDIR" DefaultDir="measures"/>
     <ROW Directory="models_1_Dir" Directory_Parent="systems_analysis_report_Dir" DefaultDir="models"/>
     <ROW Directory="models_Dir" Directory_Parent="eplusout_Dir" DefaultDir="models"/>
-    <ROW Directory="no_run_period_Dir" Directory_Parent="output_Dir" DefaultDir="NO_RUN~1|no_run_period"/>
     <ROW Directory="openstudio_results_Dir" Directory_Parent="measures_Dir" DefaultDir="OPENST~1|openstudio_results"/>
-    <ROW Directory="output_Dir" Directory_Parent="tests_5_Dir" DefaultDir="output"/>
-    <ROW Directory="period_in_const_name_Dir" Directory_Parent="output_Dir" DefaultDir="PERIOD~1|period_in_const_name"/>
     <ROW Directory="pyenergyplus_Dir" Directory_Parent="EnergyPlus_Dir" DefaultDir="PYENER~1|pyenergyplus"/>
     <ROW Directory="relations_Dir" Directory_Parent="eplusout_Dir" DefaultDir="RELATI~1|relations"/>
     <ROW Directory="report_generators_Dir" Directory_Parent="systems_analysis_report_Dir" DefaultDir="REPORT~1|report_generators"/>
-    <ROW Directory="reports_1_Dir" Directory_Parent="tariff_Dir" DefaultDir="reports"/>
-    <ROW Directory="reports_2_Dir" Directory_Parent="test_edge_model_Dir" DefaultDir="reports"/>
-    <ROW Directory="reports_3_Dir" Directory_Parent="test_empty_model_Dir" DefaultDir="reports"/>
-    <ROW Directory="reports_4_Dir" Directory_Parent="test_example_model_Dir" DefaultDir="reports"/>
-    <ROW Directory="reports_5_Dir" Directory_Parent="test_heating_only_Dir" DefaultDir="reports"/>
-    <ROW Directory="reports_Dir" Directory_Parent="period_in_const_name_Dir" DefaultDir="reports"/>
     <ROW Directory="repositories_Dir" Directory_Parent="systems_analysis_report_Dir" DefaultDir="REPOSI~1|repositories"/>
     <ROW Directory="resources_1_Dir" Directory_Parent="ChangeBuildingLocation_Dir" DefaultDir="RESOUR~1|resources"/>
     <ROW Directory="resources_2_Dir" Directory_Parent="gbxml_hvac_import_Dir" DefaultDir="RESOUR~1|resources"/>
     <ROW Directory="resources_3_Dir" Directory_Parent="openstudio_results_Dir" DefaultDir="RESOUR~1|resources"/>
     <ROW Directory="resources_4_Dir" Directory_Parent="systems_analysis_report_generat_Dir" DefaultDir="RESOUR~1|resources"/>
     <ROW Directory="resources_Dir" Directory_Parent="advanced_import_gbxml_Dir" DefaultDir="RESOUR~1|resources"/>
-    <ROW Directory="run_1_Dir" Directory_Parent="period_in_const_name_Dir" DefaultDir="run"/>
-    <ROW Directory="run_2_Dir" Directory_Parent="sm_hotel_Dir" DefaultDir="run"/>
-    <ROW Directory="run_3_Dir" Directory_Parent="tariff_Dir" DefaultDir="run"/>
-    <ROW Directory="run_4_Dir" Directory_Parent="test_edge_model_Dir" DefaultDir="run"/>
-    <ROW Directory="run_5_Dir" Directory_Parent="test_empty_model_Dir" DefaultDir="run"/>
-    <ROW Directory="run_6_Dir" Directory_Parent="test_example_model_Dir" DefaultDir="run"/>
-    <ROW Directory="run_7_Dir" Directory_Parent="test_example_model_si_Dir" DefaultDir="run"/>
-    <ROW Directory="run_8_Dir" Directory_Parent="test_heating_only_Dir" DefaultDir="run"/>
-    <ROW Directory="run_Dir" Directory_Parent="no_run_period_Dir" DefaultDir="run"/>
     <ROW Directory="seeds_Dir" Directory_Parent="APPDIR" DefaultDir="seeds"/>
     <ROW Directory="services_Dir" Directory_Parent="systems_analysis_report_Dir" DefaultDir="services"/>
     <ROW Directory="set_simulation_control_Dir" Directory_Parent="measures_Dir" DefaultDir="SET_SI~1|set_simulation_control"/>
-    <ROW Directory="sm_hotel_Dir" Directory_Parent="output_Dir" DefaultDir="sm_hotel"/>
     <ROW Directory="strategies_Dir" Directory_Parent="systems_analysis_report_Dir" DefaultDir="STRATE~1|strategies"/>
     <ROW Directory="systems_analysis_report_Dir" Directory_Parent="resources_4_Dir" DefaultDir="SYSTEM~1|systems_analysis_report"/>
     <ROW Directory="systems_analysis_report_generat_Dir" Directory_Parent="measures_Dir" DefaultDir="SYSTEM~1|systems_analysis_report_generator"/>
-    <ROW Directory="tariff_Dir" Directory_Parent="output_Dir" DefaultDir="tariff"/>
-    <ROW Directory="test_edge_model_Dir" Directory_Parent="output_Dir" DefaultDir="TEST_E~1|test_edge_model"/>
-    <ROW Directory="test_empty_model_Dir" Directory_Parent="output_Dir" DefaultDir="TEST_E~2|test_empty_model"/>
-    <ROW Directory="test_example_model_Dir" Directory_Parent="output_Dir" DefaultDir="TEST_E~3|test_example_model"/>
-    <ROW Directory="test_example_model_si_Dir" Directory_Parent="output_Dir" DefaultDir="TEST_E~4|test_example_model_si"/>
-    <ROW Directory="test_heating_only_Dir" Directory_Parent="output_Dir" DefaultDir="TEST_H~1|test_heating_only"/>
     <ROW Directory="tests_1_Dir" Directory_Parent="advanced_import_gbxml_Dir" DefaultDir="tests"/>
     <ROW Directory="tests_2_Dir" Directory_Parent="ChangeBuildingLocation_Dir" DefaultDir="tests"/>
     <ROW Directory="tests_3_Dir" Directory_Parent="gbxml_to_openstudio_cleanup_Dir" DefaultDir="tests"/>
@@ -184,26 +156,11 @@
     <ROW Component="container.rb_1" ComponentId="{C9186CEE-6892-4C1B-8342-41A6BAF41C3E}" Directory_="systems_analysis_report_Dir" Attributes="0" KeyPath="container.rb_1" Type="0"/>
     <ROW Component="converter.rb" ComponentId="{82CEF43B-4A2C-42AF-94F1-71D555FD6FF6}" Directory_="utilities_Dir" Attributes="0" KeyPath="converter.rb" Type="0"/>
     <ROW Component="cooling_coil_name_getter.rb" ComponentId="{D01F0A38-08E9-40F8-BD91-2815D2D0CC8F}" Directory_="strategies_Dir" Attributes="0" KeyPath="cooling_coil_name_getter.rb" Type="0"/>
-    <ROW Component="data_point.zip" ComponentId="{F292F1B5-BE0B-4E15-A876-FE2452507507}" Directory_="run_Dir" Attributes="0" KeyPath="data_point.zip" Type="0"/>
-    <ROW Component="data_point.zip_1" ComponentId="{BFB716F7-E7F4-4DDF-A07C-4383535CC88C}" Directory_="run_1_Dir" Attributes="0" KeyPath="data_point.zip_1" Type="0"/>
-    <ROW Component="data_point.zip_2" ComponentId="{D335BA28-3CD8-439E-AA49-39F6E9D79124}" Directory_="run_3_Dir" Attributes="0" KeyPath="data_point.zip_2" Type="0"/>
-    <ROW Component="data_point.zip_3" ComponentId="{9C85A08F-4588-4AFB-9E1A-5574ED946B0C}" Directory_="run_4_Dir" Attributes="0" KeyPath="data_point.zip_3" Type="0"/>
-    <ROW Component="data_point.zip_4" ComponentId="{8569105F-52C2-4A05-ACD4-D68AFC80FAB6}" Directory_="run_5_Dir" Attributes="0" KeyPath="data_point.zip_4" Type="0"/>
-    <ROW Component="data_point.zip_5" ComponentId="{B49F255C-D72E-4A3D-8A6E-25D749E3BC8E}" Directory_="run_6_Dir" Attributes="0" KeyPath="data_point.zip_5" Type="0"/>
-    <ROW Component="data_point.zip_6" ComponentId="{2A28613F-C811-439F-A24E-74DA683C1FC6}" Directory_="run_8_Dir" Attributes="0" KeyPath="data_point.zip_6" Type="0"/>
     <ROW Component="denver_seed_empty.osm" ComponentId="{5EAACA60-A8B6-44CC-BC5C-A920EFACF0D9}" Directory_="seeds_Dir" Attributes="0" KeyPath="denver_seed_empty.osm" Type="0"/>
     <ROW Component="design_psychrometric_repo.rb" ComponentId="{FB1E3C21-050B-4453-AA14-851E80167A91}" Directory_="repositories_Dir" Attributes="0" KeyPath="design_psychrometric_repo.rb" Type="0"/>
     <ROW Component="design_psychrometric_service.rb" ComponentId="{A6C17A8B-043D-4360-8229-E0CCDB37565A}" Directory_="services_Dir" Attributes="0" KeyPath="design_psychrometric_service.rb" Type="0"/>
     <ROW Component="energyplus.exe" ComponentId="{71B45A0C-EC6D-4319-92AF-817FA5E2B7B0}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="energyplus.exe"/>
     <ROW Component="energyplusapi.dll" ComponentId="{6BDE5342-1B5F-42C9-96D0-B92F518CB15A}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="energyplusapi.dll"/>
-    <ROW Component="eplusout.audit" ComponentId="{76788377-2F47-4AA1-B3BC-A33AA09AB890}" Directory_="run_2_Dir" Attributes="0" KeyPath="eplusout.audit_2" Type="0"/>
-    <ROW Component="eplusout.audit_1" ComponentId="{F884AA17-5157-494C-8DA1-EE4E5C8780E9}" Directory_="run_7_Dir" Attributes="0" KeyPath="eplusout.audit_7" Type="0"/>
-    <ROW Component="eplustbl.html" ComponentId="{7B8B598B-A7A6-4700-9CCD-5E63EDB5D78F}" Directory_="reports_Dir" Attributes="0" KeyPath="eplustbl.html" Type="0"/>
-    <ROW Component="eplustbl.html_1" ComponentId="{268AF268-3DE8-4A00-9125-87E40EB9C719}" Directory_="reports_1_Dir" Attributes="0" KeyPath="eplustbl.html_1" Type="0"/>
-    <ROW Component="eplustbl.html_2" ComponentId="{888D2A39-1DCA-4D62-970F-55FC5A869B7A}" Directory_="reports_2_Dir" Attributes="0" KeyPath="eplustbl.html_2" Type="0"/>
-    <ROW Component="eplustbl.html_3" ComponentId="{834FBD98-1496-423F-93FE-BA9257B04C7D}" Directory_="reports_3_Dir" Attributes="0" KeyPath="eplustbl.html_3" Type="0"/>
-    <ROW Component="eplustbl.html_4" ComponentId="{B6FD79C4-580A-4F3A-BF75-6EC25F4D5B95}" Directory_="reports_4_Dir" Attributes="0" KeyPath="eplustbl.html_4" Type="0"/>
-    <ROW Component="eplustbl.html_5" ComponentId="{0C11C3F0-828E-4940-AA83-F0D94BA7EEF3}" Directory_="reports_5_Dir" Attributes="0" KeyPath="eplustbl.html_5" Type="0"/>
     <ROW Component="epw.rb" ComponentId="{DF43344B-293D-41F3-91DC-875948E34C5E}" Directory_="resources_1_Dir" Attributes="0" KeyPath="epw.rb" Type="0"/>
     <ROW Component="example_model.osm" ComponentId="{2B2D81D5-4F1A-4657-A8B2-B3FB9A86FD01}" Directory_="tests_3_Dir" Attributes="0" KeyPath="example_model.osm" Type="0"/>
     <ROW Component="gbXMLStandardTestModel2016.xml" ComponentId="{C056E21B-625B-4918-8B14-3E9E9E67C7A6}" Directory_="tests_4_Dir" Attributes="0" KeyPath="gbXMLStandardTestModel2016.xml_1" Type="0"/>
@@ -212,15 +169,6 @@
     <ROW Component="gitkeep_1" ComponentId="{A865D810-47F5-4DEC-81A2-CF1F1F2732A5}" Directory_="docs_1_Dir" Attributes="0" KeyPath="gitkeep_1" Type="0"/>
     <ROW Component="gitkeep_2" ComponentId="{4968A1DC-F0F9-41D2-BF43-927759E1D464}" Directory_="docs_2_Dir" Attributes="0" KeyPath="gitkeep_2" Type="0"/>
     <ROW Component="gitkeep_3" ComponentId="{243FC7EF-E328-4FF2-82D4-6200BFC4D3B3}" Directory_="docs_3_Dir" Attributes="0" KeyPath="gitkeep_3" Type="0"/>
-    <ROW Component="in.osw" ComponentId="{50E9A54E-3FF3-4C77-8B95-41AB3A74A8AC}" Directory_="no_run_period_Dir" Attributes="0" KeyPath="in.osw" Type="0"/>
-    <ROW Component="in.osw_1" ComponentId="{D2936890-675A-4DFD-A27E-8812D139B5A4}" Directory_="period_in_const_name_Dir" Attributes="0" KeyPath="in.osw_1" Type="0"/>
-    <ROW Component="in.osw_2" ComponentId="{E02FFF9A-3420-4592-8964-95C9BBD8E9F4}" Directory_="sm_hotel_Dir" Attributes="0" KeyPath="in.osw_2" Type="0"/>
-    <ROW Component="in.osw_3" ComponentId="{7CDA91B2-65A2-49AA-92FB-6A047FE69EF9}" Directory_="tariff_Dir" Attributes="0" KeyPath="in.osw_3" Type="0"/>
-    <ROW Component="in.osw_4" ComponentId="{9183420B-456E-4C46-9E2B-CFBC477070F1}" Directory_="test_edge_model_Dir" Attributes="0" KeyPath="in.osw_4" Type="0"/>
-    <ROW Component="in.osw_5" ComponentId="{2CDA1D9D-8495-489E-A6E1-C591C880C530}" Directory_="test_empty_model_Dir" Attributes="0" KeyPath="in.osw_5" Type="0"/>
-    <ROW Component="in.osw_6" ComponentId="{F2460A18-1978-44B4-83AA-D29C6A0E9264}" Directory_="test_example_model_Dir" Attributes="0" KeyPath="in.osw_6" Type="0"/>
-    <ROW Component="in.osw_7" ComponentId="{B3FC29B7-E5AB-4562-B414-6AE42821BE8C}" Directory_="test_example_model_si_Dir" Attributes="0" KeyPath="in.osw_7" Type="0"/>
-    <ROW Component="in.osw_8" ComponentId="{DE972992-FC83-4C32-A703-326814295F50}" Directory_="test_heating_only_Dir" Attributes="0" KeyPath="in.osw_8" Type="0"/>
     <ROW Component="json_generator.rb" ComponentId="{805B68A2-8F8A-43EE-ADAE-41E58EEBAFF6}" Directory_="report_generators_Dir" Attributes="0" KeyPath="json_generator.rb" Type="0"/>
     <ROW Component="measure.rb" ComponentId="{22E0868F-0125-47D1-B287-5660E3E69DD7}" Directory_="import_gbxml_Dir" Attributes="0" KeyPath="measure.rb_5" Type="0"/>
     <ROW Component="msvcp140.dll" ComponentId="{24DB6C30-2EDE-4099-8C1D-71AA58922CEF}" Directory_="bin_Dir" Attributes="256" KeyPath="msvcp140.dll"/>
@@ -238,9 +186,6 @@
     <ROW Component="openstudiolib.lib" ComponentId="{6CF0A534-AE36-4BB4-A7B5-7CAA94BD8232}" Directory_="bin_Dir" Attributes="0" KeyPath="openstudiolib.lib" Type="0"/>
     <ROW Component="python38.dll" ComponentId="{707BB7DE-3D9A-493F-8DE9-ABAAC0CAF802}" Directory_="bin_Dir" Attributes="256" KeyPath="python38.dll"/>
     <ROW Component="pythonengine.dll" ComponentId="{96DA32DA-7F2D-40EB-BB93-D8CD8EACF122}" Directory_="bin_Dir" Attributes="256" KeyPath="pythonengine.dll"/>
-    <ROW Component="report.html" ComponentId="{1FC7F08F-6F47-4EF4-8C67-89FBA8DF331F}" Directory_="_openstudio_results_Dir" Attributes="0" KeyPath="report.html_2" Type="0"/>
-    <ROW Component="report.html_1" ComponentId="{DCD143A4-7A74-438F-A3B8-9EE410E61997}" Directory_="_openstudio_results_1_Dir" Attributes="0" KeyPath="report.html_6" Type="0"/>
-    <ROW Component="report.html_2" ComponentId="{C4A6043C-0159-48E9-9162-AD85C9B04A7D}" Directory_="_openstudio_results_2_Dir" Attributes="0" KeyPath="report.html_9" Type="0"/>
     <ROW Component="rubyengine.dll" ComponentId="{7A5A765F-5606-402D-9D19-8B3872E4B8C6}" Directory_="bin_Dir" Attributes="256" KeyPath="rubyengine.dll"/>
     <ROW Component="sql_gateway.rb" ComponentId="{DEDA9D23-1135-4CCA-932E-BA669557F894}" Directory_="gateways_Dir" Attributes="0" KeyPath="sql_gateway.rb" Type="0"/>
     <ROW Component="ucrtbase.dll" ComponentId="{48CA5497-99E3-446F-BA01-9BBCF87082CB}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="ucrtbase.dll"/>
@@ -577,281 +522,6 @@
     <ROW File="NoRunPeriod.osm" Component_="_SmallHotel_a.osm" FileName="NORUNP~1.OSM|NoRunPeriod.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\NoRunPeriod.osm" SelfReg="false"/>
     <ROW File="OpenStudioResults_Test.rb" Component_="_SmallHotel_a.osm" FileName="OPENST~1.RB|OpenStudioResults_Test.rb" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\OpenStudioResults_Test.rb" SelfReg="false"/>
     <ROW File="os_results.osw" Component_="_SmallHotel_a.osm" FileName="OS_RES~1.OSW|os_results.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\os_results.osw" SelfReg="false"/>
-    <ROW File="in.osw" Component_="in.osw" FileName="in.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\in.osw" SelfReg="false"/>
-    <ROW File="out.osw" Component_="in.osw" FileName="out.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\out.osw" SelfReg="false"/>
-    <ROW File="data_point.zip" Component_="data_point.zip" FileName="DATA_P~1.ZIP|data_point.zip" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\data_point.zip" SelfReg="false"/>
-    <ROW File="eplusout.audit" Component_="data_point.zip" FileName="EPLUSO~1.AUD|eplusout.audit" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\eplusout.audit" SelfReg="false"/>
-    <ROW File="eplusout.bnd" Component_="data_point.zip" FileName="eplusout.bnd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\eplusout.bnd" SelfReg="false"/>
-    <ROW File="eplusout.eio" Component_="data_point.zip" FileName="eplusout.eio" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\eplusout.eio" SelfReg="false"/>
-    <ROW File="eplusout.end" Component_="data_point.zip" FileName="eplusout.end" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\eplusout.end" SelfReg="false"/>
-    <ROW File="eplusout.err" Component_="data_point.zip" FileName="eplusout.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\eplusout.err" SelfReg="false"/>
-    <ROW File="eplusout.mdd" Component_="data_point.zip" FileName="eplusout.mdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\eplusout.mdd" SelfReg="false"/>
-    <ROW File="eplusout.mtd" Component_="data_point.zip" FileName="eplusout.mtd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\eplusout.mtd" SelfReg="false"/>
-    <ROW File="eplusout.rdd" Component_="data_point.zip" FileName="eplusout.rdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\eplusout.rdd" SelfReg="false"/>
-    <ROW File="eplusout.shd" Component_="data_point.zip" FileName="eplusout.shd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\eplusout.shd" SelfReg="false"/>
-    <ROW File="eplusout.sql" Component_="data_point.zip" FileName="eplusout.sql" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\eplusout.sql" SelfReg="false"/>
-    <ROW File="failed.job" Component_="data_point.zip" FileName="failed.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\failed.job" SelfReg="false"/>
-    <ROW File="in.idf" Component_="data_point.zip" FileName="in.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\in.idf" SelfReg="false"/>
-    <ROW File="in.osm" Component_="data_point.zip" FileName="in.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\in.osm" SelfReg="false"/>
-    <ROW File="measure_attributes.json" Component_="data_point.zip" FileName="MEASUR~1.JSO|measure_attributes.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\measure_attributes.json" SelfReg="false"/>
-    <ROW File="prepreprocess.idf" Component_="data_point.zip" FileName="PRE-PR~1.IDF|pre-preprocess.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\pre-preprocess.idf" SelfReg="false"/>
-    <ROW File="run.log" Component_="data_point.zip" FileName="run.log" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\run.log" SelfReg="false"/>
-    <ROW File="sqlite.err" Component_="data_point.zip" FileName="sqlite.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\sqlite.err" SelfReg="false"/>
-    <ROW File="started.job" Component_="data_point.zip" FileName="started.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\started.job" SelfReg="false"/>
-    <ROW File="stdoutenergyplus" Component_="data_point.zip" FileName="STDOUT~1|stdout-energyplus" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\stdout-energyplus" SelfReg="false"/>
-    <ROW File="stdoutexpandobject" Component_="data_point.zip" FileName="STDOUT~2|stdout-expandobject" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\run\stdout-expandobject" SelfReg="false"/>
-    <ROW File="TestOutput.osm" Component_="in.osw" FileName="TESTOU~1.OSM|TestOutput.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\no_run_period\TestOutput.osm" SelfReg="false"/>
-    <ROW File="in.osw_1" Component_="in.osw_1" FileName="in.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\in.osw" SelfReg="false"/>
-    <ROW File="out.osw_1" Component_="in.osw_1" FileName="out.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\out.osw" SelfReg="false"/>
-    <ROW File="report.html" Component_="in.osw_1" FileName="REPORT~1.HTM|report.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\report.html" SelfReg="false"/>
-    <ROW File="eplustbl.html" Component_="eplustbl.html" FileName="EPLUST~1.HTM|eplustbl.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\reports\eplustbl.html" SelfReg="false"/>
-    <ROW File="data_point.zip_1" Component_="data_point.zip_1" FileName="DATA_P~1.ZIP|data_point.zip" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\data_point.zip" SelfReg="false"/>
-    <ROW File="eplusout.audit_1" Component_="data_point.zip_1" FileName="EPLUSO~1.AUD|eplusout.audit" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\eplusout.audit" SelfReg="false"/>
-    <ROW File="eplusout.bnd_1" Component_="data_point.zip_1" FileName="eplusout.bnd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\eplusout.bnd" SelfReg="false"/>
-    <ROW File="eplusout.eio_1" Component_="data_point.zip_1" FileName="eplusout.eio" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\eplusout.eio" SelfReg="false"/>
-    <ROW File="eplusout.end_1" Component_="data_point.zip_1" FileName="eplusout.end" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\eplusout.end" SelfReg="false"/>
-    <ROW File="eplusout.err_1" Component_="data_point.zip_1" FileName="eplusout.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\eplusout.err" SelfReg="false"/>
-    <ROW File="eplusout.eso" Component_="data_point.zip_1" FileName="eplusout.eso" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\eplusout.eso" SelfReg="false"/>
-    <ROW File="eplusout.mdd_1" Component_="data_point.zip_1" FileName="eplusout.mdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\eplusout.mdd" SelfReg="false"/>
-    <ROW File="eplusout.mtd_1" Component_="data_point.zip_1" FileName="eplusout.mtd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\eplusout.mtd" SelfReg="false"/>
-    <ROW File="eplusout.rdd_1" Component_="data_point.zip_1" FileName="eplusout.rdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\eplusout.rdd" SelfReg="false"/>
-    <ROW File="eplusout.shd_1" Component_="data_point.zip_1" FileName="eplusout.shd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\eplusout.shd" SelfReg="false"/>
-    <ROW File="eplusout.sql_1" Component_="data_point.zip_1" FileName="eplusout.sql" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\eplusout.sql" SelfReg="false"/>
-    <ROW File="eplusssz.csv" Component_="data_point.zip_1" FileName="eplusssz.csv" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\eplusssz.csv" SelfReg="false"/>
-    <ROW File="eplustbl.htm" Component_="data_point.zip_1" FileName="eplustbl.htm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\eplustbl.htm" SelfReg="false"/>
-    <ROW File="epluszsz.csv" Component_="data_point.zip_1" FileName="epluszsz.csv" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\epluszsz.csv" SelfReg="false"/>
-    <ROW File="failed.job_1" Component_="data_point.zip_1" FileName="failed.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\failed.job" SelfReg="false"/>
-    <ROW File="in.idf_1" Component_="data_point.zip_1" FileName="in.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\in.idf" SelfReg="false"/>
-    <ROW File="in.osm_1" Component_="data_point.zip_1" FileName="in.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\in.osm" SelfReg="false"/>
-    <ROW File="measure_attributes.json_1" Component_="data_point.zip_1" FileName="MEASUR~1.JSO|measure_attributes.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\measure_attributes.json" SelfReg="false"/>
-    <ROW File="prepreprocess.idf_1" Component_="data_point.zip_1" FileName="PRE-PR~1.IDF|pre-preprocess.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\pre-preprocess.idf" SelfReg="false"/>
-    <ROW File="run.log_1" Component_="data_point.zip_1" FileName="run.log" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\run.log" SelfReg="false"/>
-    <ROW File="sqlite.err_1" Component_="data_point.zip_1" FileName="sqlite.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\sqlite.err" SelfReg="false"/>
-    <ROW File="started.job_1" Component_="data_point.zip_1" FileName="started.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\started.job" SelfReg="false"/>
-    <ROW File="stdoutenergyplus_1" Component_="data_point.zip_1" FileName="STDOUT~1|stdout-energyplus" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\stdout-energyplus" SelfReg="false"/>
-    <ROW File="stdoutexpandobject_1" Component_="data_point.zip_1" FileName="STDOUT~2|stdout-expandobject" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\run\stdout-expandobject" SelfReg="false"/>
-    <ROW File="TestOutput.osm_1" Component_="in.osw_1" FileName="TESTOU~1.OSM|TestOutput.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\period_in_const_name\TestOutput.osm" SelfReg="false"/>
-    <ROW File="in.osw_2" Component_="in.osw_2" FileName="in.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\in.osw" SelfReg="false"/>
-    <ROW File="out.osw_2" Component_="in.osw_2" FileName="out.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\out.osw" SelfReg="false"/>
-    <ROW File="eplusout.audit_2" Component_="eplusout.audit" FileName="EPLUSO~1.AUD|eplusout.audit" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\eplusout.audit" SelfReg="false"/>
-    <ROW File="eplusout.bnd_2" Component_="eplusout.audit" FileName="eplusout.bnd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\eplusout.bnd" SelfReg="false"/>
-    <ROW File="eplusout.dbg" Component_="eplusout.audit" FileName="eplusout.dbg" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\eplusout.dbg" SelfReg="false"/>
-    <ROW File="eplusout.eio_2" Component_="eplusout.audit" FileName="eplusout.eio" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\eplusout.eio" SelfReg="false"/>
-    <ROW File="eplusout.err_2" Component_="eplusout.audit" FileName="eplusout.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\eplusout.err" SelfReg="false"/>
-    <ROW File="eplusout.eso_1" Component_="eplusout.audit" FileName="eplusout.eso" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\eplusout.eso" SelfReg="false"/>
-    <ROW File="eplusout.mdd_2" Component_="eplusout.audit" FileName="eplusout.mdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\eplusout.mdd" SelfReg="false"/>
-    <ROW File="eplusout.mtd_2" Component_="eplusout.audit" FileName="eplusout.mtd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\eplusout.mtd" SelfReg="false"/>
-    <ROW File="eplusout.mtr" Component_="eplusout.audit" FileName="eplusout.mtr" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\eplusout.mtr" SelfReg="false"/>
-    <ROW File="eplusout.rdd_2" Component_="eplusout.audit" FileName="eplusout.rdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\eplusout.rdd" SelfReg="false"/>
-    <ROW File="eplusout.shd_2" Component_="eplusout.audit" FileName="eplusout.shd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\eplusout.shd" SelfReg="false"/>
-    <ROW File="eplusout.sql_2" Component_="eplusout.audit" FileName="eplusout.sql" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\eplusout.sql" SelfReg="false"/>
-    <ROW File="eplusssz.csv_1" Component_="eplusout.audit" FileName="eplusssz.csv" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\eplusssz.csv" SelfReg="false"/>
-    <ROW File="epluszsz.csv_1" Component_="eplusout.audit" FileName="epluszsz.csv" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\epluszsz.csv" SelfReg="false"/>
-    <ROW File="finished.job" Component_="eplusout.audit" FileName="finished.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\finished.job" SelfReg="false"/>
-    <ROW File="in.epw" Component_="eplusout.audit" FileName="in.epw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\in.epw" SelfReg="false"/>
-    <ROW File="in.idf_2" Component_="eplusout.audit" FileName="in.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\in.idf" SelfReg="false"/>
-    <ROW File="in.osm_2" Component_="eplusout.audit" FileName="in.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\in.osm" SelfReg="false"/>
-    <ROW File="measure_attributes.json_2" Component_="eplusout.audit" FileName="MEASUR~1.JSO|measure_attributes.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\measure_attributes.json" SelfReg="false"/>
-    <ROW File="prepreprocess.idf_2" Component_="eplusout.audit" FileName="PRE-PR~1.IDF|pre-preprocess.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\pre-preprocess.idf" SelfReg="false"/>
-    <ROW File="run.log_2" Component_="eplusout.audit" FileName="run.log" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\run.log" SelfReg="false"/>
-    <ROW File="sqlite.err_2" Component_="eplusout.audit" FileName="sqlite.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\sqlite.err" SelfReg="false"/>
-    <ROW File="started.job_2" Component_="eplusout.audit" FileName="started.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\started.job" SelfReg="false"/>
-    <ROW File="stdoutenergyplus_2" Component_="eplusout.audit" FileName="STDOUT~1|stdout-energyplus" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\stdout-energyplus" SelfReg="false"/>
-    <ROW File="stdoutexpandobject_2" Component_="eplusout.audit" FileName="STDOUT~2|stdout-expandobject" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\run\stdout-expandobject" SelfReg="false"/>
-    <ROW File="TestOutput.osm_2" Component_="in.osw_2" FileName="TESTOU~1.OSM|TestOutput.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\sm_hotel\TestOutput.osm" SelfReg="false"/>
-    <ROW File="in.osw_3" Component_="in.osw_3" FileName="in.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\in.osw" SelfReg="false"/>
-    <ROW File="out.osw_3" Component_="in.osw_3" FileName="out.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\out.osw" SelfReg="false"/>
-    <ROW File="report.html_1" Component_="in.osw_3" FileName="REPORT~1.HTM|report.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\report.html" SelfReg="false"/>
-    <ROW File="eplustbl.html_1" Component_="eplustbl.html_1" FileName="EPLUST~1.HTM|eplustbl.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\reports\eplustbl.html" SelfReg="false"/>
-    <ROW File="openstudio_results_report.html" Component_="eplustbl.html_1" FileName="OPENST~1.HTM|openstudio_results_report.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\reports\openstudio_results_report.html" SelfReg="false"/>
-    <ROW File="report.html_2" Component_="report.html" FileName="REPORT~1.HTM|report.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\001_openstudio_results\report.html" SelfReg="false"/>
-    <ROW File="data_point.zip_2" Component_="data_point.zip_2" FileName="DATA_P~1.ZIP|data_point.zip" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\data_point.zip" SelfReg="false"/>
-    <ROW File="data_point_out.json" Component_="data_point.zip_2" FileName="DATA_P~1.JSO|data_point_out.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\data_point_out.json" SelfReg="false"/>
-    <ROW File="eplusout.audit_3" Component_="data_point.zip_2" FileName="EPLUSO~1.AUD|eplusout.audit" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\eplusout.audit" SelfReg="false"/>
-    <ROW File="eplusout.bnd_3" Component_="data_point.zip_2" FileName="eplusout.bnd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\eplusout.bnd" SelfReg="false"/>
-    <ROW File="eplusout.eio_3" Component_="data_point.zip_2" FileName="eplusout.eio" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\eplusout.eio" SelfReg="false"/>
-    <ROW File="eplusout.end_2" Component_="data_point.zip_2" FileName="eplusout.end" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\eplusout.end" SelfReg="false"/>
-    <ROW File="eplusout.err_3" Component_="data_point.zip_2" FileName="eplusout.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\eplusout.err" SelfReg="false"/>
-    <ROW File="eplusout.eso_2" Component_="data_point.zip_2" FileName="eplusout.eso" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\eplusout.eso" SelfReg="false"/>
-    <ROW File="eplusout.mdd_3" Component_="data_point.zip_2" FileName="eplusout.mdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\eplusout.mdd" SelfReg="false"/>
-    <ROW File="eplusout.mtd_3" Component_="data_point.zip_2" FileName="eplusout.mtd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\eplusout.mtd" SelfReg="false"/>
-    <ROW File="eplusout.rdd_3" Component_="data_point.zip_2" FileName="eplusout.rdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\eplusout.rdd" SelfReg="false"/>
-    <ROW File="eplusout.shd_3" Component_="data_point.zip_2" FileName="eplusout.shd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\eplusout.shd" SelfReg="false"/>
-    <ROW File="eplusout.sql_3" Component_="data_point.zip_2" FileName="eplusout.sql" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\eplusout.sql" SelfReg="false"/>
-    <ROW File="eplusssz.csv_2" Component_="data_point.zip_2" FileName="eplusssz.csv" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\eplusssz.csv" SelfReg="false"/>
-    <ROW File="eplustbl.htm_1" Component_="data_point.zip_2" FileName="eplustbl.htm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\eplustbl.htm" SelfReg="false"/>
-    <ROW File="epluszsz.csv_2" Component_="data_point.zip_2" FileName="epluszsz.csv" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\epluszsz.csv" SelfReg="false"/>
-    <ROW File="finished.job_1" Component_="data_point.zip_2" FileName="finished.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\finished.job" SelfReg="false"/>
-    <ROW File="in.idf_3" Component_="data_point.zip_2" FileName="in.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\in.idf" SelfReg="false"/>
-    <ROW File="in.osm_3" Component_="data_point.zip_2" FileName="in.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\in.osm" SelfReg="false"/>
-    <ROW File="measure_attributes.json_3" Component_="data_point.zip_2" FileName="MEASUR~1.JSO|measure_attributes.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\measure_attributes.json" SelfReg="false"/>
-    <ROW File="objectives.json" Component_="data_point.zip_2" FileName="OBJECT~1.JSO|objectives.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\objectives.json" SelfReg="false"/>
-    <ROW File="prepreprocess.idf_3" Component_="data_point.zip_2" FileName="PRE-PR~1.IDF|pre-preprocess.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\pre-preprocess.idf" SelfReg="false"/>
-    <ROW File="results.json" Component_="data_point.zip_2" FileName="RESULT~1.JSO|results.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\results.json" SelfReg="false"/>
-    <ROW File="run.log_3" Component_="data_point.zip_2" FileName="run.log" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\run.log" SelfReg="false"/>
-    <ROW File="sqlite.err_3" Component_="data_point.zip_2" FileName="sqlite.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\sqlite.err" SelfReg="false"/>
-    <ROW File="started.job_3" Component_="data_point.zip_2" FileName="started.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\started.job" SelfReg="false"/>
-    <ROW File="stdoutenergyplus_3" Component_="data_point.zip_2" FileName="STDOUT~1|stdout-energyplus" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\stdout-energyplus" SelfReg="false"/>
-    <ROW File="stdoutexpandobject_3" Component_="data_point.zip_2" FileName="STDOUT~2|stdout-expandobject" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\run\stdout-expandobject" SelfReg="false"/>
-    <ROW File="TestOutput.osm_3" Component_="in.osw_3" FileName="TESTOU~1.OSM|TestOutput.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\tariff\TestOutput.osm" SelfReg="false"/>
-    <ROW File="in.osw_4" Component_="in.osw_4" FileName="in.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\in.osw" SelfReg="false"/>
-    <ROW File="out.osw_4" Component_="in.osw_4" FileName="out.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\out.osw" SelfReg="false"/>
-    <ROW File="report.html_3" Component_="in.osw_4" FileName="REPORT~1.HTM|report.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\report.html" SelfReg="false"/>
-    <ROW File="eplustbl.html_2" Component_="eplustbl.html_2" FileName="EPLUST~1.HTM|eplustbl.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\reports\eplustbl.html" SelfReg="false"/>
-    <ROW File="data_point.zip_3" Component_="data_point.zip_3" FileName="DATA_P~1.ZIP|data_point.zip" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\data_point.zip" SelfReg="false"/>
-    <ROW File="eplusout.audit_4" Component_="data_point.zip_3" FileName="EPLUSO~1.AUD|eplusout.audit" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\eplusout.audit" SelfReg="false"/>
-    <ROW File="eplusout.bnd_4" Component_="data_point.zip_3" FileName="eplusout.bnd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\eplusout.bnd" SelfReg="false"/>
-    <ROW File="eplusout.eio_4" Component_="data_point.zip_3" FileName="eplusout.eio" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\eplusout.eio" SelfReg="false"/>
-    <ROW File="eplusout.end_3" Component_="data_point.zip_3" FileName="eplusout.end" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\eplusout.end" SelfReg="false"/>
-    <ROW File="eplusout.err_4" Component_="data_point.zip_3" FileName="eplusout.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\eplusout.err" SelfReg="false"/>
-    <ROW File="eplusout.eso_3" Component_="data_point.zip_3" FileName="eplusout.eso" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\eplusout.eso" SelfReg="false"/>
-    <ROW File="eplusout.mdd_4" Component_="data_point.zip_3" FileName="eplusout.mdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\eplusout.mdd" SelfReg="false"/>
-    <ROW File="eplusout.mtd_4" Component_="data_point.zip_3" FileName="eplusout.mtd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\eplusout.mtd" SelfReg="false"/>
-    <ROW File="eplusout.rdd_4" Component_="data_point.zip_3" FileName="eplusout.rdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\eplusout.rdd" SelfReg="false"/>
-    <ROW File="eplusout.shd_4" Component_="data_point.zip_3" FileName="eplusout.shd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\eplusout.shd" SelfReg="false"/>
-    <ROW File="eplusout.sql_4" Component_="data_point.zip_3" FileName="eplusout.sql" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\eplusout.sql" SelfReg="false"/>
-    <ROW File="eplusssz.csv_3" Component_="data_point.zip_3" FileName="eplusssz.csv" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\eplusssz.csv" SelfReg="false"/>
-    <ROW File="eplustbl.htm_2" Component_="data_point.zip_3" FileName="eplustbl.htm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\eplustbl.htm" SelfReg="false"/>
-    <ROW File="epluszsz.csv_3" Component_="data_point.zip_3" FileName="epluszsz.csv" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\epluszsz.csv" SelfReg="false"/>
-    <ROW File="failed.job_2" Component_="data_point.zip_3" FileName="failed.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\failed.job" SelfReg="false"/>
-    <ROW File="in.idf_4" Component_="data_point.zip_3" FileName="in.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\in.idf" SelfReg="false"/>
-    <ROW File="in.osm_4" Component_="data_point.zip_3" FileName="in.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\in.osm" SelfReg="false"/>
-    <ROW File="measure_attributes.json_4" Component_="data_point.zip_3" FileName="MEASUR~1.JSO|measure_attributes.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\measure_attributes.json" SelfReg="false"/>
-    <ROW File="prepreprocess.idf_4" Component_="data_point.zip_3" FileName="PRE-PR~1.IDF|pre-preprocess.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\pre-preprocess.idf" SelfReg="false"/>
-    <ROW File="run.log_4" Component_="data_point.zip_3" FileName="run.log" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\run.log" SelfReg="false"/>
-    <ROW File="sqlite.err_4" Component_="data_point.zip_3" FileName="sqlite.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\sqlite.err" SelfReg="false"/>
-    <ROW File="started.job_4" Component_="data_point.zip_3" FileName="started.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\started.job" SelfReg="false"/>
-    <ROW File="stdoutenergyplus_4" Component_="data_point.zip_3" FileName="STDOUT~1|stdout-energyplus" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\stdout-energyplus" SelfReg="false"/>
-    <ROW File="stdoutexpandobject_4" Component_="data_point.zip_3" FileName="STDOUT~2|stdout-expandobject" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\run\stdout-expandobject" SelfReg="false"/>
-    <ROW File="TestOutput.osm_4" Component_="in.osw_4" FileName="TESTOU~1.OSM|TestOutput.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_edge_model\TestOutput.osm" SelfReg="false"/>
-    <ROW File="in.osw_5" Component_="in.osw_5" FileName="in.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\in.osw" SelfReg="false"/>
-    <ROW File="out.osw_5" Component_="in.osw_5" FileName="out.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\out.osw" SelfReg="false"/>
-    <ROW File="report.html_4" Component_="in.osw_5" FileName="REPORT~1.HTM|report.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\report.html" SelfReg="false"/>
-    <ROW File="eplustbl.html_3" Component_="eplustbl.html_3" FileName="EPLUST~1.HTM|eplustbl.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\reports\eplustbl.html" SelfReg="false"/>
-    <ROW File="data_point.zip_4" Component_="data_point.zip_4" FileName="DATA_P~1.ZIP|data_point.zip" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\data_point.zip" SelfReg="false"/>
-    <ROW File="eplusout.audit_5" Component_="data_point.zip_4" FileName="EPLUSO~1.AUD|eplusout.audit" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\eplusout.audit" SelfReg="false"/>
-    <ROW File="eplusout.bnd_5" Component_="data_point.zip_4" FileName="eplusout.bnd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\eplusout.bnd" SelfReg="false"/>
-    <ROW File="eplusout.eio_5" Component_="data_point.zip_4" FileName="eplusout.eio" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\eplusout.eio" SelfReg="false"/>
-    <ROW File="eplusout.end_4" Component_="data_point.zip_4" FileName="eplusout.end" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\eplusout.end" SelfReg="false"/>
-    <ROW File="eplusout.err_5" Component_="data_point.zip_4" FileName="eplusout.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\eplusout.err" SelfReg="false"/>
-    <ROW File="eplusout.eso_4" Component_="data_point.zip_4" FileName="eplusout.eso" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\eplusout.eso" SelfReg="false"/>
-    <ROW File="eplusout.mdd_5" Component_="data_point.zip_4" FileName="eplusout.mdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\eplusout.mdd" SelfReg="false"/>
-    <ROW File="eplusout.mtd_5" Component_="data_point.zip_4" FileName="eplusout.mtd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\eplusout.mtd" SelfReg="false"/>
-    <ROW File="eplusout.rdd_5" Component_="data_point.zip_4" FileName="eplusout.rdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\eplusout.rdd" SelfReg="false"/>
-    <ROW File="eplusout.shd_5" Component_="data_point.zip_4" FileName="eplusout.shd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\eplusout.shd" SelfReg="false"/>
-    <ROW File="eplusout.sql_5" Component_="data_point.zip_4" FileName="eplusout.sql" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\eplusout.sql" SelfReg="false"/>
-    <ROW File="eplustbl.htm_3" Component_="data_point.zip_4" FileName="eplustbl.htm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\eplustbl.htm" SelfReg="false"/>
-    <ROW File="failed.job_3" Component_="data_point.zip_4" FileName="failed.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\failed.job" SelfReg="false"/>
-    <ROW File="in.idf_5" Component_="data_point.zip_4" FileName="in.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\in.idf" SelfReg="false"/>
-    <ROW File="in.osm_5" Component_="data_point.zip_4" FileName="in.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\in.osm" SelfReg="false"/>
-    <ROW File="measure_attributes.json_5" Component_="data_point.zip_4" FileName="MEASUR~1.JSO|measure_attributes.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\measure_attributes.json" SelfReg="false"/>
-    <ROW File="prepreprocess.idf_5" Component_="data_point.zip_4" FileName="PRE-PR~1.IDF|pre-preprocess.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\pre-preprocess.idf" SelfReg="false"/>
-    <ROW File="run.log_5" Component_="data_point.zip_4" FileName="run.log" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\run.log" SelfReg="false"/>
-    <ROW File="sqlite.err_5" Component_="data_point.zip_4" FileName="sqlite.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\sqlite.err" SelfReg="false"/>
-    <ROW File="started.job_5" Component_="data_point.zip_4" FileName="started.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\started.job" SelfReg="false"/>
-    <ROW File="stdoutenergyplus_5" Component_="data_point.zip_4" FileName="STDOUT~1|stdout-energyplus" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\stdout-energyplus" SelfReg="false"/>
-    <ROW File="stdoutexpandobject_5" Component_="data_point.zip_4" FileName="STDOUT~2|stdout-expandobject" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\run\stdout-expandobject" SelfReg="false"/>
-    <ROW File="TestOutput.osm_5" Component_="in.osw_5" FileName="TESTOU~1.OSM|TestOutput.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_empty_model\TestOutput.osm" SelfReg="false"/>
-    <ROW File="in.osw_6" Component_="in.osw_6" FileName="in.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\in.osw" SelfReg="false"/>
-    <ROW File="out.osw_6" Component_="in.osw_6" FileName="out.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\out.osw" SelfReg="false"/>
-    <ROW File="report.html_5" Component_="in.osw_6" FileName="REPORT~1.HTM|report.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\report.html" SelfReg="false"/>
-    <ROW File="eplustbl.html_4" Component_="eplustbl.html_4" FileName="EPLUST~1.HTM|eplustbl.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\reports\eplustbl.html" SelfReg="false"/>
-    <ROW File="openstudio_results_report.html_1" Component_="eplustbl.html_4" FileName="OPENST~1.HTM|openstudio_results_report.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\reports\openstudio_results_report.html" SelfReg="false"/>
-    <ROW File="report.html_6" Component_="report.html_1" FileName="REPORT~1.HTM|report.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\000_openstudio_results\report.html" SelfReg="false"/>
-    <ROW File="data_point.zip_5" Component_="data_point.zip_5" FileName="DATA_P~1.ZIP|data_point.zip" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\data_point.zip" SelfReg="false"/>
-    <ROW File="data_point_out.json_1" Component_="data_point.zip_5" FileName="DATA_P~1.JSO|data_point_out.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\data_point_out.json" SelfReg="false"/>
-    <ROW File="eplusout.audit_6" Component_="data_point.zip_5" FileName="EPLUSO~1.AUD|eplusout.audit" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\eplusout.audit" SelfReg="false"/>
-    <ROW File="eplusout.bnd_6" Component_="data_point.zip_5" FileName="eplusout.bnd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\eplusout.bnd" SelfReg="false"/>
-    <ROW File="eplusout.eio_6" Component_="data_point.zip_5" FileName="eplusout.eio" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\eplusout.eio" SelfReg="false"/>
-    <ROW File="eplusout.end_5" Component_="data_point.zip_5" FileName="eplusout.end" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\eplusout.end" SelfReg="false"/>
-    <ROW File="eplusout.err_6" Component_="data_point.zip_5" FileName="eplusout.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\eplusout.err" SelfReg="false"/>
-    <ROW File="eplusout.eso_5" Component_="data_point.zip_5" FileName="eplusout.eso" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\eplusout.eso" SelfReg="false"/>
-    <ROW File="eplusout.mdd_6" Component_="data_point.zip_5" FileName="eplusout.mdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\eplusout.mdd" SelfReg="false"/>
-    <ROW File="eplusout.mtd_6" Component_="data_point.zip_5" FileName="eplusout.mtd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\eplusout.mtd" SelfReg="false"/>
-    <ROW File="eplusout.rdd_6" Component_="data_point.zip_5" FileName="eplusout.rdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\eplusout.rdd" SelfReg="false"/>
-    <ROW File="eplusout.shd_6" Component_="data_point.zip_5" FileName="eplusout.shd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\eplusout.shd" SelfReg="false"/>
-    <ROW File="eplusout.sql_6" Component_="data_point.zip_5" FileName="eplusout.sql" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\eplusout.sql" SelfReg="false"/>
-    <ROW File="eplusssz.csv_4" Component_="data_point.zip_5" FileName="eplusssz.csv" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\eplusssz.csv" SelfReg="false"/>
-    <ROW File="eplustbl.htm_4" Component_="data_point.zip_5" FileName="eplustbl.htm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\eplustbl.htm" SelfReg="false"/>
-    <ROW File="epluszsz.csv_4" Component_="data_point.zip_5" FileName="epluszsz.csv" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\epluszsz.csv" SelfReg="false"/>
-    <ROW File="finished.job_2" Component_="data_point.zip_5" FileName="finished.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\finished.job" SelfReg="false"/>
-    <ROW File="in.idf_6" Component_="data_point.zip_5" FileName="in.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\in.idf" SelfReg="false"/>
-    <ROW File="in.osm_6" Component_="data_point.zip_5" FileName="in.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\in.osm" SelfReg="false"/>
-    <ROW File="measure_attributes.json_6" Component_="data_point.zip_5" FileName="MEASUR~1.JSO|measure_attributes.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\measure_attributes.json" SelfReg="false"/>
-    <ROW File="objectives.json_1" Component_="data_point.zip_5" FileName="OBJECT~1.JSO|objectives.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\objectives.json" SelfReg="false"/>
-    <ROW File="prepreprocess.idf_6" Component_="data_point.zip_5" FileName="PRE-PR~1.IDF|pre-preprocess.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\pre-preprocess.idf" SelfReg="false"/>
-    <ROW File="results.json_1" Component_="data_point.zip_5" FileName="RESULT~1.JSO|results.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\results.json" SelfReg="false"/>
-    <ROW File="run.log_6" Component_="data_point.zip_5" FileName="run.log" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\run.log" SelfReg="false"/>
-    <ROW File="sqlite.err_6" Component_="data_point.zip_5" FileName="sqlite.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\sqlite.err" SelfReg="false"/>
-    <ROW File="started.job_6" Component_="data_point.zip_5" FileName="started.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\started.job" SelfReg="false"/>
-    <ROW File="stdoutenergyplus_6" Component_="data_point.zip_5" FileName="STDOUT~1|stdout-energyplus" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\stdout-energyplus" SelfReg="false"/>
-    <ROW File="stdoutexpandobject_6" Component_="data_point.zip_5" FileName="STDOUT~2|stdout-expandobject" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\run\stdout-expandobject" SelfReg="false"/>
-    <ROW File="TestOutput.osm_6" Component_="in.osw_6" FileName="TESTOU~1.OSM|TestOutput.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model\TestOutput.osm" SelfReg="false"/>
-    <ROW File="in.osw_7" Component_="in.osw_7" FileName="in.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\in.osw" SelfReg="false"/>
-    <ROW File="out.osw_7" Component_="in.osw_7" FileName="out.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\out.osw" SelfReg="false"/>
-    <ROW File="report.html_7" Component_="in.osw_7" FileName="REPORT~1.HTM|report.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\report.html" SelfReg="false"/>
-    <ROW File="eplusout.audit_7" Component_="eplusout.audit_1" FileName="EPLUSO~1.AUD|eplusout.audit" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\eplusout.audit" SelfReg="false"/>
-    <ROW File="eplusout.bnd_7" Component_="eplusout.audit_1" FileName="eplusout.bnd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\eplusout.bnd" SelfReg="false"/>
-    <ROW File="eplusout.eio_7" Component_="eplusout.audit_1" FileName="eplusout.eio" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\eplusout.eio" SelfReg="false"/>
-    <ROW File="eplusout.end_6" Component_="eplusout.audit_1" FileName="eplusout.end" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\eplusout.end" SelfReg="false"/>
-    <ROW File="eplusout.err_7" Component_="eplusout.audit_1" FileName="eplusout.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\eplusout.err" SelfReg="false"/>
-    <ROW File="eplusout.eso_6" Component_="eplusout.audit_1" FileName="eplusout.eso" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\eplusout.eso" SelfReg="false"/>
-    <ROW File="eplusout.mdd_7" Component_="eplusout.audit_1" FileName="eplusout.mdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\eplusout.mdd" SelfReg="false"/>
-    <ROW File="eplusout.mtd_7" Component_="eplusout.audit_1" FileName="eplusout.mtd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\eplusout.mtd" SelfReg="false"/>
-    <ROW File="eplusout.mtr_1" Component_="eplusout.audit_1" FileName="eplusout.mtr" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\eplusout.mtr" SelfReg="false"/>
-    <ROW File="eplusout.rdd_7" Component_="eplusout.audit_1" FileName="eplusout.rdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\eplusout.rdd" SelfReg="false"/>
-    <ROW File="eplusout.shd_7" Component_="eplusout.audit_1" FileName="eplusout.shd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\eplusout.shd" SelfReg="false"/>
-    <ROW File="eplusout.sql_7" Component_="eplusout.audit_1" FileName="eplusout.sql" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\eplusout.sql" SelfReg="false"/>
-    <ROW File="eplusssz.csv_5" Component_="eplusout.audit_1" FileName="eplusssz.csv" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\eplusssz.csv" SelfReg="false"/>
-    <ROW File="eplustbl.htm_5" Component_="eplusout.audit_1" FileName="eplustbl.htm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\eplustbl.htm" SelfReg="false"/>
-    <ROW File="epluszsz.csv_5" Component_="eplusout.audit_1" FileName="epluszsz.csv" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\epluszsz.csv" SelfReg="false"/>
-    <ROW File="finished.job_3" Component_="eplusout.audit_1" FileName="finished.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\finished.job" SelfReg="false"/>
-    <ROW File="in.epw_1" Component_="eplusout.audit_1" FileName="in.epw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\in.epw" SelfReg="false"/>
-    <ROW File="in.idf_7" Component_="eplusout.audit_1" FileName="in.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\in.idf" SelfReg="false"/>
-    <ROW File="in.osm_7" Component_="eplusout.audit_1" FileName="in.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\in.osm" SelfReg="false"/>
-    <ROW File="measure_attributes.json_7" Component_="eplusout.audit_1" FileName="MEASUR~1.JSO|measure_attributes.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\measure_attributes.json" SelfReg="false"/>
-    <ROW File="prepreprocess.idf_7" Component_="eplusout.audit_1" FileName="PRE-PR~1.IDF|pre-preprocess.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\pre-preprocess.idf" SelfReg="false"/>
-    <ROW File="run.log_7" Component_="eplusout.audit_1" FileName="run.log" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\run.log" SelfReg="false"/>
-    <ROW File="sqlite.err_7" Component_="eplusout.audit_1" FileName="sqlite.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\sqlite.err" SelfReg="false"/>
-    <ROW File="started.job_7" Component_="eplusout.audit_1" FileName="started.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\started.job" SelfReg="false"/>
-    <ROW File="stdoutenergyplus_7" Component_="eplusout.audit_1" FileName="STDOUT~1|stdout-energyplus" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\stdout-energyplus" SelfReg="false"/>
-    <ROW File="stdoutexpandobject_7" Component_="eplusout.audit_1" FileName="STDOUT~2|stdout-expandobject" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\run\stdout-expandobject" SelfReg="false"/>
-    <ROW File="TestOutput.osm_7" Component_="in.osw_7" FileName="TESTOU~1.OSM|TestOutput.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_example_model_si\TestOutput.osm" SelfReg="false"/>
-    <ROW File="in.osw_8" Component_="in.osw_8" FileName="in.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\in.osw" SelfReg="false"/>
-    <ROW File="out.osw_8" Component_="in.osw_8" FileName="out.osw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\out.osw" SelfReg="false"/>
-    <ROW File="report.html_8" Component_="in.osw_8" FileName="REPORT~1.HTM|report.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\report.html" SelfReg="false"/>
-    <ROW File="eplustbl.html_5" Component_="eplustbl.html_5" FileName="EPLUST~1.HTM|eplustbl.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\reports\eplustbl.html" SelfReg="false"/>
-    <ROW File="openstudio_results_report.html_2" Component_="eplustbl.html_5" FileName="OPENST~1.HTM|openstudio_results_report.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\reports\openstudio_results_report.html" SelfReg="false"/>
-    <ROW File="report.html_9" Component_="report.html_2" FileName="REPORT~1.HTM|report.html" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\000_openstudio_results\report.html" SelfReg="false"/>
-    <ROW File="data_point.zip_6" Component_="data_point.zip_6" FileName="DATA_P~1.ZIP|data_point.zip" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\data_point.zip" SelfReg="false"/>
-    <ROW File="data_point_out.json_2" Component_="data_point.zip_6" FileName="DATA_P~1.JSO|data_point_out.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\data_point_out.json" SelfReg="false"/>
-    <ROW File="eplusout.audit_8" Component_="data_point.zip_6" FileName="EPLUSO~1.AUD|eplusout.audit" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\eplusout.audit" SelfReg="false"/>
-    <ROW File="eplusout.bnd_8" Component_="data_point.zip_6" FileName="eplusout.bnd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\eplusout.bnd" SelfReg="false"/>
-    <ROW File="eplusout.eio_8" Component_="data_point.zip_6" FileName="eplusout.eio" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\eplusout.eio" SelfReg="false"/>
-    <ROW File="eplusout.end_7" Component_="data_point.zip_6" FileName="eplusout.end" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\eplusout.end" SelfReg="false"/>
-    <ROW File="eplusout.err_8" Component_="data_point.zip_6" FileName="eplusout.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\eplusout.err" SelfReg="false"/>
-    <ROW File="eplusout.eso_7" Component_="data_point.zip_6" FileName="eplusout.eso" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\eplusout.eso" SelfReg="false"/>
-    <ROW File="eplusout.mdd_8" Component_="data_point.zip_6" FileName="eplusout.mdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\eplusout.mdd" SelfReg="false"/>
-    <ROW File="eplusout.mtd_8" Component_="data_point.zip_6" FileName="eplusout.mtd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\eplusout.mtd" SelfReg="false"/>
-    <ROW File="eplusout.rdd_8" Component_="data_point.zip_6" FileName="eplusout.rdd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\eplusout.rdd" SelfReg="false"/>
-    <ROW File="eplusout.shd_8" Component_="data_point.zip_6" FileName="eplusout.shd" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\eplusout.shd" SelfReg="false"/>
-    <ROW File="eplusout.sql_8" Component_="data_point.zip_6" FileName="eplusout.sql" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\eplusout.sql" SelfReg="false"/>
-    <ROW File="eplusssz.csv_6" Component_="data_point.zip_6" FileName="eplusssz.csv" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\eplusssz.csv" SelfReg="false"/>
-    <ROW File="eplustbl.htm_6" Component_="data_point.zip_6" FileName="eplustbl.htm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\eplustbl.htm" SelfReg="false"/>
-    <ROW File="epluszsz.csv_6" Component_="data_point.zip_6" FileName="epluszsz.csv" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\epluszsz.csv" SelfReg="false"/>
-    <ROW File="finished.job_4" Component_="data_point.zip_6" FileName="finished.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\finished.job" SelfReg="false"/>
-    <ROW File="in.idf_8" Component_="data_point.zip_6" FileName="in.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\in.idf" SelfReg="false"/>
-    <ROW File="in.osm_8" Component_="data_point.zip_6" FileName="in.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\in.osm" SelfReg="false"/>
-    <ROW File="measure_attributes.json_8" Component_="data_point.zip_6" FileName="MEASUR~1.JSO|measure_attributes.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\measure_attributes.json" SelfReg="false"/>
-    <ROW File="objectives.json_2" Component_="data_point.zip_6" FileName="OBJECT~1.JSO|objectives.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\objectives.json" SelfReg="false"/>
-    <ROW File="prepreprocess.idf_8" Component_="data_point.zip_6" FileName="PRE-PR~1.IDF|pre-preprocess.idf" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\pre-preprocess.idf" SelfReg="false"/>
-    <ROW File="results.json_2" Component_="data_point.zip_6" FileName="RESULT~1.JSO|results.json" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\results.json" SelfReg="false"/>
-    <ROW File="run.log_8" Component_="data_point.zip_6" FileName="run.log" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\run.log" SelfReg="false"/>
-    <ROW File="sqlite.err_8" Component_="data_point.zip_6" FileName="sqlite.err" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\sqlite.err" SelfReg="false"/>
-    <ROW File="started.job_8" Component_="data_point.zip_6" FileName="started.job" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\started.job" SelfReg="false"/>
-    <ROW File="stdoutenergyplus_8" Component_="data_point.zip_6" FileName="STDOUT~1|stdout-energyplus" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\stdout-energyplus" SelfReg="false"/>
-    <ROW File="stdoutexpandobject_8" Component_="data_point.zip_6" FileName="STDOUT~2|stdout-expandobject" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\run\stdout-expandobject" SelfReg="false"/>
-    <ROW File="TestOutput.osm_8" Component_="in.osw_8" FileName="TESTOU~1.OSM|TestOutput.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\output\test_heating_only\TestOutput.osm" SelfReg="false"/>
     <ROW File="PeriodInConstName.osm" Component_="_SmallHotel_a.osm" FileName="PERIOD~1.OSM|PeriodInConstName.osm" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\PeriodInConstName.osm" SelfReg="false"/>
     <ROW File="USA_CO_GoldenNREL.724666_TMY3.epw" Component_="_SmallHotel_a.osm" FileName="USA_CO~1.EPW|USA_CO_Golden-NREL.724666_TMY3.epw" Attributes="0" SourcePath="build.signed\build\measures\openstudio_results\tests\USA_CO_Golden-NREL.724666_TMY3.epw" SelfReg="false"/>
     <ROW File="gitkeep_3" Component_="gitkeep_3" FileName="GITKEE~1|.gitkeep" Attributes="0" SourcePath="build.signed\build\measures\set_simulation_control\docs\.gitkeep" SelfReg="false"/>
@@ -955,6 +625,8 @@
     <ROW File="AnnualBuildingEnergySimulation.osw" Component_="AnnualBuildingEnergySimulation.osw" FileName="ANNUAL~1.OSW|Annual Building Energy Simulation.osw" Attributes="0" SourcePath="build.signed\build\workflows\Annual Building Energy Simulation.osw" SelfReg="false"/>
     <ROW File="HVACSystemsLoadsandSizing.osw" Component_="AnnualBuildingEnergySimulation.osw" FileName="HVACSY~1.OSW|HVAC Systems Loads and Sizing.osw" Attributes="0" SourcePath="build.signed\build\workflows\HVAC Systems Loads and Sizing.osw" SelfReg="false"/>
     <ROW File="CHANGELOG.md" Component_="CHANGELOG.md" FileName="CHANGE~1.MD|CHANGELOG.md" Attributes="0" SourcePath="build.signed\build\CHANGELOG.md" SelfReg="false"/>
+    <ROW File="gbxmlonpeoplehalftime.xml" Component_="_SpacesOneZE.xml" FileName="GBXML-~1.XML|gbxml - on -peoplehalftime.xml" Attributes="0" SourcePath="build.signed\build\measures\advanced_import_gbxml\tests\gbxml - on -peoplehalftime.xml" SelfReg="false"/>
+    <ROW File="curves.rb" Component_="acb.rb" FileName="curves.rb" Attributes="0" SourcePath="build.signed\build\measures\gbxml_hvac_import\resources\curves.rb" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
@@ -1029,13 +701,13 @@
     <ROW Feature_="MainFeature" Component_="concrt140.dll"/>
     <ROW Feature_="MainFeature" Component_="msvcp140.dll"/>
     <ROW Feature_="MainFeature" Component_="msvcp140_1.dll"/>
+    <ROW Feature_="MainFeature" Component_="ProductInformation"/>
     <ROW Feature_="MainFeature" Component_="msvcp140_2.dll"/>
     <ROW Feature_="MainFeature" Component_="msvcp140_atomic_wait.dll"/>
     <ROW Feature_="MainFeature" Component_="msvcp140_codecvt_ids.dll"/>
     <ROW Feature_="MainFeature" Component_="openstudio.exe"/>
     <ROW Feature_="MainFeature" Component_="openstudiolib.dll"/>
     <ROW Feature_="MainFeature" Component_="openstudiolib.lib"/>
-    <ROW Feature_="MainFeature" Component_="ProductInformation"/>
     <ROW Feature_="MainFeature" Component_="python38.dll"/>
     <ROW Feature_="MainFeature" Component_="pythonengine.dll"/>
     <ROW Feature_="MainFeature" Component_="rubyengine.dll"/>
@@ -1118,34 +790,7 @@
     <ROW Feature_="MainFeature" Component_="LICENSE.md_4"/>
     <ROW Feature_="MainFeature" Component_="bootstrap.min.css"/>
     <ROW Feature_="MainFeature" Component_="_SmallHotel_a.osm"/>
-    <ROW Feature_="MainFeature" Component_="in.osw"/>
-    <ROW Feature_="MainFeature" Component_="data_point.zip"/>
-    <ROW Feature_="MainFeature" Component_="in.osw_1"/>
-    <ROW Feature_="MainFeature" Component_="eplustbl.html"/>
-    <ROW Feature_="MainFeature" Component_="data_point.zip_1"/>
-    <ROW Feature_="MainFeature" Component_="in.osw_2"/>
-    <ROW Feature_="MainFeature" Component_="eplusout.audit"/>
     <ROW Feature_="MainFeature" Component_="APPDIR"/>
-    <ROW Feature_="MainFeature" Component_="in.osw_3"/>
-    <ROW Feature_="MainFeature" Component_="eplustbl.html_1"/>
-    <ROW Feature_="MainFeature" Component_="report.html"/>
-    <ROW Feature_="MainFeature" Component_="data_point.zip_2"/>
-    <ROW Feature_="MainFeature" Component_="in.osw_4"/>
-    <ROW Feature_="MainFeature" Component_="eplustbl.html_2"/>
-    <ROW Feature_="MainFeature" Component_="data_point.zip_3"/>
-    <ROW Feature_="MainFeature" Component_="in.osw_5"/>
-    <ROW Feature_="MainFeature" Component_="eplustbl.html_3"/>
-    <ROW Feature_="MainFeature" Component_="data_point.zip_4"/>
-    <ROW Feature_="MainFeature" Component_="in.osw_6"/>
-    <ROW Feature_="MainFeature" Component_="eplustbl.html_4"/>
-    <ROW Feature_="MainFeature" Component_="report.html_1"/>
-    <ROW Feature_="MainFeature" Component_="data_point.zip_5"/>
-    <ROW Feature_="MainFeature" Component_="in.osw_7"/>
-    <ROW Feature_="MainFeature" Component_="eplusout.audit_1"/>
-    <ROW Feature_="MainFeature" Component_="in.osw_8"/>
-    <ROW Feature_="MainFeature" Component_="eplustbl.html_5"/>
-    <ROW Feature_="MainFeature" Component_="report.html_2"/>
-    <ROW Feature_="MainFeature" Component_="data_point.zip_6"/>
     <ROW Feature_="MainFeature" Component_="gitkeep_3"/>
     <ROW Feature_="MainFeature" Component_="LICENSE.md_5"/>
     <ROW Feature_="MainFeature" Component_="LICENSE.md_6"/>
