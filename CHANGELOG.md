@@ -1,12 +1,5 @@
 # Changelog
 
-## [1.1.8] - 2023-11-13
-- OpenStudio v3.6.0
-- EnergyPlus v23.1.0
-- Measure fixes:
-  - REVIT-210122
-  - REVIT-213603
-
 ## [1.1.7] - 2023-10-27
 - OpenStudio v3.6.0
 - EnergyPlus v23.1.0
