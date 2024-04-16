@@ -955,7 +955,6 @@
     <ROW File="AnnualBuildingEnergySimulation.osw" Component_="AnnualBuildingEnergySimulation.osw" FileName="ANNUAL~1.OSW|Annual Building Energy Simulation.osw" Attributes="0" SourcePath="build.signed\build\workflows\Annual Building Energy Simulation.osw" SelfReg="false"/>
     <ROW File="HVACSystemsLoadsandSizing.osw" Component_="AnnualBuildingEnergySimulation.osw" FileName="HVACSY~1.OSW|HVAC Systems Loads and Sizing.osw" Attributes="0" SourcePath="build.signed\build\workflows\HVAC Systems Loads and Sizing.osw" SelfReg="false"/>
     <ROW File="CHANGELOG.md" Component_="CHANGELOG.md" FileName="CHANGE~1.MD|CHANGELOG.md" Attributes="0" SourcePath="build.signed\build\CHANGELOG.md" SelfReg="false"/>
-    <ROW File="curves.rb" Component_="acb.rb" FileName="curves.rb" Attributes="0" SourcePath="measures\gbxml_hvac_import\resources\curves.rb" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
