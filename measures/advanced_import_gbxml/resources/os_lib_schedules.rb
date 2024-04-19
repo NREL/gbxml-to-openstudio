@@ -498,9 +498,7 @@ module OsLib_Schedules
   def self.createComplexSchedule(model, options = {})
     defaults = {
       'name' => nil,
-      'default_day' => ['always_on', [24.0, 1.0]],
-      'winter_design_day' => [[24.0, 0.0]],
-      'summer_design_day' => [[24.0, 1.0]]
+      'default_day' => ['always_on', [24.0, 1.0]]
     }
 
     # merge user inputs with defaults
@@ -550,9 +548,9 @@ module OsLib_Schedules
         default_day.addValue(OpenStudio::Time.new(0, hour, min, 0), data_pair[1])
       end
     end
- 
+
     # holiday day
-    unless options['holiday_day'].nil? 
+    unless options['holiday_day'].nil?
       holiday_day = OpenStudio::Model::ScheduleDay.new(model)
       sch_ruleset.setHolidaySchedule(holiday_day)
       holiday_day = sch_ruleset.holidaySchedule
@@ -564,7 +562,7 @@ module OsLib_Schedules
       end
     end
 
-    # Rules array 
+    # Rules array
     # rule name
     # date range (MM/DD - MM/DD)
     # day type string
