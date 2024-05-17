@@ -32,6 +32,7 @@ class AddXMLOutputControlStyle < OpenStudio::Measure::EnergyPlusMeasure
   #     # @type [OpenStudio::Workspace] workspace
   def run(workspace, runner, user_arguments)
     super(workspace, runner, user_arguments)
+
     # use the built-in error checking
     if !runner.validateUserArguments(arguments(workspace), user_arguments)
       return false
@@ -40,6 +41,7 @@ class AddXMLOutputControlStyle < OpenStudio::Measure::EnergyPlusMeasure
     workspace.getObjectsByType('OutputControl:Table:Style'.to_IddObjectType)[0].setString(0, 'All')
     workspace.getObjectsByType('OutputControl:Table:Style'.to_IddObjectType)[0].setString(1, 'InchPound') if runner.unitsPreference == "IP"
     workspace.getObjectsByType('Output:Table:SummaryReports'.to_IddObjectType)[0].setString(0, 'AllSummaryAndSizingPeriod')
+
     return true
   end
 end
