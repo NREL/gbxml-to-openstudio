@@ -268,7 +268,7 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
     rescue
     end
 
-    # if energy_plus_area_units.get.first.to_s == 'm2'
+    if energy_plus_area_units.get.first.to_s == 'm2'
 
       # generate data for requested sections
       sections_made = 0
