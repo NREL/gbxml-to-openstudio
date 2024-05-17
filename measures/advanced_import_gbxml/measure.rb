@@ -2,7 +2,6 @@
 
 # see the URL below for information on how to write OpenStudio measures
 # http://nrel.github.io/OpenStudio-user-documentation/reference/measure_writing_guide/
-require 'benchmark'
 require 'rexml/document'
 require 'rexml/xpath'
 
@@ -43,7 +42,7 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
   # define what happens when the measure is run
   def run(model, runner, user_arguments)
     super(model, runner, user_arguments)
-Benchmark.bm(label_width=120) do |bm|
+
     # use the built-in error checking
     unless runner.validateUserArguments(arguments(model), user_arguments)
       return false
@@ -68,7 +67,7 @@ Benchmark.bm(label_width=120) do |bm|
 
     # report initial condition of model
     runner.registerInitialCondition("The building started with #{model.objects.size} model objects.")
-bm.report('advanced_import_gbxml') do
+
     # read in and parse xml using using rexml
     xml_string = File.read(path.to_s)
     gbxml_doc = REXML::Document.new(xml_string)
@@ -378,10 +377,10 @@ bm.report('advanced_import_gbxml') do
 
     # cleanup fenestration that may be too large (need to confirm how doors and glass doors are addressed)
     OsLib_AdvImport.assure_fenestration_inset(runner, model)
-end #benchmark report
+
     # report final condition of model
     runner.registerFinalCondition("The building finished with #{model.objects.size} model objects.")
-end #benchmark
+
     return true
   end
 end

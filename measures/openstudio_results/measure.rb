@@ -32,7 +32,6 @@
 # STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # *******************************************************************************
-require 'benchmark'
 require 'erb'
 require 'json'
 
@@ -217,8 +216,7 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
   # define what happens when the measure is run
   def run(runner, user_arguments)
     super(runner, user_arguments)
-    Benchmark.bm(label_width=120) do |bm|
-    bm.report('openstudio_results') do
+
     # get sql, model, and web assets
     setup = OsLib_Reporting.setup(runner)
     unless setup
@@ -259,7 +257,7 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
       runner.registerError("Can't find Building Area to get tabular units. Measure can't run")
       return false
     end
-    
+
     begin
       runner.registerValue('standards_gem_version', OpenstudioStandards::VERSION)
     rescue
@@ -268,7 +266,7 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
       runner.registerValue('workflow_gem_version', OpenStudio::Workflow::VERSION)
     rescue
     end
-    
+
     # if energy_plus_area_units.get.first.to_s == 'm2'
 
       # generate data for requested sections
@@ -369,8 +367,7 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
 
     # reporting final condition
     runner.registerFinalCondition("Generated report with #{sections_made} sections to #{html_out_path}.")
-    end
-    end
+
     true
   end
 end

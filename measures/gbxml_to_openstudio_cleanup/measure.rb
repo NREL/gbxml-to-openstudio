@@ -2,7 +2,7 @@
 
 # see the URL below for information on how to write OpenStudio measures
 # http://nrel.github.io/OpenStudio-user-documentation/reference/measure_writing_guide/
-require 'benchmark'
+
 # start the measure
 class GbxmlToOpenstudioCleanup < OpenStudio::Measure::ModelMeasure
   # human readable name
@@ -31,8 +31,7 @@ class GbxmlToOpenstudioCleanup < OpenStudio::Measure::ModelMeasure
   # define what happens when the measure is run
   def run(model, runner, user_arguments)
     super(model, runner, user_arguments)
-    Benchmark.bm(label_width=120) do |bm|
-    bm.report('gbxml_to_openstudio_cleanup') do
+
     # Set airwall to single pane simple glazing
     window_simple = OpenStudio::Model::SimpleGlazing.new(model, 3.7642, 0.78)
     window_simple.setVisibleTransmittance(0.9)
@@ -44,8 +43,7 @@ class GbxmlToOpenstudioCleanup < OpenStudio::Measure::ModelMeasure
         sub_surface.setConstruction(window_construction)
       end
     end
-    end
-    end
+
     return true
   end
 end

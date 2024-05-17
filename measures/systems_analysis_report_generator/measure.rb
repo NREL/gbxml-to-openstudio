@@ -1,4 +1,3 @@
-require 'benchmark'
 require_relative 'resources/systems_analysis_report'
 
 class SystemsAnalysisReportGenerator < OpenStudio::Measure::ReportingMeasure
@@ -30,7 +29,7 @@ class SystemsAnalysisReportGenerator < OpenStudio::Measure::ReportingMeasure
 
     return args
   end
-  
+
   # define the outputs that the measure will create
   def outputs
     outs = OpenStudio::Measure::OSOutputVector.new
@@ -39,7 +38,7 @@ class SystemsAnalysisReportGenerator < OpenStudio::Measure::ReportingMeasure
 
     return outs
   end
-  
+
   # return a vector of IdfObject's to request EnergyPlus objects needed by the run method
   # Warning: Do not change the name of this method to be snake_case. The method must be lowerCamelCase.
   def energyPlusOutputRequests(runner, user_arguments)
@@ -51,8 +50,7 @@ class SystemsAnalysisReportGenerator < OpenStudio::Measure::ReportingMeasure
   # define what happens when the measure is run
   def run(runner, user_arguments)
     super(runner, user_arguments)
-    Benchmark.bm(label_width=120) do |bm|
-    bm.report('systems_analysis_report_generator') do
+
     model, sql_file = SystemsAnalysisReportGenerator.get_model_and_sql_file(runner)
     container = SystemsAnalysisReport.container(model, sql_file)
 
@@ -66,8 +64,7 @@ class SystemsAnalysisReportGenerator < OpenStudio::Measure::ReportingMeasure
     File.write('./report_data.json', data) if debug
 
     sql_file.close
-    end
-    end
+
     return true
   end
 

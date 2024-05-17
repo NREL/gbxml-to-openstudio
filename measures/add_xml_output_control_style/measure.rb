@@ -2,7 +2,6 @@
 
 # see the URL below for information on how to write OpenStudio measures
 # http://nrel.github.io/OpenStudio-user-documentation/reference/measure_writing_guide/
-require 'benchmark'
 require 'openstudio'
 # start the measure
 class AddXMLOutputControlStyle < OpenStudio::Measure::EnergyPlusMeasure
@@ -33,8 +32,6 @@ class AddXMLOutputControlStyle < OpenStudio::Measure::EnergyPlusMeasure
   #     # @type [OpenStudio::Workspace] workspace
   def run(workspace, runner, user_arguments)
     super(workspace, runner, user_arguments)
-    Benchmark.bm(label_width=120) do |bm|
-    bm.report('add_xml_output_control_style') do
     # use the built-in error checking
     if !runner.validateUserArguments(arguments(workspace), user_arguments)
       return false
@@ -43,8 +40,6 @@ class AddXMLOutputControlStyle < OpenStudio::Measure::EnergyPlusMeasure
     workspace.getObjectsByType('OutputControl:Table:Style'.to_IddObjectType)[0].setString(0, 'All')
     workspace.getObjectsByType('OutputControl:Table:Style'.to_IddObjectType)[0].setString(1, 'InchPound') if runner.unitsPreference == "IP"
     workspace.getObjectsByType('Output:Table:SummaryReports'.to_IddObjectType)[0].setString(0, 'AllSummaryAndSizingPeriod')
-    end
-    end
     return true
   end
 end

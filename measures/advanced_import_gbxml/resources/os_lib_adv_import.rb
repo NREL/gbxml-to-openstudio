@@ -35,7 +35,6 @@
 
 # while methods initially setup for import from gbXML it can be used with import from any file such as csv, json, idf, etc
 # regardless of import format data is passed into these methods as hashes.
-require 'benchmark'
 require 'bigdecimal/newton'
 require 'openstudio-standards'
 
@@ -45,7 +44,7 @@ module OsLib_AdvImport
 
     # { {ScheduleRuleset : number of people} : [ThermalZone1, ...] }
     people_schedule_thermal_zones_hash = {}
-    
+
     # {ThermalZone1: number of people, ...}
     max_occ_on_thermal_zone = {}
 
@@ -120,13 +119,13 @@ module OsLib_AdvImport
   end
 
   def self.thermal_zone_get_occupancy_schedule(model, occupied_percentage_threshold = 0.05)
-    
+
     # {ThermalZone: ScheduleRuleset}
     thermal_zone_people_schedule_hash = {}
 
     people_schedule_thermal_zones_hash, max_occ_on_thermal_zone = get_occ_schedules_and_occupancy(model)
     people_schedule_thermal_zones_hash.each do |people_schedule_number_people_hash, thermal_zones_array|
-    
+
     # occ_schedules_num_occ, max_occ_on_thermal_zone = get_occ_schedules_and_occupancy(thermal_zone)
     year = model.getYearDescription
     daily_occ_sch_num_ppl = get_day_schedules(people_schedule_number_people_hash, year)
@@ -261,7 +260,7 @@ module OsLib_AdvImport
 
     # {ThermalZone => people schedule, ...
     thermal_zones_array.each { |thermal_zone| thermal_zone_people_schedule_hash[thermal_zone] = sch_ruleset }
-  
+
   end
 
     return thermal_zone_people_schedule_hash #sch_ruleset
@@ -286,14 +285,14 @@ module OsLib_AdvImport
 
     # setpoints
     # {setpoint => [array, of, thermal, zones], ...}
-    heating_setpoints_thermal_zones_hash = {} 
-    cooling_setpoints_thermal_zones_hash = {} 
-    humid_setpoints_thermal_zones_hash = {} 
-    dehum_setpoints_thermal_zones_hash = {} 
-    occ_heating_setpoints_thermal_zones_hash = {} 
-    occ_cooling_setpoints_thermal_zones_hash = {} 
-    occ_humid_setpoints_thermal_zones_hash = {} 
-    occ_dehum_setpoints_thermal_zones_hash = {} 
+    heating_setpoints_thermal_zones_hash = {}
+    cooling_setpoints_thermal_zones_hash = {}
+    humid_setpoints_thermal_zones_hash = {}
+    dehum_setpoints_thermal_zones_hash = {}
+    occ_heating_setpoints_thermal_zones_hash = {}
+    occ_cooling_setpoints_thermal_zones_hash = {}
+    occ_humid_setpoints_thermal_zones_hash = {}
+    occ_dehum_setpoints_thermal_zones_hash = {}
 
     zones.each do |id, zone_hash|
 
@@ -311,7 +310,7 @@ module OsLib_AdvImport
       # heating setpoint
       heating_setpoint = zone_hash[:design_heat_t]
       unless heating_setpoint.nil?
-        hash = 
+        hash =
           case occupied
           when false then heating_setpoints_thermal_zones_hash
           when true then occ_heating_setpoints_thermal_zones_hash
@@ -325,8 +324,8 @@ module OsLib_AdvImport
 
       # cooling setpoint
       cooling_setpoint = zone_hash[:design_cool_t]
-      unless cooling_setpoint.nil?        
-        hash = 
+      unless cooling_setpoint.nil?
+        hash =
           case occupied
           when false then cooling_setpoints_thermal_zones_hash
           when true then occ_cooling_setpoints_thermal_zones_hash
@@ -341,11 +340,11 @@ module OsLib_AdvImport
       # humidifying setpoint
       humid_setpoint = zone_hash[:design_heat_rh]
       unless humid_setpoint.nil?
-        hash = 
+        hash =
           case occupied
           when false then humid_setpoints_thermal_zones_hash
           when true then occ_humid_setpoints_thermal_zones_hash
-          end        
+          end
         if hash[humid_setpoint].nil?
           hash[humid_setpoint] = [thermal_zone]
         else
@@ -356,18 +355,18 @@ module OsLib_AdvImport
       # dehumidifying setpoint
       dehum_setpoint = zone_hash[:design_cool_rh]
       unless dehum_setpoint.nil?
-        hash = 
+        hash =
           case occupied
           when false then dehum_setpoints_thermal_zones_hash
           when true then occ_dehum_setpoints_thermal_zones_hash
-          end        
+          end
         if hash[dehum_setpoint].nil?
           hash[dehum_setpoint] = [thermal_zone]
         else
           hash[dehum_setpoint] << thermal_zone
         end
       end
-        
+
     end
 
     # add hashes to hash
@@ -393,7 +392,7 @@ module OsLib_AdvImport
       setpoint_thermal_zones.each do |htg_setpoint_degF, thermal_zones_array|
         puts '', htg_setpoint_degF, thermal_zones_array.size
         htg_setpoint_degC = OpenStudio.convert(htg_setpoint_degF, 'F', 'C').get
-        
+
         # schedule
         htg_sch = make_setpoint_schedule(model, setpoint: htg_setpoint_degC, type: setpoint_type, subtype: 'Heating')
 
@@ -410,7 +409,7 @@ module OsLib_AdvImport
       setpoint_thermal_zones.each do |htg_setpoint_degF, thermal_zones_array|
         puts '', htg_setpoint_degF, thermal_zones_array.size
         htg_setpoint_degC = OpenStudio.convert(htg_setpoint_degF, 'F', 'C').get
-        
+
         # schedule
         htg_sch = make_setpoint_schedule(model, setpoint: htg_setpoint_degC, type: setpoint_type, subtype: 'Heating')
 
@@ -424,14 +423,14 @@ module OsLib_AdvImport
     end
 
     # cooling
-    setpoints_thermal_zones_hash[:design_cool_t].each do |setpoint_thermal_zones| 
+    setpoints_thermal_zones_hash[:design_cool_t].each do |setpoint_thermal_zones|
       setpoint_thermal_zones.each do |clg_setpoint_degF, thermal_zones_array|
         puts '', clg_setpoint_degF, thermal_zones_array.size
         clg_setpoint_degC = OpenStudio.convert(clg_setpoint_degF, 'F', 'C').get
 
         # schedule
         clg_sch = make_setpoint_schedule(model, setpoint: clg_setpoint_degC, type: setpoint_type, subtype: 'Cooling')
-        
+
         # thermostat
         thermal_zones_array.each do |thermal_zone|
           make_thermostat(thermal_zone, clg_sch, setpoint: clg_setpoint_degC, subtype: 'Cooling')
@@ -441,11 +440,11 @@ module OsLib_AdvImport
     end
 
     # cooling, occupied
-    setpoints_thermal_zones_hash[:design_cool_t_occ].each do |setpoint_thermal_zones| 
+    setpoints_thermal_zones_hash[:design_cool_t_occ].each do |setpoint_thermal_zones|
       setpoint_thermal_zones.each do |clg_setpoint_degF, thermal_zones_array|
         puts '', clg_setpoint_degF, thermal_zones_array.size
         clg_setpoint_degC = OpenStudio.convert(clg_setpoint_degF, 'F', 'C').get
-        
+
         # schedule
         clg_sch = make_setpoint_schedule(model, setpoint: clg_setpoint_degC, type: setpoint_type, subtype: 'Cooling')
 
@@ -471,11 +470,11 @@ module OsLib_AdvImport
       thermostat = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(thermal_zone.model)
       thermal_zone.setThermostatSetpointDualSetpoint(thermostat)
     end
-    # puts "#{thermal_zone.name} = #{htg_sch.name}" 
+    # puts "#{thermal_zone.name} = #{htg_sch.name}"
 
     if people_schedule
       # zone_occ_sch = thermal_zone_people_schedule_hash[thermal_zone]
-      setback = 
+      setback =
         case subtype
         when 'Heating' then setpoint - OpenStudio.convert(5.0, 'R', 'K').get
         when 'Cooling' then setpoint + OpenStudio.convert(5.0, 'R', 'K').get
@@ -491,13 +490,13 @@ module OsLib_AdvImport
 
   # adds a setpoint schedule to model
   def self.make_setpoint_schedule(model, setpoint:, type:, subtype:)
-      
+
     options = { 'name' => "#{subtype} Setpoint Schedule",
                 'default_day' => ["#{subtype} Setpoint Default Day Schedule", [24.0, setpoint]],
                 'winter_design_day' => [[24.0, setpoint]],
                 'summer_design_day' => [[24.0, setpoint]] }
     schedule = OsLib_Schedules.createComplexSchedule(model, options)
-    
+
     unless type == 'relative_humidity'
       if model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').is_initialized
         schedule.setScheduleTypeLimits(model.getScheduleTypeLimitsByName('Temperature Schedule Type Limits').get)
@@ -510,7 +509,7 @@ module OsLib_AdvImport
 
   # adds setpoint schedules and humidistats to model
   def self.make_thermal_zone_humidistats(model, setpoints_thermal_zones_hash, thermal_zone_people_schedule_hash)
-  
+
     setpoint_type = 'relative_humidity'
 
     # humidifying
@@ -526,7 +525,7 @@ module OsLib_AdvImport
         thermal_zones_array.each do |thermal_zone|
           make_humidstat(thermal_zone, setpoint_schedule, setpoint: humid_setpoint, subtype: 'Humidifying')
         end
-      
+
       end
     end
 
@@ -542,9 +541,9 @@ module OsLib_AdvImport
         # humidistat
         thermal_zones_array.each do |thermal_zone|
           people_schedule = thermal_zone_people_schedule_hash[thermal_zone]
-          make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying', people_schedule: people_schedule)            
+          make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying', people_schedule: people_schedule)
         end
-      
+
       end
     end
 
@@ -561,7 +560,7 @@ module OsLib_AdvImport
         thermal_zones_array.each do |thermal_zone|
           make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying')
         end
-      
+
       end
     end
 
@@ -577,9 +576,9 @@ module OsLib_AdvImport
         # humidistat
         thermal_zones_array.each do |thermal_zone|
           people_schedule = thermal_zone_people_schedule_hash[thermal_zone]
-          make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying', people_schedule: people_schedule)            
+          make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying', people_schedule: people_schedule)
         end
-      
+
       end
     end
 
@@ -598,7 +597,7 @@ module OsLib_AdvImport
     end
 
     if people_schedule
-      setback = 
+      setback =
         case subtype
         when 'Humidifying' then 0.0
         when 'Dehumidifying' then 100.0
@@ -808,10 +807,10 @@ module OsLib_AdvImport
 
     thermal_zone_people_schedule_hash = thermal_zone_get_occupancy_schedule(model)
     setpoints_thermal_zones_hash = setpoints_thermal_zones_hash(model, zones)
-    
+
     make_thermal_zone_thermostats(model, setpoints_thermal_zones_hash, thermal_zone_people_schedule_hash)
     make_thermal_zone_humidistats(model, setpoints_thermal_zones_hash, thermal_zone_people_schedule_hash)
-    
+
     # modified_zones = {}
     # zones.each do |id, zone_data|
 
