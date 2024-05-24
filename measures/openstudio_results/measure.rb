@@ -37,9 +37,9 @@ require 'erb'
 require 'json'
 
 # load OpenStudio measure libraries from openstudio-extension gem
-require 'openstudio-extension'
-require 'openstudio/extension/core/os_lib_schedules'
-require 'openstudio/extension/core/os_lib_helper_methods'
+# require 'openstudio-extension'
+# require 'openstudio/extension/core/os_lib_schedules'
+# require 'openstudio/extension/core/os_lib_helper_methods'
 
 # load local resources
 require "#{File.dirname(__FILE__)}/resources/os_lib_reporting"
@@ -243,7 +243,7 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
     web_asset_path = setup[:web_asset_path]
 
     # assign the user inputs to variables
-    args = OsLib_HelperMethods.createRunVariables(runner, model, user_arguments, arguments)
+    args = runner.getArgumentValues(arguments(model), user_arguments)
     unless args
       return false
     end
