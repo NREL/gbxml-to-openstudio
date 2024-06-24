@@ -86,23 +86,11 @@ EOF
     assert(enth_elec_ac_dx_elec_var.airLoopHVACOutdoorAirSystem.is_initialized)
     optional_hx = enth_elec_ac_dx_elec_var.airLoopHVACOutdoorAirSystem.get.reliefAirModelObject.get.to_Node.get.outletModelObject.get.to_HeatExchangerAirToAirSensibleAndLatent
     assert(optional_hx.is_initialized)
-    mixed_air_node = enth_elec_ac_dx_elec_var.airLoopHVACOutdoorAirSystem.get.mixedAirModelObject.get.to_Node.get
-    preheat_coil = mixed_air_node.outletModelObject.get.to_CoilHeatingElectric
+    oa_node = enth_elec_ac_dx_elec_var.airLoopHVACOutdoorAirSystem.get.outboardOANode.get
+    preheat_coil = oa_node.outletModelObject.get.to_CoilHeatingElectric
     assert(preheat_coil.is_initialized)
-    cooling_coil = preheat_coil.get.outletModelObject.get.to_Node.get.outletModelObject.get.to_CoilCoolingDXSingleSpeed
-    assert(cooling_coil.is_initialized)
-    heating_coil = cooling_coil.get.outletModelObject.get.to_Node.get.outletModelObject.get.to_CoilHeatingElectric
-    assert(heating_coil.is_initialized)
-    fan = heating_coil.get.outletModelObject.get.to_Node.get.outletModelObject.get.to_FanVariableVolume
-    assert(fan.is_initialized)
-
-    assert(enth_elec_ac_dx_elec_var.airLoopHVACOutdoorAirSystem.is_initialized)
-    optional_hx = enth_elec_ac_dx_elec_var.airLoopHVACOutdoorAirSystem.get.reliefAirModelObject.get.to_Node.get.outletModelObject.get.to_HeatExchangerAirToAirSensibleAndLatent
-    assert(optional_hx.is_initialized)
-    mixed_air_node = enth_elec_ac_dx_elec_var.airLoopHVACOutdoorAirSystem.get.mixedAirModelObject.get.to_Node.get
-    preheat_coil = mixed_air_node.outletModelObject.get.to_CoilHeatingElectric
-    assert(preheat_coil.is_initialized)
-    cooling_coil = preheat_coil.get.outletModelObject.get.to_Node.get.outletModelObject.get.to_CoilCoolingDXSingleSpeed
+    mixed_air_node = enth_elec_ac_dx_elec_var.mixedAirNode.get
+    cooling_coil = mixed_air_node.outletModelObject.get.to_CoilCoolingDXSingleSpeed
     assert(cooling_coil.is_initialized)
     heating_coil = cooling_coil.get.outletModelObject.get.to_Node.get.outletModelObject.get.to_CoilHeatingElectric
     assert(heating_coil.is_initialized)
@@ -112,10 +100,11 @@ EOF
     assert(sens_furn_wc_dx_furn_var.airLoopHVACOutdoorAirSystem.is_initialized)
     optional_hx = sens_furn_wc_dx_furn_var.airLoopHVACOutdoorAirSystem.get.reliefAirModelObject.get.to_Node.get.outletModelObject.get.to_HeatExchangerAirToAirSensibleAndLatent
     assert(optional_hx.is_initialized)
-    mixed_air_node = sens_furn_wc_dx_furn_var.airLoopHVACOutdoorAirSystem.get.mixedAirModelObject.get.to_Node.get
-    preheat_coil = mixed_air_node.outletModelObject.get.to_CoilHeatingGas
+    oa_node = sens_furn_wc_dx_furn_var.airLoopHVACOutdoorAirSystem.get.outboardOANode.get
+    preheat_coil = oa_node.outletModelObject.get.to_CoilHeatingGas
     assert(preheat_coil.is_initialized)
-    cooling_coil = preheat_coil.get.outletModelObject.get.to_Node.get.outletModelObject.get.to_CoilCoolingDXSingleSpeed
+    mixed_air_node = sens_furn_wc_dx_furn_var.mixedAirNode.get
+    cooling_coil = mixed_air_node.outletModelObject.get.to_CoilCoolingDXSingleSpeed
     assert(cooling_coil.is_initialized)
     heating_coil = cooling_coil.get.outletModelObject.get.to_Node.get.outletModelObject.get.to_CoilHeatingGas
     assert(heating_coil.is_initialized)
@@ -125,14 +114,15 @@ EOF
     assert(none_hw_chw_hw_vav.airLoopHVACOutdoorAirSystem.is_initialized)
     optional_hx = none_hw_chw_hw_vav.airLoopHVACOutdoorAirSystem.get.reliefAirModelObject.get.to_Node.get.outletModelObject
     assert(!optional_hx.is_initialized)
-    mixed_air_node = none_hw_chw_hw_vav.airLoopHVACOutdoorAirSystem.get.mixedAirModelObject.get.to_Node.get
-    preheat_coil = mixed_air_node.outletModelObject.get.to_CoilHeatingWater
+    oa_node = none_hw_chw_hw_vav.airLoopHVACOutdoorAirSystem.get.outboardOANode.get
+    preheat_coil = oa_node.outletModelObject.get.to_CoilHeatingWater
     assert(preheat_coil.is_initialized)
-    cooling_coil = preheat_coil.get.airOutletModelObject.get.to_Node.get.outletModelObject.get.to_CoilCoolingWater
+    mixed_air_node = none_hw_chw_hw_vav.mixedAirNode.get
+    cooling_coil = mixed_air_node.outletModelObject.get.to_CoilCoolingWater
     assert(cooling_coil.is_initialized)
     heating_coil = cooling_coil.get.airOutletModelObject.get.to_Node.get.outletModelObject.get.to_CoilHeatingWater
     assert(heating_coil.is_initialized)
-    fan = heating_coil.get.airOutletModelObject.get.to_Node.get.outletModelObject.get.to_FanConstantVolume
+    fan = heating_coil.get.airOutletModelObject.get.to_Node.get.outletModelObject.get.to_FanVariableVolume
     assert(fan.is_initialized)
   end
 
