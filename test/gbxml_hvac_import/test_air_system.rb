@@ -237,7 +237,7 @@ EOF
 
     air_system = AirSystem.new
     air_system.air_loop_hvac = air_loop_hvac
-    air_system.set_schedules
+    air_system.post_build # calls private method set_schedules
 
     expected_infiltration_values = [1.0,0.25,1.0]
     expected_infiltration_times = []
@@ -246,8 +246,8 @@ EOF
     expected_infiltration_times << OpenStudio::Time.new(0, 24, 0)
 
     space.spaceInfiltrationDesignFlowRates[0].schedule.get.to_ScheduleRuleset.get.scheduleRules.each do |schedule_rule|
-      assert(schedule_rule.daySchedule.times == expected_infiltration_times)
-      assert(schedule_rule.daySchedule.values == expected_infiltration_values)
+      assert_equal(expected_infiltration_times, schedule_rule.daySchedule.times)
+      assert_equal(expected_infiltration_values, schedule_rule.daySchedule.values)
     end
 
     # puts space.people[0].numberofPeopleSchedule.get.to_ScheduleRuleset.get.defaultDaySchedule
