@@ -319,7 +319,7 @@ class AirSystem < HVACObject
 
     # create one IndependentVariable object to share for all TableLookups
     iv = OpenStudio::Model::TableIndependentVariable.new(self.model)
-    iv.setName("#{self.name}_IndependentVariable")
+    iv.setName("#{heat_exchanger.name}_IndependentVariable")
     iv.setInterpolationMethod('Linear')
     iv.setExtrapolationMethod('Linear')
     iv.setMinimumValue(0.0)
@@ -330,7 +330,7 @@ class AirSystem < HVACObject
     values.each do |type, values_hash|
       # create TableLookups
       t = OpenStudio::Model::TableLookup.new(self.model)
-      t.setName("#{self.name}_#{type.gsub(/ible|ent|ing|\s/, '')}Eff")
+      t.setName("#{heat_exchanger.name}_#{type.gsub(/ible|ent|ing|\s/, '')}Eff")
       t.addIndependentVariable(iv)
       t.setNormalizationMethod('DivisorOnly')
       t.setMinimumOutput(0.0)
