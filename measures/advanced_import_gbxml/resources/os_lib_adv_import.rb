@@ -41,7 +41,7 @@ require 'date'
 
 # constants for thermostat and humidistat schedules
 STANDARD = Standard.build('90.1-2013')
-STANDARD_VERSION = OpenStudio::VersionString.new(OpenstudioStandards::VERSION)
+STANDARDS_VERSION = OpenStudio::VersionString.new(OpenstudioStandards::VERSION)
 FIVE_PCT = 0.05
 
 module OsLib_AdvImport
@@ -273,7 +273,7 @@ module OsLib_AdvImport
 
         # thermostat
         thermal_zones_array.each do |thermal_zone|
-          if STANDARD_VERSION < OpenStudio::VersionString.new('0.6.1')
+          if STANDARDS_VERSION < OpenStudio::VersionString.new('0.6.1')
             people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           else
             people_schedule = OpenstudioStandards::ThermalZone.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
@@ -312,7 +312,7 @@ module OsLib_AdvImport
 
         # thermostat
         thermal_zones_array.each do |thermal_zone|
-          if STANDARD_VERSION < OpenStudio::VersionString.new('0.6.1')
+          if STANDARDS_VERSION < OpenStudio::VersionString.new('0.6.1')
             people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           else
             people_schedule = OpenstudioStandards::ThermalZone.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
@@ -405,7 +405,7 @@ module OsLib_AdvImport
 
         # humidistat
         thermal_zones_array.each do |thermal_zone|
-          if STANDARD_VERSION < OpenStudio::VersionString.new('0.6.1')
+          if STANDARDS_VERSION < OpenStudio::VersionString.new('0.6.1')
             people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           else
             people_schedule = OpenstudioStandards::ThermalZone.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
@@ -444,7 +444,7 @@ module OsLib_AdvImport
 
         # humidistat
         thermal_zones_array.each do |thermal_zone|
-          if STANDARD_VERSION < OpenStudio::VersionString.new('0.6.1')
+          if STANDARDS_VERSION < OpenStudio::VersionString.new('0.6.1')
             people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           else
             people_schedule = OpenstudioStandards::ThermalZone.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
