@@ -315,6 +315,41 @@ class AirSystem < HVACObject
     oa_system
   end
 
+  def add_heat_exchanger_effectiveness_curves(heat_exchanger, values)
+
+    # create one IndependentVariable object to share for all TableLookups
+    iv = OpenStudio::Model::TableIndependentVariable.new(self.model)
+    iv.setName("#{heat_exchanger.name}_IndependentVariable")
+    iv.setInterpolationMethod('Linear')
+    iv.setExtrapolationMethod('Linear')
+    iv.setMinimumValue(0.0)
+    iv.setMaximumValue(10.0)
+    iv.setUnitType('Dimensionless')
+    values['Sensible Heating'].keys.sort.each { |k| iv.addValue(k) }
+
+    values.each do |type, values_hash|
+      # create TableLookups
+      t = OpenStudio::Model::TableLookup.new(self.model)
+      t.setName("#{heat_exchanger.name}_#{type.gsub(/ible|ent|ing|\s/, '')}Eff")
+      t.addIndependentVariable(iv)
+      t.setNormalizationMethod('DivisorOnly')
+      t.setMinimumOutput(0.0)
+      t.setMaximumOutput(10.0)
+      t.setOutputUnitType('Dimensionless')
+      values = values_hash.sort.map { |a| a[1] }
+      # protect against setting normalization divisor to zero for zero effectiveness
+      values[-1].zero? ? t.setNormalizationDivisor(1) : t.setNormalizationDivisor(values[-1])
+      values.each { |v| t.addOutputValue(v) }
+
+      # set curves
+      type_a = type.split
+      heat_exchanger.send("set#{type_a[0]}Effectivenessat100#{type_a[1]}AirFlow", values_hash[1.0])
+      heat_exchanger.send("set#{type_a[0]}Effectivenessof#{type_a[1]}AirFlowCurve", t)
+    end
+
+    heat_exchanger
+  end
+
   def add_heat_exchanger
     heat_exchanger = nil
 
@@ -322,26 +357,44 @@ class AirSystem < HVACObject
       heat_exchanger = OpenStudio::Model::HeatExchangerAirToAirSensibleAndLatent.new(self.model)
       heat_exchanger.setName(self.name + " Heat Exchanger") unless self.name.nil?
       heat_exchanger.setSupplyAirOutletTemperatureControl(true)
-      heat_exchanger.setSensibleEffectivenessat100HeatingAirFlow(0.76)
-      heat_exchanger.setSensibleEffectivenessat75HeatingAirFlow(0.81)
-      heat_exchanger.setLatentEffectivenessat100HeatingAirFlow(0.68)
-      heat_exchanger.setLatentEffectivenessat75HeatingAirFlow(0.73)
-      heat_exchanger.setSensibleEffectivenessat100CoolingAirFlow(0.76)
-      heat_exchanger.setSensibleEffectivenessat75CoolingAirFlow(0.81)
-      heat_exchanger.setLatentEffectivenessat100CoolingAirFlow(0.68)
-      heat_exchanger.setLatentEffectivenessat75CoolingAirFlow(0.73)
+      if self.model.version < OpenStudio::VersionString.new('3.8.0')
+        heat_exchanger.setSensibleEffectivenessat100HeatingAirFlow(0.76)
+        heat_exchanger.setSensibleEffectivenessat75HeatingAirFlow(0.81)
+        heat_exchanger.setLatentEffectivenessat100HeatingAirFlow(0.68)
+        heat_exchanger.setLatentEffectivenessat75HeatingAirFlow(0.73)
+        heat_exchanger.setSensibleEffectivenessat100CoolingAirFlow(0.76)
+        heat_exchanger.setSensibleEffectivenessat75CoolingAirFlow(0.81)
+        heat_exchanger.setLatentEffectivenessat100CoolingAirFlow(0.68)
+        heat_exchanger.setLatentEffectivenessat75CoolingAirFlow(0.73)
+      else
+        heat_exchanger.assignHistoricalEffectivenessCurves
+      end
+
     elsif self.heat_exchanger_type == "Sensible"
       heat_exchanger = OpenStudio::Model::HeatExchangerAirToAirSensibleAndLatent.new(self.model)
       heat_exchanger.setName(self.name + " Heat Exchanger") unless self.name.nil?
       heat_exchanger.setSupplyAirOutletTemperatureControl(true)
-      heat_exchanger.setSensibleEffectivenessat100HeatingAirFlow(0.76)
-      heat_exchanger.setSensibleEffectivenessat75HeatingAirFlow(0.81)
-      heat_exchanger.setLatentEffectivenessat100HeatingAirFlow(0)
-      heat_exchanger.setLatentEffectivenessat75HeatingAirFlow(0)
-      heat_exchanger.setSensibleEffectivenessat100CoolingAirFlow(0.76)
-      heat_exchanger.setSensibleEffectivenessat75CoolingAirFlow(0.81)
-      heat_exchanger.setLatentEffectivenessat100CoolingAirFlow(0)
-      heat_exchanger.setLatentEffectivenessat75CoolingAirFlow(0)
+      if self.model.version < OpenStudio::VersionString.new('3.8.0')
+        heat_exchanger.setSensibleEffectivenessat100HeatingAirFlow(0.76)
+        heat_exchanger.setSensibleEffectivenessat75HeatingAirFlow(0.81)
+        heat_exchanger.setLatentEffectivenessat100HeatingAirFlow(0)
+        heat_exchanger.setLatentEffectivenessat75HeatingAirFlow(0)
+        heat_exchanger.setSensibleEffectivenessat100CoolingAirFlow(0.76)
+        heat_exchanger.setSensibleEffectivenessat75CoolingAirFlow(0.81)
+        heat_exchanger.setLatentEffectivenessat100CoolingAirFlow(0)
+        heat_exchanger.setLatentEffectivenessat75CoolingAirFlow(0)
+      else
+        values = Hash.new{|hash, key| hash[key] = Hash.new}
+        values['Sensible Heating'][0.75] = 0.81
+        values['Sensible Heating'][1.0] = 0.76
+        values['Latent Heating'][0.75] = 0
+        values['Latent Heating'][1.0] = 0
+        values['Sensible Cooling'][0.75] = 0.81
+        values['Sensible Cooling'][1.0] = 0.76
+        values['Latent Cooling'][0.75] = 0
+        values['Latent Cooling'][1.0] = 0
+        add_heat_exchanger_effectiveness_curves(heat_exchanger, values)
+      end
     end
 
     heat_exchanger
