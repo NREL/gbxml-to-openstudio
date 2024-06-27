@@ -749,6 +749,7 @@ module OsLib_Reporting
         target_units = source_units
       end
 
+      target_units = 'kBtu'
       value = OpenStudio.convert(results.get, 'GJ', target_units).get
       value_neat = OpenStudio.toNeatString(value, 0, true)
       output_data_energy_use[:data] << [fuel_type, value_neat]
