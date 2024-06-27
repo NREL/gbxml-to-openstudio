@@ -238,7 +238,8 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
     web_asset_path = setup[:web_asset_path]
 
     # assign the user inputs to variables
-    args = runner.getArgumentValues(arguments(model), user_arguments)
+    args = runner.getArgumentValues(arguments, user_arguments)
+    args = Hash[args.collect{ |k, v| [k.to_s, v] }]
     unless args
       return false
     end
@@ -347,7 +348,7 @@ class OpenStudioResults < OpenStudio::Measure::ReportingMeasure
     end
 
     # configure template with variable values
-    resources_path = File.join(runner.workflow.findMeasure('openstudio_results').get.to_s, 'resources/')
+    resources_path = File.join(runner.workflow.findMeasure('openstudio_results').get.to_s, 'resources/') # MAS needed for some reason, TODO add comment why
     renderer = ERB.new(html_in)
     html_out = renderer.result(binding)
 
