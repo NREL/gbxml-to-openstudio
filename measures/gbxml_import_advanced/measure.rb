@@ -10,11 +10,11 @@ require 'rexml/xpath'
 Dir[File.dirname(__FILE__) + '/resources/*.rb'].each { |file| require file }
 
 # start the measure
-class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
+class GbxmlImportAdvanced < OpenStudio::Measure::ModelMeasure
   # human readable name
   def name
     # Measure name should be the title case of the class name.
-    return 'Advanced Import Gbxml'
+    return 'Gbxml Import Advanced'
   end
 
   # human readable description
@@ -421,4 +421,4 @@ class AdvancedImportGbxml < OpenStudio::Measure::ModelMeasure
 end
 
 # register the measure to be used by the application
-AdvancedImportGbxml.new.registerWithApplication
+GbxmlImportAdvanced.new.registerWithApplication
