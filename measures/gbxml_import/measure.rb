@@ -6,7 +6,7 @@ class GbxmlImport < OpenStudio::Measure::ModelMeasure
 
   # human readable name
   def name
-    return "GbxmlImport"
+    return "Gbxml Import"
   end
 
   # human readable description
