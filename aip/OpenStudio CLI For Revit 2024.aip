@@ -1,0 +1,842 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DOCUMENT Type="Advanced Installer" CreateVersion="15.3" version="20.6" Modules="simple" RootPath="." Language="en" Id="{C3B9B3C7-92CD-43AC-A37F-FC28A2FFE7DE}">
+  <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
+    <ROW Name="HiddenItems" Value="AppXAppDetailsComponent;FixupComponent;AppXCapabilitiesComponent;AppXDependenciesComponent;AppXProductDetailsComponent;AppXVisualAssetsComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent;MsiXDiffComponent;MsixManifestEditorComponent"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
+    <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
+    <ROW Property="ALLUSERS" Value="1"/>
+    <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
+    <ROW Property="ARPPRODUCTICON" Value="os.exe" Type="8"/>
+    <ROW Property="Manufacturer" Value="NREL"/>
+    <ROW Property="ProductCode" Value="1033:{079BC4C3-0337-4B3D-8F25-928800293F90} " Type="16"/>
+    <ROW Property="ProductLanguage" Value="1033"/>
+    <ROW Property="ProductName" Value="OpenStudio CLI For Revit 2024"/>
+    <ROW Property="ProductVersion" Value="1.2.0"/>
+    <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
+    <ROW Property="UpgradeCode" Value="{89E88DC9-8FB5-499D-B18D-9809F02C5407}"/>
+    <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40Display" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50Display" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5X" MultiBuildValue="DefaultBuild:Windows XP/2003" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5XDisplay" MultiBuildValue="DefaultBuild:Windows XP/2003" ValueLocId="-"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
+    <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="ChangeBuildingLocation_Dir" Directory_Parent="measures_Dir" DefaultDir="CHANGE~1|ChangeBuildingLocation"/>
+    <ROW Directory="EnergyPlus_Dir" Directory_Parent="APPDIR" DefaultDir="ENERGY~1|EnergyPlus"/>
+    <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
+    <ROW Directory="bin_Dir" Directory_Parent="APPDIR" DefaultDir="bin"/>
+    <ROW Directory="build_Dir" Directory_Parent="resources_4_Dir" DefaultDir="build"/>
+    <ROW Directory="canister_Dir" Directory_Parent="resources_4_Dir" DefaultDir="canister"/>
+    <ROW Directory="config_Dir" Directory_Parent="systems_analysis_report_Dir" DefaultDir="config"/>
+    <ROW Directory="eplusout_Dir" Directory_Parent="resources_4_Dir" DefaultDir="eplusout"/>
+    <ROW Directory="gateways_Dir" Directory_Parent="eplusout_Dir" DefaultDir="gateways"/>
+    <ROW Directory="gbxml_import_Dir" Directory_Parent="measures_Dir" DefaultDir="GBXML_~1|gbxml_import"/>
+    <ROW Directory="gbxml_import_advanced_Dir" Directory_Parent="measures_Dir" DefaultDir="GBXML_~2|gbxml_import_advanced"/>
+    <ROW Directory="gbxml_import_hvac_Dir" Directory_Parent="measures_Dir" DefaultDir="GBXML_~3|gbxml_import_hvac"/>
+    <ROW Directory="gbxml_postprocess_Dir" Directory_Parent="measures_Dir" DefaultDir="GBXML_~4|gbxml_postprocess"/>
+    <ROW Directory="gbxmls_Dir" Directory_Parent="APPDIR" DefaultDir="gbxmls"/>
+    <ROW Directory="mappers_1_Dir" Directory_Parent="systems_analysis_report_Dir" DefaultDir="mappers"/>
+    <ROW Directory="mappers_Dir" Directory_Parent="eplusout_Dir" DefaultDir="mappers"/>
+    <ROW Directory="measures_Dir" Directory_Parent="APPDIR" DefaultDir="measures"/>
+    <ROW Directory="models_1_Dir" Directory_Parent="systems_analysis_report_Dir" DefaultDir="models"/>
+    <ROW Directory="models_Dir" Directory_Parent="eplusout_Dir" DefaultDir="models"/>
+    <ROW Directory="openstudio_results_Dir" Directory_Parent="measures_Dir" DefaultDir="OPENST~1|openstudio_results"/>
+    <ROW Directory="pyenergyplus_1_Dir" Directory_Parent="pyenergyplus_Dir" DefaultDir="PYENER~1|pyenergyplus"/>
+    <ROW Directory="pyenergyplus_Dir" Directory_Parent="EnergyPlus_Dir" DefaultDir="PYENER~1|pyenergyplus"/>
+    <ROW Directory="relations_Dir" Directory_Parent="eplusout_Dir" DefaultDir="RELATI~1|relations"/>
+    <ROW Directory="report_generators_Dir" Directory_Parent="systems_analysis_report_Dir" DefaultDir="REPORT~1|report_generators"/>
+    <ROW Directory="repositories_Dir" Directory_Parent="systems_analysis_report_Dir" DefaultDir="REPOSI~1|repositories"/>
+    <ROW Directory="resources_1_Dir" Directory_Parent="gbxml_import_advanced_Dir" DefaultDir="RESOUR~1|resources"/>
+    <ROW Directory="resources_2_Dir" Directory_Parent="gbxml_import_hvac_Dir" DefaultDir="RESOUR~1|resources"/>
+    <ROW Directory="resources_3_Dir" Directory_Parent="openstudio_results_Dir" DefaultDir="RESOUR~1|resources"/>
+    <ROW Directory="resources_4_Dir" Directory_Parent="systems_analysis_report_generat_Dir" DefaultDir="RESOUR~1|resources"/>
+    <ROW Directory="resources_Dir" Directory_Parent="ChangeBuildingLocation_Dir" DefaultDir="RESOUR~1|resources"/>
+    <ROW Directory="seeds_Dir" Directory_Parent="APPDIR" DefaultDir="seeds"/>
+    <ROW Directory="services_Dir" Directory_Parent="systems_analysis_report_Dir" DefaultDir="services"/>
+    <ROW Directory="set_simulation_control_Dir" Directory_Parent="measures_Dir" DefaultDir="SET_SI~1|set_simulation_control"/>
+    <ROW Directory="strategies_Dir" Directory_Parent="systems_analysis_report_Dir" DefaultDir="STRATE~1|strategies"/>
+    <ROW Directory="systems_analysis_report_Dir" Directory_Parent="resources_4_Dir" DefaultDir="SYSTEM~1|systems_analysis_report"/>
+    <ROW Directory="systems_analysis_report_generat_Dir" Directory_Parent="measures_Dir" DefaultDir="SYSTEM~1|systems_analysis_report_generator"/>
+    <ROW Directory="tests_1_Dir" Directory_Parent="gbxml_import_Dir" DefaultDir="tests"/>
+    <ROW Directory="tests_2_Dir" Directory_Parent="gbxml_import_advanced_Dir" DefaultDir="tests"/>
+    <ROW Directory="tests_3_Dir" Directory_Parent="gbxml_postprocess_Dir" DefaultDir="tests"/>
+    <ROW Directory="tests_4_Dir" Directory_Parent="openstudio_results_Dir" DefaultDir="tests"/>
+    <ROW Directory="tests_Dir" Directory_Parent="ChangeBuildingLocation_Dir" DefaultDir="tests"/>
+    <ROW Directory="utilities_Dir" Directory_Parent="eplusout_Dir" DefaultDir="UTILIT~1|utilities"/>
+    <ROW Directory="weather_Dir" Directory_Parent="APPDIR" DefaultDir="weather"/>
+    <ROW Directory="workflows_Dir" Directory_Parent="APPDIR" DefaultDir="WORKFL~1|workflows"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
+    <ROW Component="APPDIR" ComponentId="{8B38F1F3-4CC4-4355-B8E1-4F37C13E3FA3}" Directory_="APPDIR" Attributes="0"/>
+    <ROW Component="AnnualBuildingEnergySimulation.osw" ComponentId="{B20C896D-5908-4D86-8197-E3779D3BC3E9}" Directory_="workflows_Dir" Attributes="0" KeyPath="AnnualBuildingEnergySimulation.osw" Type="0"/>
+    <ROW Component="CHANGELOG.md" ComponentId="{5563E256-E2F4-4A7B-A72E-1A4D10D3A898}" Directory_="APPDIR" Attributes="0" KeyPath="CHANGELOG.md" Type="0"/>
+    <ROW Component="Energy.idd" ComponentId="{D43198BA-6F80-469E-8C96-2A6F7365D533}" Directory_="EnergyPlus_Dir" Attributes="0" KeyPath="Energy.idd" Type="0"/>
+    <ROW Component="ExpandObjects.exe" ComponentId="{CB0B553A-FC36-4C40-81D9-72A030826703}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="ExpandObjects.exe"/>
+    <ROW Component="LICENSE.md" ComponentId="{EA6BB690-BE60-40BB-A107-C3E85393B2D9}" Directory_="ChangeBuildingLocation_Dir" Attributes="0" KeyPath="LICENSE.md" Type="0"/>
+    <ROW Component="LICENSE.md_1" ComponentId="{87C39C73-9487-4890-958C-94D794BA7A84}" Directory_="openstudio_results_Dir" Attributes="0" KeyPath="LICENSE.md_1" Type="0"/>
+    <ROW Component="ProductInformation" ComponentId="{8845EE96-7C3F-4EA1-BAB7-B156FF6BC18E}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
+    <ROW Component="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" ComponentId="{00C41404-4009-4A13-AA93-702FEC61A1D5}" Directory_="weather_Dir" Attributes="0" KeyPath="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" Type="0"/>
+    <ROW Component="_SmallHotel_a.osm" ComponentId="{2D36E374-71EB-456B-8BB4-17151A956BE4}" Directory_="tests_4_Dir" Attributes="0" KeyPath="_SmallHotel_a.osm" Type="0"/>
+    <ROW Component="_SpacesOneZE.xml" ComponentId="{B927C16B-85F1-4AF5-A4D1-69FCBFB6D3EA}" Directory_="tests_2_Dir" Attributes="0" KeyPath="_SpacesOneZE.xml" Type="0"/>
+    <ROW Component="acb.rb" ComponentId="{F3BF7D15-8295-439C-B503-CA191C95C303}" Directory_="resources_2_Dir" Attributes="0" KeyPath="acb.rb" Type="0"/>
+    <ROW Component="air_state_point.rb" ComponentId="{3915C8AC-F5A3-4D5B-B36F-F0CBCF549364}" Directory_="models_1_Dir" Attributes="0" KeyPath="air_state_point.rb" Type="0"/>
+    <ROW Component="air_state_point_mapper.rb" ComponentId="{C7AAD7E6-75D5-43F7-BE4B-924F30BDE9D6}" Directory_="mappers_1_Dir" Attributes="0" KeyPath="air_state_point_mapper.rb" Type="0"/>
+    <ROW Component="analysis.xml" ComponentId="{66D09D6F-226E-4575-89E8-183D26D14D89}" Directory_="gbxmls_Dir" Attributes="0" KeyPath="analysis.xml" Type="0"/>
+    <ROW Component="another_weather_file.ddy" ComponentId="{757AA4E0-F51C-484B-9813-91A683C9F2DB}" Directory_="tests_Dir" Attributes="0" KeyPath="another_weather_file.ddy" Type="0"/>
+    <ROW Component="api.py" ComponentId="{5CDA31DF-3C00-4ABB-99C7-17296A0572D6}" Directory_="pyenergyplus_Dir" Attributes="0" KeyPath="api.py" Type="0"/>
+    <ROW Component="api.py_1" ComponentId="{6C4259DF-54DE-4F87-82BA-93E4637907B1}" Directory_="pyenergyplus_1_Dir" Attributes="0" KeyPath="api.py_1" Type="0"/>
+    <ROW Component="apimswincoreconsolel110.dll" ComponentId="{A5EBB16B-08CD-49BF-80A5-AF030FCE1F14}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoreconsolel110.dll"/>
+    <ROW Component="apimswincoreconsolel120.dll" ComponentId="{0AA4BE63-21A6-4DBE-85AF-1DE5D95E87E5}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoreconsolel120.dll"/>
+    <ROW Component="apimswincoredatetimel110.dll" ComponentId="{027453BA-D33E-4CD7-90DD-8626C002F1F3}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoredatetimel110.dll"/>
+    <ROW Component="apimswincoredebugl110.dll" ComponentId="{74C38F5C-B083-4EAF-9A1B-8FAF5A770D0B}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoredebugl110.dll"/>
+    <ROW Component="apimswincoreerrorhandlingl110.dll" ComponentId="{1CA8345A-E374-4963-8B54-50EE95D07E50}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoreerrorhandlingl110.dll"/>
+    <ROW Component="apimswincorefilel110.dll" ComponentId="{B1323F61-93C7-4B24-AAAF-BAE01BF0CDE4}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincorefilel110.dll"/>
+    <ROW Component="apimswincorefilel120.dll" ComponentId="{0A7B76E9-BB2A-452F-8490-18A3F0096237}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincorefilel120.dll"/>
+    <ROW Component="apimswincorefilel210.dll" ComponentId="{5FFBF9AA-3133-4043-B8B5-02D728CE4E21}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincorefilel210.dll"/>
+    <ROW Component="apimswincorehandlel110.dll" ComponentId="{FB1DBE61-92C1-46DB-BAF7-0A17DAA930FB}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincorehandlel110.dll"/>
+    <ROW Component="apimswincoreheapl110.dll" ComponentId="{3948F220-F745-4590-BAE5-29FDAEF4D1BB}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoreheapl110.dll"/>
+    <ROW Component="apimswincoreinterlockedl110.dll" ComponentId="{3F10E385-45B8-4565-82A2-1978454AD38A}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoreinterlockedl110.dll"/>
+    <ROW Component="apimswincorelibraryloaderl110.dll" ComponentId="{C5333D17-080C-4A2D-813F-53828E32E14B}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincorelibraryloaderl110.dll"/>
+    <ROW Component="apimswincorelocalizationl120.dll" ComponentId="{3A108CDC-F60F-4206-8EAF-581AB6C98F8F}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincorelocalizationl120.dll"/>
+    <ROW Component="apimswincorememoryl110.dll" ComponentId="{60D9536D-DA89-4ACE-A447-9B970EDBE2E5}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincorememoryl110.dll"/>
+    <ROW Component="apimswincorenamedpipel110.dll" ComponentId="{483C6EE1-A433-4040-BDE4-CEF12D6105BF}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincorenamedpipel110.dll"/>
+    <ROW Component="apimswincoreprocessenvironmentl110.dll" ComponentId="{87CEFFE9-0E3C-47FC-BB4D-014360BE1664}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoreprocessenvironmentl110.dll"/>
+    <ROW Component="apimswincoreprocessthreadsl110.dll" ComponentId="{D42660CD-FDC2-4007-BFFB-8BBC28706643}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoreprocessthreadsl110.dll"/>
+    <ROW Component="apimswincoreprocessthreadsl111.dll" ComponentId="{23F81D25-BD07-4DFC-ADE6-F08483CFEB49}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoreprocessthreadsl111.dll"/>
+    <ROW Component="apimswincoreprofilel110.dll" ComponentId="{685799C2-C218-47CE-9D79-2C458311D96F}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoreprofilel110.dll"/>
+    <ROW Component="apimswincorertlsupportl110.dll" ComponentId="{8FF2F2EC-840A-4149-9759-05186690E78C}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincorertlsupportl110.dll"/>
+    <ROW Component="apimswincorestringl110.dll" ComponentId="{E10DB22A-FCA1-465F-8674-333A440B8034}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincorestringl110.dll"/>
+    <ROW Component="apimswincoresynchl110.dll" ComponentId="{7A75AAC1-BA40-4AA8-A1FB-9A9C8F520655}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoresynchl110.dll"/>
+    <ROW Component="apimswincoresynchl120.dll" ComponentId="{AFB91864-1EAE-4E9E-B9D5-CFADF02B119D}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoresynchl120.dll"/>
+    <ROW Component="apimswincoresysinfol110.dll" ComponentId="{0ECBD636-AFF5-4ACE-BB98-24145A7AE896}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoresysinfol110.dll"/>
+    <ROW Component="apimswincoretimezonel110.dll" ComponentId="{BB7DCF91-6E81-4192-A43B-8D3AF5D92A33}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoretimezonel110.dll"/>
+    <ROW Component="apimswincoreutill110.dll" ComponentId="{7908687B-36ED-4538-977A-18AA34DD1EAD}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincoreutill110.dll"/>
+    <ROW Component="apimswincrtconiol110.dll" ComponentId="{55ED6057-180A-4CF5-A9E3-E0704108256B}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrtconiol110.dll"/>
+    <ROW Component="apimswincrtconvertl110.dll" ComponentId="{716D2EF2-E76D-4AD5-AF46-AD9DAE8A50D7}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrtconvertl110.dll"/>
+    <ROW Component="apimswincrtenvironmentl110.dll" ComponentId="{8D3D6BF7-56AB-4DC7-B9FE-0D1CFEA8B76E}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrtenvironmentl110.dll"/>
+    <ROW Component="apimswincrtfilesysteml110.dll" ComponentId="{FB6448A2-7C8A-44CF-8B43-E96568C666AB}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrtfilesysteml110.dll"/>
+    <ROW Component="apimswincrtheapl110.dll" ComponentId="{8B98640C-B303-4835-9DD4-95C10E5B4F53}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrtheapl110.dll"/>
+    <ROW Component="apimswincrtlocalel110.dll" ComponentId="{26B16FD2-A569-439A-B893-8D619FF91F95}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrtlocalel110.dll"/>
+    <ROW Component="apimswincrtmathl110.dll" ComponentId="{A69EA048-FF6D-4EC1-97D2-0AC2D5B01503}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrtmathl110.dll"/>
+    <ROW Component="apimswincrtmultibytel110.dll" ComponentId="{CEA24643-A431-42E5-B953-6CF4E69F1A1D}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrtmultibytel110.dll"/>
+    <ROW Component="apimswincrtprivatel110.dll" ComponentId="{EED9035B-D885-4E50-A7EA-37FEAF6BBDE3}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrtprivatel110.dll"/>
+    <ROW Component="apimswincrtprocessl110.dll" ComponentId="{5262F4C2-5A62-4CEF-977B-31EDA7EA5309}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrtprocessl110.dll"/>
+    <ROW Component="apimswincrtruntimel110.dll" ComponentId="{0CD4B8B8-23CA-41E5-9451-309C105F8CEA}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrtruntimel110.dll"/>
+    <ROW Component="apimswincrtstdiol110.dll" ComponentId="{8D078CDA-8725-4C55-8B2A-55E6EE955BC8}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrtstdiol110.dll"/>
+    <ROW Component="apimswincrtstringl110.dll" ComponentId="{A0E69E73-DBE5-4844-BF12-9B60130D9A5E}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrtstringl110.dll"/>
+    <ROW Component="apimswincrttimel110.dll" ComponentId="{DB663963-CF13-487C-BD0C-89947A93200E}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrttimel110.dll"/>
+    <ROW Component="apimswincrtutilityl110.dll" ComponentId="{EA2F580D-F98C-46EB-96E2-35491125E491}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="apimswincrtutilityl110.dll"/>
+    <ROW Component="bootstrap.min.css" ComponentId="{32A1E8BF-27C5-4C46-9AD6-70EF35638F93}" Directory_="resources_3_Dir" Attributes="0" KeyPath="bootstrap.min.css" Type="0"/>
+    <ROW Component="building_type_helper.rb" ComponentId="{63D5AAB3-FD25-4A89-8701-F7F1BFC6D3CB}" Directory_="resources_1_Dir" Attributes="0" KeyPath="building_type_helper.rb" Type="0"/>
+    <ROW Component="bundle.js" ComponentId="{D15446CD-8B56-452C-ACE2-DE322F6D4FA3}" Directory_="build_Dir" Attributes="0" KeyPath="bundle.js" Type="0"/>
+    <ROW Component="canister.rb" ComponentId="{F13B0EEA-55A4-4F4C-9AF0-2DA423444B3E}" Directory_="canister_Dir" Attributes="0" KeyPath="canister.rb" Type="0"/>
+    <ROW Component="canister.rb_1" ComponentId="{FCDA9702-28BF-4CAB-9C2E-B65EF29F7247}" Directory_="resources_4_Dir" Attributes="0" KeyPath="canister.rb_1" Type="0"/>
+    <ROW Component="coil_sizing_detail.rb" ComponentId="{4419BFE8-3CD6-4EA4-AF88-57873B00828F}" Directory_="models_Dir" Attributes="0" KeyPath="coil_sizing_detail.rb" Type="0"/>
+    <ROW Component="coil_sizing_detail_mapper.rb" ComponentId="{0A337F76-83F5-40A6-90C2-40F70E3FBEAC}" Directory_="mappers_Dir" Attributes="0" KeyPath="coil_sizing_detail_mapper.rb" Type="0"/>
+    <ROW Component="coil_sizing_details.rb" ComponentId="{0ED58CED-0910-436E-B09B-04AA31DE42FB}" Directory_="relations_Dir" Attributes="0" KeyPath="coil_sizing_details.rb" Type="0"/>
+    <ROW Component="concrt140.dll" ComponentId="{FBE4DB90-EE1D-42EA-9559-BC3D1D5FAF1F}" Directory_="bin_Dir" Attributes="256" KeyPath="concrt140.dll"/>
+    <ROW Component="concrt140.dll_1" ComponentId="{B6CF367A-21AD-47DA-83BA-D396F6B37C63}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="concrt140.dll_1"/>
+    <ROW Component="config.rb" ComponentId="{F5EF6C3B-870B-498A-8A78-80764580AD41}" Directory_="config_Dir" Attributes="0" KeyPath="config.rb" Type="0"/>
+    <ROW Component="container.rb" ComponentId="{5C6C20A7-1680-40AA-95C1-4D00E38EE337}" Directory_="eplusout_Dir" Attributes="0" KeyPath="container.rb" Type="0"/>
+    <ROW Component="container.rb_1" ComponentId="{6AE62B39-953B-4917-BB49-306FAB4BA9B2}" Directory_="systems_analysis_report_Dir" Attributes="0" KeyPath="container.rb_1" Type="0"/>
+    <ROW Component="converter.rb" ComponentId="{822FD635-2D96-400D-9E74-1FDFE5C093E2}" Directory_="utilities_Dir" Attributes="0" KeyPath="converter.rb" Type="0"/>
+    <ROW Component="cooling_coil_name_getter.rb" ComponentId="{755526F7-F84C-468F-9BEB-482C514C440C}" Directory_="strategies_Dir" Attributes="0" KeyPath="cooling_coil_name_getter.rb" Type="0"/>
+    <ROW Component="denver_seed_empty.osm" ComponentId="{4CA1A6DA-0AC5-4F6B-9538-AA6EBAB97296}" Directory_="seeds_Dir" Attributes="0" KeyPath="denver_seed_empty.osm" Type="0"/>
+    <ROW Component="design_psychrometric_repo.rb" ComponentId="{6C0B90F4-D74E-4606-B408-CCB38953B5D2}" Directory_="repositories_Dir" Attributes="0" KeyPath="design_psychrometric_repo.rb" Type="0"/>
+    <ROW Component="design_psychrometric_service.rb" ComponentId="{8EE25D73-B1CD-466C-B278-88980C47D69A}" Directory_="services_Dir" Attributes="0" KeyPath="design_psychrometric_service.rb" Type="0"/>
+    <ROW Component="energyplus.exe" ComponentId="{F5EBA4ED-D3F7-486F-83E0-2C6D3C7CB810}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="energyplus.exe"/>
+    <ROW Component="energyplusapi.dll" ComponentId="{D5F49546-1516-4C29-875F-867B96BAA2B3}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="energyplusapi.dll"/>
+    <ROW Component="epw.rb" ComponentId="{D28AB655-95F4-4F9C-ACF6-77291BCB7746}" Directory_="resources_Dir" Attributes="0" KeyPath="epw.rb" Type="0"/>
+    <ROW Component="gbXMLStandardTestModel2016.xml" ComponentId="{A5CFDA1D-C62C-4F8E-A998-999DC9030315}" Directory_="tests_1_Dir" Attributes="0" KeyPath="gbXMLStandardTestModel2016.xml" Type="0"/>
+    <ROW Component="gbxml_import_hvac.rb" ComponentId="{1AD70644-1BBE-4D7E-93EA-2AFCAF57D213}" Directory_="gbxml_import_hvac_Dir" Attributes="0" KeyPath="gbxml_import_hvac.rb" Type="0"/>
+    <ROW Component="gbxml_postprocess_test.rb" ComponentId="{EA8AA7F6-9608-499B-82D1-886BA42EEE37}" Directory_="tests_3_Dir" Attributes="0" KeyPath="gbxml_postprocess_test.rb" Type="0"/>
+    <ROW Component="json_generator.rb" ComponentId="{44DBE660-497D-4C58-80A3-9EAF5A1B7FC2}" Directory_="report_generators_Dir" Attributes="0" KeyPath="json_generator.rb" Type="0"/>
+    <ROW Component="measure.rb" ComponentId="{4F17794C-ADAF-4696-B518-D70664617016}" Directory_="gbxml_import_Dir" Attributes="0" KeyPath="measure.rb_1" Type="0"/>
+    <ROW Component="measure.rb_1" ComponentId="{9F10783E-A86E-4608-96E1-D524D02F460F}" Directory_="gbxml_import_advanced_Dir" Attributes="0" KeyPath="measure.rb_2" Type="0"/>
+    <ROW Component="measure.rb_2" ComponentId="{0E172D17-A10C-4302-8492-2DFB2AE8EF43}" Directory_="gbxml_postprocess_Dir" Attributes="0" KeyPath="measure.rb_4" Type="0"/>
+    <ROW Component="measure.rb_3" ComponentId="{0F99905E-02FB-478D-8619-3FC2631D4E06}" Directory_="set_simulation_control_Dir" Attributes="0" KeyPath="measure.rb_6" Type="0"/>
+    <ROW Component="measure.rb_4" ComponentId="{42A7BC97-AE46-4F03-A9DB-F59418F3E799}" Directory_="systems_analysis_report_generat_Dir" Attributes="0" KeyPath="measure.rb_7" Type="0"/>
+    <ROW Component="msvcp140.dll" ComponentId="{78B94565-F3BC-4B3C-8ED3-266E22E653BA}" Directory_="bin_Dir" Attributes="256" KeyPath="msvcp140.dll"/>
+    <ROW Component="msvcp140.dll_1" ComponentId="{0D73331C-44FA-4EF1-9A5A-1782E296B92B}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="msvcp140.dll_1"/>
+    <ROW Component="msvcp140_1.dll" ComponentId="{FB0987E7-DE83-49E7-ACA9-03D0B7045D4F}" Directory_="bin_Dir" Attributes="256" KeyPath="msvcp140_1.dll"/>
+    <ROW Component="msvcp140_1.dll_1" ComponentId="{63B7670B-7410-47E9-8FBC-FA86E4093DA5}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="msvcp140_1.dll_1"/>
+    <ROW Component="msvcp140_2.dll" ComponentId="{B581644D-DE01-4398-B91C-EC25E6604B13}" Directory_="bin_Dir" Attributes="256" KeyPath="msvcp140_2.dll"/>
+    <ROW Component="msvcp140_2.dll_1" ComponentId="{594F3BA7-17E6-4A48-959E-D72CB5B41E26}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="msvcp140_2.dll_1"/>
+    <ROW Component="msvcp140_atomic_wait.dll" ComponentId="{833CEF79-C154-4878-8078-11269FB27324}" Directory_="bin_Dir" Attributes="256" KeyPath="msvcp140_atomic_wait.dll"/>
+    <ROW Component="msvcp140_atomic_wait.dll_1" ComponentId="{1B870261-9CF8-4B44-8043-D3E428062E33}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="msvcp140_atomic_wait.dll_1"/>
+    <ROW Component="msvcp140_codecvt_ids.dll" ComponentId="{D7C1B79E-A9BB-4833-9C91-B8E8AA909CD2}" Directory_="bin_Dir" Attributes="256" KeyPath="msvcp140_codecvt_ids.dll"/>
+    <ROW Component="msvcp140_codecvt_ids.dll_1" ComponentId="{EF48F8F6-9F49-4D01-8D59-E1570261D045}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="msvcp140_codecvt_ids.dll_1"/>
+    <ROW Component="openstudio.exe" ComponentId="{1ABA3008-887C-43D0-9DD6-B0E81FD2E099}" Directory_="bin_Dir" Attributes="256" KeyPath="openstudio.exe"/>
+    <ROW Component="openstudiolib.dll" ComponentId="{F22A0B80-90E9-431F-9F3E-87EEB6783C56}" Directory_="bin_Dir" Attributes="256" KeyPath="openstudiolib.dll"/>
+    <ROW Component="openstudiolib.lib" ComponentId="{48BF3C90-5032-4FEC-B04E-1045D4EFCAE0}" Directory_="bin_Dir" Attributes="0" KeyPath="openstudiolib.lib" Type="0"/>
+    <ROW Component="python38.dll" ComponentId="{F4FEF6C2-36E3-4A93-ACA1-3CFAE54DD279}" Directory_="bin_Dir" Attributes="256" KeyPath="python38.dll"/>
+    <ROW Component="pythonengine.dll" ComponentId="{B94A38EB-D61C-4F15-8A4D-D2BC4D3E1850}" Directory_="bin_Dir" Attributes="256" KeyPath="pythonengine.dll"/>
+    <ROW Component="rubyengine.dll" ComponentId="{445B5D4B-D989-4F05-8435-56B31B117C03}" Directory_="bin_Dir" Attributes="256" KeyPath="rubyengine.dll"/>
+    <ROW Component="sql_gateway.rb" ComponentId="{92EFECC3-35CF-4CD9-966A-B61BFAD13EDA}" Directory_="gateways_Dir" Attributes="0" KeyPath="sql_gateway.rb" Type="0"/>
+    <ROW Component="ucrtbase.dll" ComponentId="{C6D15FA7-C64E-4E29-A62C-231EF8CA6873}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="ucrtbase.dll"/>
+    <ROW Component="vcomp140.dll" ComponentId="{23DFB6AE-9327-4AF8-93FE-2D640AC3F3E8}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="vcomp140.dll"/>
+    <ROW Component="vcruntime140.dll" ComponentId="{65ED7334-BF41-43A3-8D6B-F21BE734F5B1}" Directory_="bin_Dir" Attributes="256" KeyPath="vcruntime140.dll"/>
+    <ROW Component="vcruntime140.dll_1" ComponentId="{56EA5461-EE39-4B06-9D0F-651A03322680}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="vcruntime140.dll_1"/>
+    <ROW Component="vcruntime140_1.dll" ComponentId="{38BBD7EA-81B9-47D2-894B-0A536AC2F07B}" Directory_="bin_Dir" Attributes="256" KeyPath="vcruntime140_1.dll"/>
+    <ROW Component="vcruntime140_1.dll_1" ComponentId="{D8469EF4-75AE-4487-9D28-253B402A7FC1}" Directory_="EnergyPlus_Dir" Attributes="256" KeyPath="vcruntime140_1.dll_1"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
+    <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
+    <ROW File="concrt140.dll" Component_="concrt140.dll" FileName="CONCRT~1.DLL|concrt140.dll" Attributes="0" SourcePath="..\build.signed\build\bin\concrt140.dll" SelfReg="false"/>
+    <ROW File="msvcp140.dll" Component_="msvcp140.dll" FileName="msvcp140.dll" Attributes="0" SourcePath="..\build.signed\build\bin\msvcp140.dll" SelfReg="false"/>
+    <ROW File="msvcp140_1.dll" Component_="msvcp140_1.dll" FileName="MSVCP1~1.DLL|msvcp140_1.dll" Attributes="0" SourcePath="..\build.signed\build\bin\msvcp140_1.dll" SelfReg="false"/>
+    <ROW File="msvcp140_2.dll" Component_="msvcp140_2.dll" FileName="MSVCP1~2.DLL|msvcp140_2.dll" Attributes="0" SourcePath="..\build.signed\build\bin\msvcp140_2.dll" SelfReg="false"/>
+    <ROW File="msvcp140_atomic_wait.dll" Component_="msvcp140_atomic_wait.dll" FileName="MSVCP1~3.DLL|msvcp140_atomic_wait.dll" Attributes="0" SourcePath="..\build.signed\build\bin\msvcp140_atomic_wait.dll" SelfReg="false"/>
+    <ROW File="msvcp140_codecvt_ids.dll" Component_="msvcp140_codecvt_ids.dll" FileName="MSVCP1~4.DLL|msvcp140_codecvt_ids.dll" Attributes="0" SourcePath="..\build.signed\build\bin\msvcp140_codecvt_ids.dll" SelfReg="false"/>
+    <ROW File="openstudio.exe" Component_="openstudio.exe" FileName="OPENST~1.EXE|openstudio.exe" Attributes="0" SourcePath="..\build.signed\build\bin\openstudio.exe" SelfReg="false"/>
+    <ROW File="openstudiolib.dll" Component_="openstudiolib.dll" FileName="OPENST~1.DLL|openstudiolib.dll" Attributes="0" SourcePath="..\build.signed\build\bin\openstudiolib.dll" SelfReg="false"/>
+    <ROW File="openstudiolib.lib" Component_="openstudiolib.lib" FileName="OPENST~1.LIB|openstudiolib.lib" Attributes="0" SourcePath="..\build.signed\build\bin\openstudiolib.lib" SelfReg="false"/>
+    <ROW File="python38.dll" Component_="python38.dll" FileName="python38.dll" Attributes="0" SourcePath="..\build.signed\build\bin\python38.dll" SelfReg="false"/>
+    <ROW File="pythonengine.dll" Component_="pythonengine.dll" FileName="PYTHON~1.DLL|pythonengine.dll" Attributes="0" SourcePath="..\build.signed\build\bin\pythonengine.dll" SelfReg="false"/>
+    <ROW File="rubyengine.dll" Component_="rubyengine.dll" FileName="RUBYEN~1.DLL|rubyengine.dll" Attributes="0" SourcePath="..\build.signed\build\bin\rubyengine.dll" SelfReg="false"/>
+    <ROW File="vcruntime140.dll" Component_="vcruntime140.dll" FileName="VCRUNT~1.DLL|vcruntime140.dll" Attributes="0" SourcePath="..\build.signed\build\bin\vcruntime140.dll" SelfReg="false"/>
+    <ROW File="vcruntime140_1.dll" Component_="vcruntime140_1.dll" FileName="VCRUNT~2.DLL|vcruntime140_1.dll" Attributes="0" SourcePath="..\build.signed\build\bin\vcruntime140_1.dll" SelfReg="false"/>
+    <ROW File="apimswincoreconsolel110.dll" Component_="apimswincoreconsolel110.dll" FileName="API-MS~1.DLL|api-ms-win-core-console-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-console-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreconsolel120.dll" Component_="apimswincoreconsolel120.dll" FileName="API-MS~2.DLL|api-ms-win-core-console-l1-2-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-console-l1-2-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoredatetimel110.dll" Component_="apimswincoredatetimel110.dll" FileName="API-MS~3.DLL|api-ms-win-core-datetime-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-datetime-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoredebugl110.dll" Component_="apimswincoredebugl110.dll" FileName="API-MS~4.DLL|api-ms-win-core-debug-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-debug-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreerrorhandlingl110.dll" Component_="apimswincoreerrorhandlingl110.dll" FileName="API-MS~5.DLL|api-ms-win-core-errorhandling-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-errorhandling-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorefilel110.dll" Component_="apimswincorefilel110.dll" FileName="API-MS~6.DLL|api-ms-win-core-file-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-file-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorefilel120.dll" Component_="apimswincorefilel120.dll" FileName="API-MS~7.DLL|api-ms-win-core-file-l1-2-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-file-l1-2-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorefilel210.dll" Component_="apimswincorefilel210.dll" FileName="API-MS~8.DLL|api-ms-win-core-file-l2-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-file-l2-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorehandlel110.dll" Component_="apimswincorehandlel110.dll" FileName="API-MS~9.DLL|api-ms-win-core-handle-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-handle-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreheapl110.dll" Component_="apimswincoreheapl110.dll" FileName="API-M~10.DLL|api-ms-win-core-heap-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-heap-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreinterlockedl110.dll" Component_="apimswincoreinterlockedl110.dll" FileName="API-M~11.DLL|api-ms-win-core-interlocked-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-interlocked-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorelibraryloaderl110.dll" Component_="apimswincorelibraryloaderl110.dll" FileName="API-M~12.DLL|api-ms-win-core-libraryloader-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-libraryloader-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorelocalizationl120.dll" Component_="apimswincorelocalizationl120.dll" FileName="API-M~13.DLL|api-ms-win-core-localization-l1-2-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-localization-l1-2-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorememoryl110.dll" Component_="apimswincorememoryl110.dll" FileName="API-M~14.DLL|api-ms-win-core-memory-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-memory-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorenamedpipel110.dll" Component_="apimswincorenamedpipel110.dll" FileName="API-M~15.DLL|api-ms-win-core-namedpipe-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-namedpipe-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreprocessenvironmentl110.dll" Component_="apimswincoreprocessenvironmentl110.dll" FileName="API-M~16.DLL|api-ms-win-core-processenvironment-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-processenvironment-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreprocessthreadsl110.dll" Component_="apimswincoreprocessthreadsl110.dll" FileName="API-M~17.DLL|api-ms-win-core-processthreads-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-processthreads-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreprocessthreadsl111.dll" Component_="apimswincoreprocessthreadsl111.dll" FileName="API-M~18.DLL|api-ms-win-core-processthreads-l1-1-1.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-processthreads-l1-1-1.dll" SelfReg="false"/>
+    <ROW File="apimswincoreprofilel110.dll" Component_="apimswincoreprofilel110.dll" FileName="API-M~19.DLL|api-ms-win-core-profile-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-profile-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorertlsupportl110.dll" Component_="apimswincorertlsupportl110.dll" FileName="API-M~20.DLL|api-ms-win-core-rtlsupport-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-rtlsupport-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorestringl110.dll" Component_="apimswincorestringl110.dll" FileName="API-M~21.DLL|api-ms-win-core-string-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-string-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoresynchl110.dll" Component_="apimswincoresynchl110.dll" FileName="API-M~22.DLL|api-ms-win-core-synch-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-synch-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoresynchl120.dll" Component_="apimswincoresynchl120.dll" FileName="API-M~23.DLL|api-ms-win-core-synch-l1-2-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-synch-l1-2-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoresysinfol110.dll" Component_="apimswincoresysinfol110.dll" FileName="API-M~24.DLL|api-ms-win-core-sysinfo-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-sysinfo-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoretimezonel110.dll" Component_="apimswincoretimezonel110.dll" FileName="API-M~25.DLL|api-ms-win-core-timezone-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-timezone-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreutill110.dll" Component_="apimswincoreutill110.dll" FileName="API-M~26.DLL|api-ms-win-core-util-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-core-util-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtconiol110.dll" Component_="apimswincrtconiol110.dll" FileName="API-M~27.DLL|api-ms-win-crt-conio-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-crt-conio-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtconvertl110.dll" Component_="apimswincrtconvertl110.dll" FileName="API-M~28.DLL|api-ms-win-crt-convert-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-crt-convert-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtenvironmentl110.dll" Component_="apimswincrtenvironmentl110.dll" FileName="API-M~29.DLL|api-ms-win-crt-environment-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-crt-environment-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtfilesysteml110.dll" Component_="apimswincrtfilesysteml110.dll" FileName="API-M~30.DLL|api-ms-win-crt-filesystem-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-crt-filesystem-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtheapl110.dll" Component_="apimswincrtheapl110.dll" FileName="API-M~31.DLL|api-ms-win-crt-heap-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-crt-heap-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtlocalel110.dll" Component_="apimswincrtlocalel110.dll" FileName="API-M~32.DLL|api-ms-win-crt-locale-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-crt-locale-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtmathl110.dll" Component_="apimswincrtmathl110.dll" FileName="API-M~33.DLL|api-ms-win-crt-math-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-crt-math-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtmultibytel110.dll" Component_="apimswincrtmultibytel110.dll" FileName="API-M~34.DLL|api-ms-win-crt-multibyte-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-crt-multibyte-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtprivatel110.dll" Component_="apimswincrtprivatel110.dll" FileName="API-M~35.DLL|api-ms-win-crt-private-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-crt-private-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtprocessl110.dll" Component_="apimswincrtprocessl110.dll" FileName="API-M~36.DLL|api-ms-win-crt-process-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-crt-process-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtruntimel110.dll" Component_="apimswincrtruntimel110.dll" FileName="API-M~37.DLL|api-ms-win-crt-runtime-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-crt-runtime-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtstdiol110.dll" Component_="apimswincrtstdiol110.dll" FileName="API-M~38.DLL|api-ms-win-crt-stdio-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-crt-stdio-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtstringl110.dll" Component_="apimswincrtstringl110.dll" FileName="API-M~39.DLL|api-ms-win-crt-string-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-crt-string-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrttimel110.dll" Component_="apimswincrttimel110.dll" FileName="API-M~40.DLL|api-ms-win-crt-time-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-crt-time-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtutilityl110.dll" Component_="apimswincrtutilityl110.dll" FileName="API-M~41.DLL|api-ms-win-crt-utility-l1-1-0.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\api-ms-win-crt-utility-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="concrt140.dll_1" Component_="concrt140.dll_1" FileName="CONCRT~1.DLL|concrt140.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\concrt140.dll" SelfReg="false"/>
+    <ROW File="Energy.idd" Component_="Energy.idd" FileName="ENERGY~1.IDD|Energy+.idd" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\Energy+.idd" SelfReg="false"/>
+    <ROW File="Energy.schema.epJSON" Component_="Energy.idd" FileName="ENERGY~1.EPJ|Energy+.schema.epJSON" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\Energy+.schema.epJSON" SelfReg="false"/>
+    <ROW File="energyplus.exe" Component_="energyplus.exe" FileName="ENERGY~1.EXE|energyplus.exe" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\energyplus.exe" SelfReg="false"/>
+    <ROW File="energyplusapi.dll" Component_="energyplusapi.dll" FileName="ENERGY~1.DLL|energyplusapi.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\energyplusapi.dll" SelfReg="false"/>
+    <ROW File="energyplusapi.lib" Component_="Energy.idd" FileName="ENERGY~1.LIB|energyplusapi.lib" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\energyplusapi.lib" SelfReg="false"/>
+    <ROW File="ExpandObjects.exe" Component_="ExpandObjects.exe" FileName="EXPAND~1.EXE|ExpandObjects.exe" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\ExpandObjects.exe" SelfReg="false"/>
+    <ROW File="msvcp140.dll_1" Component_="msvcp140.dll_1" FileName="msvcp140.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\msvcp140.dll" SelfReg="false"/>
+    <ROW File="msvcp140_1.dll_1" Component_="msvcp140_1.dll_1" FileName="MSVCP1~1.DLL|msvcp140_1.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\msvcp140_1.dll" SelfReg="false"/>
+    <ROW File="msvcp140_2.dll_1" Component_="msvcp140_2.dll_1" FileName="MSVCP1~2.DLL|msvcp140_2.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\msvcp140_2.dll" SelfReg="false"/>
+    <ROW File="msvcp140_atomic_wait.dll_1" Component_="msvcp140_atomic_wait.dll_1" FileName="MSVCP1~3.DLL|msvcp140_atomic_wait.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\msvcp140_atomic_wait.dll" SelfReg="false"/>
+    <ROW File="msvcp140_codecvt_ids.dll_1" Component_="msvcp140_codecvt_ids.dll_1" FileName="MSVCP1~4.DLL|msvcp140_codecvt_ids.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\msvcp140_codecvt_ids.dll" SelfReg="false"/>
+    <ROW File="api.py" Component_="api.py" FileName="api.py" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\pyenergyplus\api.py" SelfReg="false"/>
+    <ROW File="common.py" Component_="api.py" FileName="common.py" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\pyenergyplus\common.py" SelfReg="false"/>
+    <ROW File="datatransfer.py" Component_="api.py" FileName="DATATR~1.PY|datatransfer.py" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\pyenergyplus\datatransfer.py" SelfReg="false"/>
+    <ROW File="func.py" Component_="api.py" FileName="func.py" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\pyenergyplus\func.py" SelfReg="false"/>
+    <ROW File="plugin.py" Component_="api.py" FileName="plugin.py" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\pyenergyplus\plugin.py" SelfReg="false"/>
+    <ROW File="api.py_1" Component_="api.py_1" FileName="api.py" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\pyenergyplus\pyenergyplus\api.py" SelfReg="false"/>
+    <ROW File="common.py_1" Component_="api.py_1" FileName="common.py" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\pyenergyplus\pyenergyplus\common.py" SelfReg="false"/>
+    <ROW File="datatransfer.py_1" Component_="api.py_1" FileName="DATATR~1.PY|datatransfer.py" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\pyenergyplus\pyenergyplus\datatransfer.py" SelfReg="false"/>
+    <ROW File="func.py_1" Component_="api.py_1" FileName="func.py" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\pyenergyplus\pyenergyplus\func.py" SelfReg="false"/>
+    <ROW File="plugin.py_1" Component_="api.py_1" FileName="plugin.py" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\pyenergyplus\pyenergyplus\plugin.py" SelfReg="false"/>
+    <ROW File="runtime.py" Component_="api.py_1" FileName="runtime.py" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\pyenergyplus\pyenergyplus\runtime.py" SelfReg="false"/>
+    <ROW File="state.py" Component_="api.py_1" FileName="state.py" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\pyenergyplus\pyenergyplus\state.py" SelfReg="false"/>
+    <ROW File="__init__.py" Component_="api.py_1" FileName="__init__.py" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\pyenergyplus\pyenergyplus\__init__.py" SelfReg="false"/>
+    <ROW File="runtime.py_1" Component_="api.py" FileName="runtime.py" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\pyenergyplus\runtime.py" SelfReg="false"/>
+    <ROW File="state.py_1" Component_="api.py" FileName="state.py" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\pyenergyplus\state.py" SelfReg="false"/>
+    <ROW File="__init__.py_1" Component_="api.py" FileName="__init__.py" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\pyenergyplus\__init__.py" SelfReg="false"/>
+    <ROW File="ucrtbase.dll" Component_="ucrtbase.dll" FileName="ucrtbase.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\ucrtbase.dll" SelfReg="false"/>
+    <ROW File="vcomp140.dll" Component_="vcomp140.dll" FileName="vcomp140.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\vcomp140.dll" SelfReg="false"/>
+    <ROW File="vcruntime140.dll_1" Component_="vcruntime140.dll_1" FileName="VCRUNT~1.DLL|vcruntime140.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\vcruntime140.dll" SelfReg="false"/>
+    <ROW File="vcruntime140_1.dll_1" Component_="vcruntime140_1.dll_1" FileName="VCRUNT~2.DLL|vcruntime140_1.dll" Attributes="0" SourcePath="..\build.signed\build\EnergyPlus\vcruntime140_1.dll" SelfReg="false"/>
+    <ROW File="analysis.xml" Component_="analysis.xml" FileName="analysis.xml" Attributes="0" SourcePath="..\build.signed\build\gbxmls\analysis.xml" SelfReg="false"/>
+    <ROW File="LICENSE.md" Component_="LICENSE.md" FileName="LICENSE.md" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\LICENSE.md" SelfReg="false"/>
+    <ROW File="measure.rb" Component_="LICENSE.md" FileName="measure.rb" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\measure.rb" SelfReg="false"/>
+    <ROW File="measure.xml" Component_="LICENSE.md" FileName="measure.xml" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\measure.xml" SelfReg="false"/>
+    <ROW File="README.md" Component_="LICENSE.md" FileName="README.md" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\README.md" SelfReg="false"/>
+    <ROW File="README.md.erb" Component_="LICENSE.md" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\README.md.erb" SelfReg="false"/>
+    <ROW File="epw.rb" Component_="epw.rb" FileName="epw.rb" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\resources\epw.rb" SelfReg="false"/>
+    <ROW File="stat_file.rb" Component_="epw.rb" FileName="STAT_F~1.RB|stat_file.rb" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\resources\stat_file.rb" SelfReg="false"/>
+    <ROW File="another_weather_file.ddy" Component_="another_weather_file.ddy" FileName="ANOTHE~1.DDY|another_weather_file.ddy" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\another_weather_file.ddy" SelfReg="false"/>
+    <ROW File="another_weather_file.epw" Component_="another_weather_file.ddy" FileName="ANOTHE~1.EPW|another_weather_file.epw" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\another_weather_file.epw" SelfReg="false"/>
+    <ROW File="another_weather_file.stat" Component_="another_weather_file.ddy" FileName="ANOTHE~1.STA|another_weather_file.stat" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\another_weather_file.stat" SelfReg="false"/>
+    <ROW File="CA_LOSANGELESIAP_722950S_12.ddy" Component_="another_weather_file.ddy" FileName="CA_LOS~1.DDY|CA_LOS-ANGELES-IAP_722950S_12.ddy" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\CA_LOS-ANGELES-IAP_722950S_12.ddy" SelfReg="false"/>
+    <ROW File="CA_LOSANGELESIAP_722950S_12.epw" Component_="another_weather_file.ddy" FileName="CA_LOS~1.EPW|CA_LOS-ANGELES-IAP_722950S_12.epw" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\CA_LOS-ANGELES-IAP_722950S_12.epw" SelfReg="false"/>
+    <ROW File="CA_LOSANGELESIAP_722950S_12.stat" Component_="another_weather_file.ddy" FileName="CA_LOS~1.STA|CA_LOS-ANGELES-IAP_722950S_12.stat" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\CA_LOS-ANGELES-IAP_722950S_12.stat" SelfReg="false"/>
+    <ROW File="change_building_location_test.rb" Component_="another_weather_file.ddy" FileName="CHANGE~1.RB|change_building_location_test.rb" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\change_building_location_test.rb" SelfReg="false"/>
+    <ROW File="model_test.osm" Component_="another_weather_file.ddy" FileName="MODEL_~1.OSM|model_test.osm" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\model_test.osm" SelfReg="false"/>
+    <ROW File="model_test.osw" Component_="another_weather_file.ddy" FileName="MODEL_~1.OSW|model_test.osw" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\model_test.osw" SelfReg="false"/>
+    <ROW File="model_test_with_epw.osm" Component_="another_weather_file.ddy" FileName="MODEL_~2.OSM|model_test_with_epw.osm" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\model_test_with_epw.osm" SelfReg="false"/>
+    <ROW File="multiyear.ddy" Component_="another_weather_file.ddy" FileName="MULTIY~1.DDY|multiyear.ddy" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\multiyear.ddy" SelfReg="false"/>
+    <ROW File="multiyear.epw" Component_="another_weather_file.ddy" FileName="MULTIY~1.EPW|multiyear.epw" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\multiyear.epw" SelfReg="false"/>
+    <ROW File="multiyear.stat" Component_="another_weather_file.ddy" FileName="MULTIY~1.STA|multiyear.stat" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\multiyear.stat" SelfReg="false"/>
+    <ROW File="USA_MA_BostonLogan.Intl.AP.725090_AMY.ddy" Component_="another_weather_file.ddy" FileName="USA_MA~1.DDY|USA_MA_Boston-Logan.Intl.AP.725090_AMY.ddy" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\USA_MA_Boston-Logan.Intl.AP.725090_AMY.ddy" SelfReg="false"/>
+    <ROW File="USA_MA_BostonLogan.Intl.AP.725090_AMY.epw" Component_="another_weather_file.ddy" FileName="USA_MA~1.EPW|USA_MA_Boston-Logan.Intl.AP.725090_AMY.epw" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\USA_MA_Boston-Logan.Intl.AP.725090_AMY.epw" SelfReg="false"/>
+    <ROW File="USA_MA_BostonLogan.Intl.AP.725090_AMY.stat" Component_="another_weather_file.ddy" FileName="USA_MA~1.STA|USA_MA_Boston-Logan.Intl.AP.725090_AMY.stat" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\USA_MA_Boston-Logan.Intl.AP.725090_AMY.stat" SelfReg="false"/>
+    <ROW File="USA_MA_BostonLogan.Intl.AP.725090_TMY3.ddy" Component_="another_weather_file.ddy" FileName="USA_MA~2.DDY|USA_MA_Boston-Logan.Intl.AP.725090_TMY3.ddy" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\USA_MA_Boston-Logan.Intl.AP.725090_TMY3.ddy" SelfReg="false"/>
+    <ROW File="USA_MA_BostonLogan.Intl.AP.725090_TMY3.epw" Component_="another_weather_file.ddy" FileName="USA_MA~2.EPW|USA_MA_Boston-Logan.Intl.AP.725090_TMY3.epw" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\USA_MA_Boston-Logan.Intl.AP.725090_TMY3.epw" SelfReg="false"/>
+    <ROW File="USA_MA_BostonLogan.Intl.AP.725090_TMY3.stat" Component_="another_weather_file.ddy" FileName="USA_MA~2.STA|USA_MA_Boston-Logan.Intl.AP.725090_TMY3.stat" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\USA_MA_Boston-Logan.Intl.AP.725090_TMY3.stat" SelfReg="false"/>
+    <ROW File="USA_WA_Renton.Muni.AP.727934_TMY3.ddy" Component_="another_weather_file.ddy" FileName="USA_WA~1.DDY|USA_WA_Renton.Muni.AP.727934_TMY3.ddy" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\USA_WA_Renton.Muni.AP.727934_TMY3.ddy" SelfReg="false"/>
+    <ROW File="USA_WA_Renton.Muni.AP.727934_TMY3.epw" Component_="another_weather_file.ddy" FileName="USA_WA~1.EPW|USA_WA_Renton.Muni.AP.727934_TMY3.epw" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\USA_WA_Renton.Muni.AP.727934_TMY3.epw" SelfReg="false"/>
+    <ROW File="USA_WA_Renton.Muni.AP.727934_TMY3.stat" Component_="another_weather_file.ddy" FileName="USA_WA~1.STA|USA_WA_Renton.Muni.AP.727934_TMY3.stat" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\USA_WA_Renton.Muni.AP.727934_TMY3.stat" SelfReg="false"/>
+    <ROW File="measure.rb_1" Component_="measure.rb" FileName="measure.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import\measure.rb" SelfReg="false"/>
+    <ROW File="measure.xml_1" Component_="measure.rb" FileName="measure.xml" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import\measure.xml" SelfReg="false"/>
+    <ROW File="README.md_1" Component_="measure.rb" FileName="README.md" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import\README.md" SelfReg="false"/>
+    <ROW File="README.md.erb_1" Component_="measure.rb" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import\README.md.erb" SelfReg="false"/>
+    <ROW File="gbXMLStandardTestModel2016.xml" Component_="gbXMLStandardTestModel2016.xml" FileName="GBXMLS~1.XML|gbXMLStandard Test Model 2016.xml" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import\tests\gbXMLStandard Test Model 2016.xml" SelfReg="false"/>
+    <ROW File="gbxml_import_test.rb" Component_="gbXMLStandardTestModel2016.xml" FileName="GBXML_~1.RB|gbxml_import_test.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import\tests\gbxml_import_test.rb" SelfReg="false"/>
+    <ROW File="measure.rb_2" Component_="measure.rb_1" FileName="measure.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\measure.rb" SelfReg="false"/>
+    <ROW File="measure.xml_2" Component_="measure.rb_1" FileName="measure.xml" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\measure.xml" SelfReg="false"/>
+    <ROW File="README.md_2" Component_="measure.rb_1" FileName="README.md" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\README.md" SelfReg="false"/>
+    <ROW File="README.md.erb_2" Component_="measure.rb_1" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\README.md.erb" SelfReg="false"/>
+    <ROW File="building_type_helper.rb" Component_="building_type_helper.rb" FileName="BUILDI~1.RB|building_type_helper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\resources\building_type_helper.rb" SelfReg="false"/>
+    <ROW File="os_lib_adv_import.rb" Component_="building_type_helper.rb" FileName="OS_LIB~1.RB|os_lib_adv_import.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\resources\os_lib_adv_import.rb" SelfReg="false"/>
+    <ROW File="os_lib_lighting_and_equipment.rb" Component_="building_type_helper.rb" FileName="OS_LIB~2.RB|os_lib_lighting_and_equipment.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\resources\os_lib_lighting_and_equipment.rb" SelfReg="false"/>
+    <ROW File="os_lib_schedules.rb" Component_="building_type_helper.rb" FileName="OS_LIB~3.RB|os_lib_schedules.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\resources\os_lib_schedules.rb" SelfReg="false"/>
+    <ROW File="_SpacesOneZE.xml" Component_="_SpacesOneZE.xml" FileName="200_SP~1.XML|200_SpacesOneZE.xml" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\tests\200_SpacesOneZE.xml" SelfReg="false"/>
+    <ROW File="_SpacesOneZE.xml_1" Component_="_SpacesOneZE.xml" FileName="25_SPA~1.XML|25_SpacesOneZE.xml" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\tests\25_SpacesOneZE.xml" SelfReg="false"/>
+    <ROW File="adhoc_test.rb" Component_="_SpacesOneZE.xml" FileName="ADHOC_~1.RB|adhoc_test.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\tests\adhoc_test.rb" SelfReg="false"/>
+    <ROW File="AirSystemAllVariations.xml" Component_="_SpacesOneZE.xml" FileName="AIRSYS~1.XML|AirSystemAllVariations.xml" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\tests\AirSystemAllVariations.xml" SelfReg="false"/>
+    <ROW File="AnalyticalSystems01.xml" Component_="_SpacesOneZE.xml" FileName="ANALYT~1.XML|Analytical Systems 01.xml" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\tests\Analytical Systems 01.xml" SelfReg="false"/>
+    <ROW File="gbxmlonpeoplehalftime.xml" Component_="_SpacesOneZE.xml" FileName="GBXML-~1.XML|gbxml - on -peoplehalftime.xml" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\tests\gbxml - on -peoplehalftime.xml" SelfReg="false"/>
+    <ROW File="gbXMLStandardTestModel2016.xml_1" Component_="_SpacesOneZE.xml" FileName="GBXMLS~1.XML|gbXMLStandard Test Model 2016.xml" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\tests\gbXMLStandard Test Model 2016.xml" SelfReg="false"/>
+    <ROW File="gbxml_import_advanced_test.rb" Component_="_SpacesOneZE.xml" FileName="GBXML_~1.RB|gbxml_import_advanced_test.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\tests\gbxml_import_advanced_test.rb" SelfReg="false"/>
+    <ROW File="TestVillaScenario2_alt_a.xml" Component_="_SpacesOneZE.xml" FileName="TESTVI~1.XML|Test Villa Scenario 2_alt_a.xml" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\tests\Test Villa Scenario 2_alt_a.xml" SelfReg="false"/>
+    <ROW File="VentilationAndInfiltration.xml" Component_="_SpacesOneZE.xml" FileName="VENTIL~1.XML|VentilationAndInfiltration.xml" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\tests\VentilationAndInfiltration.xml" SelfReg="false"/>
+    <ROW File="gbxml_import_hvac.rb" Component_="gbxml_import_hvac.rb" FileName="GBXML_~1.RB|gbxml_import_hvac.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\gbxml_import_hvac.rb" SelfReg="false"/>
+    <ROW File="measure.rb_3" Component_="gbxml_import_hvac.rb" FileName="measure.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\measure.rb" SelfReg="false"/>
+    <ROW File="measure.xml_3" Component_="gbxml_import_hvac.rb" FileName="measure.xml" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\measure.xml" SelfReg="false"/>
+    <ROW File="README.md_3" Component_="gbxml_import_hvac.rb" FileName="README.md" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\README.md" SelfReg="false"/>
+    <ROW File="README.md.erb_3" Component_="gbxml_import_hvac.rb" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\README.md.erb" SelfReg="false"/>
+    <ROW File="acb.rb" Component_="acb.rb" FileName="acb.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\acb.rb" SelfReg="false"/>
+    <ROW File="air_system.rb" Component_="acb.rb" FileName="AIR_SY~1.RB|air_system.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\air_system.rb" SelfReg="false"/>
+    <ROW File="baseboard_convective.rb" Component_="acb.rb" FileName="BASEBO~1.RB|baseboard_convective.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\baseboard_convective.rb" SelfReg="false"/>
+    <ROW File="baseboard_radiant.rb" Component_="acb.rb" FileName="BASEBO~2.RB|baseboard_radiant.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\baseboard_radiant.rb" SelfReg="false"/>
+    <ROW File="cav_box.rb" Component_="acb.rb" FileName="cav_box.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\cav_box.rb" SelfReg="false"/>
+    <ROW File="chilled_water_loop.rb" Component_="acb.rb" FileName="CHILLE~1.RB|chilled_water_loop.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\chilled_water_loop.rb" SelfReg="false"/>
+    <ROW File="condenser_loop.rb" Component_="acb.rb" FileName="CONDEN~1.RB|condenser_loop.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\condenser_loop.rb" SelfReg="false"/>
+    <ROW File="curves.rb" Component_="acb.rb" FileName="curves.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\curves.rb" SelfReg="false"/>
+    <ROW File="fpfc.rb" Component_="acb.rb" FileName="fpfc.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\fpfc.rb" SelfReg="false"/>
+    <ROW File="gbxml_parser.rb" Component_="acb.rb" FileName="GBXML_~1.RB|gbxml_parser.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\gbxml_parser.rb" SelfReg="false"/>
+    <ROW File="helpers.rb" Component_="acb.rb" FileName="helpers.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\helpers.rb" SelfReg="false"/>
+    <ROW File="hot_water_loop.rb" Component_="acb.rb" FileName="HOT_WA~1.RB|hot_water_loop.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\hot_water_loop.rb" SelfReg="false"/>
+    <ROW File="hvac_object.rb" Component_="acb.rb" FileName="HVAC_O~1.RB|hvac_object.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\hvac_object.rb" SelfReg="false"/>
+    <ROW File="model_manager.rb" Component_="acb.rb" FileName="MODEL_~1.RB|model_manager.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\model_manager.rb" SelfReg="false"/>
+    <ROW File="pcb.rb" Component_="acb.rb" FileName="pcb.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\pcb.rb" SelfReg="false"/>
+    <ROW File="pfpb.rb" Component_="acb.rb" FileName="pfpb.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\pfpb.rb" SelfReg="false"/>
+    <ROW File="ptac.rb" Component_="acb.rb" FileName="ptac.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\ptac.rb" SelfReg="false"/>
+    <ROW File="pthp.rb" Component_="acb.rb" FileName="pthp.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\pthp.rb" SelfReg="false"/>
+    <ROW File="radiant_panel.rb" Component_="acb.rb" FileName="RADIAN~1.RB|radiant_panel.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\radiant_panel.rb" SelfReg="false"/>
+    <ROW File="sfpb.rb" Component_="acb.rb" FileName="sfpb.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\sfpb.rb" SelfReg="false"/>
+    <ROW File="unit_heater.rb" Component_="acb.rb" FileName="UNIT_H~1.RB|unit_heater.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\unit_heater.rb" SelfReg="false"/>
+    <ROW File="unit_ventilator.rb" Component_="acb.rb" FileName="UNIT_V~1.RB|unit_ventilator.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\unit_ventilator.rb" SelfReg="false"/>
+    <ROW File="vav_box.rb" Component_="acb.rb" FileName="vav_box.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\vav_box.rb" SelfReg="false"/>
+    <ROW File="vrf_condenser.rb" Component_="acb.rb" FileName="VRF_CO~1.RB|vrf_condenser.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\vrf_condenser.rb" SelfReg="false"/>
+    <ROW File="vrf_fan_coil_unit.rb" Component_="acb.rb" FileName="VRF_FA~1.RB|vrf_fan_coil_unit.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\vrf_fan_coil_unit.rb" SelfReg="false"/>
+    <ROW File="wshp.rb" Component_="acb.rb" FileName="wshp.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\wshp.rb" SelfReg="false"/>
+    <ROW File="zone.rb" Component_="acb.rb" FileName="zone.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\zone.rb" SelfReg="false"/>
+    <ROW File="zone_hvac_equipment.rb" Component_="acb.rb" FileName="ZONE_H~1.RB|zone_hvac_equipment.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_hvac\resources\zone_hvac_equipment.rb" SelfReg="false"/>
+    <ROW File="measure.rb_4" Component_="measure.rb_2" FileName="measure.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_postprocess\measure.rb" SelfReg="false"/>
+    <ROW File="measure.xml_4" Component_="measure.rb_2" FileName="measure.xml" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_postprocess\measure.xml" SelfReg="false"/>
+    <ROW File="README.md_4" Component_="measure.rb_2" FileName="README.md" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_postprocess\README.md" SelfReg="false"/>
+    <ROW File="README.md.erb_4" Component_="measure.rb_2" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_postprocess\README.md.erb" SelfReg="false"/>
+    <ROW File="gbxml_postprocess_test.rb" Component_="gbxml_postprocess_test.rb" FileName="GBXML_~1.RB|gbxml_postprocess_test.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_postprocess\tests\gbxml_postprocess_test.rb" SelfReg="false"/>
+    <ROW File="LICENSE.md_1" Component_="LICENSE.md_1" FileName="LICENSE.md" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\LICENSE.md" SelfReg="false"/>
+    <ROW File="measure.rb_5" Component_="LICENSE.md_1" FileName="measure.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\measure.rb" SelfReg="false"/>
+    <ROW File="measure.xml_5" Component_="LICENSE.md_1" FileName="measure.xml" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\measure.xml" SelfReg="false"/>
+    <ROW File="README.md_5" Component_="LICENSE.md_1" FileName="README.md" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\README.md" SelfReg="false"/>
+    <ROW File="README.md.erb_5" Component_="LICENSE.md_1" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\README.md.erb" SelfReg="false"/>
+    <ROW File="bootstrap.min.css" Component_="bootstrap.min.css" FileName="BOOTST~1.CSS|bootstrap.min.css" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\bootstrap.min.css" SelfReg="false"/>
+    <ROW File="bootstrap.min.js" Component_="bootstrap.min.css" FileName="BOOTST~1.JS|bootstrap.min.js" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\bootstrap.min.js" SelfReg="false"/>
+    <ROW File="d3.min.js" Component_="bootstrap.min.css" FileName="D3MIN~1.JS|d3.min.js" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\d3.min.js" SelfReg="false"/>
+    <ROW File="dimple.v2.1.2.min.js" Component_="bootstrap.min.css" FileName="DIMPLE~1.JS|dimple.v2.1.2.min.js" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\dimple.v2.1.2.min.js" SelfReg="false"/>
+    <ROW File="jquery.min.js" Component_="bootstrap.min.css" FileName="JQUERY~1.JS|jquery.min.js" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\jquery.min.js" SelfReg="false"/>
+    <ROW File="os_lib_reporting.rb" Component_="bootstrap.min.css" FileName="OS_LIB~1.RB|os_lib_reporting.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\os_lib_reporting.rb" SelfReg="false"/>
+    <ROW File="report.html.erb" Component_="bootstrap.min.css" FileName="REPORT~1.ERB|report.html.erb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\report.html.erb" SelfReg="false"/>
+    <ROW File="Siz.AirConditionerVariableRefrigerantFlow.rb" Component_="bootstrap.min.css" FileName="SIZAIR~1.RB|Siz.AirConditionerVariableRefrigerantFlow.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.AirConditionerVariableRefrigerantFlow.rb" SelfReg="false"/>
+    <ROW File="Siz.AirLoopHVAC.rb" Component_="bootstrap.min.css" FileName="SIZAIR~2.RB|Siz.AirLoopHVAC.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.AirLoopHVAC.rb" SelfReg="false"/>
+    <ROW File="Siz.AirLoopHVACUnitaryHeatCoolVAVChangeoverBypass.rb" Component_="bootstrap.min.css" FileName="SIZAIR~3.RB|Siz.AirLoopHVACUnitaryHeatCoolVAVChangeoverBypass.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.AirLoopHVACUnitaryHeatCoolVAVChangeoverBypass.rb" SelfReg="false"/>
+    <ROW File="Siz.AirLoopHVACUnitaryHeatPumpAirToAir.rb" Component_="bootstrap.min.css" FileName="SIZAIR~4.RB|Siz.AirLoopHVACUnitaryHeatPumpAirToAir.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.AirLoopHVACUnitaryHeatPumpAirToAir.rb" SelfReg="false"/>
+    <ROW File="Siz.AirLoopHVACUnitaryHeatPumpAirToAirMultiSpeed.rb" Component_="bootstrap.min.css" FileName="SIZAIR~5.RB|Siz.AirLoopHVACUnitaryHeatPumpAirToAirMultiSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.AirLoopHVACUnitaryHeatPumpAirToAirMultiSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.AirLoopHVACUnitarySystem.rb" Component_="bootstrap.min.css" FileName="SIZAIR~6.RB|Siz.AirLoopHVACUnitarySystem.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.AirLoopHVACUnitarySystem.rb" SelfReg="false"/>
+    <ROW File="Siz.AirTerminalDualDuctVAV.rb" Component_="bootstrap.min.css" FileName="SIZAIR~7.RB|Siz.AirTerminalDualDuctVAV.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.AirTerminalDualDuctVAV.rb" SelfReg="false"/>
+    <ROW File="Siz.AirTerminalSingleDuctConstantVolumeCooledBeam.rb" Component_="bootstrap.min.css" FileName="SIZAIR~8.RB|Siz.AirTerminalSingleDuctConstantVolumeCooledBeam.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.AirTerminalSingleDuctConstantVolumeCooledBeam.rb" SelfReg="false"/>
+    <ROW File="Siz.AirTerminalSingleDuctConstantVolumeFourPipeInduction.rb" Component_="bootstrap.min.css" FileName="SIZAIR~9.RB|Siz.AirTerminalSingleDuctConstantVolumeFourPipeInduction.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.AirTerminalSingleDuctConstantVolumeFourPipeInduction.rb" SelfReg="false"/>
+    <ROW File="Siz.AirTerminalSingleDuctConstantVolumeReheat.rb" Component_="bootstrap.min.css" FileName="SIZAI~10.RB|Siz.AirTerminalSingleDuctConstantVolumeReheat.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.AirTerminalSingleDuctConstantVolumeReheat.rb" SelfReg="false"/>
+    <ROW File="Siz.AirTerminalSingleDuctParallelPIUReheat.rb" Component_="bootstrap.min.css" FileName="SIZAI~11.RB|Siz.AirTerminalSingleDuctParallelPIUReheat.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.AirTerminalSingleDuctParallelPIUReheat.rb" SelfReg="false"/>
+    <ROW File="Siz.AirTerminalSingleDuctSeriesPIUReheat.rb" Component_="bootstrap.min.css" FileName="SIZAI~12.RB|Siz.AirTerminalSingleDuctSeriesPIUReheat.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.AirTerminalSingleDuctSeriesPIUReheat.rb" SelfReg="false"/>
+    <ROW File="Siz.AirTerminalSingleDuctUncontrolled.rb" Component_="bootstrap.min.css" FileName="SIZAI~13.RB|Siz.AirTerminalSingleDuctUncontrolled.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.AirTerminalSingleDuctUncontrolled.rb" SelfReg="false"/>
+    <ROW File="Siz.AirTerminalSingleDuctVAVHeatAndCoolNoReheat.rb" Component_="bootstrap.min.css" FileName="SIZAI~14.RB|Siz.AirTerminalSingleDuctVAVHeatAndCoolNoReheat.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.AirTerminalSingleDuctVAVHeatAndCoolNoReheat.rb" SelfReg="false"/>
+    <ROW File="Siz.AirTerminalSingleDuctVAVHeatAndCoolReheat.rb" Component_="bootstrap.min.css" FileName="SIZAI~15.RB|Siz.AirTerminalSingleDuctVAVHeatAndCoolReheat.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.AirTerminalSingleDuctVAVHeatAndCoolReheat.rb" SelfReg="false"/>
+    <ROW File="Siz.AirTerminalSingleDuctVAVNoReheat.rb" Component_="bootstrap.min.css" FileName="SIZAI~16.RB|Siz.AirTerminalSingleDuctVAVNoReheat.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.AirTerminalSingleDuctVAVNoReheat.rb" SelfReg="false"/>
+    <ROW File="Siz.AirTerminalSingleDuctVAVReheat.rb" Component_="bootstrap.min.css" FileName="SIZAI~17.RB|Siz.AirTerminalSingleDuctVAVReheat.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.AirTerminalSingleDuctVAVReheat.rb" SelfReg="false"/>
+    <ROW File="Siz.BoilerHotWater.rb" Component_="bootstrap.min.css" FileName="SIZBOI~1.RB|Siz.BoilerHotWater.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.BoilerHotWater.rb" SelfReg="false"/>
+    <ROW File="Siz.BoilerSteam.rb" Component_="bootstrap.min.css" FileName="SIZBOI~2.RB|Siz.BoilerSteam.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.BoilerSteam.rb" SelfReg="false"/>
+    <ROW File="Siz.ChillerAbsorption.rb" Component_="bootstrap.min.css" FileName="SIZCHI~1.RB|Siz.ChillerAbsorption.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ChillerAbsorption.rb" SelfReg="false"/>
+    <ROW File="Siz.ChillerAbsorptionIndirect.rb" Component_="bootstrap.min.css" FileName="SIZCHI~2.RB|Siz.ChillerAbsorptionIndirect.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ChillerAbsorptionIndirect.rb" SelfReg="false"/>
+    <ROW File="Siz.ChillerElectricEIR.rb" Component_="bootstrap.min.css" FileName="SIZCHI~3.RB|Siz.ChillerElectricEIR.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ChillerElectricEIR.rb" SelfReg="false"/>
+    <ROW File="Siz.ChillerHeaterPerformanceElectricEIR.rb" Component_="bootstrap.min.css" FileName="SIZCHI~4.RB|Siz.ChillerHeaterPerformanceElectricEIR.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ChillerHeaterPerformanceElectricEIR.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilCoolingDXMultiSpeed.rb" Component_="bootstrap.min.css" FileName="SIZCOI~1.RB|Siz.CoilCoolingDXMultiSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilCoolingDXMultiSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilCoolingDXMultiSpeedStageData.rb" Component_="bootstrap.min.css" FileName="SIZCOI~2.RB|Siz.CoilCoolingDXMultiSpeedStageData.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilCoolingDXMultiSpeedStageData.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilCoolingDXSingleSpeed.rb" Component_="bootstrap.min.css" FileName="SIZCOI~3.RB|Siz.CoilCoolingDXSingleSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilCoolingDXSingleSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilCoolingDXTwoSpeed.rb" Component_="bootstrap.min.css" FileName="SIZCOI~4.RB|Siz.CoilCoolingDXTwoSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilCoolingDXTwoSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilCoolingDXTwoStageWithHumidityControlMode.rb" Component_="bootstrap.min.css" FileName="SIZCOI~5.RB|Siz.CoilCoolingDXTwoStageWithHumidityControlMode.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilCoolingDXTwoStageWithHumidityControlMode.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilCoolingDXVariableRefrigerantFlow.rb" Component_="bootstrap.min.css" FileName="SIZCOI~6.RB|Siz.CoilCoolingDXVariableRefrigerantFlow.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilCoolingDXVariableRefrigerantFlow.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilCoolingDXVariableSpeed.rb" Component_="bootstrap.min.css" FileName="SIZCOI~7.RB|Siz.CoilCoolingDXVariableSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilCoolingDXVariableSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilCoolingDXVariableSpeedSpeedData.rb" Component_="bootstrap.min.css" FileName="SIZCOI~8.RB|Siz.CoilCoolingDXVariableSpeedSpeedData.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilCoolingDXVariableSpeedSpeedData.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilCoolingLowTempRadiantVarFlow.rb" Component_="bootstrap.min.css" FileName="SIZCOI~9.RB|Siz.CoilCoolingLowTempRadiantVarFlow.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilCoolingLowTempRadiantVarFlow.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilCoolingWater.rb" Component_="bootstrap.min.css" FileName="SIZCO~10.RB|Siz.CoilCoolingWater.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilCoolingWater.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilCoolingWaterToAirHeatPumpEquationFit.rb" Component_="bootstrap.min.css" FileName="SIZCO~11.RB|Siz.CoilCoolingWaterToAirHeatPumpEquationFit.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilCoolingWaterToAirHeatPumpEquationFit.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit.rb" Component_="bootstrap.min.css" FileName="SIZCO~12.RB|Siz.CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFitSpeedData.rb" Component_="bootstrap.min.css" FileName="SIZCO~13.RB|Siz.CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFitSpeedData.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFitSpeedData.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingDesuperheater.rb" Component_="bootstrap.min.css" FileName="SIZCO~14.RB|Siz.CoilHeatingDesuperheater.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingDesuperheater.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingDXMultiSpeed.rb" Component_="bootstrap.min.css" FileName="SIZCO~15.RB|Siz.CoilHeatingDXMultiSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingDXMultiSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingDXMultiSpeedStageData.rb" Component_="bootstrap.min.css" FileName="SIZCO~16.RB|Siz.CoilHeatingDXMultiSpeedStageData.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingDXMultiSpeedStageData.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingDXSingleSpeed.rb" Component_="bootstrap.min.css" FileName="SIZCO~17.RB|Siz.CoilHeatingDXSingleSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingDXSingleSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingDXVariableRefrigerantFlow.rb" Component_="bootstrap.min.css" FileName="SIZCO~18.RB|Siz.CoilHeatingDXVariableRefrigerantFlow.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingDXVariableRefrigerantFlow.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingDXVariableSpeed.rb" Component_="bootstrap.min.css" FileName="SIZCO~19.RB|Siz.CoilHeatingDXVariableSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingDXVariableSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingDXVariableSpeedSpeedData.rb" Component_="bootstrap.min.css" FileName="SIZCO~20.RB|Siz.CoilHeatingDXVariableSpeedSpeedData.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingDXVariableSpeedSpeedData.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingElectric.rb" Component_="bootstrap.min.css" FileName="SIZCO~21.RB|Siz.CoilHeatingElectric.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingElectric.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingGas.rb" Component_="bootstrap.min.css" FileName="SIZCO~22.RB|Siz.CoilHeatingGas.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingGas.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingGasMultiStage.rb" Component_="bootstrap.min.css" FileName="SIZCO~23.RB|Siz.CoilHeatingGasMultiStage.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingGasMultiStage.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingGasMultiStageStageData.rb" Component_="bootstrap.min.css" FileName="SIZCO~24.RB|Siz.CoilHeatingGasMultiStageStageData.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingGasMultiStageStageData.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingLowTempRadiantVarFlow.rb" Component_="bootstrap.min.css" FileName="SIZCO~25.RB|Siz.CoilHeatingLowTempRadiantVarFlow.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingLowTempRadiantVarFlow.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingWater.rb" Component_="bootstrap.min.css" FileName="SIZCO~26.RB|Siz.CoilHeatingWater.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingWater.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingWaterBaseboard.rb" Component_="bootstrap.min.css" FileName="SIZCO~27.RB|Siz.CoilHeatingWaterBaseboard.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingWaterBaseboard.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingWaterBaseboardRadiant.rb" Component_="bootstrap.min.css" FileName="SIZCO~28.RB|Siz.CoilHeatingWaterBaseboardRadiant.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingWaterBaseboardRadiant.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingWaterToAirHeatPumpEquationFit.rb" Component_="bootstrap.min.css" FileName="SIZCO~29.RB|Siz.CoilHeatingWaterToAirHeatPumpEquationFit.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingWaterToAirHeatPumpEquationFit.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit.rb" Component_="bootstrap.min.css" FileName="SIZCO~30.RB|Siz.CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFitSpeedData.rb" Component_="bootstrap.min.css" FileName="SIZCO~31.RB|Siz.CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFitSpeedData.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFitSpeedData.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilPerformanceDXCooling.rb" Component_="bootstrap.min.css" FileName="SIZCO~32.RB|Siz.CoilPerformanceDXCooling.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilPerformanceDXCooling.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilSystemCoolingDXHeatExchangerAssisted.rb" Component_="bootstrap.min.css" FileName="SIZCO~33.RB|Siz.CoilSystemCoolingDXHeatExchangerAssisted.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilSystemCoolingDXHeatExchangerAssisted.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilSystemCoolingWaterHeatExchangerAssisted.rb" Component_="bootstrap.min.css" FileName="SIZCO~34.RB|Siz.CoilSystemCoolingWaterHeatExchangerAssisted.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilSystemCoolingWaterHeatExchangerAssisted.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilWaterHeatingAirToWaterHeatPump.rb" Component_="bootstrap.min.css" FileName="SIZCO~35.RB|Siz.CoilWaterHeatingAirToWaterHeatPump.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilWaterHeatingAirToWaterHeatPump.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilWaterHeatingAirToWaterHeatPumpWrapped.rb" Component_="bootstrap.min.css" FileName="SIZCO~36.RB|Siz.CoilWaterHeatingAirToWaterHeatPumpWrapped.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilWaterHeatingAirToWaterHeatPumpWrapped.rb" SelfReg="false"/>
+    <ROW File="Siz.CoilWaterHeatingDesuperheater.rb" Component_="bootstrap.min.css" FileName="SIZCO~37.RB|Siz.CoilWaterHeatingDesuperheater.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoilWaterHeatingDesuperheater.rb" SelfReg="false"/>
+    <ROW File="Siz.ControllerOutdoorAir.rb" Component_="bootstrap.min.css" FileName="SIZCON~1.RB|Siz.ControllerOutdoorAir.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ControllerOutdoorAir.rb" SelfReg="false"/>
+    <ROW File="Siz.CoolingTowerSingleSpeed.rb" Component_="bootstrap.min.css" FileName="SIZCOO~1.RB|Siz.CoolingTowerSingleSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoolingTowerSingleSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.CoolingTowerTwoSpeed.rb" Component_="bootstrap.min.css" FileName="SIZCOO~2.RB|Siz.CoolingTowerTwoSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoolingTowerTwoSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.CoolingTowerVariableSpeed.rb" Component_="bootstrap.min.css" FileName="SIZCOO~3.RB|Siz.CoolingTowerVariableSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.CoolingTowerVariableSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.DistrictCooling.rb" Component_="bootstrap.min.css" FileName="SIZDIS~1.RB|Siz.DistrictCooling.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.DistrictCooling.rb" SelfReg="false"/>
+    <ROW File="Siz.DistrictHeating.rb" Component_="bootstrap.min.css" FileName="SIZDIS~2.RB|Siz.DistrictHeating.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.DistrictHeating.rb" SelfReg="false"/>
+    <ROW File="Siz.ElectricLoadCenterInverterLookUpTable.rb" Component_="bootstrap.min.css" FileName="SIZELE~1.RB|Siz.ElectricLoadCenterInverterLookUpTable.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ElectricLoadCenterInverterLookUpTable.rb" SelfReg="false"/>
+    <ROW File="Siz.ElectricLoadCenterInverterSimple.rb" Component_="bootstrap.min.css" FileName="SIZELE~2.RB|Siz.ElectricLoadCenterInverterSimple.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ElectricLoadCenterInverterSimple.rb" SelfReg="false"/>
+    <ROW File="Siz.ElectricLoadCenterStorageConverter.rb" Component_="bootstrap.min.css" FileName="SIZELE~3.RB|Siz.ElectricLoadCenterStorageConverter.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ElectricLoadCenterStorageConverter.rb" SelfReg="false"/>
+    <ROW File="Siz.ElectricLoadCenterStorageSimple.rb" Component_="bootstrap.min.css" FileName="SIZELE~4.RB|Siz.ElectricLoadCenterStorageSimple.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ElectricLoadCenterStorageSimple.rb" SelfReg="false"/>
+    <ROW File="Siz.EvaporativeCoolerDirectResearchSpecial.rb" Component_="bootstrap.min.css" FileName="SIZEVA~1.RB|Siz.EvaporativeCoolerDirectResearchSpecial.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.EvaporativeCoolerDirectResearchSpecial.rb" SelfReg="false"/>
+    <ROW File="Siz.EvaporativeCoolerIndirectResearchSpecial.rb" Component_="bootstrap.min.css" FileName="SIZEVA~2.RB|Siz.EvaporativeCoolerIndirectResearchSpecial.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.EvaporativeCoolerIndirectResearchSpecial.rb" SelfReg="false"/>
+    <ROW File="Siz.EvaporativeFluidCoolerSingleSpeed.rb" Component_="bootstrap.min.css" FileName="SIZEVA~3.RB|Siz.EvaporativeFluidCoolerSingleSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.EvaporativeFluidCoolerSingleSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.EvaporativeFluidCoolerTwoSpeed.rb" Component_="bootstrap.min.css" FileName="SIZEVA~4.RB|Siz.EvaporativeFluidCoolerTwoSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.EvaporativeFluidCoolerTwoSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.FanConstantVolume.rb" Component_="bootstrap.min.css" FileName="SIZFAN~1.RB|Siz.FanConstantVolume.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.FanConstantVolume.rb" SelfReg="false"/>
+    <ROW File="Siz.FanOnOff.rb" Component_="bootstrap.min.css" FileName="SIZFAN~2.RB|Siz.FanOnOff.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.FanOnOff.rb" SelfReg="false"/>
+    <ROW File="Siz.FanVariableVolume.rb" Component_="bootstrap.min.css" FileName="SIZFAN~3.RB|Siz.FanVariableVolume.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.FanVariableVolume.rb" SelfReg="false"/>
+    <ROW File="Siz.FanZoneExhaust.rb" Component_="bootstrap.min.css" FileName="SIZFAN~4.RB|Siz.FanZoneExhaust.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.FanZoneExhaust.rb" SelfReg="false"/>
+    <ROW File="Siz.FluidCoolerSingleSpeed.rb" Component_="bootstrap.min.css" FileName="SIZFLU~1.RB|Siz.FluidCoolerSingleSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.FluidCoolerSingleSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.FluidCoolerTwoSpeed.rb" Component_="bootstrap.min.css" FileName="SIZFLU~2.RB|Siz.FluidCoolerTwoSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.FluidCoolerTwoSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.GeneratorFuelCellElectricalStorage.rb" Component_="bootstrap.min.css" FileName="SIZGEN~1.RB|Siz.GeneratorFuelCellElectricalStorage.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.GeneratorFuelCellElectricalStorage.rb" SelfReg="false"/>
+    <ROW File="Siz.GeneratorFuelCellInverter.rb" Component_="bootstrap.min.css" FileName="SIZGEN~2.RB|Siz.GeneratorFuelCellInverter.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.GeneratorFuelCellInverter.rb" SelfReg="false"/>
+    <ROW File="Siz.GeneratorFuelCellPowerModule.rb" Component_="bootstrap.min.css" FileName="SIZGEN~3.RB|Siz.GeneratorFuelCellPowerModule.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.GeneratorFuelCellPowerModule.rb" SelfReg="false"/>
+    <ROW File="Siz.GeneratorMicroTurbine.rb" Component_="bootstrap.min.css" FileName="SIZGEN~4.RB|Siz.GeneratorMicroTurbine.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.GeneratorMicroTurbine.rb" SelfReg="false"/>
+    <ROW File="Siz.GeneratorMicroTurbineHeatRecovery.rb" Component_="bootstrap.min.css" FileName="SIZGEN~5.RB|Siz.GeneratorMicroTurbineHeatRecovery.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.GeneratorMicroTurbineHeatRecovery.rb" SelfReg="false"/>
+    <ROW File="Siz.HeaderedPumpsConstantSpeed.rb" Component_="bootstrap.min.css" FileName="SIZHEA~1.RB|Siz.HeaderedPumpsConstantSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.HeaderedPumpsConstantSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.HeaderedPumpsVariableSpeed.rb" Component_="bootstrap.min.css" FileName="SIZHEA~2.RB|Siz.HeaderedPumpsVariableSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.HeaderedPumpsVariableSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.HeatExchangerAirToAirSensibleAndLatent.rb" Component_="bootstrap.min.css" FileName="SIZHEA~3.RB|Siz.HeatExchangerAirToAirSensibleAndLatent.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.HeatExchangerAirToAirSensibleAndLatent.rb" SelfReg="false"/>
+    <ROW File="Siz.HeatExchangerFluidToFluid.rb" Component_="bootstrap.min.css" FileName="SIZHEA~4.RB|Siz.HeatExchangerFluidToFluid.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.HeatExchangerFluidToFluid.rb" SelfReg="false"/>
+    <ROW File="Siz.HeatPumpWaterToWaterEquationFitCooling.rb" Component_="bootstrap.min.css" FileName="SIZHEA~5.RB|Siz.HeatPumpWaterToWaterEquationFitCooling.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.HeatPumpWaterToWaterEquationFitCooling.rb" SelfReg="false"/>
+    <ROW File="Siz.HeatPumpWaterToWaterEquationFitHeating.rb" Component_="bootstrap.min.css" FileName="SIZHEA~6.RB|Siz.HeatPumpWaterToWaterEquationFitHeating.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.HeatPumpWaterToWaterEquationFitHeating.rb" SelfReg="false"/>
+    <ROW File="Siz.HumidifierSteamElectric.rb" Component_="bootstrap.min.css" FileName="SIZHUM~1.RB|Siz.HumidifierSteamElectric.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.HumidifierSteamElectric.rb" SelfReg="false"/>
+    <ROW File="Siz.HVACComponent.rb" Component_="bootstrap.min.css" FileName="SIZHVA~1.RB|Siz.HVACComponent.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.HVACComponent.rb" SelfReg="false"/>
+    <ROW File="Siz.Model.rb" Component_="bootstrap.min.css" FileName="SIZMOD~1.RB|Siz.Model.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.Model.rb" SelfReg="false"/>
+    <ROW File="Siz.ModelObject.rb" Component_="bootstrap.min.css" FileName="SIZMOD~2.RB|Siz.ModelObject.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ModelObject.rb" SelfReg="false"/>
+    <ROW File="Siz.PhotovoltaicPerformanceSimple.rb" Component_="bootstrap.min.css" FileName="SIZPHO~1.RB|Siz.PhotovoltaicPerformanceSimple.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.PhotovoltaicPerformanceSimple.rb" SelfReg="false"/>
+    <ROW File="Siz.PlantComponentTemperatureSource.rb" Component_="bootstrap.min.css" FileName="SIZPLA~1.RB|Siz.PlantComponentTemperatureSource.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.PlantComponentTemperatureSource.rb" SelfReg="false"/>
+    <ROW File="Siz.PlantLoop.rb" Component_="bootstrap.min.css" FileName="SIZPLA~2.RB|Siz.PlantLoop.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.PlantLoop.rb" SelfReg="false"/>
+    <ROW File="Siz.PumpConstantSpeed.rb" Component_="bootstrap.min.css" FileName="SIZPUM~1.RB|Siz.PumpConstantSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.PumpConstantSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.PumpVariableSpeed.rb" Component_="bootstrap.min.css" FileName="SIZPUM~2.RB|Siz.PumpVariableSpeed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.PumpVariableSpeed.rb" SelfReg="false"/>
+    <ROW File="Siz.RefrigerationSecondarySystem.rb" Component_="bootstrap.min.css" FileName="SIZREF~1.RB|Siz.RefrigerationSecondarySystem.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.RefrigerationSecondarySystem.rb" SelfReg="false"/>
+    <ROW File="Siz.RefrigerationSystem.rb" Component_="bootstrap.min.css" FileName="SIZREF~2.RB|Siz.RefrigerationSystem.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.RefrigerationSystem.rb" SelfReg="false"/>
+    <ROW File="Siz.RefrigerationTranscriticalSystem.rb" Component_="bootstrap.min.css" FileName="SIZREF~3.RB|Siz.RefrigerationTranscriticalSystem.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.RefrigerationTranscriticalSystem.rb" SelfReg="false"/>
+    <ROW File="Siz.SizingSystem.rb" Component_="bootstrap.min.css" FileName="SIZSIZ~1.RB|Siz.SizingSystem.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.SizingSystem.rb" SelfReg="false"/>
+    <ROW File="Siz.SolarCollectorFlatPlatePhotovoltaicThermal.rb" Component_="bootstrap.min.css" FileName="SIZSOL~1.RB|Siz.SolarCollectorFlatPlatePhotovoltaicThermal.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.SolarCollectorFlatPlatePhotovoltaicThermal.rb" SelfReg="false"/>
+    <ROW File="Siz.SolarCollectorPerformancePhotovoltaicThermalSimple.rb" Component_="bootstrap.min.css" FileName="SIZSOL~2.RB|Siz.SolarCollectorPerformancePhotovoltaicThermalSimple.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.SolarCollectorPerformancePhotovoltaicThermalSimple.rb" SelfReg="false"/>
+    <ROW File="Siz.ThermalStorageChilledWaterStratified.rb" Component_="bootstrap.min.css" FileName="SIZTHE~1.RB|Siz.ThermalStorageChilledWaterStratified.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ThermalStorageChilledWaterStratified.rb" SelfReg="false"/>
+    <ROW File="Siz.WaterHeaterHeatPump.rb" Component_="bootstrap.min.css" FileName="SIZWAT~1.RB|Siz.WaterHeaterHeatPump.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.WaterHeaterHeatPump.rb" SelfReg="false"/>
+    <ROW File="Siz.WaterHeaterHeatPumpWrappedCondenser.rb" Component_="bootstrap.min.css" FileName="SIZWAT~2.RB|Siz.WaterHeaterHeatPumpWrappedCondenser.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.WaterHeaterHeatPumpWrappedCondenser.rb" SelfReg="false"/>
+    <ROW File="Siz.WaterHeaterMixed.rb" Component_="bootstrap.min.css" FileName="SIZWAT~3.RB|Siz.WaterHeaterMixed.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.WaterHeaterMixed.rb" SelfReg="false"/>
+    <ROW File="Siz.WaterHeaterStratified.rb" Component_="bootstrap.min.css" FileName="SIZWAT~4.RB|Siz.WaterHeaterStratified.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.WaterHeaterStratified.rb" SelfReg="false"/>
+    <ROW File="Siz.ZoneHVACBaseboardConvectiveElectric.rb" Component_="bootstrap.min.css" FileName="SIZZON~1.RB|Siz.ZoneHVACBaseboardConvectiveElectric.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ZoneHVACBaseboardConvectiveElectric.rb" SelfReg="false"/>
+    <ROW File="Siz.ZoneHVACBaseboardConvectiveWater.rb" Component_="bootstrap.min.css" FileName="SIZZON~2.RB|Siz.ZoneHVACBaseboardConvectiveWater.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ZoneHVACBaseboardConvectiveWater.rb" SelfReg="false"/>
+    <ROW File="Siz.ZoneHVACBaseboardRadiantConvectiveElectric.rb" Component_="bootstrap.min.css" FileName="SIZZON~3.RB|Siz.ZoneHVACBaseboardRadiantConvectiveElectric.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ZoneHVACBaseboardRadiantConvectiveElectric.rb" SelfReg="false"/>
+    <ROW File="Siz.ZoneHVACBaseboardRadiantConvectiveWater.rb" Component_="bootstrap.min.css" FileName="SIZZON~4.RB|Siz.ZoneHVACBaseboardRadiantConvectiveWater.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ZoneHVACBaseboardRadiantConvectiveWater.rb" SelfReg="false"/>
+    <ROW File="Siz.ZoneHVACEnergyRecoveryVentilator.rb" Component_="bootstrap.min.css" FileName="SIZZON~5.RB|Siz.ZoneHVACEnergyRecoveryVentilator.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ZoneHVACEnergyRecoveryVentilator.rb" SelfReg="false"/>
+    <ROW File="Siz.ZoneHVACFourPipeFanCoil.rb" Component_="bootstrap.min.css" FileName="SIZZON~6.RB|Siz.ZoneHVACFourPipeFanCoil.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ZoneHVACFourPipeFanCoil.rb" SelfReg="false"/>
+    <ROW File="Siz.ZoneHVACHighTemperatureRadiant.rb" Component_="bootstrap.min.css" FileName="SIZZON~7.RB|Siz.ZoneHVACHighTemperatureRadiant.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ZoneHVACHighTemperatureRadiant.rb" SelfReg="false"/>
+    <ROW File="Siz.ZoneHVACIdealLoadsAirSystem.rb" Component_="bootstrap.min.css" FileName="SIZZON~8.RB|Siz.ZoneHVACIdealLoadsAirSystem.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ZoneHVACIdealLoadsAirSystem.rb" SelfReg="false"/>
+    <ROW File="Siz.ZoneHVACLowTempRadiantConstFlow.rb" Component_="bootstrap.min.css" FileName="SIZZON~9.RB|Siz.ZoneHVACLowTempRadiantConstFlow.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ZoneHVACLowTempRadiantConstFlow.rb" SelfReg="false"/>
+    <ROW File="Siz.ZoneHVACLowTempRadiantVarFlow.rb" Component_="bootstrap.min.css" FileName="SIZZO~10.RB|Siz.ZoneHVACLowTempRadiantVarFlow.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ZoneHVACLowTempRadiantVarFlow.rb" SelfReg="false"/>
+    <ROW File="Siz.ZoneHVACPackagedTerminalAirConditioner.rb" Component_="bootstrap.min.css" FileName="SIZZO~11.RB|Siz.ZoneHVACPackagedTerminalAirConditioner.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ZoneHVACPackagedTerminalAirConditioner.rb" SelfReg="false"/>
+    <ROW File="Siz.ZoneHVACPackagedTerminalHeatPump.rb" Component_="bootstrap.min.css" FileName="SIZZO~12.RB|Siz.ZoneHVACPackagedTerminalHeatPump.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ZoneHVACPackagedTerminalHeatPump.rb" SelfReg="false"/>
+    <ROW File="Siz.ZoneHVACTerminalUnitVariableRefrigerantFlow.rb" Component_="bootstrap.min.css" FileName="SIZZO~13.RB|Siz.ZoneHVACTerminalUnitVariableRefrigerantFlow.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ZoneHVACTerminalUnitVariableRefrigerantFlow.rb" SelfReg="false"/>
+    <ROW File="Siz.ZoneHVACUnitHeater.rb" Component_="bootstrap.min.css" FileName="SIZZO~14.RB|Siz.ZoneHVACUnitHeater.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ZoneHVACUnitHeater.rb" SelfReg="false"/>
+    <ROW File="Siz.ZoneHVACUnitVentilator.rb" Component_="bootstrap.min.css" FileName="SIZZO~15.RB|Siz.ZoneHVACUnitVentilator.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ZoneHVACUnitVentilator.rb" SelfReg="false"/>
+    <ROW File="Siz.ZoneHVACWaterToAirHeatPump.rb" Component_="bootstrap.min.css" FileName="SIZZO~16.RB|Siz.ZoneHVACWaterToAirHeatPump.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ZoneHVACWaterToAirHeatPump.rb" SelfReg="false"/>
+    <ROW File="Siz.ZoneVentilationDesignFlowRate.rb" Component_="bootstrap.min.css" FileName="SIZZO~17.RB|Siz.ZoneVentilationDesignFlowRate.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\resources\Siz.ZoneVentilationDesignFlowRate.rb" SelfReg="false"/>
+    <ROW File="_SmallHotel_a.osm" Component_="_SmallHotel_a.osm" FileName="1004_S~1.OSM|1004_SmallHotel_a.osm" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\tests\1004_SmallHotel_a.osm" SelfReg="false"/>
+    <ROW File="add_tariff.osw" Component_="_SmallHotel_a.osm" FileName="ADD_TA~1.OSW|add_tariff.osw" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\tests\add_tariff.osw" SelfReg="false"/>
+    <ROW File="EdgeCaseModel.osm" Component_="_SmallHotel_a.osm" FileName="EDGECA~1.OSM|EdgeCaseModel.osm" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\tests\EdgeCaseModel.osm" SelfReg="false"/>
+    <ROW File="EmptyModel.osm" Component_="_SmallHotel_a.osm" FileName="EMPTYM~1.OSM|EmptyModel.osm" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\tests\EmptyModel.osm" SelfReg="false"/>
+    <ROW File="ExampleModel.osm" Component_="_SmallHotel_a.osm" FileName="EXAMPL~1.OSM|ExampleModel.osm" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\tests\ExampleModel.osm" SelfReg="false"/>
+    <ROW File="HeatingOnly.osm" Component_="_SmallHotel_a.osm" FileName="HEATIN~1.OSM|HeatingOnly.osm" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\tests\HeatingOnly.osm" SelfReg="false"/>
+    <ROW File="NoRunPeriod.osm" Component_="_SmallHotel_a.osm" FileName="NORUNP~1.OSM|NoRunPeriod.osm" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\tests\NoRunPeriod.osm" SelfReg="false"/>
+    <ROW File="OpenStudioResults_Test.rb" Component_="_SmallHotel_a.osm" FileName="OPENST~1.RB|OpenStudioResults_Test.rb" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\tests\OpenStudioResults_Test.rb" SelfReg="false"/>
+    <ROW File="PeriodInConstName.osm" Component_="_SmallHotel_a.osm" FileName="PERIOD~1.OSM|PeriodInConstName.osm" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\tests\PeriodInConstName.osm" SelfReg="false"/>
+    <ROW File="USA_CO_GoldenNREL.724666_TMY3.epw" Component_="_SmallHotel_a.osm" FileName="USA_CO~1.EPW|USA_CO_Golden-NREL.724666_TMY3.epw" Attributes="0" SourcePath="..\build.signed\build\measures\openstudio_results\tests\USA_CO_Golden-NREL.724666_TMY3.epw" SelfReg="false"/>
+    <ROW File="measure.rb_6" Component_="measure.rb_3" FileName="measure.rb" Attributes="0" SourcePath="..\build.signed\build\measures\set_simulation_control\measure.rb" SelfReg="false"/>
+    <ROW File="measure.xml_6" Component_="measure.rb_3" FileName="measure.xml" Attributes="0" SourcePath="..\build.signed\build\measures\set_simulation_control\measure.xml" SelfReg="false"/>
+    <ROW File="README.md_6" Component_="measure.rb_3" FileName="README.md" Attributes="0" SourcePath="..\build.signed\build\measures\set_simulation_control\README.md" SelfReg="false"/>
+    <ROW File="README.md.erb_6" Component_="measure.rb_3" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="..\build.signed\build\measures\set_simulation_control\README.md.erb" SelfReg="false"/>
+    <ROW File="measure.rb_7" Component_="measure.rb_4" FileName="measure.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\measure.rb" SelfReg="false"/>
+    <ROW File="measure.xml_7" Component_="measure.rb_4" FileName="measure.xml" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\measure.xml" SelfReg="false"/>
+    <ROW File="README.md_7" Component_="measure.rb_4" FileName="README.md" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\README.md" SelfReg="false"/>
+    <ROW File="README.md.erb_7" Component_="measure.rb_4" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\README.md.erb" SelfReg="false"/>
+    <ROW File="bundle.js" Component_="bundle.js" FileName="bundle.js" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\build\bundle.js" SelfReg="false"/>
+    <ROW File="index.html" Component_="bundle.js" FileName="INDEX~1.HTM|index.html" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\build\index.html" SelfReg="false"/>
+    <ROW File="reportConfig.json" Component_="bundle.js" FileName="REPORT~1.JSO|reportConfig.json" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\build\reportConfig.json" SelfReg="false"/>
+    <ROW File="canister.rb" Component_="canister.rb" FileName="canister.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\canister\canister.rb" SelfReg="false"/>
+    <ROW File="canister.rb_1" Component_="canister.rb_1" FileName="canister.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\canister.rb" SelfReg="false"/>
+    <ROW File="container.rb" Component_="container.rb" FileName="CONTAI~1.RB|container.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\container.rb" SelfReg="false"/>
+    <ROW File="sql_gateway.rb" Component_="sql_gateway.rb" FileName="SQL_GA~1.RB|sql_gateway.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\gateways\sql_gateway.rb" SelfReg="false"/>
+    <ROW File="coil_sizing_detail_mapper.rb" Component_="coil_sizing_detail_mapper.rb" FileName="COIL_S~1.RB|coil_sizing_detail_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\mappers\coil_sizing_detail_mapper.rb" SelfReg="false"/>
+    <ROW File="engineering_check_mapper.rb" Component_="coil_sizing_detail_mapper.rb" FileName="ENGINE~1.RB|engineering_check_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\mappers\engineering_check_mapper.rb" SelfReg="false"/>
+    <ROW File="estimated_peak_load_component_mapper.rb" Component_="coil_sizing_detail_mapper.rb" FileName="ESTIMA~1.RB|estimated_peak_load_component_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\mappers\estimated_peak_load_component_mapper.rb" SelfReg="false"/>
+    <ROW File="estimated_peak_load_component_table_mapper.rb" Component_="coil_sizing_detail_mapper.rb" FileName="ESTIMA~2.RB|estimated_peak_load_component_table_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\mappers\estimated_peak_load_component_table_mapper.rb" SelfReg="false"/>
+    <ROW File="location_mapper.rb" Component_="coil_sizing_detail_mapper.rb" FileName="LOCATI~1.RB|location_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\mappers\location_mapper.rb" SelfReg="false"/>
+    <ROW File="mapper.rb" Component_="coil_sizing_detail_mapper.rb" FileName="mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\mappers\mapper.rb" SelfReg="false"/>
+    <ROW File="peak_condition_mapper.rb" Component_="coil_sizing_detail_mapper.rb" FileName="PEAK_C~1.RB|peak_condition_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\mappers\peak_condition_mapper.rb" SelfReg="false"/>
+    <ROW File="coil_sizing_detail.rb" Component_="coil_sizing_detail.rb" FileName="COIL_S~1.RB|coil_sizing_detail.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\models\coil_sizing_detail.rb" SelfReg="false"/>
+    <ROW File="engineering_check.rb" Component_="coil_sizing_detail.rb" FileName="ENGINE~1.RB|engineering_check.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\models\engineering_check.rb" SelfReg="false"/>
+    <ROW File="estimated_peak_load_component.rb" Component_="coil_sizing_detail.rb" FileName="ESTIMA~1.RB|estimated_peak_load_component.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\models\estimated_peak_load_component.rb" SelfReg="false"/>
+    <ROW File="estimated_peak_load_component_table.rb" Component_="coil_sizing_detail.rb" FileName="ESTIMA~2.RB|estimated_peak_load_component_table.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\models\estimated_peak_load_component_table.rb" SelfReg="false"/>
+    <ROW File="location.rb" Component_="coil_sizing_detail.rb" FileName="location.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\models\location.rb" SelfReg="false"/>
+    <ROW File="model.rb" Component_="coil_sizing_detail.rb" FileName="model.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\models\model.rb" SelfReg="false"/>
+    <ROW File="peak_condition.rb" Component_="coil_sizing_detail.rb" FileName="PEAK_C~1.RB|peak_condition.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\models\peak_condition.rb" SelfReg="false"/>
+    <ROW File="coil_sizing_details.rb" Component_="coil_sizing_details.rb" FileName="COIL_S~1.RB|coil_sizing_details.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\relations\coil_sizing_details.rb" SelfReg="false"/>
+    <ROW File="cooling_peak_conditions.rb" Component_="coil_sizing_details.rb" FileName="COOLIN~1.RB|cooling_peak_conditions.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\relations\cooling_peak_conditions.rb" SelfReg="false"/>
+    <ROW File="engineering_check_for_coolings.rb" Component_="coil_sizing_details.rb" FileName="ENGINE~1.RB|engineering_check_for_coolings.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\relations\engineering_check_for_coolings.rb" SelfReg="false"/>
+    <ROW File="engineering_check_for_heatings.rb" Component_="coil_sizing_details.rb" FileName="ENGINE~2.RB|engineering_check_for_heatings.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\relations\engineering_check_for_heatings.rb" SelfReg="false"/>
+    <ROW File="estimated_cooling_peak_load_component_tables.rb" Component_="coil_sizing_details.rb" FileName="ESTIMA~1.RB|estimated_cooling_peak_load_component_tables.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\relations\estimated_cooling_peak_load_component_tables.rb" SelfReg="false"/>
+    <ROW File="estimated_heating_peak_load_component_tables.rb" Component_="coil_sizing_details.rb" FileName="ESTIMA~2.RB|estimated_heating_peak_load_component_tables.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\relations\estimated_heating_peak_load_component_tables.rb" SelfReg="false"/>
+    <ROW File="heating_peak_conditions.rb" Component_="coil_sizing_details.rb" FileName="HEATIN~1.RB|heating_peak_conditions.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\relations\heating_peak_conditions.rb" SelfReg="false"/>
+    <ROW File="locations.rb" Component_="coil_sizing_details.rb" FileName="LOCATI~1.RB|locations.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\relations\locations.rb" SelfReg="false"/>
+    <ROW File="relation.rb" Component_="coil_sizing_details.rb" FileName="relation.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\relations\relation.rb" SelfReg="false"/>
+    <ROW File="converter.rb" Component_="converter.rb" FileName="CONVER~1.RB|converter.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\utilities\converter.rb" SelfReg="false"/>
+    <ROW File="si_unit_system.rb" Component_="converter.rb" FileName="SI_UNI~1.RB|si_unit_system.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout\utilities\si_unit_system.rb" SelfReg="false"/>
+    <ROW File="eplusout.rb" Component_="canister.rb_1" FileName="eplusout.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\eplusout.rb" SelfReg="false"/>
+    <ROW File="config.rb" Component_="config.rb" FileName="config.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\config\config.rb" SelfReg="false"/>
+    <ROW File="container.rb_1" Component_="container.rb_1" FileName="CONTAI~1.RB|container.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\container.rb" SelfReg="false"/>
+    <ROW File="air_state_point_mapper.rb" Component_="air_state_point_mapper.rb" FileName="AIR_ST~1.RB|air_state_point_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\air_state_point_mapper.rb" SelfReg="false"/>
+    <ROW File="design_psychrometric_mapper.rb" Component_="air_state_point_mapper.rb" FileName="DESIGN~1.RB|design_psychrometric_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\design_psychrometric_mapper.rb" SelfReg="false"/>
+    <ROW File="design_psychrometric_summary_mapper.rb" Component_="air_state_point_mapper.rb" FileName="DESIGN~2.RB|design_psychrometric_summary_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\design_psychrometric_summary_mapper.rb" SelfReg="false"/>
+    <ROW File="engineering_check_mapper.rb_1" Component_="air_state_point_mapper.rb" FileName="ENGINE~1.RB|engineering_check_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\engineering_check_mapper.rb" SelfReg="false"/>
+    <ROW File="estimated_peak_load_component_table_to_peak_load_component_table.rb" Component_="air_state_point_mapper.rb" FileName="ESTIMA~1.RB|estimated_peak_load_component_table_to_peak_load_component_table.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\estimated_peak_load_component_table_to_peak_load_component_table.rb" SelfReg="false"/>
+    <ROW File="lighting_return_peak_load_air_mapper.rb" Component_="air_state_point_mapper.rb" FileName="LIGHTI~1.RB|lighting_return_peak_load_air_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\lighting_return_peak_load_air_mapper.rb" SelfReg="false"/>
+    <ROW File="mapper.rb_1" Component_="air_state_point_mapper.rb" FileName="mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\mapper.rb" SelfReg="false"/>
+    <ROW File="other_return_air_peak_load_mapper.rb" Component_="air_state_point_mapper.rb" FileName="OTHER_~1.RB|other_return_air_peak_load_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\other_return_air_peak_load_mapper.rb" SelfReg="false"/>
+    <ROW File="peak_load_component_mapper.rb" Component_="air_state_point_mapper.rb" FileName="PEAK_L~1.RB|peak_load_component_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\peak_load_component_mapper.rb" SelfReg="false"/>
+    <ROW File="sizing_factor_correction_peak_load_mapper.rb" Component_="air_state_point_mapper.rb" FileName="SIZING~1.RB|sizing_factor_correction_peak_load_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\sizing_factor_correction_peak_load_mapper.rb" SelfReg="false"/>
+    <ROW File="supply_fan_heat_peak_load_mapper.rb" Component_="air_state_point_mapper.rb" FileName="SUPPLY~1.RB|supply_fan_heat_peak_load_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\supply_fan_heat_peak_load_mapper.rb" SelfReg="false"/>
+    <ROW File="system_airflow_mapper.rb" Component_="air_state_point_mapper.rb" FileName="SYSTEM~1.RB|system_airflow_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\system_airflow_mapper.rb" SelfReg="false"/>
+    <ROW File="system_estimated_peak_load_component_table_mapper.rb" Component_="air_state_point_mapper.rb" FileName="SYSTEM~2.RB|system_estimated_peak_load_component_table_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\system_estimated_peak_load_component_table_mapper.rb" SelfReg="false"/>
+    <ROW File="system_load_summary_mapper.rb" Component_="air_state_point_mapper.rb" FileName="SYSTEM~3.RB|system_load_summary_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\system_load_summary_mapper.rb" SelfReg="false"/>
+    <ROW File="system_temperature_mapper.rb" Component_="air_state_point_mapper.rb" FileName="SYSTEM~4.RB|system_temperature_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\system_temperature_mapper.rb" SelfReg="false"/>
+    <ROW File="time_delay_correction_peak_load_mapper.rb" Component_="air_state_point_mapper.rb" FileName="TIME_D~1.RB|time_delay_correction_peak_load_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\time_delay_correction_peak_load_mapper.rb" SelfReg="false"/>
+    <ROW File="ventilation_peak_load_component_mapper.rb" Component_="air_state_point_mapper.rb" FileName="VENTIL~1.RB|ventilation_peak_load_component_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\ventilation_peak_load_component_mapper.rb" SelfReg="false"/>
+    <ROW File="zone_estimated_peak_load_component_table_mapper.rb" Component_="air_state_point_mapper.rb" FileName="ZONE_E~1.RB|zone_estimated_peak_load_component_table_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\zone_estimated_peak_load_component_table_mapper.rb" SelfReg="false"/>
+    <ROW File="zone_load_summary_mapper.rb" Component_="air_state_point_mapper.rb" FileName="ZONE_L~1.RB|zone_load_summary_mapper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\mappers\zone_load_summary_mapper.rb" SelfReg="false"/>
+    <ROW File="air_state_point.rb" Component_="air_state_point.rb" FileName="AIR_ST~1.RB|air_state_point.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\models\air_state_point.rb" SelfReg="false"/>
+    <ROW File="cooling_and_heating.rb" Component_="air_state_point.rb" FileName="COOLIN~1.RB|cooling_and_heating.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\models\cooling_and_heating.rb" SelfReg="false"/>
+    <ROW File="design_psychrometric.rb" Component_="air_state_point.rb" FileName="DESIGN~1.RB|design_psychrometric.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\models\design_psychrometric.rb" SelfReg="false"/>
+    <ROW File="design_psychrometric_summary.rb" Component_="air_state_point.rb" FileName="DESIGN~2.RB|design_psychrometric_summary.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\models\design_psychrometric_summary.rb" SelfReg="false"/>
+    <ROW File="model.rb_1" Component_="air_state_point.rb" FileName="model.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\models\model.rb" SelfReg="false"/>
+    <ROW File="peak_load_component.rb" Component_="air_state_point.rb" FileName="PEAK_L~1.RB|peak_load_component.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\models\peak_load_component.rb" SelfReg="false"/>
+    <ROW File="report.rb" Component_="air_state_point.rb" FileName="report.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\models\report.rb" SelfReg="false"/>
+    <ROW File="system_airflow.rb" Component_="air_state_point.rb" FileName="SYSTEM~1.RB|system_airflow.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\models\system_airflow.rb" SelfReg="false"/>
+    <ROW File="system_load_summary.rb" Component_="air_state_point.rb" FileName="SYSTEM~2.RB|system_load_summary.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\models\system_load_summary.rb" SelfReg="false"/>
+    <ROW File="system_peak_load_component_table.rb" Component_="air_state_point.rb" FileName="SYSTEM~3.RB|system_peak_load_component_table.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\models\system_peak_load_component_table.rb" SelfReg="false"/>
+    <ROW File="system_temperature.rb" Component_="air_state_point.rb" FileName="SYSTEM~4.RB|system_temperature.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\models\system_temperature.rb" SelfReg="false"/>
+    <ROW File="zone_load_summary.rb" Component_="air_state_point.rb" FileName="ZONE_L~1.RB|zone_load_summary.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\models\zone_load_summary.rb" SelfReg="false"/>
+    <ROW File="zone_peak_load_component_table.rb" Component_="air_state_point.rb" FileName="ZONE_P~1.RB|zone_peak_load_component_table.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\models\zone_peak_load_component_table.rb" SelfReg="false"/>
+    <ROW File="json_generator.rb" Component_="json_generator.rb" FileName="JSON_G~1.RB|json_generator.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\report_generators\json_generator.rb" SelfReg="false"/>
+    <ROW File="design_psychrometric_repo.rb" Component_="design_psychrometric_repo.rb" FileName="DESIGN~1.RB|design_psychrometric_repo.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\repositories\design_psychrometric_repo.rb" SelfReg="false"/>
+    <ROW File="system_load_summary_repo.rb" Component_="design_psychrometric_repo.rb" FileName="SYSTEM~1.RB|system_load_summary_repo.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\repositories\system_load_summary_repo.rb" SelfReg="false"/>
+    <ROW File="zone_load_summary_repo.rb" Component_="design_psychrometric_repo.rb" FileName="ZONE_L~1.RB|zone_load_summary_repo.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\repositories\zone_load_summary_repo.rb" SelfReg="false"/>
+    <ROW File="design_psychrometric_service.rb" Component_="design_psychrometric_service.rb" FileName="DESIGN~1.RB|design_psychrometric_service.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\services\design_psychrometric_service.rb" SelfReg="false"/>
+    <ROW File="system_load_summary_service.rb" Component_="design_psychrometric_service.rb" FileName="SYSTEM~1.RB|system_load_summary_service.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\services\system_load_summary_service.rb" SelfReg="false"/>
+    <ROW File="zone_load_summary_service.rb" Component_="design_psychrometric_service.rb" FileName="ZONE_L~1.RB|zone_load_summary_service.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\services\zone_load_summary_service.rb" SelfReg="false"/>
+    <ROW File="cooling_coil_name_getter.rb" Component_="cooling_coil_name_getter.rb" FileName="COOLIN~1.RB|cooling_coil_name_getter.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\strategies\cooling_coil_name_getter.rb" SelfReg="false"/>
+    <ROW File="system_name_getter.rb" Component_="cooling_coil_name_getter.rb" FileName="SYSTEM~1.RB|system_name_getter.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\strategies\system_name_getter.rb" SelfReg="false"/>
+    <ROW File="web_app_writer.rb" Component_="cooling_coil_name_getter.rb" FileName="WEB_AP~1.RB|web_app_writer.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\strategies\web_app_writer.rb" SelfReg="false"/>
+    <ROW File="zone_name_getter.rb" Component_="cooling_coil_name_getter.rb" FileName="ZONE_N~1.RB|zone_name_getter.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report\strategies\zone_name_getter.rb" SelfReg="false"/>
+    <ROW File="systems_analysis_report.rb" Component_="canister.rb_1" FileName="SYSTEM~1.RB|systems_analysis_report.rb" Attributes="0" SourcePath="..\build.signed\build\measures\systems_analysis_report_generator\resources\systems_analysis_report.rb" SelfReg="false"/>
+    <ROW File="denver_seed_empty.osm" Component_="denver_seed_empty.osm" FileName="DENVER~1.OSM|denver_seed_empty.osm" Attributes="0" SourcePath="..\build.signed\build\seeds\denver_seed_empty.osm" SelfReg="false"/>
+    <ROW File="seed_empty.osm" Component_="denver_seed_empty.osm" FileName="SEED_E~1.OSM|seed_empty.osm" Attributes="0" SourcePath="..\build.signed\build\seeds\seed_empty.osm" SelfReg="false"/>
+    <ROW File="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" Component_="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" FileName="USA_CO~1.DDY|USA_CO_Denver.Intl.AP.725650_TMY3.ddy" Attributes="0" SourcePath="..\build.signed\build\weather\USA_CO_Denver.Intl.AP.725650_TMY3.ddy" SelfReg="false"/>
+    <ROW File="USA_CO_Denver.Intl.AP.725650_TMY3.epw" Component_="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" FileName="USA_CO~1.EPW|USA_CO_Denver.Intl.AP.725650_TMY3.epw" Attributes="0" SourcePath="..\build.signed\build\weather\USA_CO_Denver.Intl.AP.725650_TMY3.epw" SelfReg="false"/>
+    <ROW File="USA_CO_Denver.Intl.AP.725650_TMY3.stat" Component_="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" FileName="USA_CO~1.STA|USA_CO_Denver.Intl.AP.725650_TMY3.stat" Attributes="0" SourcePath="..\build.signed\build\weather\USA_CO_Denver.Intl.AP.725650_TMY3.stat" SelfReg="false"/>
+    <ROW File="ddy" Component_="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" FileName="듥듦.ddy" Attributes="0" SourcePath="..\build.signed\build\weather\듥듦.ddy" SelfReg="false"/>
+    <ROW File="epw" Component_="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" FileName="듥듦.epw" Attributes="0" SourcePath="..\build.signed\build\weather\듥듦.epw" SelfReg="false"/>
+    <ROW File="stat" Component_="USA_CO_Denver.Intl.AP.725650_TMY3.ddy" FileName="듥듦~1.STA|듥듦.stat" Attributes="0" SourcePath="..\build.signed\build\weather\듥듦.stat" SelfReg="false"/>
+    <ROW File="AnnualBuildingEnergySimulation.osw" Component_="AnnualBuildingEnergySimulation.osw" FileName="ANNUAL~1.OSW|Annual Building Energy Simulation.osw" Attributes="0" SourcePath="..\build.signed\build\workflows\Annual Building Energy Simulation.osw" SelfReg="false"/>
+    <ROW File="HVACSystemsLoadsandSizing.osw" Component_="AnnualBuildingEnergySimulation.osw" FileName="HVACSY~1.OSW|HVAC Systems Loads and Sizing.osw" Attributes="0" SourcePath="..\build.signed\build\workflows\HVAC Systems Loads and Sizing.osw" SelfReg="false"/>
+    <ROW File="CHANGELOG.md" Component_="CHANGELOG.md" FileName="CHANGE~1.MD|CHANGELOG.md" Attributes="0" SourcePath="..\build.signed\build\CHANGELOG.md" SelfReg="false"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
+    <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFileName="[|ProductName] v[|ProductVersion]" Languages="en" InstallationType="4" UseLargeSchema="true" MsiPackageType="x64"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
+    <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
+    <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
+    <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
+    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\FolderDlg.aip"/>
+    <ROW Fragment="MaintenanceTypeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceTypeDlg.aip"/>
+    <ROW Fragment="MaintenanceWelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceWelcomeDlg.aip"/>
+    <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SequenceDialogs.aip"/>
+    <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
+    <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
+    <ROW Fragment="Themes.aip" Path="&lt;AI_FRAGS&gt;Themes.aip"/>
+    <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
+    <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
+    <ROW Fragment="VerifyRemoveDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRemoveDlg.aip"/>
+    <ROW Fragment="VerifyRepairDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRepairDlg.aip"/>
+    <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\WelcomeDlg.aip"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
+    <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
+    <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="FolderDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="FolderDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="99"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_MAINT" Ordering="198"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="202"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_INSTALL" Ordering="197"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_MAINT" Ordering="101"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="ChangeButton" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="501"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceWelcomeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RemoveButton" Event="NewDialog" Argument="VerifyRemoveDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RepairButton" Event="NewDialog" Argument="VerifyRepairDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="1"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Repair" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="399" Options="1"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Remove" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="299" Options="1"/>
+    <ROW Dialog_="PatchWelcomeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_PATCH" Ordering="201"/>
+    <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_PATCH" Ordering="199"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="203"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
+    <ROW Directory_="APPDIR" Component_="APPDIR" ManualDelete="true"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
+    <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
+    <ROW Action="AI_EnableDebugLog" Type="321" Source="aicustact.dll" Target="EnableDebugLog"/>
+    <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
+    <ROW Action="AI_PRESERVE_INSTALL_TYPE" Type="65" Source="aicustact.dll" Target="PreserveInstallType"/>
+    <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
+    <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
+    <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="DefaultBuild:[ProgramFiles64Folder][Manufacturer]\[ProductName]"/>
+    <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
+    <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatCompsComponent">
+    <ROW Feature_="MainFeature" Component_="ProductInformation"/>
+    <ROW Feature_="MainFeature" Component_="concrt140.dll"/>
+    <ROW Feature_="MainFeature" Component_="msvcp140.dll"/>
+    <ROW Feature_="MainFeature" Component_="msvcp140_1.dll"/>
+    <ROW Feature_="MainFeature" Component_="msvcp140_2.dll"/>
+    <ROW Feature_="MainFeature" Component_="msvcp140_atomic_wait.dll"/>
+    <ROW Feature_="MainFeature" Component_="msvcp140_codecvt_ids.dll"/>
+    <ROW Feature_="MainFeature" Component_="openstudio.exe"/>
+    <ROW Feature_="MainFeature" Component_="openstudiolib.dll"/>
+    <ROW Feature_="MainFeature" Component_="openstudiolib.lib"/>
+    <ROW Feature_="MainFeature" Component_="python38.dll"/>
+    <ROW Feature_="MainFeature" Component_="pythonengine.dll"/>
+    <ROW Feature_="MainFeature" Component_="rubyengine.dll"/>
+    <ROW Feature_="MainFeature" Component_="vcruntime140.dll"/>
+    <ROW Feature_="MainFeature" Component_="vcruntime140_1.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincoreconsolel110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincoreconsolel120.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincoredatetimel110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincoredebugl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincoreerrorhandlingl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincorefilel110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincorefilel120.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincorefilel210.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincorehandlel110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincoreheapl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincoreinterlockedl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincorelibraryloaderl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincorelocalizationl120.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincorememoryl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincorenamedpipel110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincoreprocessenvironmentl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincoreprocessthreadsl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincoreprocessthreadsl111.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincoreprofilel110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincorertlsupportl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincorestringl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincoresynchl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincoresynchl120.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincoresysinfol110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincoretimezonel110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincoreutill110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincrtconiol110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincrtconvertl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincrtenvironmentl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincrtfilesysteml110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincrtheapl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincrtlocalel110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincrtmathl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincrtmultibytel110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincrtprivatel110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincrtprocessl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincrtruntimel110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincrtstdiol110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincrtstringl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincrttimel110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincrtutilityl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="concrt140.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="Energy.idd"/>
+    <ROW Feature_="MainFeature" Component_="energyplus.exe"/>
+    <ROW Feature_="MainFeature" Component_="energyplusapi.dll"/>
+    <ROW Feature_="MainFeature" Component_="ExpandObjects.exe"/>
+    <ROW Feature_="MainFeature" Component_="msvcp140.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="msvcp140_1.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="msvcp140_2.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="msvcp140_atomic_wait.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="msvcp140_codecvt_ids.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="api.py"/>
+    <ROW Feature_="MainFeature" Component_="api.py_1"/>
+    <ROW Feature_="MainFeature" Component_="ucrtbase.dll"/>
+    <ROW Feature_="MainFeature" Component_="vcomp140.dll"/>
+    <ROW Feature_="MainFeature" Component_="vcruntime140.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="vcruntime140_1.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="analysis.xml"/>
+    <ROW Feature_="MainFeature" Component_="LICENSE.md"/>
+    <ROW Feature_="MainFeature" Component_="epw.rb"/>
+    <ROW Feature_="MainFeature" Component_="another_weather_file.ddy"/>
+    <ROW Feature_="MainFeature" Component_="measure.rb"/>
+    <ROW Feature_="MainFeature" Component_="gbXMLStandardTestModel2016.xml"/>
+    <ROW Feature_="MainFeature" Component_="measure.rb_1"/>
+    <ROW Feature_="MainFeature" Component_="building_type_helper.rb"/>
+    <ROW Feature_="MainFeature" Component_="_SpacesOneZE.xml"/>
+    <ROW Feature_="MainFeature" Component_="gbxml_import_hvac.rb"/>
+    <ROW Feature_="MainFeature" Component_="acb.rb"/>
+    <ROW Feature_="MainFeature" Component_="measure.rb_2"/>
+    <ROW Feature_="MainFeature" Component_="gbxml_postprocess_test.rb"/>
+    <ROW Feature_="MainFeature" Component_="LICENSE.md_1"/>
+    <ROW Feature_="MainFeature" Component_="bootstrap.min.css"/>
+    <ROW Feature_="MainFeature" Component_="_SmallHotel_a.osm"/>
+    <ROW Feature_="MainFeature" Component_="measure.rb_3"/>
+    <ROW Feature_="MainFeature" Component_="measure.rb_4"/>
+    <ROW Feature_="MainFeature" Component_="APPDIR"/>
+    <ROW Feature_="MainFeature" Component_="bundle.js"/>
+    <ROW Feature_="MainFeature" Component_="canister.rb"/>
+    <ROW Feature_="MainFeature" Component_="canister.rb_1"/>
+    <ROW Feature_="MainFeature" Component_="container.rb"/>
+    <ROW Feature_="MainFeature" Component_="sql_gateway.rb"/>
+    <ROW Feature_="MainFeature" Component_="coil_sizing_detail_mapper.rb"/>
+    <ROW Feature_="MainFeature" Component_="coil_sizing_detail.rb"/>
+    <ROW Feature_="MainFeature" Component_="coil_sizing_details.rb"/>
+    <ROW Feature_="MainFeature" Component_="converter.rb"/>
+    <ROW Feature_="MainFeature" Component_="config.rb"/>
+    <ROW Feature_="MainFeature" Component_="container.rb_1"/>
+    <ROW Feature_="MainFeature" Component_="air_state_point_mapper.rb"/>
+    <ROW Feature_="MainFeature" Component_="air_state_point.rb"/>
+    <ROW Feature_="MainFeature" Component_="json_generator.rb"/>
+    <ROW Feature_="MainFeature" Component_="design_psychrometric_repo.rb"/>
+    <ROW Feature_="MainFeature" Component_="design_psychrometric_service.rb"/>
+    <ROW Feature_="MainFeature" Component_="cooling_coil_name_getter.rb"/>
+    <ROW Feature_="MainFeature" Component_="denver_seed_empty.osm"/>
+    <ROW Feature_="MainFeature" Component_="USA_CO_Denver.Intl.AP.725650_TMY3.ddy"/>
+    <ROW Feature_="MainFeature" Component_="AnnualBuildingEnergySimulation.osw"/>
+    <ROW Feature_="MainFeature" Component_="CHANGELOG.md"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
+    <ROW Name="os.exe" SourcePath="os.ico" Index="0"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
+    <ROW Action="AI_STORE_LOCATION" Condition="(Not Installed) OR REINSTALL" Sequence="1501"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="53"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+    <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="201"/>
+    <ROW Action="AI_DETECT_MODERNWIN" Condition="(VersionNT &gt;= 603)" Sequence="54" MsiKey="AI_DETECT_MODERNWIN"/>
+    <ROW Action="AI_DETECT_WINTHEME" Condition="(VersionNT &gt;= 603)" Sequence="55" MsiKey="AI_DETECT_WINTHEME"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
+    <ROW Action="AI_ResolveKnownFolders" Sequence="53"/>
+    <ROW Action="AI_DpiContentScale" Sequence="52"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+    <ROW Action="AI_PRESERVE_INSTALL_TYPE" Sequence="199"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
+    <ROW Condition="((VersionNT &lt;&gt; 501) AND (VersionNT &lt;&gt; 502))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on [WindowsTypeNT40Display]." DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="(VersionNT &lt;&gt; 500)" Description="[ProductName] cannot be installed on [WindowsTypeNT50Display]." DescriptionLocId="AI.LaunchCondition.NoNT50" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiRegsComponent">
+    <ROW Registry="Manufacturer" Root="-1" Key="Software\[Manufacturer]" Name="\"/>
+    <ROW Registry="Path" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Path" Value="[APPDIR]" Component_="ProductInformation"/>
+    <ROW Registry="ProductName" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="\"/>
+    <ROW Registry="Software" Root="-1" Key="Software" Name="\"/>
+    <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
+    <ATTRIBUTE name="UsedTheme" value="classic"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="255.255.6555.6555" Attributes="257" ActionProperty="OLDPRODUCTS"/>
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="255.255.6555.6555" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
+  </COMPONENT>
+</DOCUMENT>

@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.2.0] - 2024-06-28
+- OpenStudio v3.8.0
+- EnergyPlus v24.1.0
+
+## [1.1.9] - 2024-05-14
+- OpenStudio v3.6.0
+- EnergyPlus v23.1.0
+- Measure fixes
+  - Jira-REVIT-218565
+
 ## [1.1.8] - 2023-11-13
 - OpenStudio v3.6.0
 - EnergyPlus v23.1.0

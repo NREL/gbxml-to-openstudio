@@ -11,18 +11,17 @@ if ENV['BUNDLE_GEMFILE']
 end
 
 # constants
+OS_DIR = 'C:\openstudio-3.8.0\bin'
+EP_DIR = 'C:\EnergyPlusV24-1-0-revit'
 ROOT_DIR = File.join(File.dirname(__FILE__))
 PRESIGN_DIR = 'build'
-OS_DIR = 'C:\openstudio-3.6.0\bin'
-EP_DIR = 'C:\EnergyPlusV23-1-0-revit'
-PYTHON = false
-
 POSTSIGN_DIR = "#{PRESIGN_DIR}.signed/#{PRESIGN_DIR}"
 EP_FILES_UNSIGNED = [
   'Energy+.idd',
   'Energy+.schema.epJSON',
   'energyplusapi.lib'
 ]
+PYTHON = false
 OSW_FILES = [
   'Annual Building Energy Simulation.osw',
   'HVAC Systems Loads and Sizing.osw'

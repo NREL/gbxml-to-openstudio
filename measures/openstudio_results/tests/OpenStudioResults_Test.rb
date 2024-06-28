@@ -80,9 +80,8 @@ class OpenStudioResults_Test < Minitest::Test
       osw_path = File.join(run_dir(test_name), 'in.osw')
       osw_path = File.absolute_path(osw_path)
 
-      # load osw with openstudio_results measure to get energyPlusOutputRequests into IDF (old method was not working)
-      source_osw = OpenStudio::Path.new(File.dirname(__FILE__) + '/os_results.osw')
-      workflow = OpenStudio::WorkflowJSON.load(source_osw).get
+      # create workflow to for initial test model run
+      workflow = OpenStudio::WorkflowJSON.new
       workflow.setSeedFile(File.absolute_path(model_out_path(test_name)))
       workflow.setWeatherFile(File.absolute_path(epw_path))
       workflow.saveAs(osw_path)
@@ -229,8 +228,12 @@ class OpenStudioResults_Test < Minitest::Test
     # create an instance of the measure
     measure = OpenStudioResults.new
 
+    # enable runner to find measure resources dir
+    workflow = OpenStudio::WorkflowJSON.new
+    workflow.addMeasurePath(File.dirname(File.expand_path('..', File.dirname(__FILE__))))
+
     # create an instance of a runner
-    runner = OpenStudio::Measure::OSRunner.new(OpenStudio::WorkflowJSON.new)
+    runner = OpenStudio::Measure::OSRunner.new(workflow)
 
     # get arguments
     arguments = measure.arguments
@@ -239,6 +242,9 @@ class OpenStudioResults_Test < Minitest::Test
     # create hash of argument values
     args_hash = {}
     args_hash['units'] = 'SI'
+
+    # Autodesk argument override
+    runner.setUnitsPreference('SI')
 
     # populate argument with specified hash value if specified
     arguments.each do |arg|
@@ -286,6 +292,22 @@ class OpenStudioResults_Test < Minitest::Test
 
       # look for section_errors
       assert(section_errors(runner).empty?)
+
+      # test for proper unit conversion
+      expected_unit = 'kWh'
+
+      sqlFile = OpenStudio::SqlFile.new(OpenStudio::Path.new(sql_path(test_name)))
+
+      ["Electricity","Natural Gas"].each do |fuel_type|
+        query = "SELECT Value FROM tabulardatawithstrings WHERE ReportName='AnnualBuildingUtilityPerformanceSummary' and TableName='End Uses' and RowName= 'Total End Uses' and ColumnName= '#{fuel_type}'"
+        results = sqlFile.execAndReturnFirstDouble(query)
+        expected_value = OpenStudio.convert(results.get, 'GJ', expected_unit).get
+        result_hash = result.stepValues.select{|r| r.name == "fuel_#{fuel_type.downcase.gsub(' ','_')}"}.first
+        result_unit = result_hash.units.get
+        result_value = result_hash.valueAsDouble
+        assert_equal(expected_unit, result_unit, "#{fuel_type} result unit: #{result_unit}, expected: #{expected_unit}")
+        assert_equal(expected_value, result_value, "#{fuel_type} result value: #{result_value}, expected: #{expected_value}")
+      end
     ensure
       Dir.chdir(start_dir)
     end

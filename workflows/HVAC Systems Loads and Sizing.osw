@@ -19,21 +19,21 @@
       }
     },
     {
-      "measure_dir_name": "import_gbxml",
+      "measure_dir_name": "gbxml_import",
       "name": "ImportGbxml",
       "arguments": {
         "gbxml_file_name": "analysis.xml"
       }
     },
     {
-      "measure_dir_name": "advanced_import_gbxml",
+      "measure_dir_name": "gbxml_import_advanced",
       "name": "Advanced Import Gbxml",
       "arguments": {
         "gbxml_file_name": "analysis.xml"
       }
     },
     {
-      "measure_dir_name": "gbxml_hvac_import",
+      "measure_dir_name": "gbxml_import_hvac",
       "name": "GBXML HVAC Import",
       "arguments": {
         "gbxml_file_name": "analysis.xml"
@@ -64,12 +64,8 @@
       "name": "Set Simulation Control"
     },
     {
-      "measure_dir_name": "gbxml_to_openstudio_cleanup",
-      "name": "gbxml_to_openstudio_cleanup"
-    },
-    {
-      "measure_dir_name": "add_xml_output_control_style",
-      "name": "Add XML Output Control Style"
+      "measure_dir_name": "gbxml_postprocess",
+      "name": "gbXML Postprocess"
     },
     {
       "arguments": {
