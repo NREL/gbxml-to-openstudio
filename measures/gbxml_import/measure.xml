@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <measure>
-  <schema_version>3.0</schema_version>
-  <name>import_gbxml</name>
+  <schema_version>3.1</schema_version>
+  <name>gbxml_import</name>
   <uid>a335136f-bad3-451d-a585-9ea31249e38b</uid>
-  <version_id>ad35b7c9-cf23-404d-9fcc-96bd8f87c5f6</version_id>
-  <version_modified>20220420T154900Z</version_modified>
+  <version_id>23af1cee-e13b-4270-aece-5309bef964e9</version_id>
+  <version_modified>2024-06-28T17:35:45Z</version_modified>
   <xml_checksum>DA3B952E</xml_checksum>
-  <class_name>ImportGbxml</class_name>
-  <display_name>ImportGbxml</display_name>
+  <class_name>GbxmlImport</class_name>
+  <display_name>GbxmlImport</display_name>
   <description>Import a gbXML file</description>
   <modeler_description>Import a gbXML file</modeler_description>
   <arguments>
@@ -18,6 +18,24 @@
       <type>String</type>
       <required>true</required>
       <model_dependent>false</model_dependent>
+    </argument>
+    <argument>
+      <name>rename_objects</name>
+      <display_name>Rename Building and Thermal Zone objects with gbXML Names?</display_name>
+      <type>Boolean</type>
+      <required>false</required>
+      <model_dependent>false</model_dependent>
+      <default_value>true</default_value>
+      <choices>
+        <choice>
+          <value>true</value>
+          <display_name>true</display_name>
+        </choice>
+        <choice>
+          <value>false</value>
+          <display_name>false</display_name>
+        </choice>
+      </choices>
     </argument>
   </arguments>
   <outputs />
@@ -69,18 +87,6 @@
   </attributes>
   <files>
     <file>
-      <filename>import_gbxml_test.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>test</usage_type>
-      <checksum>3F13F2CF</checksum>
-    </file>
-    <file>
-      <filename>gbXMLStandard Test Model 2016.xml</filename>
-      <filetype>xml</filetype>
-      <usage_type>test</usage_type>
-      <checksum>D39FE3DA</checksum>
-    </file>
-    <file>
       <version>
         <software_program>OpenStudio</software_program>
         <identifier>2.4.0</identifier>
@@ -89,7 +95,19 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>CCBBDF6D</checksum>
+      <checksum>67A74842</checksum>
+    </file>
+    <file>
+      <filename>gbXMLStandard Test Model 2016.xml</filename>
+      <filetype>xml</filetype>
+      <usage_type>test</usage_type>
+      <checksum>D39FE3DA</checksum>
+    </file>
+    <file>
+      <filename>import_gbxml_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>3F13F2CF</checksum>
     </file>
   </files>
 </measure>

@@ -2,11 +2,11 @@
 # http://nrel.github.io/OpenStudio-user-documentation/reference/measure_writing_guide/
 
 # start the measure
-class ImportGbxml < OpenStudio::Measure::ModelMeasure
+class GbxmlImport < OpenStudio::Measure::ModelMeasure
 
   # human readable name
   def name
-    return "ImportGbxml"
+    return "GbxmlImport"
   end
 
   # human readable description
@@ -184,4 +184,4 @@ class ImportGbxml < OpenStudio::Measure::ModelMeasure
 end
 
 # register the measure to be used by the application
-ImportGbxml.new.registerWithApplication
+GbxmlImport.new.registerWithApplication
