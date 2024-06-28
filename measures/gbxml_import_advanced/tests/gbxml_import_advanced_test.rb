@@ -8,7 +8,7 @@ require_relative '../resources/os_lib_schedules'
 require_relative '../resources/os_lib_adv_import'
 require 'fileutils'
 
-class AdvancedImportGbxml_Test < Minitest::Test
+class GbxmlImportAdvanced_Test < Minitest::Test
 
   def test_generic_gbxml
 
@@ -345,7 +345,7 @@ class AdvancedImportGbxml_Test < Minitest::Test
     # If the argument has a default that you want to use, you don't need it in the hash
     args_hash = {}
     args_hash['gbxml_file_name'] = path.to_s
-    
+
     # populate argument with specified hash value if specified
     arguments.each do |arg|
       temp_arg_var = arg.clone
@@ -375,7 +375,7 @@ class AdvancedImportGbxml_Test < Minitest::Test
     puts sch.defaultDaySchedule
     puts sch.summerDesignDaySchedule
     puts sch.winterDesignDaySchedule
-    sch.scheduleRules.each { |rule| puts rule}  
+    sch.scheduleRules.each { |rule| puts rule}
   end
 
   def data_fields_equal?(obj1, obj2)

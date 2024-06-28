@@ -4,7 +4,7 @@ require 'minitest/autorun'
 require_relative '../measure.rb'
 require 'fileutils'
 
-class ImportGbxml_Test < MiniTest::Unit::TestCase
+class GbxmlImport_Test < MiniTest::Unit::TestCase
 
   # def setup
   # end
@@ -15,7 +15,7 @@ class ImportGbxml_Test < MiniTest::Unit::TestCase
   def test_import
     # create a test model
     model = OpenStudio::Model::Model.new
-  
+
     # create an instance of the measure
     measure = ImportGbxml.new
 
