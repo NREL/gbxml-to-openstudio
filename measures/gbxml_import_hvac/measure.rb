@@ -1,11 +1,11 @@
 require_relative 'gbxml_hvac_import'
 
 # start the measure
-class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
+class GbxmlImportHvac < OpenStudio::Measure::ModelMeasure
   # human readable name
   def name
     # Measure name should be the title case of the class name.
-    return 'GBXML HVAC Import'
+    return 'Gbxml Import Hvac'
   end
 
   # human readable description
@@ -77,4 +77,4 @@ class GBXMLHVACImport < OpenStudio::Measure::ModelMeasure
 end
 
 # register the measure to be used by the application
-GBXMLHVACImport.new.registerWithApplication
+GbxmlImportHvac.new.registerWithApplication
