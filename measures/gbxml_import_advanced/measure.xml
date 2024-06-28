@@ -4,10 +4,10 @@
   <error>Failed to infer measure name from 'C:/Users/MSTEEN/Documents/GitHub/NREL/gbxml-to-openstudio/measures/gbxml_import_advanced/measure.rb'</error>
   <name>advanced_import_gbxml</name>
   <uid>f82940f7-8046-4fd1-9dbb-df6411e86de2</uid>
-  <version_id>34245d90-7622-429e-880a-c632ecf98cdd</version_id>
-  <version_modified>2024-06-28T17:39:01Z</version_modified>
+  <version_id>1be8e48b-d169-4adf-b693-6d76587d3851</version_id>
+  <version_modified>2024-06-28T18:28:55Z</version_modified>
   <xml_checksum>D8922A73</xml_checksum>
-  <class_name>AdvancedImportGbxml</class_name>
+  <class_name>GbxmlImportAdvanced</class_name>
   <display_name>Advanced Import Gbxml</display_name>
   <description>This measure will bring in additional gbXML data beyond what comes in with the basic OpenStudio gbXML import.</description>
   <modeler_description>This measure expects GbXMLReverseTranslator to already have been run on the model. This measure parses the XML and translates additional gbXML objects to OSM.</modeler_description>
@@ -139,12 +139,6 @@
       <checksum>33699363</checksum>
     </file>
     <file>
-      <filename>advanced_import_gbxml_test.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>test</usage_type>
-      <checksum>BC66C7B5</checksum>
-    </file>
-    <file>
       <filename>gbXMLStandard Test Model 2016.xml</filename>
       <filetype>xml</filetype>
       <usage_type>test</usage_type>
@@ -155,6 +149,12 @@
       <filetype>xml</filetype>
       <usage_type>test</usage_type>
       <checksum>7AB4E205</checksum>
+    </file>
+    <file>
+      <filename>gbxml_import_advanced_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>B7EE8DF4</checksum>
     </file>
   </files>
 </measure>
