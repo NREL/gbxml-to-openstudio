@@ -1,4 +1,4 @@
-require_relative 'gbxml_hvac_import'
+require_relative 'gbxml_import_hvac'
 
 # start the measure
 class GbxmlImportHvac < OpenStudio::Measure::ModelMeasure
