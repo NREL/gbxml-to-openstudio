@@ -276,7 +276,7 @@ module OsLib_AdvImport
           if STANDARDS_VERSION < OpenStudio::VersionString.new('0.6.1')
             people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           else
-            people_schedule = OpenstudioStandards::ThermalZone.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
+            people_schedule = OSLib_Standards::ThermalZone.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           end
           make_thermostat(thermal_zone, htg_sch, setpoint: htg_setpoint_degC, subtype: 'Heating', people_schedule: people_schedule)
         end
@@ -315,7 +315,7 @@ module OsLib_AdvImport
           if STANDARDS_VERSION < OpenStudio::VersionString.new('0.6.1')
             people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           else
-            people_schedule = OpenstudioStandards::ThermalZone.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
+            people_schedule = OSLib_Standards::ThermalZone.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           end
           make_thermostat(thermal_zone, clg_sch, setpoint: clg_setpoint_degC, subtype: 'Cooling', people_schedule: people_schedule)
         end
@@ -408,7 +408,7 @@ module OsLib_AdvImport
           if STANDARDS_VERSION < OpenStudio::VersionString.new('0.6.1')
             people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           else
-            people_schedule = OpenstudioStandards::ThermalZone.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
+            people_schedule = OSLib_Standards::ThermalZone.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           end
           make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying', people_schedule: people_schedule)
         end
@@ -447,7 +447,7 @@ module OsLib_AdvImport
           if STANDARDS_VERSION < OpenStudio::VersionString.new('0.6.1')
             people_schedule = STANDARD.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           else
-            people_schedule = OpenstudioStandards::ThermalZone.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
+            people_schedule = OSLib_Standards::ThermalZone.thermal_zone_get_occupancy_schedule(thermal_zone, occupied_percentage_threshold: FIVE_PCT)
           end
           make_humidstat(thermal_zone, setpoint_schedule, setpoint: setpoint, subtype: 'Humidifying', people_schedule: people_schedule)
         end
