@@ -13,7 +13,7 @@ class GbxmlImportAdvanced_Test < Minitest::Test
   def test_generic_gbxml
 
     # create an instance of the measure
-    measure = AdvancedImportGbxml.new
+    measure = GbxmlImportAdvanced.new
 
      # create runner with empty OSW
     osw = OpenStudio::WorkflowJSON.new
@@ -69,7 +69,7 @@ class GbxmlImportAdvanced_Test < Minitest::Test
   def test_custom_gbxml_01
 
     # create an instance of the measure
-    measure = AdvancedImportGbxml.new
+    measure = GbxmlImportAdvanced.new
 
     # create runner with empty OSW
     osw = OpenStudio::WorkflowJSON.new
@@ -120,7 +120,7 @@ class GbxmlImportAdvanced_Test < Minitest::Test
   def test_people_number
 
     # create an instance of the measure
-    measure = AdvancedImportGbxml.new
+    measure = GbxmlImportAdvanced.new
 
     # create runner with empty OSW
     osw = OpenStudio::WorkflowJSON.new
@@ -171,7 +171,7 @@ class GbxmlImportAdvanced_Test < Minitest::Test
   def test_infiltration_and_ventilation
 
     # create an instance of the measure
-    measure = AdvancedImportGbxml.new
+    measure = GbxmlImportAdvanced.new
 
     # create runner with empty OSW
     osw = OpenStudio::WorkflowJSON.new
@@ -324,7 +324,7 @@ class GbxmlImportAdvanced_Test < Minitest::Test
 
   def test_annual_schedule
     # create instance of measure
-    measure = AdvancedImportGbxml.new
+    measure = GbxmlImportAdvanced.new
 
     # create runner with empty OSW
     osw = OpenStudio::WorkflowJSON.new
