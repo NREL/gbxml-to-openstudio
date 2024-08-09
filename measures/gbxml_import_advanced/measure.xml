@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <measure>
   <schema_version>3.1</schema_version>
-  <error>Failed to infer measure name from 'C:/Users/MSTEEN/Documents/GitHub/NREL/gbxml-to-openstudio/measures/gbxml_import_advanced/measure.rb'</error>
+  <error>Failed to infer measure name from 'C:/Repos/NREL/gbxml-to-openstudio/measures/gbxml_import_advanced/measure.rb'</error>
   <name>advanced_import_gbxml</name>
   <uid>f82940f7-8046-4fd1-9dbb-df6411e86de2</uid>
-  <version_id>1be8e48b-d169-4adf-b693-6d76587d3851</version_id>
-  <version_modified>2024-06-28T18:28:55Z</version_modified>
+  <version_id>9ff6d87d-0f1f-45ae-a2d2-fd96397338db</version_id>
+  <version_modified>2024-08-07T20:57:50Z</version_modified>
   <xml_checksum>D8922A73</xml_checksum>
   <class_name>GbxmlImportAdvanced</class_name>
   <display_name>Advanced Import Gbxml</display_name>
@@ -82,7 +82,7 @@
       <filename>os_lib_adv_import.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>D2A0FD8D</checksum>
+      <checksum>C05EFAC8</checksum>
     </file>
     <file>
       <filename>os_lib_lighting_and_equipment.rb</filename>
@@ -95,6 +95,12 @@
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
       <checksum>C79BB5BA</checksum>
+    </file>
+    <file>
+      <filename>os_lib_standards.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>FD605682</checksum>
     </file>
     <file>
       <filename>200_SpacesOneZE.xml</filename>
@@ -154,7 +160,7 @@
       <filename>gbxml_import_advanced_test.rb</filename>
       <filetype>rb</filetype>
       <usage_type>test</usage_type>
-      <checksum>B7EE8DF4</checksum>
+      <checksum>6F2BF88E</checksum>
     </file>
   </files>
 </measure>
