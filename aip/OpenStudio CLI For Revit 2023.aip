@@ -9,10 +9,10 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPPRODUCTICON" Value="os.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="NREL"/>
-    <ROW Property="ProductCode" Value="1033:{92CC8760-F4B4-4CFA-9912-899B61ED12DB} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{F557F91D-48A3-4942-A660-6C93403653BA} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="OpenStudio CLI For Revit 2023"/>
-    <ROW Property="ProductVersion" Value="1.2.0"/>
+    <ROW Property="ProductVersion" Value="1.2.1"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{71BD412F-8A45-4B1F-831A-CDF14F4BFD92}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -318,6 +318,7 @@
     <ROW File="README.md_2" Component_="measure.rb_1" FileName="README.md" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\README.md" SelfReg="false"/>
     <ROW File="README.md.erb_2" Component_="measure.rb_1" FileName="README~1.ERB|README.md.erb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\README.md.erb" SelfReg="false"/>
     <ROW File="building_type_helper.rb" Component_="building_type_helper.rb" FileName="BUILDI~1.RB|building_type_helper.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\resources\building_type_helper.rb" SelfReg="false"/>
+    <ROW File="information.rb" Component_="building_type_helper.rb" FileName="INFORM~1.RB|information.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\resources\information.rb" SelfReg="false"/>
     <ROW File="os_lib_adv_import.rb" Component_="building_type_helper.rb" FileName="OS_LIB~1.RB|os_lib_adv_import.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\resources\os_lib_adv_import.rb" SelfReg="false"/>
     <ROW File="os_lib_lighting_and_equipment.rb" Component_="building_type_helper.rb" FileName="OS_LIB~2.RB|os_lib_lighting_and_equipment.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\resources\os_lib_lighting_and_equipment.rb" SelfReg="false"/>
     <ROW File="os_lib_schedules.rb" Component_="building_type_helper.rb" FileName="OS_LIB~3.RB|os_lib_schedules.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\resources\os_lib_schedules.rb" SelfReg="false"/>
