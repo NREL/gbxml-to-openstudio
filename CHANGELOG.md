@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.2.1] - 2024-08-09
+## [1.2.1] - 2024-08-11
 - v1.2.0 performance regression
   - openstudio standards 0.6.1 patch
 
