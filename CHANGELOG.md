@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.1] - 2024-08-11
+- v1.2.0 performance regression
+  - openstudio standards 0.6.1 patch
+
 ## [1.2.0] - 2024-06-28
 - OpenStudio v3.8.0
 - EnergyPlus v24.1.0
