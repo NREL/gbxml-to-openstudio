@@ -9,10 +9,10 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPPRODUCTICON" Value="os.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="NREL"/>
-    <ROW Property="ProductCode" Value="1033:{079BC4C3-0337-4B3D-8F25-928800293F90} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{73E48CDE-BA0F-4C8E-A499-DA5F7801B867} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="OpenStudio CLI For Revit 2024"/>
-    <ROW Property="ProductVersion" Value="1.2.0"/>
+    <ROW Property="ProductVersion" Value="1.2.1"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{89E88DC9-8FB5-499D-B18D-9809F02C5407}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -617,6 +617,7 @@
     <ROW File="AnnualBuildingEnergySimulation.osw" Component_="AnnualBuildingEnergySimulation.osw" FileName="ANNUAL~1.OSW|Annual Building Energy Simulation.osw" Attributes="0" SourcePath="..\build.signed\build\workflows\Annual Building Energy Simulation.osw" SelfReg="false"/>
     <ROW File="HVACSystemsLoadsandSizing.osw" Component_="AnnualBuildingEnergySimulation.osw" FileName="HVACSY~1.OSW|HVAC Systems Loads and Sizing.osw" Attributes="0" SourcePath="..\build.signed\build\workflows\HVAC Systems Loads and Sizing.osw" SelfReg="false"/>
     <ROW File="CHANGELOG.md" Component_="CHANGELOG.md" FileName="CHANGE~1.MD|CHANGELOG.md" Attributes="0" SourcePath="..\build.signed\build\CHANGELOG.md" SelfReg="false"/>
+    <ROW File="information.rb" Component_="building_type_helper.rb" FileName="INFORM~1.RB|information.rb" Attributes="0" SourcePath="..\build.signed\build\measures\gbxml_import_advanced\resources\information.rb" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
