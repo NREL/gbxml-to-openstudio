@@ -38,13 +38,13 @@ end
 desc 'pre sign'
 task :presign do
 
-  unless File.exists?(OS_DIR)
+  unless File.exist?(OS_DIR)
     puts "#{OS_DIR} does not exist"
     exit 1
   end
 
   # dirs
-  FileUtils.rm_rf(PRESIGN_DIR) if File.exists?(PRESIGN_DIR)
+  FileUtils.rm_rf(PRESIGN_DIR) if File.exist?(PRESIGN_DIR)
   FileUtils.mkdir_p(PRESIGN_DIR)
   FileUtils.mkdir_p(File.join(PRESIGN_DIR, 'bin'))
   FileUtils.mkdir_p(File.join(PRESIGN_DIR, 'EnergyPlus'))
