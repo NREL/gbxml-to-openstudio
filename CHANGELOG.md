@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.2.2] - 2024-08-22
+- ruby 3.2.2 exists
+
 ## [1.2.1] - 2024-08-11
 - v1.2.0 performance regression
   - openstudio standards 0.6.1 patch
