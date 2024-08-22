@@ -86,7 +86,7 @@ class SystemsAnalysisReportGenerator < OpenStudio::Measure::ReportingMeasure
     file_path = runner.workflow.findFile('reportConfig.json')
     unless file_path.empty?
       file_path = file_path.get if file_path.is_initialized
-      return file_path.to_s if File.exists? file_path.to_s
+      return file_path.to_s if File.exist? file_path.to_s
     else
       runner.registerWarning("Could not find reportConfig.json in root. Using default configuration instead")
     end
