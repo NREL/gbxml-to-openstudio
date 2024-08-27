@@ -33,7 +33,7 @@
       }
     },
     {
-      "measure_dir_name": "gbxml_import_import",
+      "measure_dir_name": "gbxml_import_hvac",
       "name": "GBXML HVAC Import",
       "arguments": {
         "gbxml_file_name": "analysis.xml"
