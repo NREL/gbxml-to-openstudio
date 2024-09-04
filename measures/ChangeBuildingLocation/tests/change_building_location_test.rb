@@ -144,4 +144,10 @@ class ChangeBuildingLocation_Test < Minitest::Test
     args['epw_gsub'] = 'TMY3,AMY'
     apply_measure_to_model(__method__.to_s.gsub('test_', ''), args, 'model_test_with_epw.osm', nil, nil)
   end
+
+  def test_brazil
+    args = {}
+    args['weather_file_name'] = 'BRA_SP_Campinas.837210_INMET.epw'
+    apply_measure_to_model(__method__.to_s.gsub('test_', ''), args, 'model_test.osm', nil, nil, nil, 15)
+  end
 end
