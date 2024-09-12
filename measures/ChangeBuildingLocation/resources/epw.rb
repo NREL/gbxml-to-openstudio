@@ -126,8 +126,13 @@ module OpenStudio
         header_section = true
         row_count = 0
 
-        # this breaks in Ruby 2.5.x
-        CSV.foreach(@filename) do |row|
+        begin
+          rows = CSV.read(@filename)
+        rescue CSV::MalformedCSVError
+          rows = CSV.read(@filename, encoding: 'ISO-8859-1')
+        end
+
+        rows.each do |row|
           row_count += 1
 
           if header_section
