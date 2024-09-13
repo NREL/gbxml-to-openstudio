@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.2.4] - 2024-09-13
+- ChangeBuildingLocation CSV encoding
+
 ## [1.2.3] - 2024-08-27
 - fix sim osw typo
 

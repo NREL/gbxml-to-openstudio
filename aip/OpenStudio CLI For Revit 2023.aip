@@ -9,10 +9,10 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPPRODUCTICON" Value="os.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="NREL"/>
-    <ROW Property="ProductCode" Value="1033:{E42EDF00-B979-4055-83F2-7426E0469F53} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{13A226E9-D9E7-4B2D-B3E4-418754FE87DE} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="OpenStudio CLI For Revit 2023"/>
-    <ROW Property="ProductVersion" Value="1.2.3"/>
+    <ROW Property="ProductVersion" Value="1.2.4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{71BD412F-8A45-4B1F-831A-CDF14F4BFD92}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -288,6 +288,9 @@
     <ROW File="another_weather_file.ddy" Component_="another_weather_file.ddy" FileName="ANOTHE~1.DDY|another_weather_file.ddy" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\another_weather_file.ddy" SelfReg="false"/>
     <ROW File="another_weather_file.epw" Component_="another_weather_file.ddy" FileName="ANOTHE~1.EPW|another_weather_file.epw" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\another_weather_file.epw" SelfReg="false"/>
     <ROW File="another_weather_file.stat" Component_="another_weather_file.ddy" FileName="ANOTHE~1.STA|another_weather_file.stat" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\another_weather_file.stat" SelfReg="false"/>
+    <ROW File="BRA_SP_Campinas.837210_INMET.ddy" Component_="another_weather_file.ddy" FileName="BRA_SP~1.DDY|BRA_SP_Campinas.837210_INMET.ddy" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\BRA_SP_Campinas.837210_INMET.ddy" SelfReg="false"/>
+    <ROW File="BRA_SP_Campinas.837210_INMET.epw" Component_="another_weather_file.ddy" FileName="BRA_SP~1.EPW|BRA_SP_Campinas.837210_INMET.epw" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\BRA_SP_Campinas.837210_INMET.epw" SelfReg="false"/>
+    <ROW File="BRA_SP_Campinas.837210_INMET.stat" Component_="another_weather_file.ddy" FileName="BRA_SP~1.STA|BRA_SP_Campinas.837210_INMET.stat" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\BRA_SP_Campinas.837210_INMET.stat" SelfReg="false"/>
     <ROW File="CA_LOSANGELESIAP_722950S_12.ddy" Component_="another_weather_file.ddy" FileName="CA_LOS~1.DDY|CA_LOS-ANGELES-IAP_722950S_12.ddy" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\CA_LOS-ANGELES-IAP_722950S_12.ddy" SelfReg="false"/>
     <ROW File="CA_LOSANGELESIAP_722950S_12.epw" Component_="another_weather_file.ddy" FileName="CA_LOS~1.EPW|CA_LOS-ANGELES-IAP_722950S_12.epw" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\CA_LOS-ANGELES-IAP_722950S_12.epw" SelfReg="false"/>
     <ROW File="CA_LOSANGELESIAP_722950S_12.stat" Component_="another_weather_file.ddy" FileName="CA_LOS~1.STA|CA_LOS-ANGELES-IAP_722950S_12.stat" Attributes="0" SourcePath="..\build.signed\build\measures\ChangeBuildingLocation\tests\CA_LOS-ANGELES-IAP_722950S_12.stat" SelfReg="false"/>
