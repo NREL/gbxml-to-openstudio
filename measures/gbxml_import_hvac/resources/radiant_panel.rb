@@ -23,7 +23,7 @@ class RadiantPanel < ZoneHVACEquipment
       equipment.heating_coil_type = xml.attributes['heatingCoilType']
 
       if equipment.heating_coil_type == 'HotWater'
-        hydronic_loop_id = xml.elements['HydronicLoopId']
+        hydronic_loop_id = xml.elements['HydronicLoopId[@hydronicLoopType="HotWater"]']
         unless hydronic_loop_id.nil?
           hydronic_loop_id_ref = hydronic_loop_id.attributes['hydronicLoopIdRef']
           unless hydronic_loop_id_ref.nil?
