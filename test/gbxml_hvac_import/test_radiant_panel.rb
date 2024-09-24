@@ -12,6 +12,7 @@ class TestRadiantPanel < MiniTest::Test
   end
 
   def test_xml_creation
+    puts "\n######\nTEST:#{__method__}\n######\n"
     equipment = self.model_manager.zone_hvac_equipments.values[0]
     xml_element = self.model_manager.gbxml_parser.zone_hvac_equipments[0]
     name = xml_element.elements['Name'].text
@@ -24,19 +25,24 @@ class TestRadiantPanel < MiniTest::Test
   end
 
   def test_build
+    puts "\n######\nTEST:#{__method__}\n######\n"
+    self.model_manager.resolve_references
+    self.model_manager.resolve_read_relationships
     self.model_manager.build
-    radiant_panel_elec = self.model_manager.zone_hvac_equipments.values[0].radiant_panel
-    radiant_panel_hw = self.model_manager.zone_hvac_equipments.values[1].radiant_panel
+    radiant_panel_hw = self.model_manager.zone_hvac_equipments.values[0].radiant_panel
+    radiant_panel_hw2 = self.model_manager.zone_hvac_equipments.values[1].radiant_panel
+    radiant_panel_elec = self.model_manager.zone_hvac_equipments.values[2].radiant_panel
 
     assert(radiant_panel_hw.heatingCoil.to_CoilHeatingWater.is_initialized)
+    assert(radiant_panel_hw2.heatingCoil.to_CoilHeatingWater.is_initialized)
     assert(radiant_panel_elec.heatingCoil.to_CoilHeatingElectric.is_initialized)
     assert(radiant_panel_elec.coolingCoil.to_CoilCoolingWater.is_initialized)
     assert(radiant_panel_elec.supplyAirFan.to_FanOnOff.is_initialized)
     assert(radiant_panel_elec.is_a?(OpenStudio::Model::ZoneHVACFourPipeFanCoil))
 
     # only need to test one object for this mapping
-    assert(radiant_panel_elec.name.get == 'Radiant Panel Elec')
-    assert(radiant_panel_elec.additionalProperties.getFeatureAsString('id').get == 'aim0826')
+    assert(radiant_panel_elec.name.get == 'Radiant Panel Elec-1')
+    assert(radiant_panel_elec.additionalProperties.getFeatureAsString('id').get == 'aim0943')
     assert(radiant_panel_elec.additionalProperties.getFeatureAsString('CADObjectId').get == '280066-1')
   end
 
@@ -48,6 +54,7 @@ class TestRadiantPanel < MiniTest::Test
   end
 
   def test_simulation
+    puts "\n######\nTEST:#{__method__}\n######\n"
     create_osw
     # set osw_path to find location of osw to run
     osw_in_path = Config::TEST_OUTPUT_PATH + '/radiant_panel/in.osw'
