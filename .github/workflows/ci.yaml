@@ -1,23 +1,17 @@
 name: continuous integration
 
 on:
-  push:
   pull_request:
     branches:
       - develop
-      - main
+      - master
 
 jobs:
 
   tests-unit:
-
     runs-on: ubuntu-latest
     container:
       image: nrel/openstudio:3.8.0
-
     steps:
-
       - uses: actions/checkout@v4
-
-      - name: run
-        run: openstudio classic measure --run_tests measures
+      - run: openstudio classic measure --run_tests measures
