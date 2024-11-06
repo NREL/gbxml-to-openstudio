@@ -19,7 +19,7 @@ jobs:
       - run: openstudio classic measure --run_tests measures
 
   test:
-    needs: tests-unit
+    # needs: tests-unit
     runs-on: ubuntu-latest
     container:
       image: nrel/openstudio:3.8.0
