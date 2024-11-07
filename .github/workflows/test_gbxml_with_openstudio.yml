@@ -16,6 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: openstudio classic measure --run_tests measures
+      # NOTE using this simpler action instead of https://github.com/actions/deploy-pages
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./measures/test_results
 
   test:
     # needs: tests-unit
