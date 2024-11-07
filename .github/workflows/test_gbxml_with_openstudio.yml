@@ -1,20 +1,24 @@
 # This is a basic workflow to help you get started with Actions
-name: test_gbxml_with_openstudio
+name: continuous integration
 
-# trigger action on all branches, pull requests and tags
 on:
   pull_request:
     branches:
-      - '*'
-  push:
-    branches:
-      - '*'
-    tags:
-      - '*'
+      - develop
+      - master
 
 jobs:
+
+  tests-unit:
+    runs-on: ubuntu-latest
+    container:
+      image: nrel/openstudio:3.8.0
+    steps:
+      - uses: actions/checkout@v4
+      - run: openstudio classic measure --run_tests measures
+
   test:
-    # The type of runner that the job will run on
+    # needs: tests-unit
     runs-on: ubuntu-latest
     container:
       image: nrel/openstudio:3.8.0
