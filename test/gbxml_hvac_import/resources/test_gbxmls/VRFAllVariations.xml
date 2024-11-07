@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <gbXML temperatureUnit="F" lengthUnit="Feet" areaUnit="SquareFeet" volumeUnit="CubicFeet" useSIUnitsForResults="false" version="7.03" xmlns="http://www.gbxml.org/schema">
   <Campus id="aim0002">
     <Location>
@@ -10,10 +10,10 @@
       <CADModelAzimuth>0</CADModelAzimuth>
       <Name>Boston, MA</Name>
     </Location>
-    <Building buildingType="Office" id="aim0013">
+    <Building id="aim0013" buildingType="Office">
       <StreetAddress>Boston, MA</StreetAddress>
       <Area>7247.5</Area>
-      <Space spaceType="ClassroomOrLectureOrTraining" zoneIdRef="aim0964" lightScheduleIdRef="aim0134" equipmentScheduleIdRef="aim0134" peopleScheduleIdRef="aim0140" conditionType="HeatedAndCooled" buildingStoreyIdRef="aim0114" id="aim0116">
+      <Space id="aim0116" spaceType="ClassroomOrLectureOrTraining" zoneIdRef="aim0684" lightScheduleIdRef="aim0134" equipmentScheduleIdRef="aim0134" peopleScheduleIdRef="aim0140" conditionType="HeatedAndCooled" buildingStoreyIdRef="aim0114">
         <PeopleNumber unit="NumberOfPeople">72</PeopleNumber>
         <PeopleHeatGain unit="BtuPerHourPerson" heatGainType="Total">240</PeopleHeatGain>
         <PeopleHeatGain unit="BtuPerHourPerson" heatGainType="Latent">120</PeopleHeatGain>
@@ -23,7 +23,7 @@
         <AirChangesPerHour>0</AirChangesPerHour>
         <Area>1798</Area>
         <Volume>17213.0815082</Volume>
-        <ShellGeometry id="aim1011">
+        <ShellGeometry id="aim0731">
           <ClosedShell>
             <PolyLoop>
               <CartesianPoint>
@@ -159,7 +159,7 @@
             </PolyLoop>
           </ClosedShell>
         </ShellGeometry>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0171">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0157">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -185,7 +185,7 @@
             </PolyLoop>
           </PlanarGeometry>
         </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0336">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0280">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -211,7 +211,7 @@
             </PolyLoop>
           </PlanarGeometry>
         </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0574">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0434">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -237,7 +237,7 @@
             </PolyLoop>
           </PlanarGeometry>
         </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0612">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0458">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -263,7 +263,7 @@
             </PolyLoop>
           </PlanarGeometry>
         </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0762">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0552">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -289,7 +289,7 @@
             </PolyLoop>
           </PlanarGeometry>
         </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0873">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0621">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -317,7 +317,7 @@
         </SpaceBoundary>
         <Name>1 Space</Name>
         <Description>Classroom/Lecture/Training</Description>
-        <CADObjectId>281348</CADObjectId>
+        <CADObjectId>281503</CADObjectId>
         <AnalysisParameter parameterType="xs:string">
           <Name>OAFlowMethod</Name>
           <ParameterValue>SumPeopleAndArea</ParameterValue>
@@ -339,7 +339,7 @@
           <ParameterValue>0.038000001</ParameterValue>
         </AnalysisParameter>
       </Space>
-      <Space zoneIdRef="aim0969" lightScheduleIdRef="aim0198" equipmentScheduleIdRef="aim0198" peopleScheduleIdRef="aim0204" buildingStoreyIdRef="aim0114" id="aim0180">
+      <Space id="aim0166" zoneIdRef="aim0689" lightScheduleIdRef="aim0184" equipmentScheduleIdRef="aim0184" peopleScheduleIdRef="aim0190" buildingStoreyIdRef="aim0114">
         <PeopleNumber unit="NumberOfPeople">7</PeopleNumber>
         <PeopleHeatGain unit="BtuPerHourPerson" heatGainType="Total">450</PeopleHeatGain>
         <PeopleHeatGain unit="BtuPerHourPerson" heatGainType="Latent">200</PeopleHeatGain>
@@ -349,7 +349,7 @@
         <AirChangesPerHour>0</AirChangesPerHour>
         <Area>1972</Area>
         <Volume>18930.7289768</Volume>
-        <ShellGeometry id="aim1043">
+        <ShellGeometry id="aim0763">
           <ClosedShell>
             <PolyLoop>
               <CartesianPoint>
@@ -485,7 +485,7 @@
             </PolyLoop>
           </ClosedShell>
         </ShellGeometry>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0235">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0207">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -511,90 +511,90 @@
             </PolyLoop>
           </PlanarGeometry>
         </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0462">
-          <PlanarGeometry>
-            <PolyLoop>
-              <CartesianPoint>
-                <Coordinate>-10.8234523</Coordinate>
-                <Coordinate>-30.9170383</Coordinate>
-                <Coordinate>0</Coordinate>
-              </CartesianPoint>
-              <CartesianPoint>
-                <Coordinate>46.8432144</Coordinate>
-                <Coordinate>-30.9170383</Coordinate>
-                <Coordinate>0</Coordinate>
-              </CartesianPoint>
-              <CartesianPoint>
-                <Coordinate>46.8432144</Coordinate>
-                <Coordinate>-30.9170383</Coordinate>
-                <Coordinate>11</Coordinate>
-              </CartesianPoint>
-              <CartesianPoint>
-                <Coordinate>-10.8234523</Coordinate>
-                <Coordinate>-30.9170383</Coordinate>
-                <Coordinate>11</Coordinate>
-              </CartesianPoint>
-            </PolyLoop>
-          </PlanarGeometry>
-        </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0574">
-          <PlanarGeometry>
-            <PolyLoop>
-              <CartesianPoint>
-                <Coordinate>-11.1567856</Coordinate>
-                <Coordinate>3.0829617</Coordinate>
-                <Coordinate>0</Coordinate>
-              </CartesianPoint>
-              <CartesianPoint>
-                <Coordinate>-11.1567856</Coordinate>
-                <Coordinate>3.0829617</Coordinate>
-                <Coordinate>11</Coordinate>
-              </CartesianPoint>
-              <CartesianPoint>
-                <Coordinate>46.8432144</Coordinate>
-                <Coordinate>3.0829617</Coordinate>
-                <Coordinate>11</Coordinate>
-              </CartesianPoint>
-              <CartesianPoint>
-                <Coordinate>46.8432144</Coordinate>
-                <Coordinate>3.0829617</Coordinate>
-                <Coordinate>0</Coordinate>
-              </CartesianPoint>
-            </PolyLoop>
-          </PlanarGeometry>
-        </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0650">
-          <PlanarGeometry>
-            <PolyLoop>
-              <CartesianPoint>
-                <Coordinate>46.8432144</Coordinate>
-                <Coordinate>-30.9170383</Coordinate>
-                <Coordinate>0</Coordinate>
-              </CartesianPoint>
-              <CartesianPoint>
-                <Coordinate>46.8432144</Coordinate>
-                <Coordinate>-30.9170383</Coordinate>
-                <Coordinate>11</Coordinate>
-              </CartesianPoint>
-              <CartesianPoint>
-                <Coordinate>46.8432144</Coordinate>
-                <Coordinate>3.0829617</Coordinate>
-                <Coordinate>11</Coordinate>
-              </CartesianPoint>
-              <CartesianPoint>
-                <Coordinate>46.8432144</Coordinate>
-                <Coordinate>3.0829617</Coordinate>
-                <Coordinate>0</Coordinate>
-              </CartesianPoint>
-            </PolyLoop>
-          </PlanarGeometry>
-        </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0688">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0364">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
                 <Coordinate>-10.8234523</Coordinate>
                 <Coordinate>-30.9170383</Coordinate>
+                <Coordinate>0</Coordinate>
+              </CartesianPoint>
+              <CartesianPoint>
+                <Coordinate>46.8432144</Coordinate>
+                <Coordinate>-30.9170383</Coordinate>
+                <Coordinate>0</Coordinate>
+              </CartesianPoint>
+              <CartesianPoint>
+                <Coordinate>46.8432144</Coordinate>
+                <Coordinate>-30.9170383</Coordinate>
+                <Coordinate>11</Coordinate>
+              </CartesianPoint>
+              <CartesianPoint>
+                <Coordinate>-10.8234523</Coordinate>
+                <Coordinate>-30.9170383</Coordinate>
+                <Coordinate>11</Coordinate>
+              </CartesianPoint>
+            </PolyLoop>
+          </PlanarGeometry>
+        </SpaceBoundary>
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0434">
+          <PlanarGeometry>
+            <PolyLoop>
+              <CartesianPoint>
+                <Coordinate>-11.1567856</Coordinate>
+                <Coordinate>3.0829617</Coordinate>
+                <Coordinate>0</Coordinate>
+              </CartesianPoint>
+              <CartesianPoint>
+                <Coordinate>-11.1567856</Coordinate>
+                <Coordinate>3.0829617</Coordinate>
+                <Coordinate>11</Coordinate>
+              </CartesianPoint>
+              <CartesianPoint>
+                <Coordinate>46.8432144</Coordinate>
+                <Coordinate>3.0829617</Coordinate>
+                <Coordinate>11</Coordinate>
+              </CartesianPoint>
+              <CartesianPoint>
+                <Coordinate>46.8432144</Coordinate>
+                <Coordinate>3.0829617</Coordinate>
+                <Coordinate>0</Coordinate>
+              </CartesianPoint>
+            </PolyLoop>
+          </PlanarGeometry>
+        </SpaceBoundary>
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0482">
+          <PlanarGeometry>
+            <PolyLoop>
+              <CartesianPoint>
+                <Coordinate>46.8432144</Coordinate>
+                <Coordinate>-30.9170383</Coordinate>
+                <Coordinate>0</Coordinate>
+              </CartesianPoint>
+              <CartesianPoint>
+                <Coordinate>46.8432144</Coordinate>
+                <Coordinate>-30.9170383</Coordinate>
+                <Coordinate>11</Coordinate>
+              </CartesianPoint>
+              <CartesianPoint>
+                <Coordinate>46.8432144</Coordinate>
+                <Coordinate>3.0829617</Coordinate>
+                <Coordinate>11</Coordinate>
+              </CartesianPoint>
+              <CartesianPoint>
+                <Coordinate>46.8432144</Coordinate>
+                <Coordinate>3.0829617</Coordinate>
+                <Coordinate>0</Coordinate>
+              </CartesianPoint>
+            </PolyLoop>
+          </PlanarGeometry>
+        </SpaceBoundary>
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0506">
+          <PlanarGeometry>
+            <PolyLoop>
+              <CartesianPoint>
+                <Coordinate>-10.8234523</Coordinate>
+                <Coordinate>-30.9170383</Coordinate>
                 <Coordinate>11</Coordinate>
               </CartesianPoint>
               <CartesianPoint>
@@ -615,7 +615,7 @@
             </PolyLoop>
           </PlanarGeometry>
         </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0947">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0667">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -642,7 +642,7 @@
           </PlanarGeometry>
         </SpaceBoundary>
         <Name>1-1 Analytical Space</Name>
-        <CADObjectId>281350</CADObjectId>
+        <CADObjectId>281505</CADObjectId>
         <AnalysisParameter parameterType="xs:string">
           <Name>OAFlowMethod</Name>
           <ParameterValue>SumPeopleAndArea</ParameterValue>
@@ -664,7 +664,7 @@
           <ParameterValue>0.038000001</ParameterValue>
         </AnalysisParameter>
       </Space>
-      <Space spaceType="DiningArea" zoneIdRef="aim0974" lightScheduleIdRef="aim0262" equipmentScheduleIdRef="aim0262" peopleScheduleIdRef="aim0268" conditionType="HeatedAndCooled" buildingStoreyIdRef="aim0114" id="aim0244">
+      <Space id="aim0216" spaceType="DiningArea" zoneIdRef="aim0694" lightScheduleIdRef="aim0234" equipmentScheduleIdRef="aim0234" peopleScheduleIdRef="aim0240" conditionType="HeatedAndCooled" buildingStoreyIdRef="aim0114">
         <PeopleNumber unit="NumberOfPeople">108</PeopleNumber>
         <PeopleHeatGain unit="BtuPerHourPerson" heatGainType="Total">550</PeopleHeatGain>
         <PeopleHeatGain unit="BtuPerHourPerson" heatGainType="Latent">275</PeopleHeatGain>
@@ -674,7 +674,7 @@
         <AirChangesPerHour>0</AirChangesPerHour>
         <Area>1658.5</Area>
         <Volume>15841.7468213</Volume>
-        <ShellGeometry id="aim1075">
+        <ShellGeometry id="aim0795">
           <ClosedShell>
             <PolyLoop>
               <CartesianPoint>
@@ -810,7 +810,7 @@
             </PolyLoop>
           </ClosedShell>
         </ShellGeometry>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0299">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0257">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -836,7 +836,7 @@
             </PolyLoop>
           </PlanarGeometry>
         </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0425">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0341">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -862,7 +862,7 @@
             </PolyLoop>
           </PlanarGeometry>
         </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0536">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0410">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -888,7 +888,7 @@
             </PolyLoop>
           </PlanarGeometry>
         </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0612">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0458">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -914,7 +914,7 @@
             </PolyLoop>
           </PlanarGeometry>
         </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0799">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0575">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -940,7 +940,7 @@
             </PolyLoop>
           </PlanarGeometry>
         </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0836">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0598">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -968,7 +968,7 @@
         </SpaceBoundary>
         <Name>2 Space</Name>
         <Description>Dining Area</Description>
-        <CADObjectId>281352</CADObjectId>
+        <CADObjectId>281507</CADObjectId>
         <AnalysisParameter parameterType="xs:string">
           <Name>OAFlowMethod</Name>
           <ParameterValue>SumPeopleAndArea</ParameterValue>
@@ -990,7 +990,7 @@
           <ParameterValue>0.038000001</ParameterValue>
         </AnalysisParameter>
       </Space>
-      <Space zoneIdRef="aim0980" lightScheduleIdRef="aim0198" equipmentScheduleIdRef="aim0198" peopleScheduleIdRef="aim0204" conditionType="HeatedAndCooled" buildingStoreyIdRef="aim0114" id="aim0345">
+      <Space id="aim0289" zoneIdRef="aim0700" lightScheduleIdRef="aim0184" equipmentScheduleIdRef="aim0184" peopleScheduleIdRef="aim0190" conditionType="HeatedAndCooled" buildingStoreyIdRef="aim0114">
         <PeopleNumber unit="NumberOfPeople">6</PeopleNumber>
         <PeopleHeatGain unit="BtuPerHourPerson" heatGainType="Total">450</PeopleHeatGain>
         <PeopleHeatGain unit="BtuPerHourPerson" heatGainType="Latent">200</PeopleHeatGain>
@@ -1000,7 +1000,7 @@
         <AirChangesPerHour>0</AirChangesPerHour>
         <Area>1819</Area>
         <Volume>17442.4146154</Volume>
-        <ShellGeometry id="aim1107">
+        <ShellGeometry id="aim0827">
           <ClosedShell>
             <PolyLoop>
               <CartesianPoint>
@@ -1136,7 +1136,7 @@
             </PolyLoop>
           </ClosedShell>
         </ShellGeometry>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0388">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0318">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -1162,7 +1162,7 @@
             </PolyLoop>
           </PlanarGeometry>
         </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0499">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0387">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -1188,7 +1188,7 @@
             </PolyLoop>
           </PlanarGeometry>
         </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0536">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0410">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -1214,7 +1214,7 @@
             </PolyLoop>
           </PlanarGeometry>
         </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0650">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0482">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -1240,7 +1240,7 @@
             </PolyLoop>
           </PlanarGeometry>
         </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0725">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0529">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -1266,7 +1266,7 @@
             </PolyLoop>
           </PlanarGeometry>
         </SpaceBoundary>
-        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0910">
+        <SpaceBoundary isSecondLevelBoundary="false" surfaceIdRef="aim0644">
           <PlanarGeometry>
             <PolyLoop>
               <CartesianPoint>
@@ -1294,7 +1294,7 @@
         </SpaceBoundary>
         <Name>3 Space</Name>
         <Description>&lt;Building&gt;</Description>
-        <CADObjectId>281355</CADObjectId>
+        <CADObjectId>281510</CADObjectId>
         <AnalysisParameter parameterType="xs:string">
           <Name>OAFlowMethod</Name>
           <ParameterValue>SumPeopleAndArea</ParameterValue>
@@ -1322,9 +1322,9 @@
       </BuildingStorey>
       <Name>Project Name</Name>
     </Building>
-    <Surface surfaceType="ExteriorWall" constructionIdRef="aim0014" exposedToSun="true" id="aim0171">
+    <Surface id="aim0157" surfaceType="ExteriorWall" constructionIdRef="aim0014" exposedToSun="true">
       <AdjacentSpaceId spaceIdRef="aim0116" surfaceType="ExteriorWall" />
-      <RectangularGeometry id="aim1115">
+      <RectangularGeometry id="aim0835">
         <Azimuth>270</Azimuth>
         <CartesianPoint>
           <Coordinate>-11.1567856</Coordinate>
@@ -1359,12 +1359,13 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Basic Wall: Generic - 8" [277713]</CADObjectId>
+      <CADObjectId>281504</CADObjectId>
       <Name>W-1-E-W-2</Name>
+      <Description>Basic Wall: Generic - 8" [277713]</Description>
     </Surface>
-    <Surface surfaceType="ExteriorWall" constructionIdRef="aim0014" exposedToSun="true" id="aim0235">
-      <AdjacentSpaceId spaceIdRef="aim0180" surfaceType="ExteriorWall" />
-      <RectangularGeometry id="aim1124">
+    <Surface id="aim0207" surfaceType="ExteriorWall" constructionIdRef="aim0014" exposedToSun="true">
+      <AdjacentSpaceId spaceIdRef="aim0166" surfaceType="ExteriorWall" />
+      <RectangularGeometry id="aim0844">
         <Azimuth>270</Azimuth>
         <CartesianPoint>
           <Coordinate>-11.1567856</Coordinate>
@@ -1399,12 +1400,13 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Basic Wall: Generic - 8" [277713]</CADObjectId>
+      <CADObjectId>281506</CADObjectId>
       <Name>W-1-1-E-W-1</Name>
+      <Description>Basic Wall: Generic - 8" [277713]</Description>
     </Surface>
-    <Surface surfaceType="ExteriorWall" constructionIdRef="aim0014" exposedToSun="true" id="aim0299">
-      <AdjacentSpaceId spaceIdRef="aim0244" surfaceType="ExteriorWall" />
-      <RectangularGeometry id="aim1133">
+    <Surface id="aim0257" surfaceType="ExteriorWall" constructionIdRef="aim0014" exposedToSun="true">
+      <AdjacentSpaceId spaceIdRef="aim0216" surfaceType="ExteriorWall" />
+      <RectangularGeometry id="aim0853">
         <Azimuth>0</Azimuth>
         <CartesianPoint>
           <Coordinate>73.5932144</Coordinate>
@@ -1439,12 +1441,13 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Basic Wall: Generic - 8" [277760]</CADObjectId>
+      <CADObjectId>281508</CADObjectId>
       <Name>N-2-E-W-4</Name>
+      <Description>Basic Wall: Generic - 8" [277760]</Description>
     </Surface>
-    <Surface surfaceType="ExteriorWall" constructionIdRef="aim0014" exposedToSun="true" id="aim0336">
+    <Surface id="aim0280" surfaceType="ExteriorWall" constructionIdRef="aim0014" exposedToSun="true">
       <AdjacentSpaceId spaceIdRef="aim0116" surfaceType="ExteriorWall" />
-      <RectangularGeometry id="aim1142">
+      <RectangularGeometry id="aim0862">
         <Azimuth>0</Azimuth>
         <CartesianPoint>
           <Coordinate>17.8432144</Coordinate>
@@ -1479,12 +1482,13 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Basic Wall: Generic - 8" [277760]</CADObjectId>
+      <CADObjectId>281509</CADObjectId>
       <Name>N-1-E-W-3</Name>
+      <Description>Basic Wall: Generic - 8" [277760]</Description>
     </Surface>
-    <Surface surfaceType="ExteriorWall" constructionIdRef="aim0014" exposedToSun="true" id="aim0388">
-      <AdjacentSpaceId spaceIdRef="aim0345" surfaceType="ExteriorWall" />
-      <RectangularGeometry id="aim1151">
+    <Surface id="aim0318" surfaceType="ExteriorWall" constructionIdRef="aim0014" exposedToSun="true">
+      <AdjacentSpaceId spaceIdRef="aim0289" surfaceType="ExteriorWall" />
+      <RectangularGeometry id="aim0871">
         <Azimuth>90</Azimuth>
         <CartesianPoint>
           <Coordinate>100.3432144</Coordinate>
@@ -1519,12 +1523,13 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Basic Wall: Generic - 8" [277814]</CADObjectId>
+      <CADObjectId>281511</CADObjectId>
       <Name>E-3-E-W-5</Name>
+      <Description>Basic Wall: Generic - 8" [277814]</Description>
     </Surface>
-    <Surface surfaceType="ExteriorWall" constructionIdRef="aim0014" exposedToSun="true" id="aim0425">
-      <AdjacentSpaceId spaceIdRef="aim0244" surfaceType="ExteriorWall" />
-      <RectangularGeometry id="aim1160">
+    <Surface id="aim0341" surfaceType="ExteriorWall" constructionIdRef="aim0014" exposedToSun="true">
+      <AdjacentSpaceId spaceIdRef="aim0216" surfaceType="ExteriorWall" />
+      <RectangularGeometry id="aim0880">
         <Azimuth>90</Azimuth>
         <CartesianPoint>
           <Coordinate>100.3432144</Coordinate>
@@ -1559,12 +1564,13 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Basic Wall: Generic - 8" [277814]</CADObjectId>
+      <CADObjectId>281512</CADObjectId>
       <Name>E-2-E-W-6</Name>
+      <Description>Basic Wall: Generic - 8" [277814]</Description>
     </Surface>
-    <Surface surfaceType="ExteriorWall" constructionIdRef="aim0014" exposedToSun="true" id="aim0462">
-      <AdjacentSpaceId spaceIdRef="aim0180" surfaceType="ExteriorWall" />
-      <RectangularGeometry id="aim1169">
+    <Surface id="aim0364" surfaceType="ExteriorWall" constructionIdRef="aim0014" exposedToSun="true">
+      <AdjacentSpaceId spaceIdRef="aim0166" surfaceType="ExteriorWall" />
+      <RectangularGeometry id="aim0889">
         <Azimuth>180</Azimuth>
         <CartesianPoint>
           <Coordinate>18.009881</Coordinate>
@@ -1599,12 +1605,13 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Basic Wall: Generic - 8" [277874]</CADObjectId>
+      <CADObjectId>281513</CADObjectId>
       <Name>S-1-1-E-W-7</Name>
+      <Description>Basic Wall: Generic - 8" [277874]</Description>
     </Surface>
-    <Surface surfaceType="ExteriorWall" constructionIdRef="aim0014" exposedToSun="true" id="aim0499">
-      <AdjacentSpaceId spaceIdRef="aim0345" surfaceType="ExteriorWall" />
-      <RectangularGeometry id="aim1178">
+    <Surface id="aim0387" surfaceType="ExteriorWall" constructionIdRef="aim0014" exposedToSun="true">
+      <AdjacentSpaceId spaceIdRef="aim0289" surfaceType="ExteriorWall" />
+      <RectangularGeometry id="aim0898">
         <Azimuth>180</Azimuth>
         <CartesianPoint>
           <Coordinate>73.5932144</Coordinate>
@@ -1639,13 +1646,14 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Basic Wall: Generic - 8" [277874]</CADObjectId>
+      <CADObjectId>281514</CADObjectId>
       <Name>S-3-E-W-8</Name>
+      <Description>Basic Wall: Generic - 8" [277874]</Description>
     </Surface>
-    <Surface surfaceType="InteriorWall" constructionIdRef="aim0052" id="aim0536">
-      <AdjacentSpaceId spaceIdRef="aim0345" surfaceType="InteriorWall" />
-      <AdjacentSpaceId spaceIdRef="aim0244" surfaceType="InteriorWall" />
-      <RectangularGeometry id="aim1187">
+    <Surface id="aim0410" surfaceType="InteriorWall" constructionIdRef="aim0052">
+      <AdjacentSpaceId spaceIdRef="aim0289" surfaceType="InteriorWall" />
+      <AdjacentSpaceId spaceIdRef="aim0216" surfaceType="InteriorWall" />
+      <RectangularGeometry id="aim0907">
         <Azimuth>0</Azimuth>
         <CartesianPoint>
           <Coordinate>73.4265477</Coordinate>
@@ -1680,13 +1688,14 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Basic Wall: Generic - 8" [277986]</CADObjectId>
+      <CADObjectId>281515</CADObjectId>
       <Name>N-3-2-I-W-10</Name>
+      <Description>Basic Wall: Generic - 8" [277986]</Description>
     </Surface>
-    <Surface surfaceType="InteriorWall" constructionIdRef="aim0052" id="aim0574">
-      <AdjacentSpaceId spaceIdRef="aim0180" surfaceType="InteriorWall" />
+    <Surface id="aim0434" surfaceType="InteriorWall" constructionIdRef="aim0052">
+      <AdjacentSpaceId spaceIdRef="aim0166" surfaceType="InteriorWall" />
       <AdjacentSpaceId spaceIdRef="aim0116" surfaceType="InteriorWall" />
-      <RectangularGeometry id="aim1196">
+      <RectangularGeometry id="aim0916">
         <Azimuth>0</Azimuth>
         <CartesianPoint>
           <Coordinate>17.8432144</Coordinate>
@@ -1721,13 +1730,14 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Basic Wall: Generic - 8" [277986]</CADObjectId>
+      <CADObjectId>281516</CADObjectId>
       <Name>N-1-1-1-I-W-9</Name>
+      <Description>Basic Wall: Generic - 8" [277986]</Description>
     </Surface>
-    <Surface surfaceType="InteriorWall" constructionIdRef="aim0052" id="aim0612">
-      <AdjacentSpaceId spaceIdRef="aim0244" surfaceType="InteriorWall" />
+    <Surface id="aim0458" surfaceType="InteriorWall" constructionIdRef="aim0052">
+      <AdjacentSpaceId spaceIdRef="aim0216" surfaceType="InteriorWall" />
       <AdjacentSpaceId spaceIdRef="aim0116" surfaceType="InteriorWall" />
-      <RectangularGeometry id="aim1205">
+      <RectangularGeometry id="aim0925">
         <Azimuth>270</Azimuth>
         <CartesianPoint>
           <Coordinate>46.8432144</Coordinate>
@@ -1762,13 +1772,14 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Basic Wall: Generic - 8" [278048]</CADObjectId>
+      <CADObjectId>281517</CADObjectId>
       <Name>W-2-1-I-W-12</Name>
+      <Description>Basic Wall: Generic - 8" [278048]</Description>
     </Surface>
-    <Surface surfaceType="InteriorWall" constructionIdRef="aim0052" id="aim0650">
-      <AdjacentSpaceId spaceIdRef="aim0345" surfaceType="InteriorWall" />
-      <AdjacentSpaceId spaceIdRef="aim0180" surfaceType="InteriorWall" />
-      <RectangularGeometry id="aim1214">
+    <Surface id="aim0482" surfaceType="InteriorWall" constructionIdRef="aim0052">
+      <AdjacentSpaceId spaceIdRef="aim0289" surfaceType="InteriorWall" />
+      <AdjacentSpaceId spaceIdRef="aim0166" surfaceType="InteriorWall" />
+      <RectangularGeometry id="aim0934">
         <Azimuth>270</Azimuth>
         <CartesianPoint>
           <Coordinate>46.8432144</Coordinate>
@@ -1803,12 +1814,13 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Basic Wall: Generic - 8" [278048]</CADObjectId>
+      <CADObjectId>281518</CADObjectId>
       <Name>W-3-1-1-I-W-11</Name>
+      <Description>Basic Wall: Generic - 8" [278048]</Description>
     </Surface>
-    <Surface surfaceType="Roof" constructionIdRef="aim0064" exposedToSun="true" id="aim0688">
-      <AdjacentSpaceId spaceIdRef="aim0180" surfaceType="Roof" />
-      <RectangularGeometry id="aim1223">
+    <Surface id="aim0506" surfaceType="Roof" constructionIdRef="aim0064" exposedToSun="true">
+      <AdjacentSpaceId spaceIdRef="aim0166" surfaceType="Roof" />
+      <RectangularGeometry id="aim0943">
         <Azimuth>0</Azimuth>
         <CartesianPoint>
           <Coordinate>18.009881</Coordinate>
@@ -1843,12 +1855,13 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Basic Roof: Generic - 12" [278063]</CADObjectId>
+      <CADObjectId>281519</CADObjectId>
       <Name>T-1-1-E-R-13</Name>
+      <Description>Basic Roof: Generic - 12" [278063]</Description>
     </Surface>
-    <Surface surfaceType="Roof" constructionIdRef="aim0064" exposedToSun="true" id="aim0725">
-      <AdjacentSpaceId spaceIdRef="aim0345" surfaceType="Roof" />
-      <RectangularGeometry id="aim1232">
+    <Surface id="aim0529" surfaceType="Roof" constructionIdRef="aim0064" exposedToSun="true">
+      <AdjacentSpaceId spaceIdRef="aim0289" surfaceType="Roof" />
+      <RectangularGeometry id="aim0952">
         <Azimuth>0</Azimuth>
         <CartesianPoint>
           <Coordinate>73.5932144</Coordinate>
@@ -1883,12 +1896,13 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Basic Roof: Generic - 12" [278063]</CADObjectId>
+      <CADObjectId>281520</CADObjectId>
       <Name>T-3-E-R-15</Name>
+      <Description>Basic Roof: Generic - 12" [278063]</Description>
     </Surface>
-    <Surface surfaceType="Roof" constructionIdRef="aim0064" exposedToSun="true" id="aim0762">
+    <Surface id="aim0552" surfaceType="Roof" constructionIdRef="aim0064" exposedToSun="true">
       <AdjacentSpaceId spaceIdRef="aim0116" surfaceType="Roof" />
-      <RectangularGeometry id="aim1241">
+      <RectangularGeometry id="aim0961">
         <Azimuth>0</Azimuth>
         <CartesianPoint>
           <Coordinate>18.009881</Coordinate>
@@ -1923,12 +1937,13 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Basic Roof: Generic - 12" [278063]</CADObjectId>
+      <CADObjectId>281521</CADObjectId>
       <Name>T-1-E-R-14</Name>
+      <Description>Basic Roof: Generic - 12" [278063]</Description>
     </Surface>
-    <Surface surfaceType="Roof" constructionIdRef="aim0064" exposedToSun="true" id="aim0799">
-      <AdjacentSpaceId spaceIdRef="aim0244" surfaceType="Roof" />
-      <RectangularGeometry id="aim1250">
+    <Surface id="aim0575" surfaceType="Roof" constructionIdRef="aim0064" exposedToSun="true">
+      <AdjacentSpaceId spaceIdRef="aim0216" surfaceType="Roof" />
+      <RectangularGeometry id="aim0970">
         <Azimuth>0</Azimuth>
         <CartesianPoint>
           <Coordinate>73.5932144</Coordinate>
@@ -1963,12 +1978,13 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Basic Roof: Generic - 12" [278063]</CADObjectId>
+      <CADObjectId>281522</CADObjectId>
       <Name>T-2-E-R-16</Name>
+      <Description>Basic Roof: Generic - 12" [278063]</Description>
     </Surface>
-    <Surface surfaceType="SlabOnGrade" constructionIdRef="aim0087" id="aim0836">
-      <AdjacentSpaceId spaceIdRef="aim0244" surfaceType="SlabOnGrade" />
-      <RectangularGeometry id="aim1259">
+    <Surface id="aim0598" surfaceType="SlabOnGrade" constructionIdRef="aim0087">
+      <AdjacentSpaceId spaceIdRef="aim0216" surfaceType="SlabOnGrade" />
+      <RectangularGeometry id="aim0979">
         <Azimuth>0</Azimuth>
         <CartesianPoint>
           <Coordinate>73.5932144</Coordinate>
@@ -2003,12 +2019,13 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Floor: Concrete Slab - 6" [278081]</CADObjectId>
+      <CADObjectId>281523</CADObjectId>
       <Name>B-2-E-F-20</Name>
+      <Description>Floor: Concrete Slab - 6" [278081]</Description>
     </Surface>
-    <Surface surfaceType="SlabOnGrade" constructionIdRef="aim0087" id="aim0873">
+    <Surface id="aim0621" surfaceType="SlabOnGrade" constructionIdRef="aim0087">
       <AdjacentSpaceId spaceIdRef="aim0116" surfaceType="SlabOnGrade" />
-      <RectangularGeometry id="aim1268">
+      <RectangularGeometry id="aim0988">
         <Azimuth>0</Azimuth>
         <CartesianPoint>
           <Coordinate>17.8432144</Coordinate>
@@ -2043,12 +2060,13 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Floor: Concrete Slab - 6" [278081]</CADObjectId>
+      <CADObjectId>281524</CADObjectId>
       <Name>B-1-E-F-18</Name>
+      <Description>Floor: Concrete Slab - 6" [278081]</Description>
     </Surface>
-    <Surface surfaceType="SlabOnGrade" constructionIdRef="aim0087" id="aim0910">
-      <AdjacentSpaceId spaceIdRef="aim0345" surfaceType="SlabOnGrade" />
-      <RectangularGeometry id="aim1277">
+    <Surface id="aim0644" surfaceType="SlabOnGrade" constructionIdRef="aim0087">
+      <AdjacentSpaceId spaceIdRef="aim0289" surfaceType="SlabOnGrade" />
+      <RectangularGeometry id="aim0997">
         <Azimuth>0</Azimuth>
         <CartesianPoint>
           <Coordinate>73.5932144</Coordinate>
@@ -2083,12 +2101,13 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Floor: Concrete Slab - 6" [278081]</CADObjectId>
+      <CADObjectId>281525</CADObjectId>
       <Name>B-3-E-F-19</Name>
+      <Description>Floor: Concrete Slab - 6" [278081]</Description>
     </Surface>
-    <Surface surfaceType="SlabOnGrade" constructionIdRef="aim0087" id="aim0947">
-      <AdjacentSpaceId spaceIdRef="aim0180" surfaceType="SlabOnGrade" />
-      <RectangularGeometry id="aim1286">
+    <Surface id="aim0667" surfaceType="SlabOnGrade" constructionIdRef="aim0087">
+      <AdjacentSpaceId spaceIdRef="aim0166" surfaceType="SlabOnGrade" />
+      <RectangularGeometry id="aim1006">
         <Azimuth>0</Azimuth>
         <CartesianPoint>
           <Coordinate>17.8432144</Coordinate>
@@ -2123,12 +2142,13 @@
           </CartesianPoint>
         </PolyLoop>
       </PlanarGeometry>
-      <CADObjectId>Floor: Concrete Slab - 6" [278081]</CADObjectId>
+      <CADObjectId>281526</CADObjectId>
       <Name>B-1-1-E-F-17</Name>
+      <Description>Floor: Concrete Slab - 6" [278081]</Description>
     </Surface>
     <DaylightSavings>false</DaylightSavings>
   </Campus>
-  <Construction constructionIsSchematic="true" id="aim0014">
+  <Construction id="aim0014" constructionIsSchematic="true">
     <U-value unit="WPerSquareMeterK">0.486858</U-value>
     <Absorptance unit="Fraction" type="ExtIR">0.7</Absorptance>
     <Roughness value="Rough" />
@@ -2136,7 +2156,7 @@
     <Name>R-13 wood frame wall</Name>
     <Description>ASHRAE 90.1 compliant R13 sheathing 16 in (400 mm) on center wood framed wall [Source: GBS] </Description>
   </Construction>
-  <Construction constructionIsSchematic="true" id="aim0052">
+  <Construction id="aim0052" constructionIsSchematic="true">
     <U-value unit="WPerSquareMeterK">3.253685</U-value>
     <Absorptance unit="Fraction" type="ExtIR">0.7</Absorptance>
     <Roughness value="Rough" />
@@ -2144,7 +2164,7 @@
     <Name>R-0 metal frame wall</Name>
     <Description>R0 16 in (400 mm) on center metal framed wall, typical for interior walls [Source: GBS] </Description>
   </Construction>
-  <Construction constructionIsSchematic="true" id="aim0064">
+  <Construction id="aim0064" constructionIsSchematic="true">
     <U-value unit="WPerSquareMeterK">0.256208</U-value>
     <Absorptance unit="Fraction" type="ExtIR">0.3</Absorptance>
     <Roughness value="Rough" />
@@ -2152,7 +2172,7 @@
     <Name>R-20 over roof deck - cool roof</Name>
     <Description>ASHRAE 90.1 compliant continuous R20 insulation over roof deck-Cool roof [Source: CIBSE] </Description>
   </Construction>
-  <Construction constructionIsSchematic="true" id="aim0087">
+  <Construction id="aim0087" constructionIsSchematic="true">
     <U-value unit="WPerSquareMeterK">0.1688</U-value>
     <Roughness value="MediumSmooth" />
     <LayerId layerIdRef="aim0090" />
@@ -2280,7 +2300,7 @@
     <R-value unit="SquareMeterKPerW">0.36631</R-value>
     <Thickness unit="Meters">0</Thickness>
   </Material>
-  <Schedule type="Fraction" id="aim0134">
+  <Schedule id="aim0134" type="Fraction">
     <YearSchedule id="aim0135">
       <BeginDate>2023-01-01</BeginDate>
       <EndDate>2023-12-31</EndDate>
@@ -2288,7 +2308,7 @@
     </YearSchedule>
     <Name>School Lighting - 7 AM to 9 PM</Name>
   </Schedule>
-  <Schedule type="Fraction" id="aim0140">
+  <Schedule id="aim0140" type="Fraction">
     <YearSchedule id="aim0141">
       <BeginDate>2023-01-01</BeginDate>
       <EndDate>2023-12-31</EndDate>
@@ -2296,63 +2316,63 @@
     </YearSchedule>
     <Name>School Occupancy - 8am to 9pm</Name>
   </Schedule>
-  <Schedule type="Fraction" id="aim0198">
-    <YearSchedule id="aim0199">
+  <Schedule id="aim0184" type="Fraction">
+    <YearSchedule id="aim0185">
       <BeginDate>2023-01-01</BeginDate>
       <EndDate>2023-12-31</EndDate>
-      <WeekScheduleId weekScheduleIdRef="aim0196" />
+      <WeekScheduleId weekScheduleIdRef="aim0182" />
     </YearSchedule>
     <Name>Office Lighting - 6 AM to 11 PM</Name>
   </Schedule>
-  <Schedule type="Fraction" id="aim0204">
-    <YearSchedule id="aim0205">
+  <Schedule id="aim0190" type="Fraction">
+    <YearSchedule id="aim0191">
       <BeginDate>2023-01-01</BeginDate>
       <EndDate>2023-12-31</EndDate>
-      <WeekScheduleId weekScheduleIdRef="aim0202" />
+      <WeekScheduleId weekScheduleIdRef="aim0188" />
     </YearSchedule>
     <Name>Common Office Occupancy - 8 AM to 5 PM</Name>
   </Schedule>
-  <Schedule type="Fraction" id="aim0262">
-    <YearSchedule id="aim0263">
+  <Schedule id="aim0234" type="Fraction">
+    <YearSchedule id="aim0235">
       <BeginDate>2023-01-01</BeginDate>
       <EndDate>2023-12-31</EndDate>
-      <WeekScheduleId weekScheduleIdRef="aim0260" />
+      <WeekScheduleId weekScheduleIdRef="aim0232" />
     </YearSchedule>
     <Name>Retail Lighting - 7 AM to 8 PM</Name>
   </Schedule>
-  <Schedule type="Fraction" id="aim0268">
-    <YearSchedule id="aim0269">
+  <Schedule id="aim0240" type="Fraction">
+    <YearSchedule id="aim0241">
       <BeginDate>2023-01-01</BeginDate>
       <EndDate>2023-12-31</EndDate>
-      <WeekScheduleId weekScheduleIdRef="aim0266" />
+      <WeekScheduleId weekScheduleIdRef="aim0238" />
     </YearSchedule>
     <Name>Restaurant Occupancy - Lunch and Dinner</Name>
   </Schedule>
-  <WeekSchedule scheduleType="Fraction" id="aim0132">
+  <WeekSchedule id="aim0132" scheduleType="Fraction">
     <Day dayScheduleIdRef="aim0131" dayType="All" />
     <Name>School Lighting - 7 AM to 9 PM</Name>
   </WeekSchedule>
-  <WeekSchedule scheduleType="Fraction" id="aim0138">
+  <WeekSchedule id="aim0138" scheduleType="Fraction">
     <Day dayScheduleIdRef="aim0137" dayType="All" />
     <Name>School Occupancy - 8am to 9pm</Name>
   </WeekSchedule>
-  <WeekSchedule scheduleType="Fraction" id="aim0196">
-    <Day dayScheduleIdRef="aim0195" dayType="All" />
+  <WeekSchedule id="aim0182" scheduleType="Fraction">
+    <Day dayScheduleIdRef="aim0181" dayType="All" />
     <Name>Office Lighting - 6 AM to 11 PM</Name>
   </WeekSchedule>
-  <WeekSchedule scheduleType="Fraction" id="aim0202">
-    <Day dayScheduleIdRef="aim0201" dayType="All" />
+  <WeekSchedule id="aim0188" scheduleType="Fraction">
+    <Day dayScheduleIdRef="aim0187" dayType="All" />
     <Name>Common Office Occupancy - 8 AM to 5 PM</Name>
   </WeekSchedule>
-  <WeekSchedule scheduleType="Fraction" id="aim0260">
-    <Day dayScheduleIdRef="aim0259" dayType="All" />
+  <WeekSchedule id="aim0232" scheduleType="Fraction">
+    <Day dayScheduleIdRef="aim0231" dayType="All" />
     <Name>Retail Lighting - 7 AM to 8 PM</Name>
   </WeekSchedule>
-  <WeekSchedule scheduleType="Fraction" id="aim0266">
-    <Day dayScheduleIdRef="aim0265" dayType="All" />
+  <WeekSchedule id="aim0238" scheduleType="Fraction">
+    <Day dayScheduleIdRef="aim0237" dayType="All" />
     <Name>Restaurant Occupancy - Lunch and Dinner</Name>
   </WeekSchedule>
-  <DaySchedule scheduleType="Fraction" id="aim0131">
+  <DaySchedule id="aim0131" scheduleType="Fraction">
     <ScheduleValue>0</ScheduleValue>
     <ScheduleValue>0</ScheduleValue>
     <ScheduleValue>0</ScheduleValue>
@@ -2379,7 +2399,7 @@
     <ScheduleValue>0</ScheduleValue>
     <Name>School Lighting - 7 AM to 9 PM</Name>
   </DaySchedule>
-  <DaySchedule scheduleType="Fraction" id="aim0137">
+  <DaySchedule id="aim0137" scheduleType="Fraction">
     <ScheduleValue>0</ScheduleValue>
     <ScheduleValue>0</ScheduleValue>
     <ScheduleValue>0</ScheduleValue>
@@ -2406,7 +2426,7 @@
     <ScheduleValue>0</ScheduleValue>
     <Name>School Occupancy - 8am to 9pm</Name>
   </DaySchedule>
-  <DaySchedule scheduleType="Fraction" id="aim0195">
+  <DaySchedule id="aim0181" scheduleType="Fraction">
     <ScheduleValue>0</ScheduleValue>
     <ScheduleValue>0</ScheduleValue>
     <ScheduleValue>0</ScheduleValue>
@@ -2433,7 +2453,7 @@
     <ScheduleValue>0</ScheduleValue>
     <Name>Office Lighting - 6 AM to 11 PM</Name>
   </DaySchedule>
-  <DaySchedule scheduleType="Fraction" id="aim0201">
+  <DaySchedule id="aim0187" scheduleType="Fraction">
     <ScheduleValue>0</ScheduleValue>
     <ScheduleValue>0</ScheduleValue>
     <ScheduleValue>0</ScheduleValue>
@@ -2460,7 +2480,7 @@
     <ScheduleValue>0</ScheduleValue>
     <Name>Common Office Occupancy - 8 AM to 5 PM</Name>
   </DaySchedule>
-  <DaySchedule scheduleType="Fraction" id="aim0259">
+  <DaySchedule id="aim0231" scheduleType="Fraction">
     <ScheduleValue>0</ScheduleValue>
     <ScheduleValue>0</ScheduleValue>
     <ScheduleValue>0</ScheduleValue>
@@ -2487,7 +2507,7 @@
     <ScheduleValue>0</ScheduleValue>
     <Name>Retail Lighting - 7 AM to 8 PM</Name>
   </DaySchedule>
-  <DaySchedule scheduleType="Fraction" id="aim0265">
+  <DaySchedule id="aim0237" scheduleType="Fraction">
     <ScheduleValue>0.15</ScheduleValue>
     <ScheduleValue>0.15</ScheduleValue>
     <ScheduleValue>0.05</ScheduleValue>
@@ -2514,27 +2534,28 @@
     <ScheduleValue>0.2</ScheduleValue>
     <Name>Restaurant Occupancy - Lunch and Dinner</Name>
   </DaySchedule>
-  <Zone id="aim0964">
-    <OAFlowPerArea unit="CFMPerSquareFoot">0.15</OAFlowPerArea>
-    <DesignHeatT unit="F">70</DesignHeatT>
-    <DesignCoolT unit="F">75</DesignCoolT>
-    <DesignHeatRH>0</DesignHeatRH>
-    <DesignCoolRH>0.7</DesignCoolRH>
-    <ZoneHVACEquipmentId zoneHVACEquipmentIdRef="aim0960" />
+  <Zone id="aim0684">
     <Name>WC VRF FCU-1</Name>
-    <CADObjectId>281395</CADObjectId>
-  </Zone>
-  <Zone id="aim0969">
     <OAFlowPerArea unit="CFMPerSquareFoot">0.15</OAFlowPerArea>
     <DesignHeatT unit="F">70</DesignHeatT>
     <DesignCoolT unit="F">75</DesignCoolT>
     <DesignHeatRH>0</DesignHeatRH>
     <DesignCoolRH>0.7</DesignCoolRH>
-    <ZoneHVACEquipmentId zoneHVACEquipmentIdRef="aim0962" />
-    <Name>ACVRF FCU-1</Name>
-    <CADObjectId>281396</CADObjectId>
+    <ZoneHVACEquipmentId zoneHVACEquipmentIdRef="aim0680" />
+    <CADObjectId>281546</CADObjectId>
   </Zone>
-  <Zone id="aim0974">
+  <Zone id="aim0689">
+    <Name>ACVRF FCU-1</Name>
+    <OAFlowPerArea unit="CFMPerSquareFoot">0.15</OAFlowPerArea>
+    <DesignHeatT unit="F">70</DesignHeatT>
+    <DesignCoolT unit="F">75</DesignCoolT>
+    <DesignHeatRH>0</DesignHeatRH>
+    <DesignCoolRH>0.7</DesignCoolRH>
+    <ZoneHVACEquipmentId zoneHVACEquipmentIdRef="aim0682" />
+    <CADObjectId>281547</CADObjectId>
+  </Zone>
+  <Zone id="aim0694">
+    <Name>2 Space</Name>
     <AirChangesPerHour>0</AirChangesPerHour>
     <OAFlowPerArea unit="CFMPerSquareFoot">0.18</OAFlowPerArea>
     <OAFlowPerPerson unit="CFM">7.5</OAFlowPerPerson>
@@ -2542,10 +2563,10 @@
     <DesignCoolT unit="F">75</DesignCoolT>
     <DesignHeatRH>0</DesignHeatRH>
     <DesignCoolRH>0.7</DesignCoolRH>
-    <Name>2 Space</Name>
-    <CADObjectId>281352</CADObjectId>
+    <CADObjectId>281507</CADObjectId>
   </Zone>
-  <Zone id="aim0980">
+  <Zone id="aim0700">
+    <Name>3 Space</Name>
     <AirChangesPerHour>0</AirChangesPerHour>
     <OAFlowPerArea unit="CFMPerSquareFoot">0.06</OAFlowPerArea>
     <OAFlowPerPerson unit="CFM">5</OAFlowPerPerson>
@@ -2553,44 +2574,42 @@
     <DesignCoolT unit="F">75</DesignCoolT>
     <DesignHeatRH>0</DesignHeatRH>
     <DesignCoolRH>0.7</DesignCoolRH>
-    <Name>3 Space</Name>
-    <CADObjectId>281355</CADObjectId>
+    <CADObjectId>281510</CADObjectId>
   </Zone>
   <DocumentHistory>
     <ProgramInfo id="aim0004">
       <CompanyName>Autodesk, Inc.</CompanyName>
-      <ProductName>Autodesk Revit 2025</ProductName>
-      <Version>2025.0</Version>
-      <Platform>Microsoft Windows 10</Platform>
+      <ProductName>Autodesk Revit 2026</ProductName>
+      <Version>2026.0</Version>
       <ProjectEntity>
-        <URI>file:///</URI>
-        <GUID entity="File">216c2a79-8bd0-41d3-b2b0-c866cc761a4e</GUID>
+        <URI>file:///C:/Revit/Dev/Regression/MEP_Analytical_Systems/Variations/VRF/VRFAllVariations.rvt</URI>
+        <GUID entity="File">9912ec76-089a-4b89-a6c7-180b0e6ef565</GUID>
       </ProjectEntity>
     </ProgramInfo>
-    <CreatedBy personId="aim0005" programId="aim0004" date="2023-11-01T21:50:16" />
+    <CreatedBy personId="aim0005" programId="aim0004" date="2024-06-21T17:08:14" />
     <PersonInfo id="aim0005" />
   </DocumentHistory>
-  <ZoneHVACEquipment zoneHVACEquipmentType="VRFFanCoil" drawVentilation="true" id="aim0960">
+  <ZoneHVACEquipment id="aim0680" zoneHVACEquipmentType="VRFFanCoil" drawVentilation="true">
     <Name>WC VRF FCU-1</Name>
     <CADObjectId>280066-1</CADObjectId>
-    <HydronicLoopId hydronicLoopIdRef="aim0958" hydronicLoopType="VRFLoop" />
+    <HydronicLoopId hydronicLoopIdRef="aim0678" hydronicLoopType="VRFLoop" />
   </ZoneHVACEquipment>
-  <ZoneHVACEquipment zoneHVACEquipmentType="VRFFanCoil" drawVentilation="true" id="aim0962">
+  <ZoneHVACEquipment id="aim0682" zoneHVACEquipmentType="VRFFanCoil" drawVentilation="true">
     <Name>ACVRF FCU-1</Name>
     <CADObjectId>280595-1</CADObjectId>
-    <HydronicLoopId hydronicLoopIdRef="aim0956" hydronicLoopType="VRFLoop" />
+    <HydronicLoopId hydronicLoopIdRef="aim0676" hydronicLoopType="VRFLoop" />
   </ZoneHVACEquipment>
-  <HydronicLoop loopType="VRFLoop" fluidType="Refrigerant" chillerType="AirCooled" id="aim0956">
+  <HydronicLoop id="aim0676" loopType="VRFLoop" fluidType="Refrigerant" chillerType="AirCooled">
     <Name>AC VRF</Name>
     <CADObjectId>280225</CADObjectId>
   </HydronicLoop>
-  <HydronicLoop loopType="CondenserWater" fluidType="Water" id="aim0957">
+  <HydronicLoop id="aim0677" loopType="CondenserWater" fluidType="Water">
     <Name>CW Loop</Name>
     <CADObjectId>280798</CADObjectId>
   </HydronicLoop>
-  <HydronicLoop loopType="VRFLoop" fluidType="Refrigerant" chillerType="WaterCooled" id="aim0958">
+  <HydronicLoop id="aim0678" loopType="VRFLoop" fluidType="Refrigerant" chillerType="WaterCooled">
     <Name>WC VRF</Name>
     <CADObjectId>280799</CADObjectId>
-    <HydronicLoopId hydronicLoopIdRef="aim0957" hydronicLoopType="CondenserWater" />
+    <HydronicLoopId hydronicLoopIdRef="aim0677" hydronicLoopType="CondenserWater" />
   </HydronicLoop>
 </gbXML>
