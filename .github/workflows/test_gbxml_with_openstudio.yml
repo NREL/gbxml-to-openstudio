@@ -19,7 +19,7 @@ jobs:
       # NOTE using this simpler action instead of https://github.com/actions/deploy-pages
       - uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.WORKFLOWTOKEN }}
           publish_dir: ./measures/test_results
 
   test:
