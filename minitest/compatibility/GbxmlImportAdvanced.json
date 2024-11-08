@@ -1,0 +1,12 @@
+{
+  "compatible": true,
+  "message": "",
+  "openstudio_version": "3.8.0",
+  "measure_min_version": "2.6.0",
+  "measure_max_version": "None",
+  "loaded": true,
+  "load_errors": [
+
+  ],
+  "measure_name": "GbxmlImportAdvanced"
+}

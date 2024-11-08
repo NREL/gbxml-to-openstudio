@@ -1,0 +1,191 @@
+body {
+  font-size: .875rem;
+}
+
+.feather {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-bottom;
+}
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100; /* Behind the navbar */
+  padding: 0;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.sidebar-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 48px; /* Height of navbar */
+  height: calc(100vh - 48px);
+  padding-top: .5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color: #333;
+}
+
+.sidebar .nav-link .feather {
+  margin-right: 4px;
+  color: #999;
+}
+
+.sidebar .nav-link.active {
+  color: #1E8495;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: inherit;
+}
+
+.sidebar-heading {
+  font-size: .75rem;
+  text-transform: uppercase;
+}
+
+/*
+ * Navbar
+ */
+
+.navbar-color {
+  background-color: #127AC3;
+  color: #fff;
+}
+
+.navbar-brand {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  font-size: 1rem;
+  background-color: rgba(0, 0, 0, .25);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+}
+
+.navbar .form-control {
+  padding: .75rem 1rem;
+  border-width: 0;
+  border-radius: 0;
+}
+
+.form-control-dark {
+  color: #fff;
+  background-color: rgba(255, 255, 255, .1);
+  border-color: rgba(255, 255, 255, .1);
+}
+
+.form-control-dark:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+
+/*
+ * Utilities
+ */
+
+.border-top { border-top: 1px solid #e5e5e5; }
+.border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+/* donut */
+
+.canvas-container {
+    min-height: 250px;
+    max-height: 550px;
+}
+
+.donut .status {
+  display: block;
+  position: absolute;
+  top: 43%;
+  left: 50%;
+  width: 30%;
+  height: 0;
+  padding-top: 10%;
+  padding-bottom: 15%;
+  color: #444;
+  margin-top: -5%;
+  margin-left: -15%;
+  font-size: 1.4em;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.donut .adjust-pos {
+
+  padding-top: 10%;
+  margin-top: -20%;
+
+}
+
+.badge-lg-height {
+  min-height: 80px;
+  padding-top:15%;
+  padding-bottom:15%;
+}
+
+.badge-med-height {
+  min-height: 40px;
+  padding-top:5%;
+  padding-bottom:5%;
+}
+
+.badge-text {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.large-text {
+  font-size: 5em;
+}
+
+.med-text {
+  font-size: 3em;
+}
+
+.small-text {
+  font-size: 0.8em;
+}
+
+.table-text {
+  font-size: 1.1em;
+}
+
+.modal-measure {
+  max-width: 1200px;
+}
+
+.badge-error {
+  color: #fff;
+  background-color: #dc3545;
+}
+
+.accent {
+  #color: #B13B5E;
+  color: #127AC3;
+}
+
+.btn-accent {
+  background-color: #127AC3;
+  color: #fff;
+}
+
+.size48 {
+  width: 48px;
+  height:48px;
+}
