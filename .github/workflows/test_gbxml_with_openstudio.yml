@@ -20,7 +20,7 @@ jobs:
       - uses: peaceiris/actions-gh-pages@v4
         if: failure() || success()
         with:
-          github_token: ${{ secrets.WORKFLOWTOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./measures/test_results
 
   test:
