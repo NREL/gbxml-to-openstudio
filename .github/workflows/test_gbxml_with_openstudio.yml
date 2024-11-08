@@ -21,7 +21,7 @@ jobs:
         if: failure() || success()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./measures/test_results
+          publish_dir: ./measures/test_results/dashboard
 
   test:
     # needs: tests-unit
