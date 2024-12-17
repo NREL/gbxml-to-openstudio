@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: openstudio classic measure --run_tests measures
 
-  test-integration:
+  tests-integration:
     # needs: tests-unit
     runs-on: ubuntu-latest
     container:
@@ -48,7 +48,7 @@ jobs:
       - name: run stats, display and check for failures
         shell: bash
         run: |
-          cd test/regression
+          cd test/integration
           echo "run stats"
           npm run stats
           filename=$(ls stats*.csv)
