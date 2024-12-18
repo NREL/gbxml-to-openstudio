@@ -8,7 +8,7 @@ import path from 'path';
 
 const parser = new XMLParser();
 const osVersion = process.env.OS_VERSION;
-const dir = `../../workflows/regression-tests/${osVersion}`;
+const dir = `output/${osVersion}`;
 
 const results = [];
 const gbxmls = fs.readdirSync(dir, 'utf8').sort((new Intl.Collator(undefined, {
