@@ -65,12 +65,12 @@ if (fs.existsSync(cliPath)) {
 if (subset) {
   var unsortedFiles = subsetTestFiles;
 } else {
-  var unsortedFiles = fs.readdirSync('../../gbxmls/RegressionTesting', 'utf8');
+  var unsortedFiles = fs.readdirSync('../fixtures/', 'utf8');
 }
 
 const files = [];
 for (let file of unsortedFiles) {
-  const size = fs.statSync(`../../gbxmls/RegressionTesting/${file}`).size;
+  const size = fs.statSync(`../fixtures/${file}`).size;
   files.push({file, size});
 }
 files.sort((a, b) => a.size - b.size);
@@ -79,13 +79,13 @@ const queue = new PQueue({concurrency: threads});
 const osw = await readFile('../../workflows/RegressionTesting.osw', 'utf8');
 
 // TODO remove existing dirs and only make all or subset
-console.log(`removing directory: workflows/regression-tests/`)
-rm(`../../workflows/regression-tests/*`, {recursive: true, force: true});
+console.log(`removing directory: test/integration/output/${osVersion}`)
+rm(`output/${osVersion}/*`, {recursive: true, force: true});
 
 const workflows = [];
 for (const {file} of files) {
-  await mkdir(`../../workflows/regression-tests/${osVersion}/${file}/`, {recursive: true});
-  const workflow = `../../workflows/regression-tests/${osVersion}/${file}/${file.replace(/\.xml/, '')}.osw`;
+  await mkdir(`output/${osVersion}/${file}/`, {recursive: true});
+  const workflow = `output/${osVersion}/${file}/${file.replace(/\.xml/, '')}.osw`;
   if (subset && subsetTestFiles.includes(file)) {
     workflows.push(workflow);
   } else if (!subset) {
