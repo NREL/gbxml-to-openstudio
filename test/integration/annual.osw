@@ -2,12 +2,12 @@
   "seed_file": "seed_empty.osm",
   "weather_file": "USA_CO_Denver.Intl.AP.725650_TMY3.epw",
   "measure_paths": [
-    "../../../../../measures/"
+    "../../../../../../measures/"
   ],
   "file_paths": [
-    "../../../../../weather",
-    "../../../../../seeds",
-    "../../../../../test/fixtures"
+    "../../../../../../weather",
+    "../../../../../../seeds",
+    "../../../../../../test/fixtures"
   ],
   "run_directory": "./run",
   "steps": [
