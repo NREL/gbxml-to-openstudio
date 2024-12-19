@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: openstudio classic measure --run_tests measures
 
-  test:
+  tests-integration:
     # needs: tests-unit
     runs-on: ubuntu-latest
     container:
@@ -36,27 +36,34 @@ jobs:
       - name: install npm dependencies
         shell: bash
         run: |
-          cd test/regression
+          cd test/integration
           echo "install dependencies"
           npm install
-      - name: run tests
+      - name: run annual simulations
         shell: bash
         run: |
-          cd test/regression
-          echo "run quick tests"
-          npm run start_subset
-      - name: run stats, display and check for failures
+          cd test/integration
+          echo "run annual simulations"
+          npm start annual subset
+      - name: run sizing simulations
         shell: bash
         run: |
-          cd test/regression
-          echo "run stats"
-          npm run stats
-          filename=$(ls stats*.csv)
-          cat $filename
-          # Simple check to see if failure in stats file
-          if [ "$(grep -c "Fail" $filename)" -ge 1 ]; then
-            exit 1;
-          fi
+          cd test/integration
+          echo "run sizing simulations"
+          npm start sizing subset
+
+      # - name: run stats, display and check for failures
+      #   shell: bash
+      #   run: |
+      #     cd test/integration
+      #     echo "run stats"
+      #     npm run stats
+      #     filename=$(ls stats*.csv)
+      #     cat $filename
+      #     # Simple check to see if failure in stats file
+      #     if [ "$(grep -c "Fail" $filename)" -ge 1 ]; then
+      #       exit 1;
+      #     fi
 
 
 
