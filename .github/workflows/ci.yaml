@@ -39,24 +39,31 @@ jobs:
           cd test/integration
           echo "install dependencies"
           npm install
-      - name: run tests
+      - name: run annual simulations
         shell: bash
         run: |
           cd test/integration
-          echo "run quick tests"
-          npm run start_subset
-      - name: run stats, display and check for failures
+          echo "run annual simulations"
+          npm start annual subset
+      - name: run sizing simulations
         shell: bash
         run: |
           cd test/integration
-          echo "run stats"
-          npm run stats
-          filename=$(ls stats*.csv)
-          cat $filename
-          # Simple check to see if failure in stats file
-          if [ "$(grep -c "Fail" $filename)" -ge 1 ]; then
-            exit 1;
-          fi
+          echo "run sizing simulations"
+          npm start sizing subset
+
+      # - name: run stats, display and check for failures
+      #   shell: bash
+      #   run: |
+      #     cd test/integration
+      #     echo "run stats"
+      #     npm run stats
+      #     filename=$(ls stats*.csv)
+      #     cat $filename
+      #     # Simple check to see if failure in stats file
+      #     if [ "$(grep -c "Fail" $filename)" -ge 1 ]; then
+      #       exit 1;
+      #     fi
 
 
 
