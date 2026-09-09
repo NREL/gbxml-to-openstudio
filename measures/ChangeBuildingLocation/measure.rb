@@ -9,6 +9,7 @@
 class ChangeBuildingLocation < OpenStudio::Measure::ModelMeasure
   Dir[File.dirname(__FILE__) + '/resources/*.rb'].each { |file| require file }
   require 'openstudio-standards'
+  require 'tmpdir'
 
   # define the name that a user will see, this method may be deprecated as
   # the display name in PAT comes from the name field in measure.xml
@@ -218,7 +219,25 @@ class ChangeBuildingLocation < OpenStudio::Measure::ModelMeasure
       return error
     end
 
-    ddy_model = OpenStudio::EnergyPlus.loadAndTranslateIdf(ddy_file).get
+    # OpenStudio versions prior to 3.10.0 cannot translate the 'ASHRAETau2017' solar model
+    # indicator, so translate a temporary copy that uses the equivalent 'ASHRAETau' value.
+    ddy_contents = File.read(ddy_file)
+    if ddy_contents.include?('ASHRAETau2017')
+      runner.registerInfo("Replacing 'ASHRAETau2017' Solar Model Indicator with 'ASHRAETau' in #{ddy_file}.")
+      ddy_model = Dir.mktmpdir('ddy') do |temp_dir|
+        sanitized_ddy_file = File.join(temp_dir, File.basename(ddy_file))
+        File.write(sanitized_ddy_file, ddy_contents.gsub('ASHRAETau2017', 'ASHRAETau'))
+        OpenStudio::EnergyPlus.loadAndTranslateIdf(sanitized_ddy_file)
+      end
+    else
+      ddy_model = OpenStudio::EnergyPlus.loadAndTranslateIdf(ddy_file)
+    end
+
+    if ddy_model.empty?
+      runner.registerError("Could not translate the ddy file #{ddy_file}.")
+      return false
+    end
+    ddy_model = ddy_model.get
 
     # Warn if no design days are present in the ddy file
     if ddy_model.getDesignDays.size.zero?
