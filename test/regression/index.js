@@ -45,7 +45,8 @@ function getOpenStudioCLI(osVersion) {
   }
 
   if (process.platform === 'win32') {
-    return `C:\\openstudio-${osVersion}\\bin\\openstudio.exe`;
+    return `C:\\Program Files\\NREL\\OpenStudio CLI for Revit 2026\\bin\\openstudio.exe`;
+    // return `C:\\openstudio-${osVersion}\\bin\\openstudio.exe`;
   } else if (process.platform === 'darwin') {
     return `/Applications/OpenStudio-${osVersion}/bin/openstudio`;
   } else if (process.platform === 'linux') {

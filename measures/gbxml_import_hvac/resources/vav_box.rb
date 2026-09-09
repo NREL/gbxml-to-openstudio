@@ -89,7 +89,7 @@ class VAVBox < ZoneHVACEquipment
 
   def connect
     self.heating_loop.plant_loop.addDemandBranchForComponent(self.heating_coil) if self.heating_loop
-    self.air_system.air_loop_hvac.addBranchForZone(self.zone.thermal_zone, self.air_terminal) if self.zone.thermal_zone
+    self.air_system.air_loop_hvac.multiAddBranchForZone(self.zone.thermal_zone, self.air_terminal) if self.zone.thermal_zone
   end
 
   def post_build

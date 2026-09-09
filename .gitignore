@@ -20,6 +20,7 @@ test/gbxml_hvac_import/output_models/*/run
 test/gbxml_hvac_import/output_models/manual/
 test/gbxml_hvac_import/resources/revit_test_models/*.0*.rvt
 test/regression/stats-*.csv
+test/regression/node_modules
 
 workflows/out.osw
 workflows/regression-tests
